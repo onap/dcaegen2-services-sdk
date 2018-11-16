@@ -8,10 +8,11 @@
     <groupId>org.onap.dcaegen2.services</groupId>
     <artifactId>sdk</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <groupId>org.onap.dcaegen2.services.sdk</groupId>
-  <artifactId>rest-services</artifactId>
+  <artifactId>dcaegen2-services-sdk-rest-services</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
   <name>dcaegen2-services-sdk-rest-services</name>

@@ -18,13 +18,31 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.immutables.value.Value;
 
 /**
- * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/14/18
+ * Immutable object which helps with construction of cloudRequestObject for specified Client. For usage take a look in
+ * CloudConfigurationClient.class
+ *
+ * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/16/18
+ * @version 1.0.0 can be passed to ReactiveCloudConfigurationProvider, can be constructed out of
+ * org.onap.dcaegen2.services.sdk library.
+ * @since 1.0.0
  */
-class DummyClientTest {
+@Value.Immutable(prehash = true)
+public interface EnvProperties {
 
+    @Value.Parameter
+    String consulHost();
+
+    @Value.Parameter
+    Integer consulPort();
+
+    @Value.Parameter
+    String cbsName();
+
+    @Value.Parameter
+    String appName();
 }
