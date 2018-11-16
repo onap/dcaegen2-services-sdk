@@ -16,15 +16,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ============LICENSE_END=========================================================
+ *
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.google.gson.JsonObject;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration.EnvProperties;
+import reactor.core.publisher.Mono;
 
 /**
- * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/14/18
+ * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/16/18
  */
-class DummyClientTest {
+public interface CloudConfiguratinProvider {
+
+    Mono<JsonObject> callForServiceConfigurationReactive(EnvProperties envProperties);
+
+    Mono<JsonObject> callForServiceConfigurationReactive(String consulHost, int consulPort, String cbsName,
+        String appName);
+
+    JsonObject callForServiceConfiguration(String consulHost, int consulPort, String cbsName, String appName);
+
+    JsonObject callForServiceConfiguration(EnvProperties envProperties);
 
 }

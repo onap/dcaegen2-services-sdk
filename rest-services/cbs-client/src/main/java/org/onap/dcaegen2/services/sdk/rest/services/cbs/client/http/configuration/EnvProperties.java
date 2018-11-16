@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- * DCAEGEN2-SERVICES-SDK
+ * PNF-REGISTRATION-HANDLER
  * ================================================================================
  * Copyright (C) 2018 NOKIA Intellectual Property. All rights reserved.
  * ================================================================================
@@ -18,18 +18,25 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration;
+
+import org.immutables.value.Value;
 
 /**
- * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/14/18
- * @version 1.0.0
- *
- * Sample Class empty class / checking that java documentation will be created by maven
+ * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/16/18
  */
-public class DummyClient {
+@Value.Immutable(prehash = true)
+public interface EnvProperties {
 
-    public void print() {
+    @Value.Parameter
+    String consulHost();
 
-    }
+    @Value.Parameter
+    Integer consulPort();
 
+    @Value.Parameter
+    String cbsName();
+
+    @Value.Parameter
+    String appName();
 }
