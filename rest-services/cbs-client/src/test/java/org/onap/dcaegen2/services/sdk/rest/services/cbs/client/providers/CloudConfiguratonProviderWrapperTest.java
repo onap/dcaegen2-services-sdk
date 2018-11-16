@@ -16,20 +16,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ============LICENSE_END=========================================================
+ *
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
+
 
 /**
- * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/14/18
- * @version 1.0.0
- *
- * Sample Class empty class / checking that java documentation will be created by maven
+ * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/16/18
  */
-public class DummyClient {
-
-    public void print() {
-
-    }
+class CloudConfiguratonProviderWrapperTest {
 
 }
