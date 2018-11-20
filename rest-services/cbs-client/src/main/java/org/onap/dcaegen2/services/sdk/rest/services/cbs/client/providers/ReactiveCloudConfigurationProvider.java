@@ -52,7 +52,7 @@ final class ReactiveCloudConfigurationProvider implements CloudConfigurationProv
     @Override
     public Mono<JsonObject> callForServiceConfigurationReactive(EnvProperties envProperties) {
         return callConsulForConfigBindingServiceEndpoint(envProperties)
-            .flatMap(this::callConfigBindingServiceForPrhConfiguration);
+            .flatMap(this::callConfigBindingServiceForConfiguration);
     }
 
     @Override
@@ -82,8 +82,8 @@ final class ReactiveCloudConfigurationProvider implements CloudConfigurationProv
             envProperties.cbsName());
     }
 
-    private Mono<JsonObject> callConfigBindingServiceForPrhConfiguration(String configBindingServiceUri) {
-        LOGGER.info("Retrieving PRH configuration");
+    private Mono<JsonObject> callConfigBindingServiceForConfiguration(String configBindingServiceUri) {
+        LOGGER.info("Retrieving configuration");
         return cloudHttpClient.callHttpGet(configBindingServiceUri, JsonObject.class);
     }
 
