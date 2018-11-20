@@ -52,8 +52,8 @@ class ReactiveCloudConfigurationProviderTest {
         + "\"CreateIndex\":803,\"ModifyIndex\":803}]";
     private static final JsonArray configBindingServiceJson = gson.fromJson(configBindingService, JsonArray.class);
     private static final JsonArray emptyConfigBindingServiceJson = gson.fromJson("[]", JsonArray.class);
-    private static final String prhMockConfiguration = "{\"test\":1}";
-    private static final JsonObject prhMockConfigurationJson = gson.fromJson(prhMockConfiguration, JsonObject.class);
+    private static final String configurationMock = "{\"test\":1}";
+    private static final JsonObject configurationJsonMock = gson.fromJson(configurationMock, JsonObject.class);
 
     private EnvProperties envProperties = ImmutableEnvProperties.builder()
         .appName("dcae-prh")
@@ -70,13 +70,13 @@ class ReactiveCloudConfigurationProviderTest {
             webClient.callHttpGet("http://consul:8500/v1/catalog/service/config-binding-service", JsonArray.class))
             .thenReturn(Mono.just(configBindingServiceJson));
         when(webClient.callHttpGet("http://config-binding-service:10000/service_component/dcae-prh", JsonObject.class))
-            .thenReturn(Mono.just(prhMockConfigurationJson));
+            .thenReturn(Mono.just(configurationJsonMock));
 
         ReactiveCloudConfigurationProvider provider = new ReactiveCloudConfigurationProvider(webClient);
 
         //when/then
         StepVerifier.create(provider.callForServiceConfigurationReactive(envProperties)).expectSubscription()
-            .expectNext(prhMockConfigurationJson).verifyComplete();
+            .expectNext(configurationJsonMock).verifyComplete();
     }
 
     @Test
