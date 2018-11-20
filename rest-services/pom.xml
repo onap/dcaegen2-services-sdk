@@ -23,5 +23,6 @@
     <module>aai-client</module>
     <module>cbs-client</module>
     <module>dmaap-client</module>
+    <module>common-dependency</module>
   </modules>
 </project>
