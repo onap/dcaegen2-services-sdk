@@ -20,8 +20,10 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>common-dependency</module>
     <module>aai-client</module>
     <module>cbs-client</module>
     <module>dmaap-client</module>
+
   </modules>
 </project>
