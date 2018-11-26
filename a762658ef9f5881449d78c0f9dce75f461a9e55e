@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_085b2988",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/model/CommonFunctions.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-26T14:52:54Z",
+      "side": 1,
+      "message": "should be removed/updated",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "a762658ef9f5881449d78c0f9dce75f461a9e55e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_285e2d77",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/model/ConsumerDmaapModel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-26T14:52:54Z",
+      "side": 1,
+      "message": "To be removed/updated",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "a762658ef9f5881449d78c0f9dce75f461a9e55e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_c8544156",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/model/logging/MdcVariables.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-26T14:52:54Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "a762658ef9f5881449d78c0f9dce75f461a9e55e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_e84fc5bc",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/ssl/SslFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-26T14:52:54Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "a762658ef9f5881449d78c0f9dce75f461a9e55e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
