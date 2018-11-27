@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_9878c290",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/config/DmaapPublisherConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3773
+      },
+      "writtenOn": "2018-11-27T12:42:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_2573b3e8",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "932f1452645460d2fc3982b2827f6403f9185d49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_c5818790",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/ConsumerReactiveHttpClientFactory.java",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2018-11-27T11:35:01Z",
       "side": 1,
       "message": "DCAEGEN2-SERVICES-SDK",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "932f1452645460d2fc3982b2827f6403f9185d49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1864d2e3",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/ConsumerReactiveHttpClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3773
+      },
+      "writtenOn": "2018-11-27T12:42:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_c5818790",
       "range": {
         "startLine": 3,
         "startChar": 3,
@@ -312,6 +360,30 @@
       "writtenOn": "2018-11-27T11:35:01Z",
       "side": 1,
       "message": "DCAEGEN2-SERVICES-SDK",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "932f1452645460d2fc3982b2827f6403f9185d49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_b86266d6",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/producer/DMaaPPublisherReactiveHttpClientTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3773
+      },
+      "writtenOn": "2018-11-27T12:42:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_e52a8b8f",
       "range": {
         "startLine": 3,
         "startChar": 3,
