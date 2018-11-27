@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_78907e43",
+        "filename": "rest-services/dmaap-client/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2018-11-27T12:57:03Z",
+      "side": 1,
+      "message": "No need to specify version here as it will be taken from parent (sdk) pom\n\n(This is the purpose of dependency managemen)",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 47
+      },
+      "revId": "634fb9da2e75a8521e8cdf6595354a008cf9d9c3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_b876e63c",
+        "filename": "rest-services/dmaap-client/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2018-11-27T12:57:03Z",
+      "side": 1,
+      "message": "No need to specify version here as it will be taken from parent (sdk) pom",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 47
+      },
+      "revId": "634fb9da2e75a8521e8cdf6595354a008cf9d9c3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1878522a",
+        "filename": "rest-services/dmaap-client/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2018-11-27T12:57:03Z",
+      "side": 1,
+      "message": "No need to specify version here as it will be taken from parent (sdk) pom",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 41
+      },
+      "revId": "634fb9da2e75a8521e8cdf6595354a008cf9d9c3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
