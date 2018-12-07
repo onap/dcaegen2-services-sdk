@@ -46,7 +46,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.1.0</version> 
           <configuration>
             <encoding>${project.build.sourceEncoding}</encoding>
           </configuration>
@@ -67,13 +67,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
-          <dependencies>
-            <dependency>
-              <groupId>org.junit.platform</groupId>
-              <artifactId>junit-platform-surefire-provider</artifactId>
-              <version>${junit-platform.version}</version>
-            </dependency>
-          </dependencies>
         </plugin>
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
