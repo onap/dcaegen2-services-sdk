@@ -20,7 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.config;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapConsumerConfiguration;
