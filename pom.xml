@@ -30,7 +30,7 @@
     <junit-vintage.version>5.3.1</junit-vintage.version>
     <junit-platform.version>1.3.1</junit-platform.version>
     <immutables.version>2.7.3</immutables.version>
-    <spring.version>5.1.2.RELEASE</spring.version>
+    <spring.version>5.1.0.RELEASE</spring.version>
     <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
     <slf4j.version>1.7.25</slf4j.version>
     <mockito.version>2.16.0</mockito.version>
@@ -157,7 +157,6 @@
         <groupId>org.immutables</groupId>
         <artifactId>value</artifactId>
         <version>${immutables.version}</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.immutables</groupId>
@@ -167,7 +166,6 @@
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <scope>provided</scope>
         <version>1.2.3</version>
       </dependency>
       <dependency>
@@ -186,6 +184,19 @@
         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.projectreactor.netty</groupId>
+        <artifactId>reactor-netty</artifactId>
+        <version>0.8.1.RELEASE</version>
+      </dependency>
+      <dependency>
+        <groupId>io.projectreactor</groupId>
+        <artifactId>reactor-bom</artifactId>
+        <version>Californium-SR2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
         <version>${mockito.version}</version>
@@ -196,18 +207,6 @@
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${junit-jupiter.version}</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.projectreactor</groupId>
-        <artifactId>reactor-bom</artifactId>
-        <version>Californium-SR2</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.projectreactor.netty</groupId>
-        <artifactId>reactor-netty</artifactId>
-        <version>0.8.1.RELEASE</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
