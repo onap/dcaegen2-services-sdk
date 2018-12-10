@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_e3301fa0",
+        "filename": "crypt-password/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2018-12-10T08:55:22Z",
+      "side": 1,
+      "message": "it should be: pip install -r requirements.txt",
+      "revId": "4210e8da86e036b99eb7202ba2118ed96a33fb92",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
