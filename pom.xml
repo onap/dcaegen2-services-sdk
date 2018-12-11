@@ -153,6 +153,7 @@
         <artifactId>spring-boot-starter-web</artifactId>
         <version>${spring.boot.version}</version>
       </dependency>
+
       <dependency>
         <groupId>org.immutables</groupId>
         <artifactId>value</artifactId>

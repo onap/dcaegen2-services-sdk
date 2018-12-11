@@ -84,7 +84,6 @@ public class AaiReactiveWebClientFactory {
         
         SslContext sslContext = createSslContext();
 
-        
         ClientHttpConnector reactorClientHttpConnector = new ReactorClientHttpConnector(
             HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext)));
 
