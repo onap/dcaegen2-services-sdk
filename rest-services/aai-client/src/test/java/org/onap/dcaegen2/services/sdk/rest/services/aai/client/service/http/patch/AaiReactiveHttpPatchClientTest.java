@@ -24,8 +24,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.model.ConsumerDmaapModel;
-import org.onap.dcaegen2.services.sdk.rest.services.model.ImmutableConsumerDmaapModel;
+
+import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -50,7 +51,6 @@ class AaiReactiveHttpPatchClientTest {
 
     private AaiReactiveHttpPatchClient httpClient;
     private WebClient webClient;
-    private ConsumerDmaapModel dmaapModel;
     private WebClient.RequestBodyUriSpec requestBodyUriSpec;
     private WebClient.ResponseSpec responseSpec;
 
@@ -58,17 +58,14 @@ class AaiReactiveHttpPatchClientTest {
     private ClientResponse clientResponse;
     private Mono<ClientResponse> clientResponseMono;
 
+    private AaiModel aaiModel = mock(AaiModel.class);
+    private JsonBodyBuilder<AaiModel> jsonBodyBuilder = mock(JsonBodyBuilder.class);
+
     @BeforeEach
     void setUp() {
         setupHeaders();
         clientResponse = mock(ClientResponse.class);
         clientResponseMono = Mono.just(clientResponse);
-
-        dmaapModel = ImmutableConsumerDmaapModel.builder()
-                .correlationId("NOKnhfsadhff")
-                .ipv4("256.22.33.155")
-                .ipv6("200J:0db8:85a3:0000:0000:8a2e:0370:7334")
-                .build();
 
         when(aaiConfigurationMock.aaiHost()).thenReturn("54.45.33.2");
         when(aaiConfigurationMock.aaiProtocol()).thenReturn("https");
@@ -79,7 +76,14 @@ class AaiReactiveHttpPatchClientTest {
         when(aaiConfigurationMock.aaiPnfPath()).thenReturn("/network/pnfs/pnf");
         when(aaiConfigurationMock.aaiHeaders()).thenReturn(aaiHeaders);
 
-        httpClient = new AaiReactiveHttpPatchClient(aaiConfigurationMock);
+        when(aaiModel.getCorrelationId()).thenReturn("NOKnhfsadhff");
+
+        when(jsonBodyBuilder.createJsonBody(aaiModel)).thenReturn(
+                "{\"correlationId\":\"NOKnhfsadhff\"," +
+                "\"ipaddress-v4\":\"256.22.33.155\", " +
+                "\"ipaddress-v6\":\"200J:0db8:85a3:0000:0000:8a2e:0370:7334\"}");
+
+        httpClient = new AaiReactiveHttpPatchClient(aaiConfigurationMock, jsonBodyBuilder);
 
         webClient = spy(WebClient.builder()
                 .defaultHeaders(httpHeaders -> httpHeaders.setAll(aaiHeaders))
@@ -101,7 +105,7 @@ class AaiReactiveHttpPatchClientTest {
         httpClient.createAaiWebClient(webClient);
 
         //then
-        StepVerifier.create(httpClient.getAaiProducerResponse(dmaapModel)).expectSubscription()
+        StepVerifier.create(httpClient.getAaiProducerResponse(aaiModel)).expectSubscription()
                 .expectNextMatches(results -> {
                     Assertions.assertEquals(results, clientResponse);
                     return true;

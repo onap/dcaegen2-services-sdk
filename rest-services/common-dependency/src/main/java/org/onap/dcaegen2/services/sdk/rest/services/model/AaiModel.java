@@ -20,27 +20,8 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.model;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapterFactory;
+@FunctionalInterface
+public interface AaiModel extends ClientModel {
 
-import java.util.ServiceLoader;
-
-
-public class CommonFunctions {
-
-    private CommonFunctions() {
-    }
-
-    /**
-     * Method for serialization object by GSON.
-     *
-     * @param consumerDmaapModel - object which will be serialized
-     * @return string from serialization
-     */
-    public static String createJsonBody(ConsumerDmaapModel consumerDmaapModel) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        ServiceLoader.load(TypeAdapterFactory.class).forEach(gsonBuilder::registerTypeAdapterFactory);
-        return gsonBuilder.create().toJson(ImmutableConsumerDmaapModel.builder().ipv4(consumerDmaapModel.getIpv4())
-            .ipv6(consumerDmaapModel.getIpv6()).correlationId(consumerDmaapModel.getCorrelationId()).build());
-    }
+    String getCorrelationId();
 }

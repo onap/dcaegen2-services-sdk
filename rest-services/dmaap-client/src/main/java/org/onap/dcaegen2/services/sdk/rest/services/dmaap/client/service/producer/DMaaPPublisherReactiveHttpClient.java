@@ -20,15 +20,10 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.model.CommonFunctions.createJsonBody;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.REQUEST_ID;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_INVOCATION_ID;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
 
-import java.net.URI;
-import java.util.UUID;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.model.ConsumerDmaapModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.DmaapModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -39,6 +34,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
+import java.util.UUID;
+
+import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.REQUEST_ID;
+import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_INVOCATION_ID;
+import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
 
 
 /**
@@ -53,6 +55,7 @@ public class DMaaPPublisherReactiveHttpClient {
     private final String dmaapTopicName;
     private final String dmaapContentType;
     private final Mono<RestTemplate> restTemplateMono;
+    private final JsonBodyBuilder jsonBodyBuilder;
 
     /**
      * Constructor DMaaPPublisherReactiveHttpClient.
@@ -60,25 +63,26 @@ public class DMaaPPublisherReactiveHttpClient {
      * @param dmaapPublisherConfiguration - DMaaP producer configuration object
      */
     DMaaPPublisherReactiveHttpClient(DmaapPublisherConfiguration dmaapPublisherConfiguration,
-                                     Mono<RestTemplate> restTemplateMono) {
+                                     Mono<RestTemplate> restTemplateMono, JsonBodyBuilder jsonBodyBuilder) {
         this.dmaapHostName = dmaapPublisherConfiguration.dmaapHostName();
         this.dmaapProtocol = dmaapPublisherConfiguration.dmaapProtocol();
         this.dmaapPortNumber = dmaapPublisherConfiguration.dmaapPortNumber();
         this.dmaapTopicName = dmaapPublisherConfiguration.dmaapTopicName();
         this.dmaapContentType = dmaapPublisherConfiguration.dmaapContentType();
         this.restTemplateMono = restTemplateMono;
+        this.jsonBodyBuilder = jsonBodyBuilder;
     }
 
     /**
      * Function for calling DMaaP HTTP producer - post request to DMaaP.
      *
-     * @param consumerDmaapModelMono - object which will be sent to DMaaP
+     * @param dmaapModel - object which will be sent to DMaaP
      * @return status code of operation
      */
 
-    public Mono<ResponseEntity<String>> getDMaaPProducerResponse(ConsumerDmaapModel consumerDmaapModelMono) {
+    public Mono<ResponseEntity<String>> getDMaaPProducerResponse(DmaapModel dmaapModel) {
         return Mono.defer(() -> {
-            HttpEntity<String> request = new HttpEntity<>(createJsonBody(consumerDmaapModelMono), getAllHeaders());
+            HttpEntity<String> request = new HttpEntity<>(jsonBodyBuilder.createJsonBody(dmaapModel), getAllHeaders());
             logger.info("Request: {} {}", getUri(), request);
             return restTemplateMono.map(
                 restTemplate -> restTemplate.exchange(getUri(), HttpMethod.POST, request, String.class));

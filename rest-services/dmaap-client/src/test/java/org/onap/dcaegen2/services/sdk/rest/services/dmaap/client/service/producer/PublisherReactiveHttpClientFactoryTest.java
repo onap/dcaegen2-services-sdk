@@ -25,14 +25,19 @@ import static org.mockito.Mockito.mock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
+import org.onap.dcaegen2.services.sdk.rest.services.model.DmaapModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 
 
 class PublisherReactiveHttpClientFactoryTest {
 
     private DmaaPRestTemplateFactory restTemplateFactory = mock(DmaaPRestTemplateFactory.class);
     private DmaapPublisherConfiguration dmaapPublisherConfiguration = mock(DmaapPublisherConfiguration.class);
+    private JsonBodyBuilder<DmaapModel> jsonBodyBuilder = mock(JsonBodyBuilder.class);
+
+
     private PublisherReactiveHttpClientFactory httpClientFactory =
-            new PublisherReactiveHttpClientFactory(restTemplateFactory);
+            new PublisherReactiveHttpClientFactory(restTemplateFactory, jsonBodyBuilder);
 
     @Test
     void create_shouldReturnNotNullFactoryInstance() {
