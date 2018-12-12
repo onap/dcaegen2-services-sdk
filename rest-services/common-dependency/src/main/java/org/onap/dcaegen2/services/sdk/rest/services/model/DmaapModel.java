@@ -20,24 +20,5 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.model;
 
-import com.google.gson.annotations.SerializedName;
-import org.immutables.gson.Gson;
-import org.immutables.value.Value;
-
-/**
- * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 5/8/18
- */
-
-@Value.Immutable
-@Gson.TypeAdapters(fieldNamingStrategy = true)
-public interface ConsumerDmaapModel {
-
-    @SerializedName(value = "correlationId", alternate = "correlationId")
-    String getCorrelationId();
-
-    @SerializedName(value = "ipaddress-v4-oam", alternate = "ipaddress-v4-oam")
-    String getIpv4();
-
-    @SerializedName(value = "ipaddress-v6-oam", alternate = "ipaddress-v6-oam")
-    String getIpv6();
+public interface DmaapModel extends ClientModel {
 }

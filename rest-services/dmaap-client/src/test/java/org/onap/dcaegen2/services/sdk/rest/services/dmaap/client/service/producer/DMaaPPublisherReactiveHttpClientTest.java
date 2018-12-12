@@ -30,8 +30,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.model.ConsumerDmaapModel;
-import org.onap.dcaegen2.services.sdk.rest.services.model.ImmutableConsumerDmaapModel;
+
+import org.onap.dcaegen2.services.sdk.rest.services.model.DmaapModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -47,14 +48,12 @@ import reactor.test.StepVerifier;
 class DMaaPPublisherReactiveHttpClientTest {
 
     private DMaaPPublisherReactiveHttpClient dmaapPublisherReactiveHttpClient;
-    private DmaapPublisherConfiguration dmaapPublisherConfigurationMock = mock(
-            DmaapPublisherConfiguration.class);
-    private ConsumerDmaapModel consumerDmaapModel = ImmutableConsumerDmaapModel.builder()
-        .correlationId("NOKnhfsadhff")
-        .ipv4("256.22.33.155")
-        .ipv6("200J:0db8:85a3:0000:0000:8a2e:0370:7334")
-        .build();
+    private DmaapPublisherConfiguration dmaapPublisherConfigurationMock = mock(DmaapPublisherConfiguration.class);
+
     private RestTemplate restTemplate = mock(RestTemplate.class);
+
+    private DmaapModel dmaapModel = mock(DmaapModel.class);
+    private JsonBodyBuilder<DmaapModel> jsonBodyBuilder = mock(JsonBodyBuilder.class);
 
 
     @BeforeEach
@@ -66,9 +65,14 @@ class DMaaPPublisherReactiveHttpClientTest {
         when(dmaapPublisherConfigurationMock.dmaapUserPassword()).thenReturn("PRH");
         when(dmaapPublisherConfigurationMock.dmaapContentType()).thenReturn("application/json");
         when(dmaapPublisherConfigurationMock.dmaapTopicName()).thenReturn("unauthenticated.PNF_READY");
-        dmaapPublisherReactiveHttpClient =
-                new DMaaPPublisherReactiveHttpClient(dmaapPublisherConfigurationMock, Mono.just(restTemplate));
 
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(
+                "{\"correlationId\":\"NOKnhfsadhff\"," +
+                        "\"ipaddress-v4\":\"256.22.33.155\", " +
+                        "\"ipaddress-v6\":\"200J:0db8:85a3:0000:0000:8a2e:0370:7334\"}");
+
+        dmaapPublisherReactiveHttpClient =
+                new DMaaPPublisherReactiveHttpClient(dmaapPublisherConfigurationMock, Mono.just(restTemplate),jsonBodyBuilder);
     }
 
     @Test
@@ -82,7 +86,7 @@ class DMaaPPublisherReactiveHttpClientTest {
                 .exchange(any(URI.class), any(HttpMethod.class), any(HttpEntity.class), (Class<Object>) any());
 
         //then
-        StepVerifier.create(dmaapPublisherReactiveHttpClient.getDMaaPProducerResponse(consumerDmaapModel))
+        StepVerifier.create(dmaapPublisherReactiveHttpClient.getDMaaPProducerResponse(dmaapModel))
                 .expectSubscription().expectNext(mockedResponseEntity).verifyComplete();
     }
 

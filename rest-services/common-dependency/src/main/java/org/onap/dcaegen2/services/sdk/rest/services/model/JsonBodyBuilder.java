@@ -18,25 +18,17 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
+package org.onap.dcaegen2.services.sdk.rest.services.model;
 
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
+@FunctionalInterface
+public interface JsonBodyBuilder<T extends ClientModel> {
 
+    /**
+     * Method for serialization object by GSON.
+     *
+     * @param t - object which will be serialized
+     * @return string from serialization
+     */
 
-public class PublisherReactiveHttpClientFactory {
-
-    private final DmaaPRestTemplateFactory restTemplateFactory;
-
-    private JsonBodyBuilder jsonBodyBuilder;
-
-    public PublisherReactiveHttpClientFactory(DmaaPRestTemplateFactory restTemplateFactory, JsonBodyBuilder jsonBodyBuilder) {
-        this.restTemplateFactory = restTemplateFactory;
-        this.jsonBodyBuilder = jsonBodyBuilder;
-    }
-
-    public DMaaPPublisherReactiveHttpClient create(DmaapPublisherConfiguration publisherConfiguration) {
-        return new DMaaPPublisherReactiveHttpClient(publisherConfiguration,
-                restTemplateFactory.build(publisherConfiguration), jsonBodyBuilder);
-    }
+     String createJsonBody(T t);
 }

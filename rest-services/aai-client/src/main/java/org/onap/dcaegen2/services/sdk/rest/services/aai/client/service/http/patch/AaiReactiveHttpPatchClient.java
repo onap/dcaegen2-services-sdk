@@ -22,7 +22,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.pat
 
 
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.model.ConsumerDmaapModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.slf4j.MDC;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -33,7 +34,6 @@ import java.net.URI;
 import java.util.UUID;
 
 
-import static org.onap.dcaegen2.services.sdk.rest.services.model.CommonFunctions.createJsonBody;
 import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.REQUEST_ID;
 import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_INVOCATION_ID;
 import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
@@ -48,27 +48,30 @@ public class AaiReactiveHttpPatchClient {
     private final String aaiBasePath;
     private final String aaiPnfPath;
 
+    JsonBodyBuilder jsonBodyBuilder;
+
     /**
      * Constructor of AaiProducerReactiveHttpClient.
      *
      * @param configuration - AAI producer configuration object
      */
-    public AaiReactiveHttpPatchClient(AaiClientConfiguration configuration) {
+    public AaiReactiveHttpPatchClient(AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder) {
         this.aaiHost = configuration.aaiHost();
         this.aaiProtocol = configuration.aaiProtocol();
         this.aaiHostPortNumber = configuration.aaiPort();
         this.aaiBasePath = configuration.aaiBasePath();
         this.aaiPnfPath = configuration.aaiPnfPath();
+        this.jsonBodyBuilder = jsonBodyBuilder;
     }
 
     /**
      * Function for calling AAI Http producer - patch request to AAI database.
      *
-     * @param consumerDmaapModelMono - object which will be sent to AAI database
+     * @param aaiModel - object which will be sent to AAI database
      * @return status code of operation
      */
-    public Mono<ClientResponse> getAaiProducerResponse(ConsumerDmaapModel consumerDmaapModelMono) {
-        return patchAaiRequest(consumerDmaapModelMono);
+    public Mono<ClientResponse> getAaiProducerResponse(AaiModel aaiModel) {
+        return patchAaiRequest(aaiModel);
     }
 
     public AaiReactiveHttpPatchClient createAaiWebClient(WebClient webClient) {
@@ -76,13 +79,13 @@ public class AaiReactiveHttpPatchClient {
         return this;
     }
 
-    private Mono<ClientResponse> patchAaiRequest(ConsumerDmaapModel dmaapModel) {
+    private Mono<ClientResponse> patchAaiRequest(AaiModel aaiModel) {
         return
             webClient.patch()
-                .uri(getUri(dmaapModel.getCorrelationId()))
+                .uri(getUri(aaiModel.getCorrelationId()))
                 .header(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID))
                 .header(X_INVOCATION_ID, UUID.randomUUID().toString())
-                .body(Mono.just(createJsonBody(dmaapModel)), String.class)
+                .body(Mono.just(jsonBodyBuilder.createJsonBody(aaiModel)), String.class)
                 .exchange();
     }
 

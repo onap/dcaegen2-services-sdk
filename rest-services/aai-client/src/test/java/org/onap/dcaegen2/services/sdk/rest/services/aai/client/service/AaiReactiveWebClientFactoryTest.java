@@ -33,7 +33,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.ssl.SslFactory;
 import javax.net.ssl.SSLException;
 
 
-
 class AaiReactiveWebClientFactoryTest {
 
     private static final String TRUST_STORE_PATH = "trust_store_path";
