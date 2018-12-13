@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_34c65669",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-12-13T06:08:32Z",
+      "side": 1,
+      "message": "Remember to update version.properties too",
+      "revId": "4f4f1f12c79d582c6fa3912156a2c8403db5919c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_54c3da56",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/patch/AaiReactiveHttpPatchClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-12-13T06:08:32Z",
+      "side": 1,
+      "message": "Can\u0027t we make it private final as in other fields?",
+      "revId": "4f4f1f12c79d582c6fa3912156a2c8403db5919c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_f4a3eeaf",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/producer/PublisherReactiveHttpClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-12-13T06:08:32Z",
+      "side": 1,
+      "message": "Make it final",
+      "revId": "4f4f1f12c79d582c6fa3912156a2c8403db5919c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
