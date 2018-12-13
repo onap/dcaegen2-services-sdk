@@ -38,6 +38,7 @@
 
   <modules>
     <module>rest-services</module>
+    <module>security</module>
   </modules>
 
   <build>
