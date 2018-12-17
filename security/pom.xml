@@ -7,13 +7,13 @@
   <parent>
     <groupId>org.onap.dcaegen2.services</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <groupId>org.onap.dcaegen2.services.sdk.security</groupId>
   <artifactId>dcaegen2-services-sdk-security</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.2.0-SNAPSHOT</version>
 
   <name>dcaegen2-services-sdk-security</name>
   <description>Common SDK repo for all DCAE Security</description>
