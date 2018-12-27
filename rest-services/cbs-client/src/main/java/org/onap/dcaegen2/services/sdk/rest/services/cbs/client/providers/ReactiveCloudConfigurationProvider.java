@@ -33,7 +33,7 @@ import reactor.core.publisher.Mono;
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/15/18
  */
-final class ReactiveCloudConfigurationProvider implements CloudConfigurationProvider {
+public final class ReactiveCloudConfigurationProvider implements CloudConfigurationProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReactiveCloudConfigurationProvider.class);
     private static final String EXCEPTION_MESSAGE = "Unsupported method call: ";
