@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Piotr Wielebski <piotr.wielebski@nokia.com>
+Submitted-by: Piotr Wielebski <piotr.wielebski@nokia.com>
+Submitted-at: Thu, 03 Jan 2019 13:25:27 +0000
+Reviewed-on: https://gerrit.onap.org/r/75216
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
