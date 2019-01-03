@@ -27,12 +27,14 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuratio
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration.EnvProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/15/18
  */
+@Service
 public final class ReactiveCloudConfigurationProvider implements CloudConfigurationProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReactiveCloudConfigurationProvider.class);
