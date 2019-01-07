@@ -39,7 +39,6 @@ import reactor.core.publisher.Mono;
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 6/26/18
  */
 public class DMaaPConsumerReactiveHttpClient {
-
     private final String dmaapHostName;
     private final String dmaapProtocol;
     private final Integer dmaapPortNumber;
@@ -54,7 +53,7 @@ public class DMaaPConsumerReactiveHttpClient {
      *
      * @param consumerConfiguration - DMaaP consumer configuration object
      */
-    DMaaPConsumerReactiveHttpClient(DmaapConsumerConfiguration consumerConfiguration, WebClient webClient) {
+    public DMaaPConsumerReactiveHttpClient(DmaapConsumerConfiguration consumerConfiguration, WebClient webClient) {
         this.dmaapHostName = consumerConfiguration.dmaapHostName();
         this.dmaapProtocol = consumerConfiguration.dmaapProtocol();
         this.dmaapPortNumber = consumerConfiguration.dmaapPortNumber();
