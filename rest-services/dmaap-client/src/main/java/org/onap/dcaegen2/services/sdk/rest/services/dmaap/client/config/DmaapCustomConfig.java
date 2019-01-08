@@ -26,7 +26,7 @@ import org.immutables.value.Value;
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 3/28/18
  */
-public interface DmaapCustomConfig extends Serializable {
+public interface DmaapCustomConfig extends Serializable, DmaapConfig {
 
     @Value.Parameter
     String dmaapHostName();
