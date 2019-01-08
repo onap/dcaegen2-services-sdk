@@ -22,6 +22,30 @@
       "revId": "5bb49a2ac3343c047561050552b7075facd430c6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_e769e1be",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/config/DmaapConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-01-08T11:31:28Z",
+      "side": 1,
+      "message": "My bad ;)",
+      "parentUuid": "9adffdf1_c745bd43",
+      "range": {
+        "startLine": 5,
+        "startChar": 17,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "5bb49a2ac3343c047561050552b7075facd430c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
