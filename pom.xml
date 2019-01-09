@@ -38,6 +38,7 @@
 
   <modules>
     <module>rest-services</module>
+    <module>services/hv-ves-client</module>
     <module>security</module>
   </modules>
 
