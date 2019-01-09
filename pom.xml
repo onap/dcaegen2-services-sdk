@@ -38,6 +38,7 @@
 
   <modules>
     <module>rest-services</module>
+    <module>services/hv-ves-client</module>
     <module>security</module>
   </modules>
 
@@ -184,11 +185,6 @@
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.projectreactor.netty</groupId>
-        <artifactId>reactor-netty</artifactId>
-        <version>0.8.1.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>io.projectreactor</groupId>
