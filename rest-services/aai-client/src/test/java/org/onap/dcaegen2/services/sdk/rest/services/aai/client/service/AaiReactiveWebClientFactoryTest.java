@@ -25,6 +25,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import io.netty.handler.ssl.SslContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
@@ -42,6 +43,7 @@ class AaiReactiveWebClientFactoryTest {
     private SslFactory sslFactory = mock(SslFactory.class);
     private AaiClientConfiguration aaiClientConfiguration = mock(AaiClientConfiguration.class);
     private AaiReactiveWebClientFactory aaiReactiveWebClientFactory;
+    private SslContext dummySslContext = mock(SslContext.class);
 
     @Test
     void shouldCreateWebClientWithSecureSslContext() throws SSLException {
@@ -56,17 +58,20 @@ class AaiReactiveWebClientFactoryTest {
     @Test
     void shouldCreateWebClientWithInsecureSslContext() throws SSLException {
         when(aaiClientConfiguration.enableAaiCertAuth()).thenReturn(false);
+        when(sslFactory.createInsecureContext()).thenReturn(dummySslContext);
         aaiReactiveWebClientFactory = new AaiReactiveWebClientFactory(sslFactory, aaiClientConfiguration);
 
         Assertions.assertNotNull(aaiReactiveWebClientFactory.build());
         verify(sslFactory).createInsecureContext();
     }
 
-    private void givenEnabledAaiCertAuthConfiguration() {
+    private void givenEnabledAaiCertAuthConfiguration() throws SSLException {
         when(aaiClientConfiguration.enableAaiCertAuth()).thenReturn(true);
         when(aaiClientConfiguration.trustStorePath()).thenReturn(TRUST_STORE_PATH);
         when(aaiClientConfiguration.trustStorePasswordPath()).thenReturn(TRUST_STORE_PASS_PATH);
         when(aaiClientConfiguration.keyStorePath()).thenReturn(KEY_STORE_PATH);
         when(aaiClientConfiguration.keyStorePasswordPath()).thenReturn(KEY_STORE_PASS_PATH);
+        when(sslFactory.createSecureContext(KEY_STORE_PATH, KEY_STORE_PASS_PATH, TRUST_STORE_PATH, TRUST_STORE_PASS_PATH))
+                .thenReturn(dummySslContext);
     }
 }

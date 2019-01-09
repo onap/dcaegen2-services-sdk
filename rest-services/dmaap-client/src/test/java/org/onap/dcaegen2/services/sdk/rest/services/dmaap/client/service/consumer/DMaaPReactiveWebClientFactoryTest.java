@@ -24,6 +24,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import io.netty.handler.ssl.SslContext;
+import javax.net.ssl.SSLException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapConsumerConfiguration;
@@ -40,6 +42,7 @@ class DMaaPReactiveWebClientFactoryTest {
     private static final String TRUST_STORE = "trustStore";
     private static final String TRUST_STORE_PASS = "trustStorePass";
     private SslFactory sslFactory = mock(SslFactory.class);
+    private SslContext dummySslContext = mock(SslContext.class);
     private DMaaPReactiveWebClientFactory webClientFactory = new DMaaPReactiveWebClientFactory(sslFactory);
 
     @Test
@@ -68,19 +71,22 @@ class DMaaPReactiveWebClientFactoryTest {
         verify(sslFactory).createSecureContext(KEY_STORE, KEY_STORE_PASS, TRUST_STORE, TRUST_STORE_PASS);
     }
 
-    private DmaapConsumerConfiguration givenDmaapConfigurationWithSslDisabled() {
+    private DmaapConsumerConfiguration givenDmaapConfigurationWithSslDisabled() throws SSLException {
         DmaapConsumerConfiguration dmaapConsumerConfiguration = mock(DmaapConsumerConfiguration.class);
         when(dmaapConsumerConfiguration.enableDmaapCertAuth()).thenReturn(false);
+        when(sslFactory.createInsecureContext()).thenReturn(dummySslContext);
         return dmaapConsumerConfiguration;
     }
 
-    private DmaapConsumerConfiguration givenDmaapConfigurationWithSslEnabled() {
+    private DmaapConsumerConfiguration givenDmaapConfigurationWithSslEnabled() throws SSLException {
         DmaapConsumerConfiguration dmaapConsumerConfiguration = mock(DmaapConsumerConfiguration.class);
         when(dmaapConsumerConfiguration.enableDmaapCertAuth()).thenReturn(true);
         when(dmaapConsumerConfiguration.keyStorePath()).thenReturn(KEY_STORE);
         when(dmaapConsumerConfiguration.keyStorePasswordPath()).thenReturn(KEY_STORE_PASS);
         when(dmaapConsumerConfiguration.trustStorePath()).thenReturn(TRUST_STORE);
         when(dmaapConsumerConfiguration.trustStorePasswordPath()).thenReturn(TRUST_STORE_PASS);
+        when(sslFactory.createSecureContext(KEY_STORE, KEY_STORE_PASS, TRUST_STORE, TRUST_STORE_PASS))
+                .thenReturn(dummySslContext);
         return dmaapConsumerConfiguration;
     }
 }
