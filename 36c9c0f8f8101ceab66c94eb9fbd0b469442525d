@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_8d7a6f75",
+        "filename": "pom.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-10T09:24:10Z",
+      "side": 1,
+      "message": "Yes it should. This would yield bizarre errors",
+      "parentUuid": "9adffdf1_4d3c87c8",
+      "revId": "36c9c0f8f8101ceab66c94eb9fbd0b469442525d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_69338014",
         "filename": "services/hv-ves-client/producer/api/pom.xml",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_edf0dbff",
+        "filename": "services/hv-ves-client/producer/api/pom.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-10T09:24:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_69338014",
+      "revId": "36c9c0f8f8101ceab66c94eb9fbd0b469442525d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_2939f8f1",
         "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2019-01-10T09:05:11Z",
       "side": 1,
       "message": "Your auto-generation seems off in Java files :)",
+      "revId": "36c9c0f8f8101ceab66c94eb9fbd0b469442525d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_adcdf3b8",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-10T09:24:10Z",
+      "side": 1,
+      "message": "Sonar shouts at me if I leave \u003c\u003e. Changed to proper html.",
+      "parentUuid": "9adffdf1_2939f8f1",
       "revId": "36c9c0f8f8101ceab66c94eb9fbd0b469442525d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
