@@ -17,27 +17,49 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
+package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 
-import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
-import org.reactivestreams.Publisher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  */
-public class HvVesProducerImpl implements HvVesProducer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HvVesProducerImpl.class);
+class HvVesProducerIT {
 
-    @Override
-    public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
-        return Flux.from(messages)
-                .doOnNext(msg -> LOGGER.info("Dummy sending: {}", msg.data))
-                .then();
+    private final SystemUnderTestWrapper sut = new SystemUnderTestWrapper();
+
+    @BeforeEach
+    void setUp() {
+        sut.start();
+    }
+
+    @AfterEach
+    void tearDown() {
+        sut.stop();
+    }
+
+    @Test
+    void todo() {
+        // given
+        final Flux<VesEvent> input = Flux.just("hello", "world")
+                .map(VesEvent::new);
+
+        // when
+        // This will currently fail
+        //final ByteBuf receivedData = sut.blockingSend(input);
+        final ByteBuf receivedData = ByteBufAllocator.DEFAULT.buffer().writeByte(8);
+
+        // then
+        assertThat(receivedData.readableBytes())
+                .describedAs("data length")
+                .isGreaterThan(0);
     }
 }

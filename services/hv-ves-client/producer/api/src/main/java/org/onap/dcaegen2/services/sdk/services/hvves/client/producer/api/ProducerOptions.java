@@ -17,35 +17,25 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
+
+import java.net.InetSocketAddress;
+import java.util.Set;
+import org.immutables.value.Value;
 
 /**
- * <p>High Volume VES Collector client library for producers.</p>
- *
- * <p>This package contains API description for the library. Refer to
- * {@link org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory} and
- * {@link org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer} for the API description</p>
- *
- * <p>
- *     In order for this to work you must have implementation JAR on the class path. Sample Maven usage:
- * </p>
- *
- * <pre>
- * {@code
- *      <dependency>
- *          <groupId>org.onap.dcaegen2.services.sdk</groupId>
- *          <artifactId>hvvesclient-producer-api</artifactId>
- *          <version>1.2.1</version>
- *      </dependency>
- *      <dependency>
- *          <groupId>org.onap.dcaegen2.services.sdk</groupId>
- *          <artifactId>hvvesclient-producer-impl</artifactId>
- *          <version>1.2.1</version>
- *          <scope>runtime</scope>
- *      </dependency>
- * }
- * </pre>
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.1
  */
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
+@Value.Immutable
+@Value.Style(depluralize = true, depluralizeDictionary = "address:addresses")
+public interface ProducerOptions {
+
+    /**
+     * A set of available collector endpoints.
+     *
+     * @return configured collector endpoints
+     * @since 1.1.1
+     */
+    Set<InetSocketAddress> collectorAddresses();
+}

@@ -17,29 +17,18 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
+package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain;
 
-import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
-import org.reactivestreams.Publisher;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
-import reactor.test.StepVerifier.FirstStep;
+import org.jetbrains.annotations.TestOnly;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since January 2019
+ * TODO: should be generated from protobuf definitions in a separate module.
  */
-public class HvVesHvVesProducerIT {
+@TestOnly
+public class VesEvent {
+    public final String data;
 
-    @Test
-    public void todo() {
-        final HvVesProducer cut = HvVesProducerFactory.getInstance().create();
-
-        final Publisher<Void> result = cut.send(Flux.just("hello", "world"));
-
-        StepVerifier.create(result).verifyComplete();
+    public VesEvent(String data) {
+        this.data = data;
     }
 }
