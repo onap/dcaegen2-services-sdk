@@ -19,6 +19,7 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
 import org.reactivestreams.Publisher;
 
 /**
@@ -26,5 +27,15 @@ import org.reactivestreams.Publisher;
  * @since January 2019
  */
 public interface HvVesProducer {
-    Publisher<Void> send(Publisher<String> messages);
+
+    /**
+     * Send the messages to the collector.
+     *
+     * Returns a Publisher that completes when all the messages are sent. The returned Producer fails with an error in
+     * case of any problem with sending the messages.
+     *
+     * @param messages source of the messages to be sent
+     * @return empty publisher which completes after messages are sent or error occurs
+     */
+    Publisher<Void> send(Publisher<VesEvent> messages);
 }

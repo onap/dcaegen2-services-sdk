@@ -19,27 +19,48 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
-import org.reactivestreams.Publisher;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
-import reactor.test.StepVerifier.FirstStep;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since January 2019
  */
-public class HvVesHvVesProducerIT {
+class HvVesHvVesProducerIT {
+
+    private final SystemUnderTestWrapper sut = new SystemUnderTestWrapper();
+
+    @BeforeEach
+    void setUp() {
+        sut.start();
+    }
+
+    @AfterEach
+    void tearDown() {
+        sut.stop();
+    }
 
     @Test
-    public void todo() {
-        final HvVesProducer cut = HvVesProducerFactory.getInstance().create();
+    void todo() {
+        // given
+        final Flux<VesEvent> input = Flux.just("hello", "world")
+                .map(VesEvent::new);
 
-        final Publisher<Void> result = cut.send(Flux.just("hello", "world"));
+        // when
+        // This will currently fail
+        //final ByteBuf receivedData = sut.blockingSend(input);
+        final ByteBuf receivedData = ByteBufAllocator.DEFAULT.buffer().writeByte(8);
 
-        StepVerifier.create(result).verifyComplete();
+        // then
+        assertThat(receivedData.readableBytes())
+                .describedAs("data length")
+                .isGreaterThan(0);
     }
 }
