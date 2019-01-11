@@ -17,27 +17,15 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
-
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
-import org.reactivestreams.Publisher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since January 2019
+ * TODO: should be generated from protobuf definitions in a separate module.
  */
-public class HvVesProducerImpl implements HvVesProducer {
-    private static final Logger logger = LoggerFactory.getLogger(HvVesProducerImpl.class);
+public class VesEvent {
+    public final String data;
 
-    @Override
-    public Mono<Void> send(Publisher<VesEvent> messages) {
-        return Flux.from(messages)
-                .doOnNext(msg -> logger.info("Dummy sending: {}", msg.data))
-                .then();
+    public VesEvent(String data) {
+        this.data = data;
     }
 }

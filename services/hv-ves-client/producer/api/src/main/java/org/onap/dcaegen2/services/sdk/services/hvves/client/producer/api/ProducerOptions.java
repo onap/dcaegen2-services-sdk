@@ -19,29 +19,15 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
+import java.net.InetSocketAddress;
+import java.util.Set;
+import org.immutables.value.Value;
+
 /**
- * Factory for High-Volume VES Producer.
- *
- * Usage:
- * <pre>
- *     HvVesProducer producer = HvVesProducerFactory.create(...)
- * </pre>
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since January 2019
  */
-public abstract class HvVesProducerFactory {
-    protected abstract HvVesProducer createProducer(ProducerOptions options);
-
-    /**
-     * Creates an instance of HvVesProducer. Under the hood it first loads the HvVesProducerFactory instance
-     * using ServiceLoader facility. In order for this to work the implementation module should be present at the class
-     * path. Otherwise a runtime exception is thrown.
-     *
-     * @param options the options to be used when creating a producer
-     * @return non-null HvVesProducer instance
-     */
-    public static HvVesProducer create(ProducerOptions options) {
-        return FactoryLoader.findInstance(HvVesProducerFactory.class).createProducer(options);
-    }
+@Value.Immutable
+public interface ProducerOptions {
+    Set<InetSocketAddress> collectorAddress();
 }

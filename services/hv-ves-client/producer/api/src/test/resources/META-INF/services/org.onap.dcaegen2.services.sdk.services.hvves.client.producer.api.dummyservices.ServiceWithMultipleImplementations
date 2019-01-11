@@ -18,4 +18,5 @@
 # ============LICENSE_END=====================================
 #
 
-org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.HvVesProducerFactoryImpl
+org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.dummyservices.FirstImplementation
+org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.dummyservices.SecondImplementation
