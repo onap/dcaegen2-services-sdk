@@ -19,17 +19,18 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
+import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.ProducerOptions;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since January 2019
  */
-public class HvVesProducerFactoryImpl implements HvVesProducerFactory {
+public class HvVesProducerFactoryImpl extends HvVesProducerFactory {
 
     @Override
-    public HvVesProducer create() {
+    protected @NotNull HvVesProducer createProducer(ProducerOptions options) {
         return new HvVesProducerImpl();
     }
 }
