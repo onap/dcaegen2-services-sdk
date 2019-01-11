@@ -19,22 +19,47 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
-import java.util.Iterator;
-import java.util.ServiceLoader;
+import org.jetbrains.annotations.NotNull;
 
 /**
+ * <p>
+ *     Factory for High-Volume VES Producer.
+ * </p>
+ *
+ * <p>
+ *     Sample usage:
+ * </p>
+ *
+ * <pre>
+ *     {@link HvVesProducer} producer = HvVesProducerFactory.create(
+ *          {@link ImmutableProducerOptions}.builder().
+ *              ...
+ *              .build())
+ * </pre>
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since January 2019
+ * @since 1.2.1
  */
-public interface HvVesProducerFactory {
-    HvVesProducer create();
+public abstract class HvVesProducerFactory {
 
-    static HvVesProducerFactory getInstance() {
-        Iterator<HvVesProducerFactory> instances = ServiceLoader.load(HvVesProducerFactory.class).iterator();
-        if (instances.hasNext()) {
-            return instances.next();
-        } else {
-            throw new IllegalStateException("No ProducerFactory instances was configured. Are you sure you have runtime dependency on implementation module?");
-        }
+    /**
+     * Must be implemented by implementing classes. Should not be used directly by client code. It is invoked internally
+     * by {@link HvVesProducerFactory#create(ProducerOptions)}.
+     *
+     * @param options the options to be used when creating a producer
+     * @return non-null HvVesProducer instance
+     */
+    protected abstract @NotNull HvVesProducer createProducer(ProducerOptions options);
+
+    /**
+     * Creates an instance of {@link HvVesProducer}. Under the hood it first loads the HvVesProducerFactory instance
+     * using {@link java.util.ServiceLoader} facility. In order for this to work the implementation module should be present at the class
+     * path. Otherwise a runtime exception is thrown.
+     *
+     * @param options the options to be used when creating a producer
+     * @return non-null {@link HvVesProducer} instance
+     */
+    public static @NotNull HvVesProducer create(ProducerOptions options) {
+        return FactoryLoader.findInstance(HvVesProducerFactory.class).createProducer(options);
     }
 }

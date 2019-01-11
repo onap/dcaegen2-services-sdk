@@ -19,12 +19,42 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
+import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
 import org.reactivestreams.Publisher;
 
 /**
+ * <p>Main High Volume VES producer interface.</p>
+ *
+ * <p>Client code should use this interface for sending events to the endpoint configured when calling
+ * {@link HvVesProducerFactory#create(ProducerOptions)}.</p>
+ *
+ * <p>Sample usage with <a href="https://projectreactor.io/">Project Reactor</a>:</p>
+ *
+ * <pre>
+ *     ProducerOptions options = {@link ImmutableProducerOptions}.builder(). ... .build()
+ *     HvVesProducer hvVes = {@link HvVesProducerFactory}.create(options);
+ *
+ *     Flux.just(msg1, msg2, msg3)
+ *          .transform(hvVes::send)
+ *          .subscribe();
+ * </pre>
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since January 2019
+ * @since 1.2.1
  */
+@FunctionalInterface
 public interface HvVesProducer {
-    Publisher<Void> send(Publisher<String> messages);
+
+    /**
+     * Send the messages to the collector.
+     *
+     * Returns a Publisher that completes when all the messages are sent. The returned Producer fails with an error in
+     * case of any problem with sending the messages.
+     *
+     * @param messages source of the messages to be sent
+     * @return empty publisher which completes after messages are sent or error occurs
+     * @since 1.2.1
+     */
+    @NotNull Publisher<Void> send(Publisher<VesEvent> messages);
 }

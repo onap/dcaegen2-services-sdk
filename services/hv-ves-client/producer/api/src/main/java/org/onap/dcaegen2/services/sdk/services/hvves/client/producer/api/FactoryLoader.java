@@ -17,27 +17,35 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
+package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
-import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
-import org.reactivestreams.Publisher;
+import java.util.Iterator;
+import java.util.ServiceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  */
-public class HvVesProducerImpl implements HvVesProducer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HvVesProducerImpl.class);
+final class FactoryLoader {
 
-    @Override
-    public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
-        return Flux.from(messages)
-                .doOnNext(msg -> LOGGER.info("Dummy sending: {}", msg.data))
-                .then();
+    private FactoryLoader() {
+    }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FactoryLoader.class);
+
+    static <T> T findInstance(Class<T> clazz) {
+        Iterator<T> instances = ServiceLoader.load(clazz).iterator();
+        if (instances.hasNext()) {
+            final T head = instances.next();
+            if (instances.hasNext()) {
+                LOGGER.warn("Found more than one implementation of {} on the class path. Using {}.",
+                        clazz.getSimpleName(), head.getClass().getName());
+            }
+            return head;
+        } else {
+            throw new IllegalStateException(
+                    "No " + clazz.getSimpleName() + " instances were configured. Are you sure you have runtime dependency on an implementation module?");
+        }
     }
 }

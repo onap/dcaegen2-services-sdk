@@ -19,46 +19,54 @@
   ~ ============LICENSE_END=========================================================
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.onap.dcaegen2.services.sdk</groupId>
-    <artifactId>hvvesclient-producer</artifactId>
+    <parent>
+        <groupId>org.onap.dcaegen2.services.sdk</groupId>
+        <artifactId>hvvesclient-producer</artifactId>
+        <version>1.1.1-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <artifactId>hvvesclient-producer-ct</artifactId>
     <version>1.1.1-SNAPSHOT</version>
-    <relativePath>..</relativePath>
-  </parent>
 
-  <artifactId>hvvesclient-producer-ct</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
-
-  <name>High Volume VES Collector Client :: Producer :: Component Tests</name>
-  <description></description>
-  <packaging>jar</packaging>
+    <name>High Volume VES Collector Client :: Producer :: Component Tests</name>
+    <description></description>
+    <packaging>jar</packaging>
 
 
-  <dependencies>
-    <dependency>
-      <groupId>org.onap.dcaegen2.services.sdk</groupId>
-      <artifactId>hvvesclient-producer-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.onap.dcaegen2.services.sdk</groupId>
-      <artifactId>hvvesclient-producer-impl</artifactId>
-      <version>${project.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <artifactId>hvvesclient-producer-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <artifactId>hvvesclient-producer-impl</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>
