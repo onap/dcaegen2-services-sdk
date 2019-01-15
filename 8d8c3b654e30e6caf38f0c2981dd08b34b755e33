@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_79426469",
+        "filename": "services/hv-ves-client/producer/api/src/test/resources/META-INF/services/org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.dummyservices.ImplementedService",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-01-15T08:20:42Z",
+      "side": 1,
+      "message": "License missing?",
+      "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_595d2046",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesHvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-01-15T08:20:42Z",
+      "side": 1,
+      "message": "Repetition of HvVes in name.",
+      "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
