@@ -386,6 +386,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_6f7a9678",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-01-15T16:24:20Z",
+      "side": 1,
+      "message": "I meant that it doesn\u0027t describe what exactly is that \"system\". However when i look at it right now, the package name may be sufficient descriptor in this case.",
+      "parentUuid": "9adffdf1_acdf2c0c",
+      "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_2c4d7c3e",
         "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/HvVesProducerFactoryImpl.java",
         "patchSetId": 4
