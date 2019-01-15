@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_0c50b8d2",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-15T11:29:03Z",
+      "side": 1,
+      "message": "You used `1.2.1` everywhere in code - if this is project version, then shouldn\u0027t this be aligned with pom, so `1.1.1` ?\n\nAlso you generally removed `@since date` in old files but added it in new ones.",
+      "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_cc3e308c",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-15T11:29:03Z",
+      "side": 1,
+      "message": "You used \"Producer\" interchangeably with \"Publisher\" here, I believe intention was to use \"Publisher\"?\n\nAlso maybe we could link Publisher on first mention?",
+      "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_2cc6dc9a",
         "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducerFactory.java",
         "patchSetId": 4
@@ -30,6 +64,40 @@
       "writtenOn": "2019-01-15T11:21:02Z",
       "side": 1,
       "message": "Why cannot this be an interface?",
+      "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_0cb43833",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducerFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-15T11:29:03Z",
+      "side": 1,
+      "message": "I believe \"Must be implemented by implementing classes\" in doc can be dropped for abstract method.",
+      "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_ac840c5e",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/ProducerOptions.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-15T11:29:03Z",
+      "side": 1,
+      "message": "collectorAddresses (plural) ?",
       "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -81,6 +149,23 @@
       "writtenOn": "2019-01-15T08:20:42Z",
       "side": 1,
       "message": "License missing?",
+      "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_6c5624d0",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/DummyCollector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-15T11:29:03Z",
+      "side": 1,
+      "message": "`closedAs` does not seem proper in this declaration for me... Maybe something like `clientNumber` would be better here?",
       "revId": "8d8c3b654e30e6caf38f0c2981dd08b34b755e33",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
