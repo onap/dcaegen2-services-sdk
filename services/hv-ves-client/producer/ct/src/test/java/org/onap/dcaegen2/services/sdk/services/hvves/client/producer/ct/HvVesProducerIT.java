@@ -21,11 +21,12 @@ package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.google.protobuf.ByteString;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.onap.ves.VesEventOuterClass.CommonEventHeader;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
 
@@ -49,12 +50,17 @@ class HvVesProducerIT {
     @Test
     void todo() {
         // given
-        final Flux<VesEvent> input = Flux.just(VesEvent.getDefaultInstance());
+        final VesEvent sampleEvent = VesEvent.newBuilder()
+                .setCommonEventHeader(CommonEventHeader.newBuilder()
+                        .setDomain("dummy")
+                        .build())
+                .setEventFields(ByteString.copyFrom(new byte[]{0, 1, 2, 3}))
+                .build();
+
+        final Flux<VesEvent> input = Flux.just(sampleEvent);
 
         // when
-        // This will currently fail
-        //final ByteBuf receivedData = sut.blockingSend(input);
-        final ByteBuf receivedData = ByteBufAllocator.DEFAULT.buffer().writeByte(8);
+        final ByteBuf receivedData = sut.blockingSend(input);
 
         // then
         assertThat(receivedData.readableBytes())

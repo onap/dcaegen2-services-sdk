@@ -20,6 +20,7 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ProducerOptions;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
 
@@ -32,7 +33,7 @@ import org.reactivestreams.Publisher;
  * <p>Sample usage with <a href="https://projectreactor.io/">Project Reactor</a>:</p>
  *
  * <pre>
- *     ProducerOptions options = {@link ImmutableProducerOptions}.builder(). ... .build()
+ *     ProducerOptions options = ImmutableProducerOptions.builder(). ... .build()
  *     HvVesProducer hvVes = {@link HvVesProducerFactory}.create(options);
  *
  *     Flux.just(msg1, msg2, msg3)
@@ -41,6 +42,7 @@ import org.reactivestreams.Publisher;
  * </pre>
  *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
+ * @see org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions
  * @since 1.1.1
  */
 @FunctionalInterface
@@ -50,6 +52,9 @@ public interface HvVesProducer {
      *
      * Returns a Publisher that completes when all the messages are sent. The returned Publisher fails with an error in
      * case of any problem with sending the messages.
+     *
+     * Each invocation of this method will yield a new TCP connection. It is recommended to call this method only once
+     * feeding it with a stream of consecutive events.
      *
      * @param messages source of the messages to be sent
      * @return empty publisher which completes after messages are sent or error occurs
