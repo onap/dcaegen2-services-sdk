@@ -22,7 +22,6 @@ package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,9 +52,7 @@ class HvVesProducerIT {
                 .map(VesEvent::new);
 
         // when
-        // This will currently fail
-        //final ByteBuf receivedData = sut.blockingSend(input);
-        final ByteBuf receivedData = ByteBufAllocator.DEFAULT.buffer().writeByte(8);
+        final ByteBuf receivedData = sut.blockingSend(input);
 
         // then
         assertThat(receivedData.readableBytes())

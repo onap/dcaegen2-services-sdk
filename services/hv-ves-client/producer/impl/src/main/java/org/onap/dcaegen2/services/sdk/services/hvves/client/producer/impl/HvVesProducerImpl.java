@@ -19,6 +19,8 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
+import io.netty.buffer.ByteBuf;
+import java.nio.charset.StandardCharsets;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
@@ -27,17 +29,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.netty.NettyOutbound;
+import reactor.netty.tcp.TcpClient;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  */
 public class HvVesProducerImpl implements HvVesProducer {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(HvVesProducerImpl.class);
+    private final TcpClient tcpClient;
+
+    HvVesProducerImpl(TcpClient tcpClient) {
+        this.tcpClient = tcpClient;
+    }
 
     @Override
     public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
-        return Flux.from(messages)
-                .doOnNext(msg -> LOGGER.info("Dummy sending: {}", msg.data))
-                .then();
+        return tcpClient
+                .handle((inbound, outbound) -> handle(outbound, messages))
+                .connect().then();
+    }
+
+    private Publisher<Void> handle(NettyOutbound outbound, Publisher<VesEvent> messages) {
+        final Flux<ByteBuf> encodedMessages = Flux.from(messages)
+                .map(msg -> {
+                    LOGGER.trace("Encoding VesEvent '{}'", msg.data);
+                    final ByteBuf encodedMessage = outbound.alloc().buffer();
+                    encodedMessage.writeCharSequence(msg.data, StandardCharsets.UTF_8);
+                    encodedMessage.writeByte(0x0a);
+                    return encodedMessage;
+                });
+
+        return outbound.send(encodedMessages).then();
     }
 }

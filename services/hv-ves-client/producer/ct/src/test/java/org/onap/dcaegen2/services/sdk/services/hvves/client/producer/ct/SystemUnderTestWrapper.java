@@ -20,15 +20,20 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 
 import io.netty.buffer.ByteBuf;
+import io.vavr.collection.HashSet;
+import io.vavr.control.Try;
 import java.net.InetSocketAddress;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.ImmutableProducerOptions;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.ImmutableProducerOptions.Builder;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions.Builder;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableSecurityKeys;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.Passwords;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -48,6 +53,16 @@ public class SystemUnderTestWrapper {
         this(DEFAULT_TIMEOUT);
     }
 
+    public void startSecure() {
+        start(ImmutableProducerOptions.builder()
+                .securityKeys(ImmutableSecurityKeys.builder()
+                        .keyStore(resource("/client.p12").get())
+                        .keyStorePassword(Passwords.fromResource("/client.pass").get())
+                        .trustStore(resource("/trust.p12").get())
+                        .trustStorePassword(Passwords.fromResource("/trust.pass").get())
+                        .build()));
+    }
+
     public void start() {
         start(createDefaultOptions());
     }
@@ -55,7 +70,7 @@ public class SystemUnderTestWrapper {
     public void start(ImmutableProducerOptions.Builder optionsBuilder) {
         InetSocketAddress collectorAddress = collector.start();
         cut = HvVesProducerFactory.create(
-                optionsBuilder.addCollectorAddress(collectorAddress).build());
+                optionsBuilder.collectorAddresses(HashSet.of(collectorAddress)).build());
     }
 
     public void stop() {
@@ -64,15 +79,16 @@ public class SystemUnderTestWrapper {
 
     public ByteBuf blockingSend(Flux<VesEvent> events) {
         events.transform(cut::send).subscribe();
-
-
-        Mono.from(cut.send(events)).block();
         collector.blockUntilFirstClientIsHandled(timeout);
         return collector.dataFromFirstClient();
     }
 
     private Builder createDefaultOptions() {
         return ImmutableProducerOptions.builder();
+    }
+
+    private Try<Path> resource(String resource) {
+        return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()));
     }
 
 }

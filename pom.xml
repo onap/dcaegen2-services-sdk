@@ -164,6 +164,11 @@
         <version>${immutables.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.vavr</groupId>
+        <artifactId>vavr</artifactId>
+        <version>0.9.3</version>
+      </dependency>
+      <dependency>
         <groupId>org.immutables</groupId>
         <artifactId>gson</artifactId>
         <version>${immutables.version}</version>
