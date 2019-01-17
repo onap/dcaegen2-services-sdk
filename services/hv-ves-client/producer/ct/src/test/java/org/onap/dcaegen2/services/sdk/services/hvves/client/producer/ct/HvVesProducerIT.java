@@ -26,7 +26,7 @@ import io.netty.buffer.ByteBufAllocator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
+import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
 
 /**
@@ -49,8 +49,7 @@ class HvVesProducerIT {
     @Test
     void todo() {
         // given
-        final Flux<VesEvent> input = Flux.just("hello", "world")
-                .map(VesEvent::new);
+        final Flux<VesEvent> input = Flux.just(VesEvent.getDefaultInstance());
 
         // when
         // This will currently fail
