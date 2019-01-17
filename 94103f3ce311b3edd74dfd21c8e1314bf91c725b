@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_fa7e3d69",
+        "filename": "services/hv-ves-client/protobuf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-17T13:39:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_da1fb959",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 82
+      },
+      "revId": "94103f3ce311b3edd74dfd21c8e1314bf91c725b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_9a3db1c6",
         "filename": "services/hv-ves-client/protobuf/pom.xml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-17T13:20:20Z",
       "side": 1,
       "message": "define plugin version (w/o configuration \u0026 execution) in main sdk pom (pluginManagement section)",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "94103f3ce311b3edd74dfd21c8e1314bf91c725b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1a86a166",
+        "filename": "services/hv-ves-client/protobuf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-17T13:39:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_9a3db1c6",
       "range": {
         "startLine": 65,
         "startChar": 0,
