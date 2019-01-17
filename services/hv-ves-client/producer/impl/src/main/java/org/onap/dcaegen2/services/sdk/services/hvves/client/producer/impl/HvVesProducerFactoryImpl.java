@@ -19,18 +19,36 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
+import io.netty.handler.ssl.SslContext;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.ProducerOptions;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ProducerOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import reactor.netty.tcp.TcpClient;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  */
 public class HvVesProducerFactoryImpl extends HvVesProducerFactory {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(HvVesProducerFactoryImpl.class);
+    private final SslFactory sslFactory = new SslFactory();
+
     @Override
     protected @NotNull HvVesProducer createProducer(ProducerOptions options) {
-        return new HvVesProducerImpl();
+        TcpClient tcpClient = TcpClient.create()
+                .addressSupplier(() -> options.collectorAddresses().head());
+
+        if (options.securityKeys() == null) {
+            LOGGER.warn("Using insecure connection");
+        } else {
+            LOGGER.info("Using secure tunnel");
+            final SslContext ctx = sslFactory.createSecureContext(options.securityKeys()).get();
+            tcpClient = tcpClient.secure(ssl-> ssl.sslContext(ctx));
+        }
+
+        return new HvVesProducerImpl(tcpClient);
     }
 }

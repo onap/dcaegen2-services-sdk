@@ -19,7 +19,7 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
-import java.util.Iterator;
+import io.vavr.collection.Stream;
 import java.util.ServiceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,17 +35,12 @@ final class FactoryLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(FactoryLoader.class);
 
     static <T> T findInstance(Class<T> clazz) {
-        Iterator<T> instances = ServiceLoader.load(clazz).iterator();
-        if (instances.hasNext()) {
-            final T head = instances.next();
-            if (instances.hasNext()) {
-                LOGGER.warn("Found more than one implementation of {} on the class path. Using {}.",
-                        clazz.getSimpleName(), head.getClass().getName());
-            }
-            return head;
-        } else {
-            throw new IllegalStateException(
-                    "No " + clazz.getSimpleName() + " instances were configured. Are you sure you have runtime dependency on an implementation module?");
-        }
+        return Stream.ofAll(ServiceLoader.load(clazz))
+                .headOption()
+                .peek(head -> LOGGER.info(
+                        " Using {} as a {} implementation.", head.getClass().getName(), clazz.getSimpleName()))
+                .getOrElseThrow(() -> new IllegalStateException(
+                        "No " + clazz.getSimpleName() + " instances were configured. "
+                                + "Are you sure you have runtime dependency on an implementation module?"));
     }
 }
