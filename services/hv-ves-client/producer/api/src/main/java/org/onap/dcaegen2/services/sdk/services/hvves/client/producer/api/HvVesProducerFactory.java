@@ -20,6 +20,7 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ProducerOptions;
 
 /**
  * <p>
@@ -32,12 +33,13 @@ import org.jetbrains.annotations.NotNull;
  *
  * <pre>
  *     {@link HvVesProducer} producer = HvVesProducerFactory.create(
- *          {@link ImmutableProducerOptions}.builder().
+ *          ImmutableProducerOptions.builder().
  *              ...
  *              .build())
  * </pre>
  *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
+ * @see org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions
  * @since 1.1.1
  */
 public abstract class HvVesProducerFactory {
