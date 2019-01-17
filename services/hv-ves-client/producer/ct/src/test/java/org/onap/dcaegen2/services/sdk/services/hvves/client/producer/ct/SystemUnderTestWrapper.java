@@ -20,13 +20,15 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 
 import io.netty.buffer.ByteBuf;
+
 import java.net.InetSocketAddress;
 import java.time.Duration;
+
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.ImmutableProducerOptions;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.ImmutableProducerOptions.Builder;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
+import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
