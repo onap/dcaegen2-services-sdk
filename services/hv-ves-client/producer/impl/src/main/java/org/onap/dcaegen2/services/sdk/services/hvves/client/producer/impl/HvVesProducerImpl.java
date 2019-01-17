@@ -21,12 +21,13 @@ package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
+import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -37,7 +38,7 @@ public class HvVesProducerImpl implements HvVesProducer {
     @Override
     public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
         return Flux.from(messages)
-                .doOnNext(msg -> LOGGER.info("Dummy sending: {}", msg.data))
+                .doOnNext(msg -> LOGGER.info("Not-so-dummy sending: {}", msg.toString()))
                 .then();
     }
 }

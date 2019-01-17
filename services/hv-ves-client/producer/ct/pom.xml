@@ -31,7 +31,6 @@
     </parent>
 
     <artifactId>hvvesclient-producer-ct</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
 
     <name>High Volume VES Collector Client :: Producer :: Component Tests</name>
     <description></description>
@@ -40,15 +39,21 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>hvvesclient-producer-api</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>hvvesclient-producer-impl</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>hvvesclient-protobuf</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.projectreactor.netty</groupId>

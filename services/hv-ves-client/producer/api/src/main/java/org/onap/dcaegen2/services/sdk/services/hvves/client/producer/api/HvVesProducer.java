@@ -20,7 +20,7 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
 import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.domain.VesEvent;
+import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
 
 /**

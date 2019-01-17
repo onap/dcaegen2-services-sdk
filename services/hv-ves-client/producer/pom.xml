@@ -31,7 +31,6 @@
   </parent>
 
   <artifactId>hvvesclient-producer</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
 
   <name>High Volume VES Collector Client :: Producer</name>
   <description></description>
