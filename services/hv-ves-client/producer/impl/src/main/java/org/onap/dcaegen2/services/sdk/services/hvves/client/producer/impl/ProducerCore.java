@@ -19,40 +19,32 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.EncodersFactory;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.ProtobufEncoder;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.WireFrameEncoder;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
-import reactor.core.publisher.Mono;
-import reactor.netty.NettyOutbound;
-import reactor.netty.tcp.TcpClient;
+import reactor.core.publisher.Flux;
 
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
+ * @author <a href="mailto:jakub.dudycz@nokia.com">Jakub Dudycz</a>
  */
-public class HvVesProducerImpl implements HvVesProducer {
+public class ProducerCore {
 
-    private final TcpClient tcpClient;
-    private final ProducerCore producerCore;
+    private final EncodersFactory encodersFactory;
 
-
-    HvVesProducerImpl(TcpClient tcpClient, ProducerCore producerCore) {
-        this.tcpClient = tcpClient;
-        this.producerCore = producerCore;
+    public ProducerCore(EncodersFactory encodersFactory) {
+        this.encodersFactory = encodersFactory;
     }
 
-    @Override
-    public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
-        return tcpClient
-            .handle((in, out) -> handle(messages, out))
-            .connect()
-            .then();
-    }
-
-    private Publisher<Void> handle(Publisher<VesEvent> messages, NettyOutbound outbound) {
-        return outbound
-            .send(producerCore.encode(messages, outbound.alloc()))
-            .then();
+    public Flux<ByteBuf> encode(Publisher<VesEvent> messages, ByteBufAllocator allocator) {
+        final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(allocator);
+        final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder(allocator);
+        return Flux.from(messages)
+            .map(protobufEncoder::encode)
+            .map(wireFrameEncoder::encode);
     }
 }
