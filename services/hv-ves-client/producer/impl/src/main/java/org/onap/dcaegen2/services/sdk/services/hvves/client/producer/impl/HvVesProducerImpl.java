@@ -20,9 +20,10 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
 import io.netty.buffer.ByteBuf;
-import java.nio.charset.StandardCharsets;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.ProtobufEncoder;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.WireFrameEncoder;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
@@ -48,19 +49,21 @@ public class HvVesProducerImpl implements HvVesProducer {
     @Override
     public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
         return tcpClient
-                .handle((inbound, outbound) -> handle(outbound, messages))
-                .connect().then();
+            .handle((inbound, outbound) -> handle(outbound, messages))
+            .connect().then();
     }
 
     private Publisher<Void> handle(NettyOutbound outbound, Publisher<VesEvent> messages) {
+        // TODO remove comments after review
+        // WireFrameEncoder has to be instantiated here, due to dependency on allocator
+        // ProtobufEncoder could be declared as a class field, but it would break cohesion.
+        // This approach shall affect the memory consumption in tiny extent
+
+        final WireFrameEncoder wireFrameEncoder = new WireFrameEncoder(outbound.alloc());
+        final ProtobufEncoder protobufEncoder = new ProtobufEncoder();
         final Flux<ByteBuf> encodedMessages = Flux.from(messages)
-                .map(msg -> {
-                    LOGGER.debug("Encoding VesEvent '{}'", msg);
-                    final ByteBuf encodedMessage = outbound.alloc().buffer();
-                    encodedMessage.writeCharSequence(msg.getCommonEventHeader().getDomain(), StandardCharsets.UTF_8);
-                    encodedMessage.writeByte(0x0a);
-                    return encodedMessage;
-                });
+            .map(protobufEncoder::encode)
+            .map(wireFrameEncoder::encode);
 
         return outbound.send(encodedMessages).then();
     }
