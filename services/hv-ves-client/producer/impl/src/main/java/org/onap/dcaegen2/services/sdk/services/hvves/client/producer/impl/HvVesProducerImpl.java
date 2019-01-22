@@ -19,15 +19,10 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
-import io.netty.buffer.ByteBuf;
-import java.nio.charset.StandardCharsets;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.netty.NettyOutbound;
 import reactor.netty.tcp.TcpClient;
@@ -38,30 +33,26 @@ import reactor.netty.tcp.TcpClient;
  */
 public class HvVesProducerImpl implements HvVesProducer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HvVesProducerImpl.class);
     private final TcpClient tcpClient;
+    private final ProducerCore producerCore;
 
-    HvVesProducerImpl(TcpClient tcpClient) {
+
+    HvVesProducerImpl(TcpClient tcpClient, ProducerCore producerCore) {
         this.tcpClient = tcpClient;
+        this.producerCore = producerCore;
     }
 
     @Override
     public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
         return tcpClient
-                .handle((inbound, outbound) -> handle(outbound, messages))
-                .connect().then();
+            .handle((in, out) -> handle(messages, out))
+            .connect()
+            .then();
     }
 
-    private Publisher<Void> handle(NettyOutbound outbound, Publisher<VesEvent> messages) {
-        final Flux<ByteBuf> encodedMessages = Flux.from(messages)
-                .map(msg -> {
-                    LOGGER.debug("Encoding VesEvent '{}'", msg);
-                    final ByteBuf encodedMessage = outbound.alloc().buffer();
-                    encodedMessage.writeCharSequence(msg.getCommonEventHeader().getDomain(), StandardCharsets.UTF_8);
-                    encodedMessage.writeByte(0x0a);
-                    return encodedMessage;
-                });
-
-        return outbound.send(encodedMessages).then();
+    private Publisher<Void> handle(Publisher<VesEvent> messages, NettyOutbound outbound) {
+        return outbound
+            .send(producerCore.encode(messages, outbound.alloc()))
+            .then();
     }
 }
