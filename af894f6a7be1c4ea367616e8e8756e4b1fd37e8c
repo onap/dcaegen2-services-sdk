@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_25f6ddf9",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-01-23T17:30:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_cf98507a",
+      "revId": "af894f6a7be1c4ea367616e8e8756e4b1fd37e8c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_2faebc98",
         "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoder.java",
         "patchSetId": 2
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_c5e0312b",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-01-23T17:30:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_2faebc98",
+      "revId": "af894f6a7be1c4ea367616e8e8756e4b1fd37e8c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_ef93d458",
         "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
         "patchSetId": 2
@@ -64,6 +100,24 @@
       "writtenOn": "2019-01-23T07:27:18Z",
       "side": 1,
       "message": "Write stub tests for this class (ie. check the result.length is \u003e 0)",
+      "revId": "af894f6a7be1c4ea367616e8e8756e4b1fd37e8c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_85e6a942",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-01-23T17:30:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_ef93d458",
       "revId": "af894f6a7be1c4ea367616e8e8756e4b1fd37e8c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
