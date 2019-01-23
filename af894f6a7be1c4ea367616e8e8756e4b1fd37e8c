@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_4fa540b4",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/HvVesProducerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-23T07:27:18Z",
+      "side": 1,
+      "message": "I\u0027m OKay with that with two notes:\n\n1. Avoid instantiation of peer classes via \"new\" inside any method. This will require creating factory class (can be one to create both).\n2. Write unit test for this method. If you try to test it the (1) would be obvious :)",
+      "revId": "af894f6a7be1c4ea367616e8e8756e4b1fd37e8c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_cf98507a",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-23T07:27:18Z",
+      "side": 1,
+      "message": "Write stub tests for this class (ie. check the result.length is \u003e 0)",
+      "revId": "af894f6a7be1c4ea367616e8e8756e4b1fd37e8c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_2faebc98",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-23T07:27:18Z",
+      "side": 1,
+      "message": "When implementing this class we should try to allocate memory once, ie. here write protobuf data directly to ByteBuf.nioBuffer and then just prepend it with WTP inside the other encoder. **For now the API is fine.**",
+      "revId": "af894f6a7be1c4ea367616e8e8756e4b1fd37e8c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_ef93d458",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-23T07:27:18Z",
+      "side": 1,
+      "message": "Write stub tests for this class (ie. check the result.length is \u003e 0)",
+      "revId": "af894f6a7be1c4ea367616e8e8756e4b1fd37e8c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
