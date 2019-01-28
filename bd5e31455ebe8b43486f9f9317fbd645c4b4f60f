@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_464d1dc3",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-28T12:38:04Z",
+      "side": 1,
+      "message": "Done, had to change few other places",
+      "parentUuid": "9adffdf1_06a5d5b4",
+      "revId": "bd5e31455ebe8b43486f9f9317fbd645c4b4f60f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_86d1c524",
         "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
         "patchSetId": 1
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_664861b3",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-28T12:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_86d1c524",
+      "revId": "bd5e31455ebe8b43486f9f9317fbd645c4b4f60f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_e6b691f8",
         "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
         "patchSetId": 1
@@ -70,6 +106,24 @@
       "writtenOn": "2019-01-28T09:42:58Z",
       "side": 1,
       "message": "I think we should exit exceptionally when payload is null or empty. This can be achieved by returning one of vavr monadic types: Either, Try, Option. Or we can just throw runtime exception, is it\u0027s going to be handled in reactive stream.\n\nFor this to look nicely, let\u0027s create our own hierarchy of runtime exceptions.",
+      "revId": "bd5e31455ebe8b43486f9f9317fbd645c4b4f60f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_06cb951f",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-28T12:38:04Z",
+      "side": 1,
+      "message": "I went for mixed approach - used Try for readability, however specific exception is thrown out of method for null/empty cases.",
+      "parentUuid": "9adffdf1_e6b691f8",
       "revId": "bd5e31455ebe8b43486f9f9317fbd645c4b4f60f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
