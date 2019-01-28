@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_06be35d5",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-28T09:42:58Z",
+      "side": 1,
+      "message": "remove java.lang",
+      "range": {
+        "startLine": 37,
+        "startChar": 35,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "bd5e31455ebe8b43486f9f9317fbd645c4b4f60f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_06a5d5b4",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-28T09:42:58Z",
+      "side": 1,
+      "message": "I believe we should accept nio.ByteBuffer as an input. It is more generic. Also GPB will be able to produce it using `evt.toByteString().asReadOnlyByteBuffer()` without additional wrapping into ByteBuf.",
+      "revId": "bd5e31455ebe8b43486f9f9317fbd645c4b4f60f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_86d1c524",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-28T09:42:58Z",
+      "side": 1,
+      "message": "In order not to hardcode GPB encoding, let\u0027s create an enum and pass it as a second parameter here. Enum should contain payload type bytes. After that we will need to make these bytes more constant.",
+      "revId": "bd5e31455ebe8b43486f9f9317fbd645c4b4f60f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_e6b691f8",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-28T09:42:58Z",
+      "side": 1,
+      "message": "I think we should exit exceptionally when payload is null or empty. This can be achieved by returning one of vavr monadic types: Either, Try, Option. Or we can just throw runtime exception, is it\u0027s going to be handled in reactive stream.\n\nFor this to look nicely, let\u0027s create our own hierarchy of runtime exceptions.",
+      "revId": "bd5e31455ebe8b43486f9f9317fbd645c4b4f60f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
