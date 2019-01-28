@@ -42,7 +42,7 @@ public class ProducerCore {
 
     public Flux<ByteBuf> encode(Publisher<VesEvent> messages, ByteBufAllocator allocator) {
         final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(allocator);
-        final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder(allocator);
+        final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder();
         return Flux.from(messages)
             .map(protobufEncoder::encode)
             .map(wireFrameEncoder::encode);
