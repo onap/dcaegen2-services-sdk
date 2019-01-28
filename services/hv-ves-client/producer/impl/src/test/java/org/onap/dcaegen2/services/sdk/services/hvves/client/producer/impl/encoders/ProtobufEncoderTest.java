@@ -27,9 +27,11 @@ import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.utils.VesEvents;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 
+import java.nio.ByteBuffer;
+
 public class ProtobufEncoderTest {
 
-    private final ProtobufEncoder protobufEncoder = new ProtobufEncoder(ByteBufAllocator.DEFAULT);
+    private final ProtobufEncoder protobufEncoder = new ProtobufEncoder();
 
     @Test
     void todo() {
@@ -37,9 +39,9 @@ public class ProtobufEncoderTest {
         final VesEvent message = VesEvents.defaultVesEvent();
 
         // when
-        final ByteBuf encodedMessage = protobufEncoder.encode(message);
+        final ByteBuffer encodedMessage = protobufEncoder.encode(message);
 
         // then
-        assertThat(encodedMessage.readableBytes()).isGreaterThan(0);
+        assertThat(encodedMessage.remaining()).isGreaterThan(0);
     }
 }

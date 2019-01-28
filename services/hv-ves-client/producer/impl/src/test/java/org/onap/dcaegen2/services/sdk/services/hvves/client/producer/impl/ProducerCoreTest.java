@@ -30,6 +30,7 @@ import static org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.Unpooled;
+import io.vavr.control.Try;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.EncodersFactory;
@@ -37,6 +38,8 @@ import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encode
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.WireFrameEncoder;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
+
+import java.nio.ByteBuffer;
 
 /**
  * @author <a href="mailto:jakub.dudycz@nokia.com">Jakub Dudycz</a>
@@ -56,12 +59,12 @@ public class ProducerCoreTest {
     public void encode_should_encode_message_stream_to_wire_frame() {
         final WireFrameEncoder wireFrameEncoder = mock(WireFrameEncoder.class);
         final ProtobufEncoder protobufEncoder = mock(ProtobufEncoder.class);
-        final ByteBuf protoBuffer = Unpooled.copiedBuffer(new byte[3]);
-        final ByteBuf wireFrameBuffer = Unpooled.copiedBuffer(new byte[5]);
+        final ByteBuffer protoBuffer = ByteBuffer.wrap(new byte[3]);
+        final Try<ByteBuf> wireFrameBuffer = Try.success(Unpooled.copiedBuffer(new byte[5]));
 
         when(protobufEncoder.encode(any(VesEvent.class))).thenReturn(protoBuffer);
         when(wireFrameEncoder.encode(protoBuffer)).thenReturn(wireFrameBuffer);
-        when(encodersFactoryMock.createProtobufEncoder(ByteBufAllocator.DEFAULT)).thenReturn(protobufEncoder);
+        when(encodersFactoryMock.createProtobufEncoder()).thenReturn(protobufEncoder);
         when(encodersFactoryMock.createWireFrameEncoder(ByteBufAllocator.DEFAULT)).thenReturn(wireFrameEncoder);
 
         // given
@@ -72,12 +75,12 @@ public class ProducerCoreTest {
         final ByteBuf lastMessage = producerCore.encode(messages, ByteBufAllocator.DEFAULT).blockLast();
 
         // then
-        verify(encodersFactoryMock).createProtobufEncoder(ByteBufAllocator.DEFAULT);
+        verify(encodersFactoryMock).createProtobufEncoder();
         verify(encodersFactoryMock).createWireFrameEncoder(ByteBufAllocator.DEFAULT);
         verify(protobufEncoder, times(messageStreamSize)).encode(any(VesEvent.class));
         verify(wireFrameEncoder, times(messageStreamSize)).encode(protoBuffer);
 
         assertThat(lastMessage).isNotNull();
-        assertThat(lastMessage).isEqualTo(wireFrameBuffer);
+        assertThat(lastMessage).isEqualTo(wireFrameBuffer.get());
     }
 }

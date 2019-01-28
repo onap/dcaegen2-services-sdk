@@ -17,15 +17,31 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.nio.ByteBuffer;
 
 /**
  * @author <a href="mailto:jakub.dudycz@nokia.com">Jakub Dudycz</a>
  */
 public class WireFrameEncoder {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WireFrameEncoder.class);
+    private static final short MARKER_BYTE = 0xAA;
+    private static final short SUPPORTED_VERSION_MAJOR = 0x01;
+    private static final short SUPPORTED_VERSION_MINOR = 0x00;
+    private static final int RESERVED_BYTES_COUNT = 3;
+    private static final int HEADER_SIZE = 1 * Byte.BYTES +         // marker
+            2 * Byte.BYTES +                                        // single byte fields (versions)
+            RESERVED_BYTES_COUNT * Byte.BYTES +                     // reserved bytes
+            1 * Short.BYTES +                                       // paylaod type
+            1 * Integer.BYTES;                                      // payload length
 
     private final ByteBufAllocator allocator;
 
@@ -33,11 +49,47 @@ public class WireFrameEncoder {
         this.allocator = allocator;
     }
 
-    public ByteBuf encode(ByteBuf payload) {
-        final ByteBuf encodedMessage = allocator.buffer();
-        encodedMessage.writeByte(0xAA);
-        encodedMessage.writeBytes(payload);
-        encodedMessage.writeByte(0x0a);
+    public Try<ByteBuf> encode(ByteBuffer payload) {
+        return Try.of(() -> encodeMessageAs(payload, PayloadType.PROTOBUF))
+                .onFailure((ex) -> LOGGER.warn("Failed to encode payload", ex));
+    }
+
+    private ByteBuf encodeMessageAs(ByteBuffer payload, PayloadType payloadType) throws WTPEncodingException {
+        if (payload == null) {
+            throw new WTPEncodingException("Payload is null");
+        }
+
+        final int payloadSize = payload.remaining();
+        if (payloadSize == 0) {
+            throw new WTPEncodingException("Payload is empty");
+        }
+
+        final ByteBuf encodedMessage = allocator.buffer(HEADER_SIZE + payloadSize);
+        writeBasicWTPFrameHeaderBeginning(encodedMessage);
+        writePayloadMessageHeaderEnding(encodedMessage, payloadType, payload, payloadSize);
         return encodedMessage;
+    }
+
+    private void writeBasicWTPFrameHeaderBeginning(ByteBuf encodedMessage) {
+        encodedMessage.writeByte(MARKER_BYTE);
+        encodedMessage.writeByte(SUPPORTED_VERSION_MAJOR);
+        encodedMessage.writeByte(SUPPORTED_VERSION_MINOR);
+        encodedMessage.writeZero(RESERVED_BYTES_COUNT);
+    }
+
+    private void writePayloadMessageHeaderEnding(ByteBuf encodedMessage,
+                                                 PayloadType payloadType,
+                                                 ByteBuffer payload,
+                                                 int payloadSize) {
+        encodedMessage.writeBytes(payloadType.getPayloadTypeBytes());
+        encodedMessage.writeInt(payloadSize);
+        encodedMessage.writeBytes(payload);
+    }
+}
+
+
+class WTPEncodingException extends RuntimeException {
+    WTPEncodingException(String message) {
+        super(message);
     }
 }

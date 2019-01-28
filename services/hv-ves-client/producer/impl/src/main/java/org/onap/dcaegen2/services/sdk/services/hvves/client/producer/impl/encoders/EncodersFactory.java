@@ -23,8 +23,8 @@ import io.netty.buffer.ByteBufAllocator;
 
 public class EncodersFactory {
 
-    public ProtobufEncoder createProtobufEncoder(ByteBufAllocator allocator) {
-        return new ProtobufEncoder(allocator);
+    public ProtobufEncoder createProtobufEncoder() {
+        return new ProtobufEncoder();
     }
 
     public WireFrameEncoder createWireFrameEncoder(ByteBufAllocator allocator) {

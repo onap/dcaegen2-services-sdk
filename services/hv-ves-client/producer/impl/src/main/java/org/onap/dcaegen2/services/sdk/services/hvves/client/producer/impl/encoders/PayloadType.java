@@ -19,21 +19,17 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders;
 
-import org.onap.ves.VesEventOuterClass.VesEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public enum PayloadType {
+    UNDEFINED(new byte[]{0x00, 0x00}),
+    PROTOBUF(new byte[]{0x00, 0x01});
 
-import java.nio.ByteBuffer;
+    private final byte[] payloadTypeBytes;
 
-/**
- * @author <a href="mailto:jakub.dudycz@nokia.com">Jakub Dudycz</a>
- */
-public class ProtobufEncoder {
+    PayloadType(byte[] payloadTypeBytes) {
+        this.payloadTypeBytes = payloadTypeBytes;
+    }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProtobufEncoder.class);
-
-    public ByteBuffer encode(VesEvent event) {
-        LOGGER.debug("Encoding VesEvent '{}'", event);
-        return event.toByteString().asReadOnlyByteBuffer();
+    public byte[] getPayloadTypeBytes() {
+        return payloadTypeBytes;
     }
 }

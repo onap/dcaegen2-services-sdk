@@ -17,6 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,7 +35,7 @@ public class EncodersFactoryTest {
     @Test
     public void factory_methods_should_create_non_null_encoders_objects() {
         // when
-        final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder(ByteBufAllocator.DEFAULT);
+        final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder();
         final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(ByteBufAllocator.DEFAULT);
 
         // then
