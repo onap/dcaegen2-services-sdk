@@ -21,6 +21,7 @@ package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import io.vavr.control.Try;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.EncodersFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.ProtobufEncoder;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.WireFrameEncoder;
@@ -42,9 +43,10 @@ public class ProducerCore {
 
     public Flux<ByteBuf> encode(Publisher<VesEvent> messages, ByteBufAllocator allocator) {
         final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(allocator);
-        final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder(allocator);
+        final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder();
         return Flux.from(messages)
-            .map(protobufEncoder::encode)
-            .map(wireFrameEncoder::encode);
+                .map(protobufEncoder::encode)
+                .map(wireFrameEncoder::encode)
+                .map(Try::get);
     }
 }
