@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_77fc89b8",
+        "filename": "services/hv-ves-client/producer/impl/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-29T07:45:29Z",
+      "side": 1,
+      "message": "Instead of verifying this call, let\u0027s check the buffer contents.\n\nAnother option: as we are dealing here with protobuf encoder, we can just use VesEvent instance instead of mocking it. Then verification would be just to parse the result and compare input with decoded.",
+      "revId": "64e133fa46795181cb43205f475402dc4f1c48b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_57fdc5af",
+        "filename": "services/hv-ves-client/producer/impl/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-01-29T07:45:29Z",
+      "side": 1,
+      "message": "Extract this test to another test case. \"and\" in descriptive test name can be a code smell. We should strive for one logical assertion per test.",
+      "revId": "64e133fa46795181cb43205f475402dc4f1c48b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
