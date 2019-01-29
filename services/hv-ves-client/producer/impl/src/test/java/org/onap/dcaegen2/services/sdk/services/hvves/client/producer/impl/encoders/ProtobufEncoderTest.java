@@ -20,28 +20,38 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
+import com.google.protobuf.ByteString;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.utils.VesEvents;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 public class ProtobufEncoderTest {
 
     private final ProtobufEncoder protobufEncoder = new ProtobufEncoder();
 
     @Test
-    void todo() {
-        // given
-        final VesEvent message = VesEvents.defaultVesEvent();
+    void encode_shouldDelegateToProtobufMethodsToSerializeMessage_andReturnReadOnlyByteBuffer() {
+        final VesEvent message = mock(VesEvent.class);
+        final ByteString bs = ByteString.copyFrom("vesEvent", Charset.defaultCharset());
+        when(message.toByteString()).thenReturn(bs);
 
-        // when
         final ByteBuffer encodedMessage = protobufEncoder.encode(message);
 
-        // then
-        assertThat(encodedMessage.remaining()).isGreaterThan(0);
+        assertThat(encodedMessage).isEqualByComparingTo(bs.asReadOnlyByteBuffer());
+    }
+
+    @Test
+    void encode_shouldReturnReadOnlyByteBuffer() {
+        final VesEvent message = VesEvents.defaultVesEvent();
+
+        final ByteBuffer encodedMessage = protobufEncoder.encode(message);
+
+        assertThat(encodedMessage.isReadOnly()).isTrue();
     }
 }

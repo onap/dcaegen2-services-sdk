@@ -33,7 +33,7 @@ public class ProtobufEncoder {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProtobufEncoder.class);
 
     public ByteBuffer encode(VesEvent event) {
-        LOGGER.debug("Encoding VesEvent '{}'", event);
+        LOGGER.trace("Encoding VesEvent '{}'", event);
         return event.toByteString().asReadOnlyByteBuffer();
     }
 }
