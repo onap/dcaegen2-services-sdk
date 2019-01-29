@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_17c17d53",
+        "filename": "services/hv-ves-client/producer/impl/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-29T08:06:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_77fc89b8",
+      "revId": "64e133fa46795181cb43205f475402dc4f1c48b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_57fdc5af",
         "filename": "services/hv-ves-client/producer/impl/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoderTest.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-01-29T07:45:29Z",
       "side": 1,
       "message": "Extract this test to another test case. \"and\" in descriptive test name can be a code smell. We should strive for one logical assertion per test.",
+      "revId": "64e133fa46795181cb43205f475402dc4f1c48b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_f7bdd9d8",
+        "filename": "services/hv-ves-client/producer/impl/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/ProtobufEncoderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-01-29T08:06:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_57fdc5af",
       "revId": "64e133fa46795181cb43205f475402dc4f1c48b5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
