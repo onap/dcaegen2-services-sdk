@@ -28,6 +28,7 @@ import io.vavr.control.Try;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.security.ssl.Password;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -69,7 +70,7 @@ class PasswordTest {
         useThePassword(cut).get();
 
         assertThatExceptionOfType(GeneralSecurityException.class).isThrownBy(() ->
-                useThePassword(cut).get());
+            useThePassword(cut).get());
     }
 
     @Test
@@ -81,7 +82,7 @@ class PasswordTest {
         cut.clear();
 
         assertThatExceptionOfType(GeneralSecurityException.class).isThrownBy(() ->
-                useThePassword(cut).get());
+            useThePassword(cut).get());
     }
 
     @Test
@@ -103,7 +104,7 @@ class PasswordTest {
 
     private void assertAllCharsAreNull(char[] passwordChars) {
         assertThat(Array.ofAll(passwordChars).forAll(ch -> ch == '\0'))
-                .describedAs("all characters in " + Arrays.toString(passwordChars) + " should be == '\\0'")
-                .isTrue();
+            .describedAs("all characters in " + Arrays.toString(passwordChars) + " should be == '\\0'")
+            .isTrue();
     }
 }

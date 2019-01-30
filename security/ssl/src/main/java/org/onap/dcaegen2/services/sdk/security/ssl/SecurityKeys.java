@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options;
+package org.onap.dcaegen2.services.sdk.security.ssl;
 
 import java.nio.file.Path;
 import org.immutables.value.Value;

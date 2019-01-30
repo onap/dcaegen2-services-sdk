@@ -34,7 +34,6 @@
   <version>1.1.1-SNAPSHOT</version>
 
   <name>High Volume VES Collector Client :: Producer :: Implementation</name>
-  <description></description>
   <packaging>jar</packaging>
 
   <dependencies>
@@ -43,6 +42,11 @@
       <artifactId>hvvesclient-producer-api</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.onap.dcaegen2.services.sdk.security</groupId>-->
+      <!--<artifactId>ssl</artifactId>-->
+      <!--<version>1.1.1-SNAPSHOT</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>io.projectreactor.netty</groupId>
       <artifactId>reactor-netty</artifactId>

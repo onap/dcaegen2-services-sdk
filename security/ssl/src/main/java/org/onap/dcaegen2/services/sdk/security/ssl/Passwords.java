@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options;
+package org.onap.dcaegen2.services.sdk.security.ssl;
 
 import io.vavr.control.Try;
 import java.io.File;
@@ -57,7 +57,7 @@ public final class Passwords {
 
     public static @NotNull Try<Password> fromResource(String resource) {
         return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()))
-                .flatMap(Passwords::fromPath);
+            .flatMap(Passwords::fromPath);
     }
 
     private static @NotNull CharBuffer decodeChars(byte[] bytes) {
