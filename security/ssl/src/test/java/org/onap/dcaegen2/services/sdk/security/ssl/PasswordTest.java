@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options;
+package org.onap.dcaegen2.services.sdk.security.ssl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -69,7 +69,7 @@ class PasswordTest {
         useThePassword(cut).get();
 
         assertThatExceptionOfType(GeneralSecurityException.class).isThrownBy(() ->
-                useThePassword(cut).get());
+            useThePassword(cut).get());
     }
 
     @Test
@@ -81,7 +81,7 @@ class PasswordTest {
         cut.clear();
 
         assertThatExceptionOfType(GeneralSecurityException.class).isThrownBy(() ->
-                useThePassword(cut).get());
+            useThePassword(cut).get());
     }
 
     @Test
@@ -103,7 +103,7 @@ class PasswordTest {
 
     private void assertAllCharsAreNull(char[] passwordChars) {
         assertThat(Array.ofAll(passwordChars).forAll(ch -> ch == '\0'))
-                .describedAs("all characters in " + Arrays.toString(passwordChars) + " should be == '\\0'")
-                .isTrue();
+            .describedAs("all characters in " + Arrays.toString(passwordChars) + " should be == '\\0'")
+            .isTrue();
     }
 }

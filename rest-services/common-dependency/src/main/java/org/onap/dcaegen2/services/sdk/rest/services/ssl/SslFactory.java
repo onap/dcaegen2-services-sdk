@@ -38,6 +38,10 @@ import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 
+/**
+ * @deprecated org.onap.dcaegen2.services.sdk.security.ssl.SslFactory should be used instead
+ */
+@Deprecated
 public class SslFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SslFactory.class);

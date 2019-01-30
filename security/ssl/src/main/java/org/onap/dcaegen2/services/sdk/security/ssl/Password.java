@@ -18,12 +18,11 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options;
+package org.onap.dcaegen2.services.sdk.security.ssl;
 
 import io.vavr.CheckedFunction1;
 import io.vavr.Function1;
 import io.vavr.control.Try;
-import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;

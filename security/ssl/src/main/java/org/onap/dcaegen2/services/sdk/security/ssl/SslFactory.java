@@ -18,11 +18,11 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
+package org.onap.dcaegen2.services.sdk.security.ssl;
 
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
-import io.vavr.Tuple;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import io.vavr.control.Try;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,12 +32,7 @@ import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManagerFactory;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.Password;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.SecurityKeys;
 
-/*
- * TODO: To be merged with org.onap.dcaegen2.services.sdk.rest.services.ssl.SslFactory
- */
 public class SslFactory {
 
     /**
@@ -79,5 +74,16 @@ public class SslFactory {
         KeyStore ks = KeyStore.getInstance("pkcs12");
         ks.load(Files.newInputStream(path, StandardOpenOption.READ), keyStorePassword);
         return ks;
+    }
+
+    /**
+     * Function for creating insecure ssl context.
+     *
+     * @return configured insecure ssl context
+     */
+    public Try<SslContext> createInsecureContext() {
+        return Try.success(SslContextBuilder.forClient())
+            .map(ctx -> ctx.trustManager(InsecureTrustManagerFactory.INSTANCE))
+            .mapTry(SslContextBuilder::build);
     }
 }
