@@ -34,7 +34,6 @@
     <version>1.1.1-SNAPSHOT</version>
 
     <name>High Volume VES Collector Client :: Producer :: API</name>
-    <description></description>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -43,6 +42,11 @@
             <artifactId>hvvesclient-protobuf</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk.security</groupId>
+            <artifactId>ssl</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.reactivestreams</groupId>

@@ -24,6 +24,7 @@ import java.net.InetSocketAddress;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -43,7 +44,6 @@ public interface ProducerOptions {
 
     /**
      * Security keys definition used when connecting to the collector.
-
      *
      * @return security keys definition or null when plain TCP sockets are to be used.
      * @since 1.1.1
