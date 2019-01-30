@@ -21,6 +21,7 @@
 
   <modules>
     <module>crypt-password</module>
+    <module>ssl</module>
   </modules>
 
 </project>

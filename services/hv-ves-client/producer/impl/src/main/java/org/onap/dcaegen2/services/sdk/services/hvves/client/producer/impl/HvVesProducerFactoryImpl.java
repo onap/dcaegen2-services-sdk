@@ -21,6 +21,7 @@ package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
 import io.netty.handler.ssl.SslContext;
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ProducerOptions;

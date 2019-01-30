@@ -34,7 +34,6 @@
   <version>1.1.1-SNAPSHOT</version>
 
   <name>High Volume VES Collector Client :: Producer :: Implementation</name>
-  <description></description>
   <packaging>jar</packaging>
 
   <dependencies>
