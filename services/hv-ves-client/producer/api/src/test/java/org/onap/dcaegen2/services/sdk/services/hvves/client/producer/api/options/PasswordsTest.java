@@ -21,7 +21,6 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
 
 import io.vavr.control.Try;
 import java.io.File;
@@ -31,6 +30,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.security.ssl.Password;
+import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>

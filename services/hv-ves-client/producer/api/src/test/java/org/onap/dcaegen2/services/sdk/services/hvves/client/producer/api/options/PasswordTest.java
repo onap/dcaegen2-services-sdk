@@ -28,6 +28,7 @@ import io.vavr.control.Try;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.security.ssl.Password;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
