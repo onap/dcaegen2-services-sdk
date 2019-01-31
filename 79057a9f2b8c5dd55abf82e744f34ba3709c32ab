@@ -16,6 +16,24 @@
       "revId": "79057a9f2b8c5dd55abf82e744f34ba3709c32ab",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_2df6ad5d",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-01-31T10:29:34Z",
+      "side": 1,
+      "message": "And that\u0027s its purpose. It\u0027s meant to be used mainly for tests.",
+      "parentUuid": "9adffdf1_6df6f590",
+      "revId": "79057a9f2b8c5dd55abf82e744f34ba3709c32ab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
