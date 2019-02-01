@@ -90,7 +90,7 @@ public class DummyCollector {
     }
 
     private void collect(ByteBuf buf) {
-        receivedData.add(buf);
+        receivedData.add(buf.retain());
         clientDisconnected.onNext(ClientDisconnected.INSTANCE);
     }
 
