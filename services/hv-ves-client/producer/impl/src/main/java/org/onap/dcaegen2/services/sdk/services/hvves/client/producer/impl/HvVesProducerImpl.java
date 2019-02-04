@@ -19,8 +19,10 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
+import java.nio.ByteBuffer;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.PayloadType;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
@@ -45,14 +47,29 @@ public class HvVesProducerImpl implements HvVesProducer {
     @Override
     public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
         return tcpClient
-            .handle((in, out) -> handle(messages, out))
-            .connect()
-            .then();
+                .handle((in, out) -> handle(messages, out))
+                .connect()
+                .then();
     }
 
     private Publisher<Void> handle(Publisher<VesEvent> messages, NettyOutbound outbound) {
         return outbound
-            .send(producerCore.encode(messages, outbound.alloc()))
-            .then();
+                .send(producerCore.encode(messages, outbound.alloc()))
+                .then();
+    }
+
+    @Override
+    public @NotNull Publisher<Void> send(Publisher<ByteBuffer> messages, PayloadType payloadType) {
+        return tcpClient
+                .handle((in, out) -> handle(messages, payloadType, out))
+                .connect()
+                .then();
+    }
+
+    private Publisher<Void> handle(Publisher<ByteBuffer> messages, PayloadType payloadType,
+            NettyOutbound outbound) {
+        return outbound
+                .send(producerCore.encode(messages, payloadType, outbound.alloc()))
+                .then();
     }
 }

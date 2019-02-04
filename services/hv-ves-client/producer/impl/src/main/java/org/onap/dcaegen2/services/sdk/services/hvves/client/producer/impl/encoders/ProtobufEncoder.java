@@ -19,11 +19,10 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders;
 
+import java.nio.ByteBuffer;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.nio.ByteBuffer;
 
 /**
  * @author <a href="mailto:jakub.dudycz@nokia.com">Jakub Dudycz</a>
