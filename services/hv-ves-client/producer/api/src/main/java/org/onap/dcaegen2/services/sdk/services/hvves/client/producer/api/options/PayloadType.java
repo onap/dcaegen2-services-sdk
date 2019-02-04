@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders;
+package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options;
 
 import java.nio.ByteBuffer;
 
