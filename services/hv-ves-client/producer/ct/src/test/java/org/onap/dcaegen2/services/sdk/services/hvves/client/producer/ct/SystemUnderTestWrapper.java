@@ -27,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
 import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
@@ -56,9 +57,9 @@ public class SystemUnderTestWrapper {
     public void startSecure() {
         start(ImmutableProducerOptions.builder()
                 .securityKeys(ImmutableSecurityKeys.builder()
-                        .keyStore(resource("/client.p12").get())
+                        .keyStore(ImmutableSecurityKeysStore.of(resource("/client.p12").get()))
                         .keyStorePassword(Passwords.fromResource("/client.pass").get())
-                        .trustStore(resource("/trust.p12").get())
+                        .trustStore(ImmutableSecurityKeysStore.of(resource("/trust.p12").get()))
                         .trustStorePassword(Passwords.fromResource("/trust.pass").get())
                         .build()));
     }
