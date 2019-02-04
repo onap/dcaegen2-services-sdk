@@ -12,7 +12,7 @@
   <artifactId>ssl</artifactId>
   <version>1.1.1-SNAPSHOT</version>
 
-  <name>SSL</name>
+  <name>Security :: SSL</name>
   <description>Common SSL-related Classes Library</description>
   <packaging>jar</packaging>
 
