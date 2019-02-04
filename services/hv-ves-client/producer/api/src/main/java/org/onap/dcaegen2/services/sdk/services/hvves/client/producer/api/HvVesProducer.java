@@ -19,7 +19,9 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api;
 
+import java.nio.ByteBuffer;
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.PayloadType;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ProducerOptions;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
@@ -37,7 +39,7 @@ import org.reactivestreams.Publisher;
  *     HvVesProducer hvVes = {@link HvVesProducerFactory}.create(options);
  *
  *     Flux.just(msg1, msg2, msg3)
- *          .transform(hvVes::send)
+ *          .transform(hvVes::sendRaw)
  *          .subscribe();
  * </pre>
  *
@@ -45,10 +47,10 @@ import org.reactivestreams.Publisher;
  * @see org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions
  * @since 1.1.1
  */
-@FunctionalInterface
 public interface HvVesProducer {
+
     /**
-     * Send the messages to the collector.
+     * Send ves events to the collector.
      *
      * Returns a Publisher that completes when all the messages are sent. The returned Publisher fails with an error in
      * case of any problem with sending the messages.
@@ -56,9 +58,31 @@ public interface HvVesProducer {
      * Each invocation of this method will yield a new TCP connection. It is recommended to call this method only once
      * feeding it with a stream of consecutive events.
      *
-     * @param messages source of the messages to be sent
-     * @return empty publisher which completes after messages are sent or error occurs
+     * @param messages source of ves events to be sent
+     * @return empty publisher which completes after ves events are sent or error occurs
      * @since 1.1.1
      */
     @NotNull Publisher<Void> send(Publisher<VesEvent> messages);
+
+    /**
+     * Send the specific type of messages as raw bytes to the collector.
+     *
+     * This is more generic version of @{@link #send(Publisher)},
+     * that accepts raw payload and explicit message type.
+     *
+     * Should be used when sending messages in format different from VES Common Event Format.
+     * As currently High-Volume VES Collector supports only VesEvent messages it is recommended to use the @{@link #send(Publisher)} method directly.
+     *
+     * Returns a Publisher that completes when all the messages are sent. The returned Publisher fails with an error in
+     * case of any problem with sending the messages.
+     *
+     * Each invocation of this method will yield a new TCP connection. It is recommended to call this method only once
+     * feeding it with a stream of consecutive events.
+     *
+     * @param messages source of raw messages to be sent
+     * @param payloadType type of messages to be sent
+     * @return empty publisher which completes after messages are sent or error occurs
+     * @since 1.1.1
+     */
+    @NotNull Publisher<Void> sendRaw(Publisher<ByteBuffer> messages, PayloadType payloadType);
 }
