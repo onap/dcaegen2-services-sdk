@@ -24,14 +24,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.vavr.control.Try;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
+import java.nio.ByteBuffer;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.PayloadType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.ByteBuffer;
-
-/**
- * @author <a href="mailto:jakub.dudycz@nokia.com">Jakub Dudycz</a>
- */
 public class WireFrameEncoder {
     private static final Logger LOGGER = LoggerFactory.getLogger(WireFrameEncoder.class);
     private static final short MARKER_BYTE = 0xAA;
@@ -50,9 +47,10 @@ public class WireFrameEncoder {
         this.wireFrameVersion = wireFrameVersion;
     }
 
-    public Try<ByteBuf> encode(ByteBuffer payload) {
-        return Try.of(() -> encodeMessageAs(payload, PayloadType.PROTOBUF))
-                .onFailure((ex) -> LOGGER.warn("Failed to encode payload", ex));
+
+    public Try<ByteBuf> encode(ByteBuffer payload, PayloadType payloadType) {
+        return Try.of(() -> encodeMessageAs(payload, payloadType))
+                .onFailure(ex -> LOGGER.warn("Failed to encode payload", ex));
     }
 
     private ByteBuf encodeMessageAs(ByteBuffer payload, PayloadType payloadType) throws WTPEncodingException {
@@ -79,9 +77,9 @@ public class WireFrameEncoder {
     }
 
     private void writePayloadMessageHeaderEnding(ByteBuf encodedMessage,
-                                                 PayloadType payloadType,
-                                                 ByteBuffer payload,
-                                                 int payloadSize) {
+            PayloadType payloadType,
+            ByteBuffer payload,
+            int payloadSize) {
         encodedMessage.writeBytes(payloadType.getPayloadTypeBytes());
         encodedMessage.writeInt(payloadSize);
         encodedMessage.writeBytes(payload);

@@ -19,17 +19,17 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.PayloadType;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.PayloadType;
 import org.onap.ves.MeasDataCollectionOuterClass;
 import org.onap.ves.VesEventOuterClass.CommonEventHeader;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -71,7 +71,8 @@ class HvVesProducerIT {
     }
 
     private VesEvent createSimpleVesEvent() {
-        final MeasDataCollectionOuterClass.MeasDataCollection content = MeasDataCollectionOuterClass.MeasDataCollection.newBuilder()
+        final MeasDataCollectionOuterClass.MeasDataCollection content = MeasDataCollectionOuterClass.MeasDataCollection
+                .newBuilder()
                 .addMeasInfo(MeasDataCollectionOuterClass.MeasInfo.newBuilder()
                         .addMeasValues(MeasDataCollectionOuterClass.MeasValue.newBuilder()
                                 .addMeasResults(MeasDataCollectionOuterClass.MeasResult.newBuilder()

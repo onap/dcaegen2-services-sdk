@@ -30,6 +30,7 @@ import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
 
 import java.nio.ByteBuffer;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.PayloadType;
 
 public class WireFrameEncoderTest {
     private static final byte MARKER_BYTE = (byte) 0xAA;
@@ -51,7 +52,7 @@ public class WireFrameEncoderTest {
     void encode_givenNullPayload_shouldThrowEncodingException() {
         final ByteBuffer buffer = null;
 
-        Try<ByteBuf> encodedBuffer = wireFrameEncoder.encode(buffer);
+        Try<ByteBuf> encodedBuffer = wireFrameEncoder.encode(buffer, PayloadType.PROTOBUF);
 
         assertThat(encodedBuffer.isFailure()).isTrue();
         assertThat(encodedBuffer.getCause()).isInstanceOf(WTPEncodingException.class);
@@ -61,7 +62,7 @@ public class WireFrameEncoderTest {
     void encode_givenEmptyPayload_shouldThrowEncodingException() {
         final ByteBuffer buffer = ByteBuffer.allocateDirect(0);
 
-        Try<ByteBuf> encodedBuffer = wireFrameEncoder.encode(buffer);
+        Try<ByteBuf> encodedBuffer = wireFrameEncoder.encode(buffer, PayloadType.PROTOBUF);
 
         assertThat(encodedBuffer.isFailure()).isTrue();
         assertThat(encodedBuffer.getCause()).isInstanceOf(WTPEncodingException.class);
@@ -73,7 +74,7 @@ public class WireFrameEncoderTest {
         final int bufferSize = payloadBytes.length;
         final ByteBuffer buffer = ByteBuffer.wrap(payloadBytes);
 
-        final Try<ByteBuf> encodedBuffer = wireFrameEncoder.encode(buffer);
+        final Try<ByteBuf> encodedBuffer = wireFrameEncoder.encode(buffer, PayloadType.PROTOBUF);
 
         assertThat(encodedBuffer.isSuccess()).isTrue();
         final ByteBuf actualEncodedBuffer = encodedBuffer.get();
@@ -95,7 +96,7 @@ public class WireFrameEncoderTest {
         final ByteBuffer buffer = ByteBuffer.wrap(payloadBytes);
 
         // when
-        final Try<ByteBuf> encodedBuffer = encoder.encode(buffer);
+        final Try<ByteBuf> encodedBuffer = encoder.encode(buffer, PayloadType.PROTOBUF);
 
         // then
         assertThat(encodedBuffer.isSuccess()).isTrue();
