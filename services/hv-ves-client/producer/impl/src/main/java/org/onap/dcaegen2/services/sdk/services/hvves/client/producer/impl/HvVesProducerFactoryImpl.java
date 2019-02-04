@@ -48,7 +48,7 @@ public class HvVesProducerFactoryImpl extends HvVesProducerFactory {
             LOGGER.warn("Using insecure connection");
         } else {
             LOGGER.info("Using secure tunnel");
-            final SslContext ctx = sslFactory.createSecureContext(options.securityKeys()).get();
+            final SslContext ctx = sslFactory.createSecureClientContext(options.securityKeys()).get();
             tcpClient = tcpClient.secure(ssl -> ssl.sslContext(ctx));
         }
 

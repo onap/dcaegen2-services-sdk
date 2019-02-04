@@ -36,21 +36,50 @@ import javax.net.ssl.TrustManagerFactory;
 public class SslFactory {
 
     /**
-     * Function for creating secure ssl context.
+     * Function for creating SSL client context.
      *
      * @param keys - Security keys to be used
      * @return configured SSL context
      */
-    public Try<SslContext> createSecureContext(final SecurityKeys keys) {
-        final Try<KeyManagerFactory> keyManagerFactory =
-                keyManagerFactory(keys.keyStore(), keys.keyStorePassword());
-        final Try<TrustManagerFactory> trustManagerFactory =
-                trustManagerFactory(keys.trustStore(), keys.trustStorePassword());
-
+    public Try<SslContext> createSecureClientContext(final SecurityKeys keys) {
         return Try.success(SslContextBuilder.forClient())
-                .flatMap(ctx -> keyManagerFactory.map(ctx::keyManager))
-                .flatMap(ctx -> trustManagerFactory.map(ctx::trustManager))
+                .flatMap(ctx -> keyManagerFactory(keys).map(ctx::keyManager))
+                .flatMap(ctx -> trustManagerFactory(keys).map(ctx::trustManager))
                 .mapTry(SslContextBuilder::build);
+    }
+
+    /**
+     * Function for creating SSL server context.
+     *
+     * @param keys - Security keys to be used
+     * @return configured SSL context
+     */
+    public Try<SslContext> createSecureServerContext(final SecurityKeys keys) {
+        return keyManagerFactory(keys)
+                .map(SslContextBuilder::forServer)
+                .flatMap(ctx -> trustManagerFactory(keys).map(ctx::trustManager))
+                .mapTry(SslContextBuilder::build);
+    }
+
+    /**
+     * Function for creating insecure SSL context.
+     *
+     * @return configured insecure ssl context
+     * @deprecated Do not use in production. Will trust anyone.
+     */
+    @Deprecated
+    public Try<SslContext> createInsecureClientContext() {
+        return Try.success(SslContextBuilder.forClient())
+                .map(ctx -> ctx.trustManager(InsecureTrustManagerFactory.INSTANCE))
+                .mapTry(SslContextBuilder::build);
+    }
+
+    private Try<TrustManagerFactory> trustManagerFactory(SecurityKeys keys) {
+        return trustManagerFactory(keys.trustStore(), keys.trustStorePassword());
+    }
+
+    private Try<KeyManagerFactory> keyManagerFactory(SecurityKeys keys) {
+        return keyManagerFactory(keys.keyStore(), keys.keyStorePassword());
     }
 
     private Try<KeyManagerFactory> keyManagerFactory(Path path, Password password) {
@@ -74,16 +103,5 @@ public class SslFactory {
         KeyStore ks = KeyStore.getInstance("pkcs12");
         ks.load(Files.newInputStream(path, StandardOpenOption.READ), keyStorePassword);
         return ks;
-    }
-
-    /**
-     * Function for creating insecure ssl context.
-     *
-     * @return configured insecure ssl context
-     */
-    public Try<SslContext> createInsecureContext() {
-        return Try.success(SslContextBuilder.forClient())
-            .map(ctx -> ctx.trustManager(InsecureTrustManagerFactory.INSTANCE))
-            .mapTry(SslContextBuilder::build);
     }
 }
