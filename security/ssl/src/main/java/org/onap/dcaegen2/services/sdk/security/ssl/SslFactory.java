@@ -36,54 +36,72 @@ import javax.net.ssl.TrustManagerFactory;
 public class SslFactory {
 
     /**
-     * Function for creating secure ssl context.
+     * Creates Netty SSL <em>client</em> context using provided security keys.
      *
      * @param keys - Security keys to be used
      * @return configured SSL context
      */
-    public Try<SslContext> createSecureContext(final SecurityKeys keys) {
-        final Try<KeyManagerFactory> keyManagerFactory =
-                keyManagerFactory(keys.keyStore(), keys.keyStorePassword());
-        final Try<TrustManagerFactory> trustManagerFactory =
-                trustManagerFactory(keys.trustStore(), keys.trustStorePassword());
-
+    public Try<SslContext> createSecureClientContext(final SecurityKeys keys) {
         return Try.success(SslContextBuilder.forClient())
-                .flatMap(ctx -> keyManagerFactory.map(ctx::keyManager))
-                .flatMap(ctx -> trustManagerFactory.map(ctx::trustManager))
+                .flatMap(ctx -> keyManagerFactory(keys).map(ctx::keyManager))
+                .flatMap(ctx -> trustManagerFactory(keys).map(ctx::trustManager))
                 .mapTry(SslContextBuilder::build);
     }
 
-    private Try<KeyManagerFactory> keyManagerFactory(Path path, Password password) {
+    /**
+     * Creates Netty SSL <em>server</em> context using provided security keys.
+     *
+     * @param keys - Security keys to be used
+     * @return configured SSL context
+     */
+    public Try<SslContext> createSecureServerContext(final SecurityKeys keys) {
+        return keyManagerFactory(keys)
+                .map(SslContextBuilder::forServer)
+                .flatMap(ctx -> trustManagerFactory(keys).map(ctx::trustManager))
+                .mapTry(SslContextBuilder::build);
+    }
+
+    /**
+     * Function for creating insecure SSL context.
+     *
+     * @return configured insecure ssl context
+     * @deprecated Do not use in production. Will trust anyone.
+     */
+    @Deprecated
+    public Try<SslContext> createInsecureClientContext() {
+        return Try.success(SslContextBuilder.forClient())
+                .map(ctx -> ctx.trustManager(InsecureTrustManagerFactory.INSTANCE))
+                .mapTry(SslContextBuilder::build);
+    }
+
+    private Try<TrustManagerFactory> trustManagerFactory(SecurityKeys keys) {
+        return trustManagerFactory(keys.trustStore(), keys.trustStorePassword());
+    }
+
+    private Try<KeyManagerFactory> keyManagerFactory(SecurityKeys keys) {
+        return keyManagerFactory(keys.keyStore(), keys.keyStorePassword());
+    }
+
+    private Try<KeyManagerFactory> keyManagerFactory(SecurityKeysStore store, Password password) {
         return password.useChecked(passwordChars -> {
             KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-            kmf.init(loadKeyStoreFromFile(path, passwordChars), passwordChars);
+            kmf.init(loadKeyStoreFromFile(store, passwordChars), passwordChars);
             return kmf;
         });
     }
 
-    private Try<TrustManagerFactory> trustManagerFactory(Path path, Password password) {
+    private Try<TrustManagerFactory> trustManagerFactory(SecurityKeysStore store, Password password) {
         return password.useChecked(passwordChars -> {
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            tmf.init(loadKeyStoreFromFile(path, passwordChars));
+            tmf.init(loadKeyStoreFromFile(store, passwordChars));
             return tmf;
         });
     }
 
-    private KeyStore loadKeyStoreFromFile(Path path, char[] keyStorePassword)
+    private KeyStore loadKeyStoreFromFile(SecurityKeysStore store, char[] keyStorePassword)
             throws GeneralSecurityException, IOException {
-        KeyStore ks = KeyStore.getInstance("pkcs12");
-        ks.load(Files.newInputStream(path, StandardOpenOption.READ), keyStorePassword);
+        KeyStore ks = KeyStore.getInstance(store.type());
+        ks.load(Files.newInputStream(store.path(), StandardOpenOption.READ), keyStorePassword);
         return ks;
-    }
-
-    /**
-     * Function for creating insecure ssl context.
-     *
-     * @return configured insecure ssl context
-     */
-    public Try<SslContext> createInsecureContext() {
-        return Try.success(SslContextBuilder.forClient())
-            .map(ctx -> ctx.trustManager(InsecureTrustManagerFactory.INSTANCE))
-            .mapTry(SslContextBuilder::build);
     }
 }

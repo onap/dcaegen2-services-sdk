@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.security.ssl;
 
+import java.nio.file.Path;
 import org.immutables.value.Value;
 
 /**
@@ -27,11 +28,26 @@ import org.immutables.value.Value;
  * @since 1.1.1
  */
 @Value.Immutable
-public interface SecurityKeys {
+public interface SecurityKeysStore {
+    /**
+     * Stores the file path of the key store. It should contain data in format specified by {@link #type()}.
+     *
+     * @return key store path
+     */
+    @Value.Parameter
+    Path path();
 
-    SecurityKeysStore keyStore();
-    Password keyStorePassword();
-
-    SecurityKeysStore trustStore();
-    Password trustStorePassword();
+    /**
+     * Type of the key store. Can be anything supported by the JVM, eg. {@code jks} or {@code pkcs12}.
+     *
+     * If not set it will be guessed from the {@link #path()}. {@link IllegalStateException} will be thrown if it will
+     * not be possible.
+     *
+     * @return key store type
+     */
+    @Value.Default
+    default String type() {
+        return KeyStoreTypes.guessType(path())
+                .getOrElseThrow(() -> new IllegalStateException("Could not determine key store type by file name"));
+    }
 }
