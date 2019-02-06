@@ -19,39 +19,29 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
-import io.netty.handler.ssl.SslContext;
+import io.netty.channel.nio.NioEventLoopGroup;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ProducerOptions;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.EncodersFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import reactor.netty.tcp.TcpClient;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  */
 public class HvVesProducerFactoryImpl extends HvVesProducerFactory {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HvVesProducerFactoryImpl.class);
     private final SslFactory sslFactory = new SslFactory();
 
     @Override
     protected @NotNull HvVesProducer createProducer(ProducerOptions options) {
-        TcpClient tcpClient = TcpClient.create()
-            .addressSupplier(() -> options.collectorAddresses().head());
+        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
         ProducerCore producerCore = new ProducerCore(new EncodersFactory());
 
-        if (options.securityKeys() == null) {
-            LOGGER.warn("Using insecure connection");
-        } else {
-            LOGGER.info("Using secure tunnel");
-            final SslContext ctx = sslFactory.createSecureContext(options.securityKeys()).get();
-            tcpClient = tcpClient.secure(ssl -> ssl.sslContext(ctx));
-        }
-
-        return new HvVesProducerImpl(tcpClient, producerCore);
+        HvVesProducerImpl hvVesProducer = new HvVesProducerImpl(producerCore, workerGroup, new EventProcessor());
+        hvVesProducer.initializeWithBootstrap(new HvVesClientBootstrap(options, sslFactory, hvVesProducer, workerGroup));
+        return hvVesProducer;
     }
+
 }

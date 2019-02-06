@@ -24,6 +24,8 @@ import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
 
+import java.util.List;
+
 /**
  * <p>Main High Volume VES producer interface.</p>
  *

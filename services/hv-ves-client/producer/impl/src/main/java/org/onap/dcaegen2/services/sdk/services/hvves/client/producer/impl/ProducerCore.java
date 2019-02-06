@@ -29,6 +29,8 @@ import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 
+import java.util.List;
+
 
 /**
  * @author <a href="mailto:jakub.dudycz@nokia.com">Jakub Dudycz</a>
@@ -45,6 +47,16 @@ public class ProducerCore {
         final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(allocator);
         final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder();
         return Flux.from(messages)
+                .map(protobufEncoder::encode)
+                .map(wireFrameEncoder::encode)
+                .map(Try::get);
+    }
+
+
+    public Flux<ByteBuf> encode(List<VesEvent> messages, ByteBufAllocator allocator) {
+        final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(allocator);
+        final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder();
+        return Flux.fromStream(messages.stream())
                 .map(protobufEncoder::encode)
                 .map(wireFrameEncoder::encode)
                 .map(Try::get);

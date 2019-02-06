@@ -19,13 +19,17 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl;
 
-import org.jetbrains.annotations.NotNull;
+import io.netty.channel.Channel;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
-import reactor.netty.NettyOutbound;
-import reactor.netty.tcp.TcpClient;
+
+import java.util.List;
 
 
 /**
@@ -33,26 +37,48 @@ import reactor.netty.tcp.TcpClient;
  */
 public class HvVesProducerImpl implements HvVesProducer {
 
-    private final TcpClient tcpClient;
+    private static final Logger LOGGER = LoggerFactory.getLogger(HvVesProducerImpl.class);
+
     private final ProducerCore producerCore;
+    private final EventLoopGroup workerGroup;
+    private final EventProcessor processor;
+    private HvVesClientBootstrap hvVesClientBootstrap;
 
-
-    HvVesProducerImpl(TcpClient tcpClient, ProducerCore producerCore) {
-        this.tcpClient = tcpClient;
+    HvVesProducerImpl(ProducerCore producerCore, NioEventLoopGroup workerGroup, EventProcessor processor) {
         this.producerCore = producerCore;
+        this.workerGroup = workerGroup;
+        this.processor = processor;
+    }
+
+    void initializeWithBootstrap(HvVesClientBootstrap hvVesClientBootstrap) {
+        this.hvVesClientBootstrap = hvVesClientBootstrap;
+    }
+
+    void shutdownClient() {
+        workerGroup.shutdownGracefully();
     }
 
     @Override
-    public @NotNull Mono<Void> send(Publisher<VesEvent> messages) {
-        return tcpClient
-            .handle((in, out) -> handle(messages, out))
-            .connect()
-            .then();
+    public Publisher<Void> send(Publisher<VesEvent> messages) {
+        Channel channel = hvVesClientBootstrap.connect().channel();
+
+        processor.setChannel(channel);
+        producerCore.encode(messages, channel.alloc()).doOnNext(processor::addEvent).blockLast();
+
+        return Mono.create((sink) -> {
+            processor.startProcessingAndDoOnComplete(() -> {
+                LOGGER.info("Finished handling messages");
+                channel.close().addListener((future -> sink.success()));
+            });
+        });
     }
 
-    private Publisher<Void> handle(Publisher<VesEvent> messages, NettyOutbound outbound) {
-        return outbound
-            .send(producerCore.encode(messages, outbound.alloc()))
-            .then();
+    public void reconnect() {
+        LOGGER.info("Attempting to reconnect");
+
+        Channel channel = hvVesClientBootstrap.connect().channel();
+
+        processor.setChannel(channel);
     }
+
 }

@@ -39,5 +39,6 @@
   <modules>
     <module>producer</module>
     <module>protobuf</module>
+      <module>main</module>
   </modules>
 </project>
