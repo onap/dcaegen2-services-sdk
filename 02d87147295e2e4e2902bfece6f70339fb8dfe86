@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "056cc6f3_eb50bd3b",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-06T14:45:02Z",
+      "side": 1,
+      "message": "They can be any messages, even garbage bytes. That\u0027s the case.",
+      "parentUuid": "331bc7a9_4d970ce9",
+      "revId": "02d87147295e2e4e2902bfece6f70339fb8dfe86",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6f2d78f_cd92b2a2",
         "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
         "patchSetId": 1
@@ -64,6 +82,24 @@
       "writtenOn": "2019-02-06T13:18:16Z",
       "side": 1,
       "message": "There is some repetition, so maybe we could rewrite this in more generic fashion in the future? \n\nFor now it\u0027s fine with me, except maybe we could name this method `sendRaw` - what you think?",
+      "revId": "02d87147295e2e4e2902bfece6f70339fb8dfe86",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f16699e_f61b3486",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/HvVesProducerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-06T14:45:02Z",
+      "side": 1,
+      "message": "Agree with both",
+      "parentUuid": "de251a9d_348dc4d3",
       "revId": "02d87147295e2e4e2902bfece6f70339fb8dfe86",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
