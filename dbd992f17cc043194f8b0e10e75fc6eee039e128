@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b90b784_2220b956",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/KeyStoreTypes.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T08:47:33Z",
+      "side": 1,
+      "message": "Maybe `inferTypeFromExtension` ?",
+      "revId": "dbd992f17cc043194f8b0e10e75fc6eee039e128",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
