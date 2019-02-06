@@ -25,6 +25,7 @@ import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ProducerOptions;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.EncodersFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +42,8 @@ public class HvVesProducerFactoryImpl extends HvVesProducerFactory {
     @Override
     protected @NotNull HvVesProducer createProducer(ProducerOptions options) {
         TcpClient tcpClient = TcpClient.create()
-            .addressSupplier(() -> options.collectorAddresses().head());
-        ProducerCore producerCore = new ProducerCore(new EncodersFactory());
+                .addressSupplier(() -> options.collectorAddresses().head());
+        ProducerCore producerCore = new ProducerCore(new EncodersFactory(), options.wireFrameVersion());
 
         if (options.securityKeys() == null) {
             LOGGER.warn("Using insecure connection");
