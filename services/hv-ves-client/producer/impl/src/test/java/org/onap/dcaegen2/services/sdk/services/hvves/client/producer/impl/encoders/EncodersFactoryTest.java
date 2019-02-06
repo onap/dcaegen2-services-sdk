@@ -24,6 +24,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.netty.buffer.ByteBufAllocator;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableWireFrameVersion;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
 
 /**
  * @author <a href="mailto:jakub.dudycz@nokia.com">Jakub Dudycz</a>
@@ -36,7 +38,9 @@ public class EncodersFactoryTest {
     public void factory_methods_should_create_non_null_encoders_objects() {
         // when
         final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder();
-        final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(ByteBufAllocator.DEFAULT);
+        final WireFrameVersion wireFrameVersion = ImmutableWireFrameVersion.builder().build();
+        final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(ByteBufAllocator.DEFAULT,
+                wireFrameVersion);
 
         // then
         assertThat(protobufEncoder).isNotNull();

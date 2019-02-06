@@ -22,16 +22,20 @@ package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 import io.netty.buffer.ByteBuf;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Try;
+
 import java.net.InetSocketAddress;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+
 import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions.Builder;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableWireFrameVersion;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
 
@@ -69,8 +73,10 @@ public class SystemUnderTestWrapper {
 
     public void start(ImmutableProducerOptions.Builder optionsBuilder) {
         InetSocketAddress collectorAddress = collector.start();
+        WireFrameVersion WTPVersion = ImmutableWireFrameVersion.builder().build();
         cut = HvVesProducerFactory.create(
-                optionsBuilder.collectorAddresses(HashSet.of(collectorAddress)).build());
+                optionsBuilder.collectorAddresses(HashSet.of(collectorAddress))
+                        .wireFrameVersion(WTPVersion).build());
     }
 
     public void stop() {
