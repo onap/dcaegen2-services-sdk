@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02319f09_c0846107",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T13:18:16Z",
+      "side": 0,
+      "message": "Not proud of your work anymore? :D",
+      "revId": "1442bffa7b80665049d2347f7ba2a03ca6c2bd70",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}

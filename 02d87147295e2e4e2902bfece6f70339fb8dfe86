@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de251a9d_348dc4d3",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/HvVesProducerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T13:18:16Z",
+      "side": 1,
+      "message": "There is some repetition, so maybe we could rewrite this in more generic fashion in the future? \n\nFor now it\u0027s fine with me, except maybe we could name this method `sendRaw` - what you think?",
+      "revId": "02d87147295e2e4e2902bfece6f70339fb8dfe86",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
