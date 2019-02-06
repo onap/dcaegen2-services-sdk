@@ -36,6 +36,7 @@ import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.EncodersFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.ProtobufEncoder;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.WireFrameEncoder;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
 
@@ -48,11 +49,13 @@ public class ProducerCoreTest {
 
     private ProducerCore producerCore;
     private EncodersFactory encodersFactoryMock;
+    private WireFrameVersion wireFrameVersion;
 
     @BeforeEach
     public void setUp() {
         encodersFactoryMock = mock(EncodersFactory.class);
-        producerCore = new ProducerCore(encodersFactoryMock);
+        wireFrameVersion = mock(WireFrameVersion.class);
+        producerCore = new ProducerCore(encodersFactoryMock, wireFrameVersion);
     }
 
     @Test
@@ -65,7 +68,8 @@ public class ProducerCoreTest {
         when(protobufEncoder.encode(any(VesEvent.class))).thenReturn(protoBuffer);
         when(wireFrameEncoder.encode(protoBuffer)).thenReturn(wireFrameBuffer);
         when(encodersFactoryMock.createProtobufEncoder()).thenReturn(protobufEncoder);
-        when(encodersFactoryMock.createWireFrameEncoder(ByteBufAllocator.DEFAULT)).thenReturn(wireFrameEncoder);
+        when(encodersFactoryMock.createWireFrameEncoder(ByteBufAllocator.DEFAULT, wireFrameVersion)).
+                thenReturn(wireFrameEncoder);
 
         // given
         final int messageStreamSize = 2;
@@ -76,7 +80,7 @@ public class ProducerCoreTest {
 
         // then
         verify(encodersFactoryMock).createProtobufEncoder();
-        verify(encodersFactoryMock).createWireFrameEncoder(ByteBufAllocator.DEFAULT);
+        verify(encodersFactoryMock).createWireFrameEncoder(ByteBufAllocator.DEFAULT, wireFrameVersion);
         verify(protobufEncoder, times(messageStreamSize)).encode(any(VesEvent.class));
         verify(wireFrameEncoder, times(messageStreamSize)).encode(protoBuffer);
 

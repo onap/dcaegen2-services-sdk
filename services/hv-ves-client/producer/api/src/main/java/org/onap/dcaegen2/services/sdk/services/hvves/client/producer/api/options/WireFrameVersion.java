@@ -17,19 +17,40 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders;
+package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options;
 
-import io.netty.buffer.ByteBufAllocator;
-import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
+import org.immutables.value.Value;
 
-public class EncodersFactory {
-
-    public ProtobufEncoder createProtobufEncoder() {
-        return new ProtobufEncoder();
+@Value.Immutable
+public interface WireFrameVersion {
+    byte SUPPORTED_VERSION_MAJOR = (byte) 0x01;
+    byte SUPPORTED_VERSION_MINOR = (byte) 0x00;
+    /***
+     * Major version of Wire Transmit Protocol interface frame
+     * @return major version of interface frame
+     * @since 1.1.1
+     */
+    @Value.Default
+    default short major() {
+        return SUPPORTED_VERSION_MAJOR;
     }
 
-    public WireFrameEncoder createWireFrameEncoder(ByteBufAllocator allocator,
-                                                   WireFrameVersion wireFrameVersion) {
-        return new WireFrameEncoder(allocator, wireFrameVersion);
+    /***
+     * Minor version of Wire Transmit Protocol interface frame
+     * @return minor version of interface frame
+     * @since 1.1.1
+     */
+    @Value.Default
+    default short minor() {
+        return SUPPORTED_VERSION_MINOR;
     }
+
+    @Value.Check
+    default void validate() {
+        if (!(major() > 0 && minor() >=0)) {
+            throw new IllegalArgumentException("Version not supported");
+        }
+    }
+
 }
+

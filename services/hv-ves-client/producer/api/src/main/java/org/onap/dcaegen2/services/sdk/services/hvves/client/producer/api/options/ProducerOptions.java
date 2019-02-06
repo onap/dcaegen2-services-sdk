@@ -51,10 +51,20 @@ public interface ProducerOptions {
     @Nullable
     SecurityKeys securityKeys();
 
+    /**
+     * Version of Wire Transfer Protocol interface frame
+     *
+     * @return Version of interface frame
+     * @since 1.1.1
+     */
+    WireFrameVersion wireFrameVersion();
+
+
     @Value.Check
     default void validate() {
         if (collectorAddresses().isEmpty()) {
             throw new IllegalArgumentException("address list cannot be empty");
         }
     }
+
 }
