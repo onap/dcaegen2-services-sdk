@@ -44,9 +44,13 @@ public class WireFrameEncoder {
             1 * Integer.BYTES;                                      // payload length
 
     private final ByteBufAllocator allocator;
+    private final short versionMajor;
+    private final short versionMinor;
 
-    public WireFrameEncoder(ByteBufAllocator allocator) {
+    public WireFrameEncoder(ByteBufAllocator allocator, WireFrameVersion wireFrameVersion) {
         this.allocator = allocator;
+        this.versionMajor = wireFrameVersion.getMajor();
+        this.versionMinor = wireFrameVersion.getMinor();
     }
 
     public Try<ByteBuf> encode(ByteBuffer payload) {
@@ -72,8 +76,8 @@ public class WireFrameEncoder {
 
     private void writeBasicWTPFrameHeaderBeginning(ByteBuf encodedMessage) {
         encodedMessage.writeByte(MARKER_BYTE);
-        encodedMessage.writeByte(SUPPORTED_VERSION_MAJOR);
-        encodedMessage.writeByte(SUPPORTED_VERSION_MINOR);
+        encodedMessage.writeByte(versionMajor);
+        encodedMessage.writeByte(versionMinor);
         encodedMessage.writeZero(RESERVED_BYTES_COUNT);
     }
 

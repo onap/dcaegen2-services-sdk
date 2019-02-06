@@ -25,6 +25,7 @@ import io.vavr.control.Try;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.EncodersFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.ProtobufEncoder;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.WireFrameEncoder;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders.WireFrameVersion;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
@@ -36,13 +37,15 @@ import reactor.core.publisher.Flux;
 public class ProducerCore {
 
     private final EncodersFactory encodersFactory;
+    private final WireFrameVersion wireFrameVersion;
 
-    public ProducerCore(EncodersFactory encodersFactory) {
+    public ProducerCore(EncodersFactory encodersFactory, WireFrameVersion wireFrameVersion) {
         this.encodersFactory = encodersFactory;
+        this.wireFrameVersion = wireFrameVersion;
     }
 
     public Flux<ByteBuf> encode(Publisher<VesEvent> messages, ByteBufAllocator allocator) {
-        final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(allocator);
+        final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(allocator, wireFrameVersion);
         final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder();
         return Flux.from(messages)
                 .map(protobufEncoder::encode)

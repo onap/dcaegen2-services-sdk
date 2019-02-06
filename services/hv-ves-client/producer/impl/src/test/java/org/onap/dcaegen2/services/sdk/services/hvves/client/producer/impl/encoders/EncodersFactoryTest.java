@@ -30,13 +30,17 @@ import org.junit.jupiter.api.Test;
  */
 public class EncodersFactoryTest {
 
+    private static final byte SAMPLE_VERSION_MAJOR = (byte) 0x02;
+    private static final byte SAMPLE_VERSION_MINOR = (byte) 0x01;
     private final EncodersFactory encodersFactory = new EncodersFactory();
 
     @Test
     public void factory_methods_should_create_non_null_encoders_objects() {
         // when
         final ProtobufEncoder protobufEncoder = encodersFactory.createProtobufEncoder();
-        final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(ByteBufAllocator.DEFAULT);
+        final WireFrameVersion wireFrameVersion = new WireFrameVersion(SAMPLE_VERSION_MAJOR, SAMPLE_VERSION_MINOR);
+        final WireFrameEncoder wireFrameEncoder = encodersFactory.createWireFrameEncoder(ByteBufAllocator.DEFAULT,
+                wireFrameVersion);
 
         // then
         assertThat(protobufEncoder).isNotNull();

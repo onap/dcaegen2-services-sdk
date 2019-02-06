@@ -51,6 +51,24 @@ public interface ProducerOptions {
     @Nullable
     SecurityKeys securityKeys();
 
+    /**
+     * Major version of Wire Transmit Protocol interface frame
+     *
+     * @return major version of interface frame
+     * @since 1.1.1
+     */
+    @NotNull
+    Short versionMajor();
+
+    /**
+     * Minor version of Wire Transmit Protocol interface frame
+     *
+     * @return minor version of interface frame
+     * @since 1.1.1
+     */
+    @NotNull
+    Short versionMinor();
+
     @Value.Check
     default void validate() {
         if (collectorAddresses().isEmpty()) {
