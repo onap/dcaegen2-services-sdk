@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b53fdd5c_ff4b49d0",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/ProducerOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-06T11:46:28Z",
+      "side": 1,
+      "message": "Yeah than I checked.",
+      "parentUuid": "3508a8e4_3c02e5fe",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 37
+      },
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcf2a5be_bd63cbb8",
         "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/ProducerOptions.java",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "e4b847f2_bd709dbc",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/ProducerOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-06T11:46:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcf2a5be_bd63cbb8",
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03e8beb5_c31e9396",
         "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/ProducerOptions.java",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2019-02-06T08:05:42Z",
       "side": 1,
       "message": "1. Use native `short` instead of boxed `Short`.\n2. Get rid of @NotNull - `short` cannot be null.\n3. Define constants for default major and minor versions.\n4. Provide default value for these fields (return the constants defined).\n5. Add validation steps: major \u003e 0 \u0026\u0026 minor \u003e\u003d 0",
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d706e38_e37b72b5",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/ProducerOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-06T11:46:28Z",
+      "side": 1,
+      "message": "1. done\n2. done\n3. done\n4. done\n5. done",
+      "parentUuid": "03e8beb5_c31e9396",
       "revId": "431500306966151558d984883c7baf4c0ec27b45",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -123,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "e6e3b64d_2381e645",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-06T11:46:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24f4998c_f6e19d77",
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7bd604e_4a9ebf02",
         "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameVersion.java",
         "patchSetId": 2
@@ -134,6 +212,24 @@
       "writtenOn": "2019-02-06T08:05:42Z",
       "side": 1,
       "message": "Use Immutables for consistency. You can define parameters which will be passed to generated `of` method thus builder use won\u0027t be necessary.",
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fedede8_b7b534c4",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameVersion.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-06T11:46:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7bd604e_4a9ebf02",
       "revId": "431500306966151558d984883c7baf4c0ec27b45",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
