@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "881b1340_30a3f2d8",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/DummyCollector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T07:01:22Z",
+      "side": 1,
+      "message": "What is the reason for copying?",
+      "revId": "ba7eea3d84aea928475d1fd83d8b3a755a91569f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40e06e14_7cf62791",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T07:01:22Z",
+      "side": 1,
+      "message": "Instead of these comments, extract code to well-named functions, so the test looks something along:\n\n```\n//then\nvar decoded \u003d decode(receivedBytes)\nassertWireProtocol(decoded.wtpHeader)\nassertCommonHeader(decoded.vesCommonHeader)\nassertPayload(decoded.measurements)\n```",
+      "revId": "ba7eea3d84aea928475d1fd83d8b3a755a91569f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9eddcad_4091bb28",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T07:01:22Z",
+      "side": 1,
+      "message": "We can use PROTOBUF.getPayloadTypeBytes().getShort() and extract this assertion to method, so it reads as assertPayloadType(message, PROTOBUF):\n\n```\n    private void assertPayloadType(WireProtocolUnpacker unpacked, PayloadType payloadType) {\n        assertThat(unpacked.type).isEqualTo(payloadType.getPayloadTypeBytes().getShort());\n    }\n```",
+      "revId": "ba7eea3d84aea928475d1fd83d8b3a755a91569f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2453aed8_780df38c",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T07:01:22Z",
+      "side": 1,
+      "message": "I believe protobuf implements `equals` method well, so we can simply write\n```\nassertThat(unpacked.event).isEqualTo(sampleEvent)\n```",
+      "revId": "ba7eea3d84aea928475d1fd83d8b3a755a91569f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "506e9041_f0baad36",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T07:01:22Z",
+      "side": 1,
+      "message": "There already is `VesEvents` class exposing static methods for creating default messages - I guess we could include the MeasData part there and expose VesEvents for component tests?\n\nThis may be done in another task though",
+      "revId": "ba7eea3d84aea928475d1fd83d8b3a755a91569f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3efbe894_2d9daee3",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/WireProtocolUnpacker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-06T07:01:22Z",
+      "side": 1,
+      "message": "Let\u0027s follow our general convention and name it `Decoder` with `decode` method.\n\nAlso it would be nicer to have separate class for decoding and another class for decoded objects (all decoded fields as private with getters probably)",
+      "revId": "ba7eea3d84aea928475d1fd83d8b3a755a91569f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
