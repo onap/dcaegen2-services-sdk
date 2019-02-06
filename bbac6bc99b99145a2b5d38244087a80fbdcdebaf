@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "95903e42_8362c595",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/KeyStoreTypes.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-06T08:14:30Z",
+      "side": 1,
+      "message": "It\u0027s used only here. Also the usage is pretty obvious. In this case I\u0027d rather avoid creating artificial name for the sake of avoiding not-so-magical literal.",
+      "parentUuid": "4c8093ba_17e5790a",
+      "revId": "bbac6bc99b99145a2b5d38244087a80fbdcdebaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15e40af4_b26a1b99",
         "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/KeyStoreTypes.java",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-06T07:54:54Z",
       "side": 1,
       "message": "Reorder methods by usage.",
+      "revId": "bbac6bc99b99145a2b5d38244087a80fbdcdebaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f0e547e_5f3c0f03",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/KeyStoreTypes.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-06T08:14:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15e40af4_b26a1b99",
       "revId": "bbac6bc99b99145a2b5d38244087a80fbdcdebaf",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
