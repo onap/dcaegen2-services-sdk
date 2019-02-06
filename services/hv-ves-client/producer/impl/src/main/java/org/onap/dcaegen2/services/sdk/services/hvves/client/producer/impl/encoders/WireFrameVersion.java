@@ -19,16 +19,21 @@
  */
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encoders;
 
-import io.netty.buffer.ByteBufAllocator;
+public class WireFrameVersion {
+    private final byte major;
+    private final byte minor;
 
-public class EncodersFactory {
-
-    public ProtobufEncoder createProtobufEncoder() {
-        return new ProtobufEncoder();
+    public WireFrameVersion(byte major, byte minor) {
+        this.major = major;
+        this.minor = minor;
     }
 
-    public WireFrameEncoder createWireFrameEncoder(ByteBufAllocator allocator,
-                                                   WireFrameVersion wireFrameVersion) {
-        return new WireFrameEncoder(allocator, wireFrameVersion);
+    public byte getMajor() {
+        return major;
+    }
+
+    public byte getMinor() {
+        return minor;
     }
 }
+

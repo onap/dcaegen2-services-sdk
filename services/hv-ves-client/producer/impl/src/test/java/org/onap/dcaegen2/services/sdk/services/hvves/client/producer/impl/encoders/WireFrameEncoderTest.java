@@ -33,6 +33,8 @@ public class WireFrameEncoderTest {
     private static final byte MARKER_BYTE = (byte) 0xAA;
     private static final byte SUPPORTED_VERSION_MAJOR = (byte) 0x01;
     private static final byte SUPPORTED_VERSION_MINOR = (byte) 0x00;
+    private static final byte SAMPLE_VERSION_MAJOR = (byte) 0x02;
+    private static final byte SAMPLE_VERSION_MINOR = (byte) 0x01;
     private static final int RESERVED_BYTES_COUNT = 3;
     private static final int HEADER_SIZE = 1 * Byte.BYTES +         // marker
             2 * Byte.BYTES +                                        // single byte fields (versions)
@@ -40,7 +42,9 @@ public class WireFrameEncoderTest {
             1 * Short.BYTES +                                       // paylaod type
             1 * Integer.BYTES;                                      // payload length
 
-    private final WireFrameEncoder wireFrameEncoder = new WireFrameEncoder(ByteBufAllocator.DEFAULT);
+    private final WireFrameVersion wireFrameVersion = new WireFrameVersion(SUPPORTED_VERSION_MAJOR,
+            SUPPORTED_VERSION_MINOR);
+    private final WireFrameEncoder wireFrameEncoder = new WireFrameEncoder(ByteBufAllocator.DEFAULT, wireFrameVersion);
 
     @Test
     void encode_givenNullPayload_shouldThrowEncodingException() {
@@ -81,6 +85,23 @@ public class WireFrameEncoderTest {
         assertAllBytesVerified(actualEncodedBuffer);
     }
 
+    @Test
+    void encode_givesSomePayloadBytes_shouldCreateValidGPBFrameWithSpecifiedWTPVersion(){
+        // given
+        WireFrameVersion wireFrameVersion = new WireFrameVersion(SAMPLE_VERSION_MAJOR, SAMPLE_VERSION_MINOR);
+        final WireFrameEncoder encoder = new WireFrameEncoder(ByteBufAllocator.DEFAULT, wireFrameVersion);
+        final byte[] payloadBytes = new byte[]{0x1A, 0x2B, 0x3C};
+        final ByteBuffer buffer = ByteBuffer.wrap(payloadBytes);
+
+        // when
+        final Try<ByteBuf> encodedBuffer = encoder.encode(buffer);
+
+        // then
+        assertThat(encodedBuffer.isSuccess()).isTrue();
+        final ByteBuf versionBuffer = encodedBuffer.get();
+        assertValidHeaderBeggining(versionBuffer, SAMPLE_VERSION_MAJOR, SAMPLE_VERSION_MINOR);
+    }
+
     private void assertNextBytesAreInOrder(ByteBuf encodedBuffer, byte... bytes) {
         for (int i = 0; i < bytes.length; i++) {
             assertThat(encodedBuffer.readByte())
@@ -90,10 +111,14 @@ public class WireFrameEncoderTest {
     }
 
     private void assertValidHeaderBeggining(ByteBuf encodedBuffer) {
+        assertValidHeaderBeggining(encodedBuffer, SUPPORTED_VERSION_MAJOR, SUPPORTED_VERSION_MINOR);
+    }
+
+    private void assertValidHeaderBeggining(ByteBuf encodedBuffer, byte majorWTPVersion, byte minorWTPVersion) {
         assertNextBytesAreInOrder(encodedBuffer,
                 MARKER_BYTE,
-                SUPPORTED_VERSION_MAJOR,
-                SUPPORTED_VERSION_MINOR);
+                majorWTPVersion,
+                minorWTPVersion);
     }
 
     private void assertBufferSizeIs(ByteBuf encodedBuffer, int headerSize) {
