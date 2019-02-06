@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3508a8e4_3c02e5fe",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/ProducerOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-06T08:05:42Z",
+      "side": 1,
+      "message": "I believe it was \"Transfer\"",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 37
+      },
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcf2a5be_bd63cbb8",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/ProducerOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-06T08:05:42Z",
+      "side": 1,
+      "message": "Use WireFameVersion class here instead of defining separate fields for versions.",
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03e8beb5_c31e9396",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/ProducerOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-06T08:05:42Z",
+      "side": 1,
+      "message": "1. Use native `short` instead of boxed `Short`.\n2. Get rid of @NotNull - `short` cannot be null.\n3. Define constants for default major and minor versions.\n4. Provide default value for these fields (return the constants defined).\n5. Add validation steps: major \u003e 0 \u0026\u0026 minor \u003e\u003d 0",
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9b8c90a_a333c84c",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/HvVesProducerFactoryImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-06T08:05:42Z",
+      "side": 1,
+      "message": "Why not pass wireFrameVersion directlu to EncodersFactory and then to WtpEncoder constructor?",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 93
+      },
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24f4998c_f6e19d77",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-06T08:05:42Z",
+      "side": 1,
+      "message": "WireFrameVersion can be a field here. There is no need to copy separate values.",
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7bd604e_4a9ebf02",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameVersion.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-06T08:05:42Z",
+      "side": 1,
+      "message": "Use Immutables for consistency. You can define parameters which will be passed to generated `of` method thus builder use won\u0027t be necessary.",
+      "revId": "431500306966151558d984883c7baf4c0ec27b45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
