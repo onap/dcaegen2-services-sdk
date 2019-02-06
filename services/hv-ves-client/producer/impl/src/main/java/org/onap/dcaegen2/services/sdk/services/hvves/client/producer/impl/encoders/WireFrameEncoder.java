@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.impl.encod
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.vavr.control.Try;
+import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +35,6 @@ import java.nio.ByteBuffer;
 public class WireFrameEncoder {
     private static final Logger LOGGER = LoggerFactory.getLogger(WireFrameEncoder.class);
     private static final short MARKER_BYTE = 0xAA;
-    private static final short SUPPORTED_VERSION_MAJOR = 0x01;
-    private static final short SUPPORTED_VERSION_MINOR = 0x00;
     private static final int RESERVED_BYTES_COUNT = 3;
     private static final int HEADER_SIZE = 1 * Byte.BYTES +         // marker
             2 * Byte.BYTES +                                        // single byte fields (versions)
@@ -44,9 +43,11 @@ public class WireFrameEncoder {
             1 * Integer.BYTES;                                      // payload length
 
     private final ByteBufAllocator allocator;
+    private final WireFrameVersion wireFrameVersion;
 
-    public WireFrameEncoder(ByteBufAllocator allocator) {
+    public WireFrameEncoder(ByteBufAllocator allocator, WireFrameVersion wireFrameVersion) {
         this.allocator = allocator;
+        this.wireFrameVersion = wireFrameVersion;
     }
 
     public Try<ByteBuf> encode(ByteBuffer payload) {
@@ -72,8 +73,8 @@ public class WireFrameEncoder {
 
     private void writeBasicWTPFrameHeaderBeginning(ByteBuf encodedMessage) {
         encodedMessage.writeByte(MARKER_BYTE);
-        encodedMessage.writeByte(SUPPORTED_VERSION_MAJOR);
-        encodedMessage.writeByte(SUPPORTED_VERSION_MINOR);
+        encodedMessage.writeByte(wireFrameVersion.major());
+        encodedMessage.writeByte(wireFrameVersion.minor());
         encodedMessage.writeZero(RESERVED_BYTES_COUNT);
     }
 
