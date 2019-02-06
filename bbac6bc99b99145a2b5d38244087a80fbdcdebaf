@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c8093ba_17e5790a",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/KeyStoreTypes.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-06T07:54:54Z",
+      "side": 1,
+      "message": "\"p12\" in separated constant?",
+      "revId": "bbac6bc99b99145a2b5d38244087a80fbdcdebaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15e40af4_b26a1b99",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/KeyStoreTypes.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-06T07:54:54Z",
+      "side": 1,
+      "message": "Reorder methods by usage.",
+      "revId": "bbac6bc99b99145a2b5d38244087a80fbdcdebaf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
