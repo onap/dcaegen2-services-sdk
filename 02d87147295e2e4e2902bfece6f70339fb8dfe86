@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ef1849c9_25afb543",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-07T06:40:16Z",
+      "side": 1,
+      "message": "Ok, but if this is only for inserting some bad data and we are expecting to use it ONLY in tests conditions we should mark this fact in this description. e.g. Something like \"Method for test purposes. Do not use it on production\"\nBut even though term \"message\" is too enigmatic.\nWhat messages? VesEvents as a raw?\nWTP message as a raw? ...\nOrdinary developer-\"user\" of our lib could feel lost.\nMaybe instead of \"ves event as a raw\", mark it with \"payload of WTP as a raw\"",
+      "parentUuid": "056cc6f3_eb50bd3b",
+      "revId": "02d87147295e2e4e2902bfece6f70339fb8dfe86",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6f2d78f_cd92b2a2",
         "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
         "patchSetId": 1
