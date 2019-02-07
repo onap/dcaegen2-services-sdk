@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2149a615_0e869641",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-07T11:20:58Z",
+      "side": 1,
+      "message": "sorry for confusion - without this line :)",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 21
+      },
+      "revId": "62689c1b3283ed4dee4ded2eabc3d6c5fb311bc2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
