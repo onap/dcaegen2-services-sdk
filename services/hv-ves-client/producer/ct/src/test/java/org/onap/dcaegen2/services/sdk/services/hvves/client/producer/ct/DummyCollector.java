@@ -82,6 +82,7 @@ public class DummyCollector {
     private Publisher<Void> handleConnection(NettyInbound nettyInbound, NettyOutbound nettyOutbound) {
         nettyInbound.receive()
                 .aggregate()
+                .retain()
                 .log()
                 .doOnNext(this::collect)
                 .subscribe();
