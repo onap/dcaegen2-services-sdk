@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9ee68be7_f3b999df",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-07T09:59:51Z",
+      "side": 1,
+      "message": "Actually it\u0027s not for test purposes. It\u0027s more generic version of the other send method. Right now we\u0027re sending only ves events, but in the future someone could want to send some other message types. That\u0027s why we have payloadId field in wire frame. I think, that target user should not know about such thing like wire frame, only about the payload they want to send (VesEvent or some other message type), then the \"message\" term isn\u0027t ambiguous. Someone other should make they statement about this though.",
+      "parentUuid": "ef1849c9_25afb543",
+      "revId": "02d87147295e2e4e2902bfece6f70339fb8dfe86",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6f2d78f_cd92b2a2",
         "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
         "patchSetId": 1
