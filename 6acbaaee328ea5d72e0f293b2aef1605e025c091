@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "93f510f3_39b84ec4",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/WireFrameVersion.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-07T14:07:30Z",
+      "side": 1,
+      "message": "Done,\nI copied it from ProducerOptions and change \"transfer\" only in ProducerOptions.java my bad. Thanks!",
+      "parentUuid": "37a491eb_f2552973",
+      "range": {
+        "startLine": 29,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "6acbaaee328ea5d72e0f293b2aef1605e025c091",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cac87e0e_6e8d6b5b",
         "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/WireFrameVersion.java",
         "patchSetId": 5
@@ -60,6 +84,24 @@
       "writtenOn": "2019-02-07T13:13:47Z",
       "side": 1,
       "message": "Add constructor via https://immutables.github.io/immutable.html#constructor-method if possible with defaults. If not - leave as is.",
+      "revId": "6acbaaee328ea5d72e0f293b2aef1605e025c091",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c712e6a3_6c61f7ff",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/WireFrameVersion.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-07T14:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cac87e0e_6e8d6b5b",
       "revId": "6acbaaee328ea5d72e0f293b2aef1605e025c091",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -89,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "39c9414d_54e63b12",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/WireFrameVersion.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-07T14:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "699cfa01_a2b4fea5",
+      "range": {
+        "startLine": 51,
+        "startChar": 48,
+        "endLine": 51,
+        "endChar": 69
+      },
+      "revId": "6acbaaee328ea5d72e0f293b2aef1605e025c091",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cf35ac6_f99b74ac",
         "filename": "services/hv-ves-client/producer/impl/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoderTest.java",
         "patchSetId": 5
@@ -100,6 +166,30 @@
       "writtenOn": "2019-02-07T13:05:48Z",
       "side": 1,
       "message": "1. typo - given",
+      "range": {
+        "startLine": 90,
+        "startChar": 20,
+        "endLine": 90,
+        "endChar": 21
+      },
+      "revId": "6acbaaee328ea5d72e0f293b2aef1605e025c091",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a3b1e52_0100b731",
+        "filename": "services/hv-ves-client/producer/impl/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/encoders/WireFrameEncoderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-07T14:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cf35ac6_f99b74ac",
       "range": {
         "startLine": 90,
         "startChar": 20,
