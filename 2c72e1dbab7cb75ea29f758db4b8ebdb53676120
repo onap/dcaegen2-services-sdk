@@ -34,6 +34,24 @@
       "revId": "2c72e1dbab7cb75ea29f758db4b8ebdb53676120",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fe3229f_cc1791ab",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/HvVesProducer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-07T11:14:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c77ee0f_ca69e318",
+      "revId": "2c72e1dbab7cb75ea29f758db4b8ebdb53676120",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
