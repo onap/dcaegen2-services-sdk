@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6ddc98a_7ad82acc",
+        "filename": "services/hv-ves-client/producer/api/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/api/options/WireFrameVersion.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-07T15:18:36Z",
+      "side": 1,
+      "message": "Cannot this be just stored as short, instead of casting it to byte and then again to short in getter functions?",
+      "revId": "a91f183c6324814662ce303d2214c6d193f912ce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
