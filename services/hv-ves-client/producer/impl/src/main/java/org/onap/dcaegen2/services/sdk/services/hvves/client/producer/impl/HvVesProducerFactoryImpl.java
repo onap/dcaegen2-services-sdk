@@ -41,8 +41,8 @@ public class HvVesProducerFactoryImpl extends HvVesProducerFactory {
     @Override
     protected @NotNull HvVesProducer createProducer(ProducerOptions options) {
         TcpClient tcpClient = TcpClient.create()
-            .addressSupplier(() -> options.collectorAddresses().head());
-        ProducerCore producerCore = new ProducerCore(new EncodersFactory());
+                .addressSupplier(() -> options.collectorAddresses().head());
+        ProducerCore producerCore = new ProducerCore(new EncodersFactory(), options.wireFrameVersion());
 
         if (options.securityKeys() == null) {
             LOGGER.warn("Using insecure connection");
