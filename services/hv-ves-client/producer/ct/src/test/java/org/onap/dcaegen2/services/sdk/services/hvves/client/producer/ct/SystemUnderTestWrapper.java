@@ -20,6 +20,8 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslProvider;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Try;
 
@@ -27,10 +29,12 @@ import java.net.InetSocketAddress;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.Optional;
 
 import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
 import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
+import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions;
@@ -46,9 +50,10 @@ import reactor.core.publisher.Flux;
 public class SystemUnderTestWrapper {
 
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(5);
-    private final DummyCollector collector = new DummyCollector();
+    private DummyCollector collector;
     private HvVesProducer cut;
     private final Duration timeout;
+    private final SslFactory sslFactory = new SslFactory();
 
     public SystemUnderTestWrapper(Duration timeout) {
         this.timeout = timeout;
@@ -59,16 +64,28 @@ public class SystemUnderTestWrapper {
     }
 
     public void startSecure() {
-        start(ImmutableProducerOptions.builder()
-                .securityKeys(ImmutableSecurityKeys.builder()
-                        .keyStore(ImmutableSecurityKeysStore.of(resource("/client.p12").get()))
-                        .keyStorePassword(Passwords.fromResource("/client.pass").get())
-                        .trustStore(ImmutableSecurityKeysStore.of(resource("/trust.p12").get()))
-                        .trustStorePassword(Passwords.fromResource("/trust.pass").get())
-                        .build()));
+        final ImmutableSecurityKeys producerSecurityKeys = ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(resource("/client.p12").get()))
+                .keyStorePassword(Passwords.fromResource("/client.pass").get())
+                .trustStore(ImmutableSecurityKeysStore.of(resource("/trust.p12").get()))
+                .trustStorePassword(Passwords.fromResource("/trust.pass").get())
+                .build();
+//        final SslContext producerSslContext = sslFactory.createSecureClientContext(producerSecurityKeys).get();
+
+        final ImmutableSecurityKeys collectorSecurityKeys = ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(resource("/server.p12").get()))
+                .keyStorePassword(Passwords.fromResource("/server.pass").get())
+                .trustStore(ImmutableSecurityKeysStore.of(resource("/trust.p12").get()))
+                .trustStorePassword(Passwords.fromResource("/trust.pass").get())
+                .build();
+        final SslContext collectorSslContext = sslFactory.createSecureServerContext(collectorSecurityKeys).get();
+        collector = new DummyCollector(Optional.of(collectorSslContext));
+
+        start(ImmutableProducerOptions.builder().securityKeys(producerSecurityKeys));
     }
 
     public void start() {
+        collector = new DummyCollector(Optional.empty());
         start(createDefaultOptions());
     }
 
