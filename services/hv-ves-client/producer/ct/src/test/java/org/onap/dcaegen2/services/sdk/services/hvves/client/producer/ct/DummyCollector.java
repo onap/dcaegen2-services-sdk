@@ -25,7 +25,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
+
+import io.netty.handler.ssl.SslContext;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.ReplayProcessor;
@@ -39,6 +42,7 @@ import reactor.util.function.Tuple2;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  */
 public class DummyCollector {
+    private Optional<SslContext> sslContext;
 
     private final List<ByteBuf> receivedData = Collections.synchronizedList(new ArrayList<>());
     private DisposableServer server;
@@ -48,13 +52,27 @@ public class DummyCollector {
             .map(Tuple2::getT1)
             .share();
 
+    DummyCollector(Optional<SslContext> sslContext) {
+        this.sslContext = sslContext;
+    }
+
     public InetSocketAddress start() {
-        server = TcpServer.create()
-                .host("localhost")
-                .port(6666)
-                .wiretap(true)
-                .handle(this::handleConnection)
-                .bindNow();
+        if (sslContext.isPresent()) {
+            server = TcpServer.create()
+                    .host("localhost")
+                    .port(6666)
+                    .wiretap(true)
+                    .handle(this::handleConnection)
+                    .secure(ssl -> ssl.sslContext(sslContext.get()))
+                    .bindNow();
+        } else {
+            server = TcpServer.create()
+                    .host("localhost")
+                    .port(6666)
+                    .wiretap(true)
+                    .handle(this::handleConnection)
+                    .bindNow();
+        }
         return server.address();
     }
 
