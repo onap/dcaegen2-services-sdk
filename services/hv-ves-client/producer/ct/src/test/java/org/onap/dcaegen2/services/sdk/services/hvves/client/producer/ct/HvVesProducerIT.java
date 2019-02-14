@@ -23,13 +23,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.PayloadType;
 import org.onap.ves.MeasDataCollectionOuterClass;
 import org.onap.ves.VesEventOuterClass.CommonEventHeader;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
+
+import java.time.Duration;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -42,12 +43,7 @@ class HvVesProducerIT {
     private static final int PERIOD = 1000;
     private static final String OBJECT_INSTANCE_ID = "DH-1";
 
-    private final SystemUnderTestWrapper sut = new SystemUnderTestWrapper();
-
-    @BeforeEach
-    void setUp() {
-        sut.start();
-    }
+    private final SystemUnderTestWrapper sut = new SystemUnderTestWrapper(Duration.ofSeconds(10));
 
     @AfterEach
     void tearDown() {
@@ -55,19 +51,37 @@ class HvVesProducerIT {
     }
 
     @Test
-    void singleMessageTest() throws Exception {
+    void singleMessageTest_withUnsecureConnection() throws Exception {
         // given
-
         final VesEvent sampleEvent = createSimpleVesEvent();
         final Flux<VesEvent> input = Flux.just(sampleEvent);
 
         // when
+        sut.start();
         final ByteBuf receivedData = sut.blockingSend(input);
 
         // then
         WireProtocolDecoder decoded = WireProtocolDecoder.decode(receivedData);
         assertThat(decoded.type).isEqualTo(PayloadType.PROTOBUF.getPayloadTypeBytes().getShort());
         assertThat(decoded.event).isEqualTo(sampleEvent);
+
+    }
+
+    @Test
+    void singleMessageTest_withSecureConnection() throws Exception {
+        // given
+        final VesEvent sampleEvent = createSimpleVesEvent();
+        final Flux<VesEvent> input = Flux.just(sampleEvent);
+
+        // when
+        sut.startSecure();
+        final ByteBuf receivedData = sut.blockingSend(input);
+
+        // then
+        WireProtocolDecoder decoded = WireProtocolDecoder.decode(receivedData);
+        assertThat(decoded.type).isEqualTo(PayloadType.PROTOBUF.getPayloadTypeBytes().getShort());
+        assertThat(decoded.event).isEqualTo(sampleEvent);
+
     }
 
     private VesEvent createSimpleVesEvent() {
