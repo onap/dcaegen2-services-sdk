@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.security.ssl;
 
 import java.nio.file.Path;
 import org.immutables.value.Value;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.SecurityConfigurationException;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -44,10 +45,11 @@ public interface SecurityKeysStore {
      * not be possible.
      *
      * @return key store type
+     * @throws org.onap.dcaegen2.services.sdk.security.ssl.exceptions.SecurityConfigurationException when file type is unknown
      */
     @Value.Default
     default String type() {
         return KeyStoreTypes.inferTypeFromExtension(path())
-                .getOrElseThrow(() -> new IllegalStateException("Could not determine key store type by file name"));
+                .getOrElseThrow(() -> new SecurityConfigurationException("Could not determine key store type by file name"));
     }
 }
