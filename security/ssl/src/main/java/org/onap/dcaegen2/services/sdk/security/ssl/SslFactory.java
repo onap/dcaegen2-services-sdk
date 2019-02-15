@@ -20,20 +20,27 @@
 
 package org.onap.dcaegen2.services.sdk.security.ssl;
 
+import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
-import io.vavr.control.Try;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLException;
 import javax.net.ssl.TrustManagerFactory;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingSecurityKeysStoreException;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.SecurityConfigurationException;
 
 public class SslFactory {
+
+    private static final String EXCEPTION_MESSAGE = "Could not create SSL context";
 
     /**
      * Creates Netty SSL <em>client</em> context using provided security keys.
@@ -41,11 +48,15 @@ public class SslFactory {
      * @param keys - Security keys to be used
      * @return configured SSL context
      */
-    public Try<SslContext> createSecureClientContext(final SecurityKeys keys) {
-        return Try.success(SslContextBuilder.forClient())
-                .flatMap(ctx -> keyManagerFactory(keys).map(ctx::keyManager))
-                .flatMap(ctx -> trustManagerFactory(keys).map(ctx::trustManager))
-                .mapTry(SslContextBuilder::build);
+    public SslContext createSecureClientContext(final SecurityKeys keys) {
+        try {
+            return SslContextBuilder.forClient()
+                    .keyManager(keyManagerFactory(keys))
+                    .trustManager(trustManagerFactory(keys))
+                    .build();
+        } catch (SSLException e) {
+            throw new SecurityConfigurationException(EXCEPTION_MESSAGE, e);
+        }
     }
 
     /**
@@ -54,11 +65,15 @@ public class SslFactory {
      * @param keys - Security keys to be used
      * @return configured SSL context
      */
-    public Try<SslContext> createSecureServerContext(final SecurityKeys keys) {
-        return keyManagerFactory(keys)
-                .map(SslContextBuilder::forServer)
-                .flatMap(ctx -> trustManagerFactory(keys).map(ctx::trustManager))
-                .mapTry(SslContextBuilder::build);
+    public SslContext createSecureServerContext(final SecurityKeys keys) {
+        try {
+            return SslContextBuilder.forServer(keyManagerFactory(keys))
+                    .trustManager(trustManagerFactory(keys))
+                    .clientAuth(ClientAuth.REQUIRE)
+                    .build();
+        } catch (SSLException e) {
+            throw new SecurityConfigurationException(EXCEPTION_MESSAGE, e);
+        }
     }
 
     /**
@@ -68,40 +83,53 @@ public class SslFactory {
      * @deprecated Do not use in production. Will trust anyone.
      */
     @Deprecated
-    public Try<SslContext> createInsecureClientContext() {
-        return Try.success(SslContextBuilder.forClient())
-                .map(ctx -> ctx.trustManager(InsecureTrustManagerFactory.INSTANCE))
-                .mapTry(SslContextBuilder::build);
+    public SslContext createInsecureClientContext() {
+        try {
+            return SslContextBuilder.forClient()
+                    .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                    .build();
+        } catch (SSLException e) {
+            throw new SecurityConfigurationException(EXCEPTION_MESSAGE, e);
+        }
     }
 
-    private Try<TrustManagerFactory> trustManagerFactory(SecurityKeys keys) {
+    private TrustManagerFactory trustManagerFactory(SecurityKeys keys) {
         return trustManagerFactory(keys.trustStore(), keys.trustStorePassword());
     }
 
-    private Try<KeyManagerFactory> keyManagerFactory(SecurityKeys keys) {
+    private KeyManagerFactory keyManagerFactory(SecurityKeys keys) {
         return keyManagerFactory(keys.keyStore(), keys.keyStorePassword());
     }
 
-    private Try<KeyManagerFactory> keyManagerFactory(SecurityKeysStore store, Password password) {
-        return password.useChecked(passwordChars -> {
-            KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-            kmf.init(loadKeyStoreFromFile(store, passwordChars), passwordChars);
-            return kmf;
+    private KeyManagerFactory keyManagerFactory(SecurityKeysStore store, Password password) {
+        return password.use(passwordChars -> {
+            try {
+                KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+                kmf.init(loadKeyStoreFromFile(store, passwordChars), passwordChars);
+                return kmf;
+            } catch (GeneralSecurityException | IOException ex) {
+                throw new ReadingSecurityKeysStoreException("Could not read private keys from store", ex);
+            }
         });
     }
 
-    private Try<TrustManagerFactory> trustManagerFactory(SecurityKeysStore store, Password password) {
-        return password.useChecked(passwordChars -> {
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            tmf.init(loadKeyStoreFromFile(store, passwordChars));
-            return tmf;
+    private TrustManagerFactory trustManagerFactory(SecurityKeysStore store, Password password) {
+        return password.use(passwordChars -> {
+            try {
+                TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                tmf.init(loadKeyStoreFromFile(store, passwordChars));
+                return tmf;
+            } catch (GeneralSecurityException | IOException ex) {
+                throw new ReadingSecurityKeysStoreException("Could not read trusted keys from store", ex);
+            }
         });
     }
 
     private KeyStore loadKeyStoreFromFile(SecurityKeysStore store, char[] keyStorePassword)
-            throws GeneralSecurityException, IOException {
+            throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException {
         KeyStore ks = KeyStore.getInstance(store.type());
         ks.load(Files.newInputStream(store.path(), StandardOpenOption.READ), keyStorePassword);
         return ks;
+
     }
 }
