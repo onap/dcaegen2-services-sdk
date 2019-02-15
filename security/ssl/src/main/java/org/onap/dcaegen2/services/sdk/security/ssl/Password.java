@@ -26,6 +26,7 @@ import io.vavr.control.Try;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.PasswordEvictedException;
 
 /**
  * Simple password representation.
@@ -50,9 +51,10 @@ public class Password {
      *
      * @param user of the password
      */
-    public <T> Try<T> use(Function1<char[], Try<T>> user) {
-        if (value == null)
-            return Try.failure(new GeneralSecurityException("Password had been already used so it is in cleared state"));
+    public <T> T use(Function1<char[], T> user) {
+        if (value == null) {
+            throw new PasswordEvictedException("Password had been already used so it is in cleared state");
+        }
 
         try {
             return user.apply(value);

@@ -24,10 +24,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import io.vavr.collection.Array;
-import io.vavr.control.Try;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.PasswordEvictedException;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -66,10 +66,10 @@ class PasswordTest {
         final Password cut = new Password("ala ma kota".toCharArray());
 
         // when & then
-        useThePassword(cut).get();
+        useThePassword(cut);
 
-        assertThatExceptionOfType(GeneralSecurityException.class).isThrownBy(() ->
-                useThePassword(cut).get());
+        assertThatExceptionOfType(PasswordEvictedException.class).isThrownBy(() ->
+                useThePassword(cut));
     }
 
     @Test
@@ -80,8 +80,8 @@ class PasswordTest {
         // when & then
         cut.clear();
 
-        assertThatExceptionOfType(GeneralSecurityException.class).isThrownBy(() ->
-                useThePassword(cut).get());
+        assertThatExceptionOfType(PasswordEvictedException.class).isThrownBy(() ->
+                useThePassword(cut));
     }
 
     @Test
@@ -97,8 +97,8 @@ class PasswordTest {
         assertAllCharsAreNull(passwordChars);
     }
 
-    private Try<Object> useThePassword(Password cut) {
-        return cut.use((pass) -> Try.success(42));
+    private void useThePassword(Password cut) {
+        cut.use((pass) -> null);
     }
 
     private void assertAllCharsAreNull(char[] passwordChars) {

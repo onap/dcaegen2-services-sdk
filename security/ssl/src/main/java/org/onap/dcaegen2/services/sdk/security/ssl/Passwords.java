@@ -20,8 +20,10 @@
 
 package org.onap.dcaegen2.services.sdk.security.ssl;
 
-import io.vavr.control.Try;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -30,6 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingPasswordFromFileException;
 
 /**
  * Utility functions for loading passwords.
@@ -42,22 +45,59 @@ public final class Passwords {
     private Passwords() {
     }
 
-    public static @NotNull Try<Password> fromFile(File file) {
+    /**
+     * Reads password from file.
+     *
+     * @param file to read
+     * @return Password instance with contents of the file
+     * @throws ReadingPasswordFromFileException when file could not be read
+     */
+    public static @NotNull Password fromFile(File file) {
         return fromPath(file.toPath());
     }
 
-    public static @NotNull Try<Password> fromPath(Path path) {
-        return Try.of(() -> {
+    /**
+     * Reads password from file.
+     *
+     * @param path of the file to read
+     * @return Password instance with contents of the file
+     * @throws ReadingPasswordFromFileException when file could not be read
+     */
+    public static @NotNull Password fromPath(Path path) {
+        try {
             final byte[] bytes = Files.readAllBytes(path);
             final CharBuffer password = decodeChars(bytes);
             final char[] result = convertToCharArray(password);
             return new Password(result);
-        });
+        } catch (IOException e) {
+            throw new ReadingPasswordFromFileException("Could not read password from " + path, e);
+        }
     }
 
-    public static @NotNull Try<Password> fromResource(String resource) {
-        return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()))
-                .flatMap(Passwords::fromPath);
+
+    /**
+     * Reads password from resource.
+     *
+     * @param resource URL starting with slash
+     * @return Password instance with contents of the resource
+     * @throws ReadingPasswordFromFileException when resource could not be read
+     */
+    public static @NotNull Password fromResource(String resource) {
+        final URL resourceUrl = Passwords.class.getResource(resource);
+        if (resourceUrl == null) {
+            throw new ReadingPasswordFromFileException("Could not find resource " + resource);
+        }
+
+        return fromPath(asPath(resourceUrl));
+
+    }
+
+    private static Path asPath(URL resourceUrl) {
+        try {
+            return Paths.get(resourceUrl.toURI());
+        } catch (URISyntaxException e) {
+            throw new ReadingPasswordFromFileException("Could not read password", e);
+        }
     }
 
     private static @NotNull CharBuffer decodeChars(byte[] bytes) {

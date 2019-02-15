@@ -22,14 +22,14 @@ package org.onap.dcaegen2.services.sdk.security.ssl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.vavr.control.Try;
 import java.io.File;
 import java.net.URISyntaxException;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingPasswordFromFileException;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -43,10 +43,9 @@ class PasswordsTest {
         final File file = new File("./src/test/resources/password.txt");
 
         // when
-        final Try<Password> result = Passwords.fromFile(file);
+        final Password result = Passwords.fromFile(file);
 
         // then
-        assertSuccessful(result);
         assertThat(extractPassword(result)).isEqualTo("ja baczewski\n2nd line");
     }
 
@@ -56,10 +55,9 @@ class PasswordsTest {
         final Path path = Paths.get(PasswordsTest.class.getResource("/password.txt").toURI());
 
         // when
-        final Try<Password> result = Passwords.fromPath(path);
+        final Password result = Passwords.fromPath(path);
 
         // then
-        assertSuccessful(result);
         assertThat(extractPassword(result)).isEqualTo("ja baczewski\n2nd line");
     }
 
@@ -69,11 +67,10 @@ class PasswordsTest {
         final Path path = Paths.get("/", UUID.randomUUID().toString());
 
         // when
-        final Try<Password> result = Passwords.fromPath(path);
+        Assertions.assertThrows(ReadingPasswordFromFileException.class, () -> {
+            Passwords.fromPath(path);
+        });
 
-        // then
-        assertThat(result.isFailure()).describedAs("Try.failure?").isTrue();
-        assertThat(result.getCause()).isInstanceOf(NoSuchFileException.class);
     }
 
     @Test
@@ -82,18 +79,13 @@ class PasswordsTest {
         final String resource = "/password.txt";
 
         // when
-        final Try<Password> result = Passwords.fromResource(resource);
+        final Password result = Passwords.fromResource(resource);
 
         // then
-        assertSuccessful(result);
         assertThat(extractPassword(result)).isEqualTo("ja baczewski\n2nd line");
     }
 
-    private void assertSuccessful(Try<Password> result) {
-        assertThat(result.isSuccess()).describedAs("Try.success?").isTrue();
-    }
-
-    private String extractPassword(Try<Password> result) {
-        return result.flatMap(pass -> pass.useChecked(String::new)).get();
+    private String extractPassword(Password pass) {
+        return pass.use(String::new);
     }
 }
