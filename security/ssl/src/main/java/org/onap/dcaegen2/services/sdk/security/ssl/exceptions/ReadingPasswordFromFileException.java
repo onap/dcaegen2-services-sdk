@@ -18,19 +18,19 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.security.ssl;
-
-import org.immutables.value.Value;
+package org.onap.dcaegen2.services.sdk.security.ssl.exceptions;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.1
+ * @since 1.1.2
  */
-@Value.Immutable
-public interface SecurityKeys {
-    SecurityKeysStore keyStore();
-    Password keyStorePassword();
+public class ReadingPasswordFromFileException extends SecurityConfigurationException {
 
-    SecurityKeysStore trustStore();
-    Password trustStorePassword();
+    public ReadingPasswordFromFileException(String message) {
+        super(message);
+    }
+
+    public ReadingPasswordFromFileException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

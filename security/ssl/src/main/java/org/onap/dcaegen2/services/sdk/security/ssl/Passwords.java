@@ -20,8 +20,12 @@
 
 package org.onap.dcaegen2.services.sdk.security.ssl;
 
-import io.vavr.control.Try;
+import static io.vavr.Function0.constant;
+
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -30,6 +34,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingPasswordFromFileException;
 
 /**
  * Utility functions for loading passwords.
@@ -42,22 +47,97 @@ public final class Passwords {
     private Passwords() {
     }
 
-    public static @NotNull Try<Password> fromFile(File file) {
-        return fromPath(file.toPath());
+    /**
+     * Creates password from given char array.
+     *
+     * Will directly used the provided array, ie. it will be cleared after password was used.
+     *
+     * @param passwd array containing password
+     * @return Password instance wrapping the provided array
+     */
+    public static @NotNull Password wrap(char[] passwd) {
+        return new Password(passwd);
     }
 
-    public static @NotNull Try<Password> fromPath(Path path) {
-        return Try.of(() -> {
-            final byte[] bytes = Files.readAllBytes(path);
-            final CharBuffer password = decodeChars(bytes);
-            final char[] result = convertToCharArray(password);
-            return new Password(result);
-        });
+    /**
+     * Creates password from given CharSequence.
+     *
+     * <em>WARNING</em>: Avoid using this method. It will be impossible to clear memory containing the password.
+     *
+     *
+     * @param passwd the password as CharSequence
+     * @return Password instance
+     */
+    public static @NotNull Password fromString(CharSequence passwd) {
+        return constant(passwd)
+                .andThen(CharBuffer::wrap)
+                .andThen(Passwords::convertToCharArray)
+                .andThen(Passwords::wrap)
+                .apply();
     }
 
-    public static @NotNull Try<Password> fromResource(String resource) {
-        return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()))
-                .flatMap(Passwords::fromPath);
+    /**
+     * Reads password from file.
+     *
+     * @param file to read
+     * @return Password instance with contents of the file
+     * @throws ReadingPasswordFromFileException when file could not be read
+     */
+    public static @NotNull Password fromFile(File file) {
+        return constant(file)
+                .andThen(File::toPath)
+                .andThen(Passwords::fromPath)
+                .apply();
+    }
+
+    /**
+     * Reads password from file.
+     *
+     * @param path of the file to read
+     * @return Password instance with contents of the file
+     * @throws ReadingPasswordFromFileException when file could not be read
+     */
+    public static @NotNull Password fromPath(Path path) {
+        try {
+            return constant(Files.readAllBytes(path))
+                    .andThen(Passwords::decodeChars)
+                    .andThen(Passwords::convertToCharArray)
+                    .andThen(Passwords::wrap)
+                    .apply();
+        } catch (IOException e) {
+            throw new ReadingPasswordFromFileException("Could not read password from " + path, e);
+        }
+    }
+
+    /**
+     * Reads password from resource.
+     *
+     * @param resource URL starting with slash
+     * @return Password instance with contents of the resource
+     * @throws ReadingPasswordFromFileException when resource could not be read
+     */
+    public static @NotNull Password fromResource(String resource) {
+        return constant(resource)
+                .andThen(Passwords::resourceAsUrl)
+                .andThen(Passwords::asPath)
+                .andThen(Passwords::fromPath)
+                .apply();
+    }
+
+    private static @NotNull URL resourceAsUrl(String resource) {
+        final URL resourceUrl = Passwords.class.getResource(resource);
+        if (resourceUrl == null) {
+            throw new ReadingPasswordFromFileException("Could not find resource " + resource);
+        }
+        return resourceUrl;
+    }
+
+    private static Path asPath(URL resourceUrl) {
+        try {
+            return Paths.get(resourceUrl.toURI());
+        } catch (URISyntaxException e) {
+            throw new ReadingPasswordFromFileException("Could not read password", e);
+        }
     }
 
     private static @NotNull CharBuffer decodeChars(byte[] bytes) {
@@ -80,8 +160,10 @@ public final class Passwords {
     }
 
     private static void clearBuffer(CharBuffer password) {
-        while (password.remaining() > 0) {
-            password.put((char) 0);
+        if(!password.isReadOnly()) {
+            while (password.remaining() > 0) {
+                password.put((char) 0);
+            }
         }
     }
 }
