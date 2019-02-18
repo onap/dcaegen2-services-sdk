@@ -1,0 +1,50 @@
+/*
+ * ============LICENSE_START=======================================================
+ * DCAEGEN2-SERVICES-SDK
+ * ================================================================================
+ * Copyright (C) 2019 Nokia. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ============LICENSE_END=========================================================
+ */
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
+
+import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientImpl;
+import reactor.core.publisher.Mono;
+
+/**
+ * <p>
+ * Factory for Config Binding Service client.
+ * </p>
+ *
+ * @since 1.1.2
+ */
+public class CbsClientFactory {
+
+    /**
+     * <p>Creates Mono which will emit instance of {@link CbsClient} when service discovery is complete.</p>
+     *
+     * <p>
+     * This method will do a lookup of Config Binding Service using Consul as service discovery mechanism and create
+     * client configured with found address. Created client will be published in returned Mono instance.
+     * </p>
+     *
+     * @return non-null {@link Mono} of {@link CbsClient} instance
+     * @since 1.1.2
+     */
+    @NotNull
+    public static Mono<CbsClient> createCbsClient() {
+        return Mono.just(new CbsClientImpl());
+    }
+}
