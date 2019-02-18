@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "160e4112_3770b876",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/DummyCollector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-18T07:17:21Z",
+      "side": 1,
+      "message": "We can refactor this a little to be more concise:\n```\n    public InetSocketAddress start() {\n        TcpServer tcpServer \u003d TcpServer.create()\n                .host(\"localhost\")\n                .port(6666)\n                .wiretap(true)\n                .handle(this::handleConnection);\n        if (sslContext.isPresent()) {\n            tcpServer \u003d tcpServer.secure(ssl -\u003e ssl.sslContext(sslContext.get()));\n        }\n        server \u003d tcpServer.bindNow();\n        return server.address();\n    }\n```",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8691d5ce_243a9f39",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-18T07:17:21Z",
+      "side": 1,
+      "message": "`withUnsecureConnection` could be here after applying rename for other method.",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82aff2d8_7e824d25",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-18T07:17:21Z",
+      "side": 1,
+      "message": "Maybe `withSecureConnection` would sound better?",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1da99128_023287c2",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-18T07:17:21Z",
+      "side": 1,
+      "message": "Let\u0027s extract some string variables here - I would suggest all \"client/server/trust\", however only \"trust\" is mandatory as it\u0027s used twice",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8286c5e_1fd6775e",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-18T07:17:21Z",
+      "side": 1,
+      "message": "Collector-related part could be extracted: \n```\npublic void startSecure() {\n    createCollectorWithEnabledSSL();\n\n    final ImmutableSecurityKeys producerSecurityKeys \u003d ImmutableSecurityKeys.builder()\n            .keyStore(ImmutableSecurityKeysStore.of(resource(\"/client.p12\").get()))\n            .keyStorePassword(Passwords.fromResource(\"/client.pass\").get())\n            .trustStore(ImmutableSecurityKeysStore.of(resource(\"/trust.p12\").get()))\n            .trustStorePassword(Passwords.fromResource(\"/trust.pass\").get())\n            .build();\n    start(ImmutableProducerOptions.builder().securityKeys(producerSecurityKeys));\n}\n\nprivate void createCollectorWithEnabledSSL() {\n    final ImmutableSecurityKeys collectorSecurityKeys \u003d ImmutableSecurityKeys.builder()\n            .keyStore(ImmutableSecurityKeysStore.of(resource(\"/server.p12\").get()))\n            .keyStorePassword(Passwords.fromResource(\"/server.pass\").get())\n            .trustStore(ImmutableSecurityKeysStore.of(resource(\"/trust.p12\").get()))\n            .trustStorePassword(Passwords.fromResource(\"/trust.pass\").get())\n            .build();\n    final SslContext collectorSslContext \u003d sslFactory.createSecureServerContext(collectorSecurityKeys).get();\n    collector \u003d new DummyCollector(Optional.of(collectorSslContext));\n}\n```",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
