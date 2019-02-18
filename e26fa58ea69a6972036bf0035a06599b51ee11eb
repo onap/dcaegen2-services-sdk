@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4f834baa_3aee0060",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/DummyCollector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-18T08:37:35Z",
+      "side": 1,
+      "message": "Done,\nGood point!",
+      "parentUuid": "160e4112_3770b876",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8691d5ce_243a9f39",
         "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-18T07:17:21Z",
       "side": 1,
       "message": "`withUnsecureConnection` could be here after applying rename for other method.",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "336dd163_99602325",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-18T08:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8691d5ce_243a9f39",
       "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a34713b9_9bfb7902",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/HvVesProducerIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-18T08:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82aff2d8_7e824d25",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1da99128_023287c2",
         "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
         "patchSetId": 4
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "34fd20aa_c7cf6e0e",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-18T08:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1da99128_023287c2",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8286c5e_1fd6775e",
         "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
         "patchSetId": 4
@@ -81,6 +153,24 @@
       "writtenOn": "2019-02-18T07:17:21Z",
       "side": 1,
       "message": "Collector-related part could be extracted: \n```\npublic void startSecure() {\n    createCollectorWithEnabledSSL();\n\n    final ImmutableSecurityKeys producerSecurityKeys \u003d ImmutableSecurityKeys.builder()\n            .keyStore(ImmutableSecurityKeysStore.of(resource(\"/client.p12\").get()))\n            .keyStorePassword(Passwords.fromResource(\"/client.pass\").get())\n            .trustStore(ImmutableSecurityKeysStore.of(resource(\"/trust.p12\").get()))\n            .trustStorePassword(Passwords.fromResource(\"/trust.pass\").get())\n            .build();\n    start(ImmutableProducerOptions.builder().securityKeys(producerSecurityKeys));\n}\n\nprivate void createCollectorWithEnabledSSL() {\n    final ImmutableSecurityKeys collectorSecurityKeys \u003d ImmutableSecurityKeys.builder()\n            .keyStore(ImmutableSecurityKeysStore.of(resource(\"/server.p12\").get()))\n            .keyStorePassword(Passwords.fromResource(\"/server.pass\").get())\n            .trustStore(ImmutableSecurityKeysStore.of(resource(\"/trust.p12\").get()))\n            .trustStorePassword(Passwords.fromResource(\"/trust.pass\").get())\n            .build();\n    final SslContext collectorSslContext \u003d sslFactory.createSecureServerContext(collectorSecurityKeys).get();\n    collector \u003d new DummyCollector(Optional.of(collectorSslContext));\n}\n```",
+      "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "389bca16_68f126ee",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-18T08:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8286c5e_1fd6775e",
       "revId": "e26fa58ea69a6972036bf0035a06599b51ee11eb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
