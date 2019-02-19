@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e922cf28_5fe93be8",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-19T18:08:24Z",
+      "side": 1,
+      "message": "Consider using java.util.concurrent.ConcurrentHashMap",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64e117ea_f478ae6f",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-19T18:08:24Z",
+      "side": 1,
+      "message": "Redundant braces in lambda param",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "958e10d9_a2228246",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-19T18:08:24Z",
+      "side": 1,
+      "message": "I think that should be moved to separate file",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "711f03d1_5d2f7d50",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-19T18:08:24Z",
+      "side": 1,
+      "message": "Create functional interface for hash provider",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89082aa3_1af0d87f",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-19T18:08:24Z",
+      "side": 1,
+      "message": "Rename \"root1\" to \"node\" or something",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
