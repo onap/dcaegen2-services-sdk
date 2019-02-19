@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2018 NOKIA Intellectual Property. All rights reserved.
+ * Copyright (C) 2018-2019 NOKIA Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.patch;
+package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.put;
 
 
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
@@ -39,7 +39,7 @@ import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVari
 import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
 
 
-public class AaiReactiveHttpPatchClient {
+public class AaiReactiveHttpPutClient {
 
     private WebClient webClient;
     private final String aaiHost;
@@ -47,6 +47,7 @@ public class AaiReactiveHttpPatchClient {
     private final Integer aaiHostPortNumber;
     private final String aaiBasePath;
     private final String aaiPnfPath;
+
     private final JsonBodyBuilder jsonBodyBuilder;
 
     /**
@@ -54,7 +55,7 @@ public class AaiReactiveHttpPatchClient {
      *
      * @param configuration - AAI producer configuration object
      */
-    public AaiReactiveHttpPatchClient(AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder) {
+    public AaiReactiveHttpPutClient(AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder) {
         this.aaiHost = configuration.aaiHost();
         this.aaiProtocol = configuration.aaiProtocol();
         this.aaiHostPortNumber = configuration.aaiPort();
@@ -64,32 +65,32 @@ public class AaiReactiveHttpPatchClient {
     }
 
     /**
-     * Function for calling AAI Http producer - patch request to AAI database.
+     * Function for calling AAI Http producer - put request to AAI database.
      *
      * @param aaiModel - object which will be sent to AAI database
      * @return status code of operation
      */
     public Mono<ClientResponse> getAaiProducerResponse(AaiModel aaiModel) {
-        return patchAaiRequest(aaiModel);
+        return putAaiRequest(aaiModel);
     }
 
-    public AaiReactiveHttpPatchClient createAaiWebClient(WebClient webClient) {
+    public AaiReactiveHttpPutClient createAaiWebClient(WebClient webClient) {
         this.webClient = webClient;
         return this;
     }
 
-    private Mono<ClientResponse> patchAaiRequest(AaiModel aaiModel) {
+    private Mono<ClientResponse> putAaiRequest(AaiModel aaiModel) {
         return
-            webClient.patch()
-                .uri(getUri(aaiModel.getCorrelationId()))
-                .header(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID))
-                .header(X_INVOCATION_ID, UUID.randomUUID().toString())
-                .body(Mono.just(jsonBodyBuilder.createJsonBody(aaiModel)), String.class)
-                .exchange();
+                webClient.put()
+                        .uri(getUri(aaiModel.getCorrelationId()))
+                        .header(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID))
+                        .header(X_INVOCATION_ID, UUID.randomUUID().toString())
+                        .body(Mono.just(jsonBodyBuilder.createJsonBody(aaiModel)), String.class)
+                        .exchange();
     }
 
     URI getUri(String pnfName) {
         return new DefaultUriBuilderFactory().builder().scheme(aaiProtocol).host(aaiHost).port(aaiHostPortNumber)
-            .path(aaiBasePath + aaiPnfPath + "/" + pnfName).build();
+                .path(aaiBasePath + aaiPnfPath + "/" + pnfName).build();
     }
 }
