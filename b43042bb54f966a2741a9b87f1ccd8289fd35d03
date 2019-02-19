@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62119e49_24dfbb6b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-19T07:24:20Z",
+      "side": 1,
+      "message": "Let\u0027s name it \u0027serviceComponentName\u0027 after https://onap.readthedocs.io/en/latest/submodules/dcaegen2.git/docs/sections/apis/configbinding.html",
+      "range": {
+        "startLine": 44,
+        "startChar": 41,
+        "endLine": 44,
+        "endChar": 57
+      },
+      "revId": "b43042bb54f966a2741a9b87f1ccd8289fd35d03",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
