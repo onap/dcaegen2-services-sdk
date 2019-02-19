@@ -62,9 +62,9 @@ public class SystemUnderTestWrapper {
         start(ImmutableProducerOptions.builder()
                 .securityKeys(ImmutableSecurityKeys.builder()
                         .keyStore(ImmutableSecurityKeysStore.of(resource("/client.p12").get()))
-                        .keyStorePassword(Passwords.fromResource("/client.pass").get())
+                        .keyStorePassword(Passwords.fromResource("/client.pass"))
                         .trustStore(ImmutableSecurityKeysStore.of(resource("/trust.p12").get()))
-                        .trustStorePassword(Passwords.fromResource("/trust.pass").get())
+                        .trustStorePassword(Passwords.fromResource("/trust.pass"))
                         .build()));
     }
 
