@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ab631e48_2faa6d0a",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/DummyCollector.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-19T10:15:20Z",
+      "side": 1,
+      "message": "Use io.vavr.control.Option which provides a safer API than standard Java Optional.",
+      "revId": "010aae61b79a8dee66079c8a510ad6f9eb9f4d9a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0c2fb24_2d315b06",
         "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
         "patchSetId": 6
@@ -31,6 +48,29 @@
       "side": 1,
       "message": "Ok, will be similar to start() method",
       "parentUuid": "b0c2fb24_2d315b06",
+      "revId": "010aae61b79a8dee66079c8a510ad6f9eb9f4d9a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1c8ed33_f338c756",
+        "filename": "services/hv-ves-client/producer/ct/src/test/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/ct/SystemUnderTestWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-19T10:15:20Z",
+      "side": 1,
+      "message": "change type to the interface",
+      "range": {
+        "startLine": 108,
+        "startChar": 14,
+        "endLine": 108,
+        "endChar": 35
+      },
       "revId": "010aae61b79a8dee66079c8a510ad6f9eb9f4d9a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
