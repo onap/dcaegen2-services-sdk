@@ -20,6 +20,7 @@
 package org.onap.dcaegen2.services.sdk.services.hvves.client.producer.ct;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.handler.ssl.SslContext;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Try;
 
@@ -27,10 +28,9 @@ import java.net.InetSocketAddress;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.Optional;
 
-import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
-import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
-import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
+import org.onap.dcaegen2.services.sdk.security.ssl.*;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.ImmutableProducerOptions;
@@ -46,9 +46,17 @@ import reactor.core.publisher.Flux;
 public class SystemUnderTestWrapper {
 
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(5);
-    private final DummyCollector collector = new DummyCollector();
+    private static final String TRUST_CERT_PATH = "/trust.p12";
+    private static final String TRUST_PASSWORD_PATH = "/trust.pass";
+    private static final String CLIENT_CERT_PATH = "/client.p12";
+    private static final String CLIENT_PASSWORD_PATH = "/client.pass";
+    private static final String SERVER_CERT_PATH = "/server.p12";
+    private static final String SERVER_PASSWORD_PATH = "/server.pass";
+
+    private DummyCollector collector;
     private HvVesProducer cut;
     private final Duration timeout;
+    private final SslFactory sslFactory = new SslFactory();
 
     public SystemUnderTestWrapper(Duration timeout) {
         this.timeout = timeout;
@@ -59,16 +67,19 @@ public class SystemUnderTestWrapper {
     }
 
     public void startSecure() {
-        start(ImmutableProducerOptions.builder()
-                .securityKeys(ImmutableSecurityKeys.builder()
-                        .keyStore(ImmutableSecurityKeysStore.of(resource("/client.p12").get()))
-                        .keyStorePassword(Passwords.fromResource("/client.pass"))
-                        .trustStore(ImmutableSecurityKeysStore.of(resource("/trust.p12").get()))
-                        .trustStorePassword(Passwords.fromResource("/trust.pass"))
-                        .build()));
+        collector = createCollectorWithEnabledSSL();
+
+        final SecurityKeys producerSecurityKeys = ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(resource(CLIENT_CERT_PATH).get()))
+                .keyStorePassword(Passwords.fromResource(CLIENT_PASSWORD_PATH))
+                .trustStore(ImmutableSecurityKeysStore.of(resource(TRUST_CERT_PATH).get()))
+                .trustStorePassword(Passwords.fromResource(TRUST_PASSWORD_PATH))
+                .build();
+        start(ImmutableProducerOptions.builder().securityKeys(producerSecurityKeys));
     }
 
     public void start() {
+        collector = new DummyCollector(Optional.empty());
         start(createDefaultOptions());
     }
 
@@ -88,6 +99,17 @@ public class SystemUnderTestWrapper {
         events.transform(cut::send).subscribe();
         collector.blockUntilFirstClientIsHandled(timeout);
         return collector.dataFromFirstClient();
+    }
+
+    private DummyCollector createCollectorWithEnabledSSL() {
+        final SecurityKeys collectorSecurityKeys = ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(resource(SERVER_CERT_PATH).get()))
+                .keyStorePassword(Passwords.fromResource(SERVER_PASSWORD_PATH))
+                .trustStore(ImmutableSecurityKeysStore.of(resource(TRUST_CERT_PATH).get()))
+                .trustStorePassword(Passwords.fromResource(TRUST_PASSWORD_PATH))
+                .build();
+        final SslContext collectorSslContext = sslFactory.createSecureServerContext(collectorSecurityKeys);
+        return new DummyCollector(Optional.of(collectorSslContext));
     }
 
     private Builder createDefaultOptions() {
