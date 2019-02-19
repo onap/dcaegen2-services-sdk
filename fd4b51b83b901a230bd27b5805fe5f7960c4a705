@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a334b2da_b538bda8",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/put/AaiReactiveHttpPutClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-19T12:11:09Z",
+      "side": 1,
+      "message": "Remove empty line",
+      "revId": "fd4b51b83b901a230bd27b5805fe5f7960c4a705",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
