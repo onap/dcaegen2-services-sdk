@@ -24,7 +24,6 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration.ImmutableEnvProperties;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 /**
@@ -34,7 +33,6 @@ import reactor.core.publisher.Mono;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Service
 public final class CloudConfigurationClient implements CloudConfigurationProvider {
 
     private final CloudConfigurationProvider cloudConfigurationProvider;
