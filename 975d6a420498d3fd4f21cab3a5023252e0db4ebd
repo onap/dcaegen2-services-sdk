@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "da34a2c1_9786b1a8",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-20T10:54:29Z",
+      "side": 1,
+      "message": "AtomicReference wouldn\u0027t work here?",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64e117ea_f478ae6f",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
         "patchSetId": 5
@@ -99,6 +116,23 @@
       "writtenOn": "2019-02-19T18:08:24Z",
       "side": 1,
       "message": "Rename \"root1\" to \"node\" or something",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "717f55e2_3997e157",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-20T10:54:29Z",
+      "side": 1,
+      "message": "I think that should be MerkleTree internal class.",
       "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
