@@ -21,9 +21,11 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 
 import io.vavr.Function1;
+import io.vavr.Tuple2;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
+import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -133,9 +135,12 @@ public final class MerkleTree<V> {
         final MTNode<V> result = root.addChild(path, MTNode.leaf(hashAlgorithm, hashForValue.apply(value), value));
         return Arrays.equals(result.hash(), root.hash())
                 ? this
-                : new MerkleTree<>(valueSerializer, hashAlgorithm, result);
+                : subtree(result);
     }
 
+    public Stream<Tuple2<String, MerkleTree<V>>> children() {
+        return root.children().map(childNode -> childNode.map2(this::subtree));
+    }
 
     /**
      * Gets a value assigned to a given path.
@@ -254,6 +259,10 @@ public final class MerkleTree<V> {
     public int hashCode() {
         return Objects.hash(root);
     }
+
+    private MerkleTree<V> subtree(MTNode<V> newRoot) {
+        return new MerkleTree<>(valueSerializer, hashAlgorithm, newRoot);
+    }
 }
 
 final class MTNode<V> {
@@ -280,6 +289,11 @@ final class MTNode<V> {
         this.hash = hash.clone();
         this.value = value;
         this.children = children;
+    }
+
+
+    Stream<Tuple2<String, MTNode<V>>> children() {
+        return children.toStream();
     }
 
     MTNode<V> addChild(final List<String> path, final MTNode<V> child) {

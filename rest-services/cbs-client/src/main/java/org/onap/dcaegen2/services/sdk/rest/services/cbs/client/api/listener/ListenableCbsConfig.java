@@ -22,12 +22,15 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 
 import io.vavr.collection.List;
 import io.vavr.control.Option;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -65,8 +68,8 @@ public class ListenableCbsConfig {
         });
     }
 
-    public Disposable subscribeForUpdates(Flux<MerkleTree<String>> updates) {
-        return updates.subscribe(this::update);
+    public Mono<Void> subscribeForUpdates(Flux<MerkleTree<String>> updates) {
+        return updates.doOnNext(this::update).then();
     }
 
     public void update(MerkleTree<String> newTree) {
