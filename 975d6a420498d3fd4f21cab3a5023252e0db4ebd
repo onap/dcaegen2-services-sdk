@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "ceb4b29d_36e6780b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-20T10:35:13Z",
+      "side": 1,
+      "message": "Maybe name the interface \"Byter\" so that `Function1\u003cV, byte[]\u003e serializer` would also count ;)",
+      "parentUuid": "711f03d1_5d2f7d50",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89082aa3_1af0d87f",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
         "patchSetId": 5
@@ -81,6 +99,40 @@
       "writtenOn": "2019-02-19T18:08:24Z",
       "side": 1,
       "message": "Rename \"root1\" to \"node\" or something",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d1c448f_50b5a1ec",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-20T10:35:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we use the same algorithm as in MerkleTree instance?",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b4c7cd_578238ab",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfigTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-20T10:35:13Z",
+      "side": 1,
+      "message": "We might want to be more elaborate in function names?",
       "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
