@@ -37,7 +37,7 @@ import static java.lang.String.valueOf;
  *
  * @since 1.1.2
  */
-class MerkleTreeParser {
+public class MerkleTreeParser {
 
     /**
      * <p> Method used to parse {@link JsonObject} into {@link MerkleTree} structure.</p>
@@ -68,7 +68,7 @@ class MerkleTreeParser {
      * @param json JsonObject to be parsed
      * @since 1.1.2
      */
-    MerkleTree<String> fromJsonObject(final @NotNull JsonObject json) {
+    public MerkleTree<String> fromJsonObject(final @NotNull JsonObject json) {
         MerkleTree<String> tree = MerkleTree.emptyWithDefaultDigest(String::getBytes);
         for (Entry<String, JsonElement> entry : json.entrySet()) {
             tree = treeEnhancedWithEntry(tree, entry);
