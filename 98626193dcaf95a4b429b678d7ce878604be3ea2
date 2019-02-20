@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "145aeaaa_d096ea96",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/DmaapInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:45:30Z",
+      "side": 1,
+      "message": "I believe we can paste some more fancy documentation for each field. Copy it from RTD, if available.",
+      "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5c17f9a_5bbdbe96",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:45:30Z",
+      "side": 1,
+      "message": "Extract a class for AAF config as discussed earlier.",
+      "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "815d51c7_c289f30c",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
         "patchSetId": 2
@@ -30,6 +64,23 @@
       "writtenOn": "2019-02-20T11:27:53Z",
       "side": 1,
       "message": "Put this comment ending in new line",
+      "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b10be97_2bbf3173",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:45:30Z",
+      "side": 1,
+      "message": "Missing data router. Recheck with spec.",
       "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
