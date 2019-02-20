@@ -19,16 +19,15 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import reactor.core.publisher.Mono;
 
 public class CbsClientImpl implements CbsClient {
 
-    @NotNull
     @Override
-    public Mono<JsonObject> get(String serviceComponentName) {
+    public @NotNull Mono<JsonElement> get(String serviceComponentName) {
         return Mono.empty();
     }
 }

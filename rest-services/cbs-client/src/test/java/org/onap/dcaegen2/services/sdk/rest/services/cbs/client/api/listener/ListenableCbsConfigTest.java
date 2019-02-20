@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.vavr.collection.List;
+import java.time.Duration;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener.ListenableCbsConfig;
@@ -36,6 +37,8 @@ import reactor.test.StepVerifier;
  * @since February 2019
  */
 class ListenableCbsConfigTest {
+
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
 
     @Test
     void listen_shouldCallListenerAfterEachChange() {
@@ -90,11 +93,12 @@ class ListenableCbsConfigTest {
         final MerkleTree<String> updatedConfig2 = updatedConfig1
                 .add(List.of("some-key"), "3");
 
-        cut.subscribeForUpdates(Flux.just(initialConfig, updatedConfig1, updatedConfig2));
+        cut.subscribeForUpdates(Flux.just(initialConfig, updatedConfig1, updatedConfig2)).subscribe();
 
         StepVerifier.create(replayProcessor.take(expectedChanges.size()))
                 .expectNextSequence(expectedChanges)
-                .verifyComplete();
+                .expectComplete()
+                .verify(TIMEOUT);
 
     }
 
@@ -128,11 +132,13 @@ class ListenableCbsConfigTest {
 
         final MerkleTree<String> updatedConfig4 = initialConfig;
 
-        cut.subscribeForUpdates(Flux.just(initialConfig, updatedConfig1, updatedConfig2, updatedConfig3, updatedConfig4));
+        cut.subscribeForUpdates(
+                Flux.just(initialConfig, updatedConfig1, updatedConfig2, updatedConfig3, updatedConfig4)).subscribe();
 
         StepVerifier.create(actualChanges.take(expectedChanges.size()))
                 .expectNextSequence(expectedChanges)
-                .verifyComplete();
+                .expectComplete()
+                .verify(TIMEOUT);
 
     }
 }

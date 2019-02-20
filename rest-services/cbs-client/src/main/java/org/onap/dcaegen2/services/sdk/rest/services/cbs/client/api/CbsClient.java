@@ -19,9 +19,11 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 
-import com.google.gson.JsonObject;
-import reactor.core.publisher.Mono;
+import com.google.gson.JsonElement;
+import java.time.Duration;
 import org.jetbrains.annotations.NotNull;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * <p>Main Config Binding Service client interface.</p>
@@ -30,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 1.1.2
  */
+@FunctionalInterface
 public interface CbsClient {
 
     /**
@@ -41,5 +44,10 @@ public interface CbsClient {
      * @return reactive stream of configuration
      * @since 1.1.2
      */
-    @NotNull Mono<JsonObject> get(String serviceComponentName);
+    @NotNull Mono<JsonElement> get(String serviceComponentName);
+
+    default Flux<JsonElement> updates(String serviceComponentName, Duration initialDelay, Duration period) {
+        return Flux.interval(initialDelay, period)
+                .flatMap(i -> get(serviceComponentName));
+    }
 }

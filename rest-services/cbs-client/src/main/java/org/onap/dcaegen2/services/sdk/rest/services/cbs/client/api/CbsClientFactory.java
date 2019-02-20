@@ -43,8 +43,7 @@ public class CbsClientFactory {
      * @return non-null {@link Mono} of {@link CbsClient} instance
      * @since 1.1.2
      */
-    @NotNull
-    public static Mono<CbsClient> createCbsClient() {
+    public static @NotNull Mono<CbsClient> createCbsClient() {
         return Mono.just(new CbsClientImpl());
     }
 }

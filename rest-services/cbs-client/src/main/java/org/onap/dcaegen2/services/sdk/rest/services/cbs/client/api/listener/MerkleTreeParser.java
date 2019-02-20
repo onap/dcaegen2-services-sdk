@@ -37,12 +37,14 @@ import static java.lang.String.valueOf;
  *
  * @since 1.1.2
  */
-class MerkleTreeParser {
+public class MerkleTreeParser {
 
     /**
      * <p> Method used to parse {@link JsonObject} into {@link MerkleTree} structure.</p>
-     * <p> The algorithm will recursively create mapping of (path in tree)->(value) from JsonObject
+     *
+     * <p> The algorithm will recursively create mapping of (path in tree)-&gt;(value) from JsonObject
      * and use it to create MerkleTree by means of {@link MerkleTree#add(List, Object)} method. </p>
+     *
      * <p> Each JsonObject will append it's key to path until value of primitive type is encountered.
      * For each JsonArray element artificial path is created by creating lables from sequential integers.
      * This results in array split into multiple nodes in MerkleTree structure.</p>
@@ -57,18 +59,19 @@ class MerkleTreeParser {
      *      }
      * }
      * </pre>
-     * following map would be created:</p>
+     * following map would be created:
      * <pre>
-     *  "v1" <- ["p1"]
-     *  "v2" <- ["p2", "0"]
-     *  "v3" <- ["p2", "1"]
-     *  "v4" <- ["p3", "p4"]
+     *  "v1" &lt;- ["p1"]
+     *  "v2" &lt;- ["p2", "0"]
+     *  "v3" &lt;- ["p2", "1"]
+     *  "v4" &lt;- ["p3", "p4"]
      * </pre>
      *
      * @param json JsonObject to be parsed
+     * @return JsonObject as MerkleTree
      * @since 1.1.2
      */
-    MerkleTree<String> fromJsonObject(final @NotNull JsonObject json) {
+    public MerkleTree<String> fromJsonObject(final @NotNull JsonObject json) {
         MerkleTree<String> tree = MerkleTree.emptyWithDefaultDigest(String::getBytes);
         for (Entry<String, JsonElement> entry : json.entrySet()) {
             tree = treeEnhancedWithEntry(tree, entry);
