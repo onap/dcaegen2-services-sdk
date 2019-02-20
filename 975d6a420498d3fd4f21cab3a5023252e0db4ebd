@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4a56114a_17461ca1",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:37:40Z",
+      "side": 1,
+      "message": "It won\u0027t help here because we need more complicated transactions here.",
+      "parentUuid": "e922cf28_5fe93be8",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da34a2c1_9786b1a8",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
         "patchSetId": 5
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "d2446c0c_33c6eb2f",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64e117ea_f478ae6f",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "958e10d9_a2228246",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
         "patchSetId": 5
@@ -64,6 +100,24 @@
       "writtenOn": "2019-02-19T18:08:24Z",
       "side": 1,
       "message": "I think that should be moved to separate file",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d87fb094_475346da",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/ListenableCbsConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "958e10d9_a2228246",
       "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -105,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5d508e76_f053ddde",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceb4b29d_36e6780b",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89082aa3_1af0d87f",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
         "patchSetId": 5
@@ -116,6 +188,24 @@
       "writtenOn": "2019-02-19T18:08:24Z",
       "side": 1,
       "message": "Rename \"root1\" to \"node\" or something",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e12dbe66_5a3eae00",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89082aa3_1af0d87f",
       "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -139,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "bc039661_cfde2eb6",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:37:40Z",
+      "side": 1,
+      "message": "Why?",
+      "parentUuid": "717f55e2_3997e157",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d1c448f_50b5a1ec",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
         "patchSetId": 5
@@ -150,6 +258,24 @@
       "writtenOn": "2019-02-20T10:35:13Z",
       "side": 1,
       "message": "Shouldn\u0027t we use the same algorithm as in MerkleTree instance?",
+      "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6dfe0101_6e792851",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-20T11:37:40Z",
+      "side": 1,
+      "message": "It\u0027s not strict requirement but I will try to do this nicely.",
+      "parentUuid": "6d1c448f_50b5a1ec",
       "revId": "975d6a420498d3fd4f21cab3a5023252e0db4ebd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
