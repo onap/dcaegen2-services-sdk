@@ -1,0 +1,13 @@
+{
+    "collector": {
+        "timeoutSec": 60
+    },
+    "stream_publishes": {
+        "perf3gpp": {
+            "aaf_username": "vesuser"
+        },
+        "trace": {
+            "aaf_username": "vesuser"
+        }
+    }
+}
