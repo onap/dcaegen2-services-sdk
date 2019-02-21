@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "44ad74e6_45eaca24",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/DmaapInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-21T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "145aeaaa_d096ea96",
+      "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5c17f9a_5bbdbe96",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-20T11:45:30Z",
       "side": 1,
       "message": "Extract a class for AAF config as discussed earlier.",
+      "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5daade4d_1c2bc615",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-21T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5c17f9a_5bbdbe96",
       "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "65236479_bed35e48",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-21T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "815d51c7_c289f30c",
+      "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbcb4aca_356af22d",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2019-02-20T11:27:53Z",
       "side": 1,
       "message": "Put this comment ending in new line",
+      "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff9aa402_1b6bef2d",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-21T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbcb4aca_356af22d",
       "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -98,6 +170,24 @@
       "writtenOn": "2019-02-20T11:27:53Z",
       "side": 1,
       "message": "Isn\u0027t \"StreamPublishers\" better? What do you think",
+      "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0cc72f31_97a30d19",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/StreamsPublishers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-02-21T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f8e0b2e_54512935",
       "revId": "98626193dcaf95a4b429b678d7ce878604be3ea2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
