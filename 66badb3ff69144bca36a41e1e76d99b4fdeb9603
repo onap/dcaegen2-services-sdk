@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fb518d1_1d263394",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-21T06:40:50Z",
+      "side": 1,
+      "message": "Why it\u0027s abstract class? All other values are interfaces. If there is no particular reason then please align with the rest.",
+      "revId": "66badb3ff69144bca36a41e1e76d99b4fdeb9603",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b82d974c_0478dcb1",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-21T06:40:50Z",
+      "side": 1,
+      "message": "remove s",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 44,
+        "endChar": 37
+      },
+      "revId": "66badb3ff69144bca36a41e1e76d99b4fdeb9603",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a90d631_992ebb53",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-21T06:40:50Z",
+      "side": 1,
+      "message": "Still no extracted class. Any reason for this?",
+      "revId": "66badb3ff69144bca36a41e1e76d99b4fdeb9603",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51789b2b_4e8feb0a",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Publisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-21T06:40:50Z",
+      "side": 1,
+      "message": "still no DATA_ROUTER",
+      "revId": "66badb3ff69144bca36a41e1e76d99b4fdeb9603",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d17621f0_086d5947",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/StreamsPublishers.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-21T06:40:50Z",
+      "side": 1,
+      "message": "I believe it should be just Streams with fields publishes and subscribes. Also note that it\u0027s NOT publisheRs.",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 34
+      },
+      "revId": "66badb3ff69144bca36a41e1e76d99b4fdeb9603",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
