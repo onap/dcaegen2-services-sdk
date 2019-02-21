@@ -21,8 +21,8 @@
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service;
 
 import io.netty.handler.ssl.SslContext;
-import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 
+import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.ssl.SslFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +31,7 @@ import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
+
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
