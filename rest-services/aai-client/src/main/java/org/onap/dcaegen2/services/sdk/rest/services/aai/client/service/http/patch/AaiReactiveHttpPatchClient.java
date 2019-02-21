@@ -39,6 +39,7 @@ import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVari
 import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
 
 
+@Deprecated
 public class AaiReactiveHttpPatchClient {
 
     private WebClient webClient;

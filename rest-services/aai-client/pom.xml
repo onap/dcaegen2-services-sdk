@@ -19,12 +19,17 @@
   <description>Active and Available Inventory Rest Services Module</description>
   <packaging>jar</packaging>
 
+  <properties>
+    <common-dependency.version>1.1.2-SNAPSHOT</common-dependency.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
       <artifactId>common-dependency</artifactId>
-      <version>1.1.2-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webflux</artifactId>
