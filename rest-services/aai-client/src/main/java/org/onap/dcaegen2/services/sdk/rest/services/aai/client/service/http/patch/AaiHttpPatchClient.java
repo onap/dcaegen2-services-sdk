@@ -20,29 +20,24 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.patch;
 
-
+import io.netty.handler.codec.http.HttpHeaders;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
+import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import org.slf4j.MDC;
-import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
+import reactor.netty.ByteBufFlux;
+import reactor.netty.http.client.HttpClient;
 
-import java.net.URI;
 import java.util.UUID;
-
+import java.util.function.Consumer;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.REQUEST_ID;
 import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_INVOCATION_ID;
 import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
 
-
-@Deprecated
-public class AaiReactiveHttpPatchClient {
-
-    private WebClient webClient;
+public class AaiHttpPatchClient {
     private final String aaiHost;
     private final String aaiProtocol;
     private final Integer aaiHostPortNumber;
@@ -50,12 +45,9 @@ public class AaiReactiveHttpPatchClient {
     private final String aaiPnfPath;
     private final JsonBodyBuilder jsonBodyBuilder;
 
-    /**
-     * Constructor of AaiProducerReactiveHttpClient.
-     *
-     * @param configuration - AAI producer configuration object
-     */
-    public AaiReactiveHttpPatchClient(AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder) {
+
+
+    public AaiHttpPatchClient(AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder) {
         this.aaiHost = configuration.aaiHost();
         this.aaiProtocol = configuration.aaiProtocol();
         this.aaiHostPortNumber = configuration.aaiPort();
@@ -64,33 +56,28 @@ public class AaiReactiveHttpPatchClient {
         this.jsonBodyBuilder = jsonBodyBuilder;
     }
 
-    /**
-     * Function for calling AAI Http producer - patch request to AAI database.
-     *
-     * @param aaiModel - object which will be sent to AAI database
-     * @return status code of operation
-     */
-    public Mono<ClientResponse> getAaiProducerResponse(AaiModel aaiModel) {
-        return patchAaiRequest(aaiModel);
+    private Mono<Integer> getAaiRequest(AaiModel aaiModel, HttpClient httpClient) {
+        return httpClient
+                .headers(addHeaders())
+                .baseUrl(getUri(aaiModel.getCorrelationId()))
+                .patch()
+                .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(aaiModel))))
+                .responseSingle((res, content) -> Mono.just(res.status().code()));
     }
 
-    public AaiReactiveHttpPatchClient createAaiWebClient(WebClient webClient) {
-        this.webClient = webClient;
-        return this;
+
+    String getUri(String pnfName) {
+        return new URI.URIBuilder()
+                .scheme(aaiProtocol)
+                .host(aaiHost)
+                .port(aaiHostPortNumber)
+                .path(aaiBasePath + aaiPnfPath + "/" + pnfName).build().toString();
     }
 
-    private Mono<ClientResponse> patchAaiRequest(AaiModel aaiModel) {
-        return
-            webClient.patch()
-                .uri(getUri(aaiModel.getCorrelationId()))
-                .header(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID))
-                .header(X_INVOCATION_ID, UUID.randomUUID().toString())
-                .body(Mono.just(jsonBodyBuilder.createJsonBody(aaiModel)), String.class)
-                .exchange();
-    }
-
-    URI getUri(String pnfName) {
-        return new DefaultUriBuilderFactory().builder().scheme(aaiProtocol).host(aaiHost).port(aaiHostPortNumber)
-            .path(aaiBasePath + aaiPnfPath + "/" + pnfName).build();
+    private Consumer<? super HttpHeaders> addHeaders() {
+        return h -> {
+            h.add(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID));
+            h.add(X_INVOCATION_ID, UUID.randomUUID().toString());
+        };
     }
 }
