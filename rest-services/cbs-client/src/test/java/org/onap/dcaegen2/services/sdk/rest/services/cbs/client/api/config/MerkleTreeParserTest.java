@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.config;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
