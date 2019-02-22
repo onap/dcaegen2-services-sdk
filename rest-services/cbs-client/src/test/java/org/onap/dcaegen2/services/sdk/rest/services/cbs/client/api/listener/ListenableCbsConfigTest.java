@@ -25,8 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.vavr.collection.List;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener.ListenableCbsConfig;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener.MerkleTree;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.ReplayProcessor;
 import reactor.test.StepVerifier;
