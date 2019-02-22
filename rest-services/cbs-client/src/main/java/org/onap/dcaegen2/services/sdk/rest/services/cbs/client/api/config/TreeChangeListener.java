@@ -18,11 +18,12 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.config;
 
 import io.vavr.collection.List;
 import io.vavr.control.Option;
 import java.util.function.Consumer;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.config.MerkleTree;
 
 /**
  * The listener for changes of the {@link MerkleTree} subtree.

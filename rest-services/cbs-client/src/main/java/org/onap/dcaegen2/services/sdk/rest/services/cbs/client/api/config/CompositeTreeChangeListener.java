@@ -17,23 +17,34 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.config;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
-
-import io.vavr.Function1;
-import io.vavr.collection.List;
+import io.vavr.control.Option;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.2
+ *
+ * NOTE
+ * The class is thread unsafe
  */
-@FunctionalInterface
-public interface HashAlgorithm extends Function1<byte[], byte[]> {
+class CompositeTreeChangeListener<V> implements TreeChangeListener<V> {
 
-    @Override
-    default byte[] apply(byte[] bytes) {
-        return apply(List.of(bytes));
+    private final Collection<TreeChangeListener<V>> listeners = new HashSet<>();
+
+    public void addListener(TreeChangeListener<V> listener) {
+        listeners.add(listener);
     }
 
-    byte[] apply(Iterable<byte[]> bytes);
+    public void removeListener(TreeChangeListener<V> listener) {
+        listeners.remove(listener);
+    }
+
+    @Override
+    public void accept(Option<MerkleTree<V>> updatedSubtree) {
+        for (TreeChangeListener<V> listener : listeners) {
+            listener.accept(updatedSubtree);
+        }
+    }
 }
