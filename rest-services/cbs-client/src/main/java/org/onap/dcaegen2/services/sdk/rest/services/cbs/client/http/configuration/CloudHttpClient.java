@@ -22,13 +22,15 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configurati
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import java.util.function.BiConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.netty.Connection;
+import reactor.netty.http.client.HttpClient;
+import reactor.netty.http.client.HttpClientRequest;
+import reactor.netty.http.client.HttpClientResponse;
+
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/15/18
@@ -39,31 +41,39 @@ public class CloudHttpClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(CloudHttpClient.class);
 
     private final Gson gson;
-    private final WebClient webClient;
+    private final HttpClient httpClient;
+
 
     public CloudHttpClient() {
-        this(WebClient.builder().filter(logRequest()).filter(logResponse()).build());
+        this(HttpClient.create().doOnRequest(logRequest()).doOnResponse(logResponse()));
     }
 
-    CloudHttpClient(WebClient webClient) {
+
+    CloudHttpClient(HttpClient httpClient) {
         this.gson = new Gson();
-        this.webClient = webClient;
+        this.httpClient = httpClient;
     }
+
 
     public <T> Mono<T> callHttpGet(String url, Class<T> genericClassDeclaration) {
-        return webClient
+        return httpClient
+            .baseUrl(url)
+            .doOnResponseError(doOnError())
             .get()
-            .uri(url)
-            .retrieve()
-            .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(getException(response)))
-            .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(getException(response)))
-            .bodyToMono(String.class)
-            .flatMap(body -> getJsonFromRequest(body, genericClassDeclaration));
+            .responseSingle(
+                (httpClientResponse, content) -> getJsonFromRequest(content.toString(), genericClassDeclaration));
     }
 
-    private RuntimeException getException(ClientResponse response) {
+    private BiConsumer<HttpClientResponse, Throwable> doOnError() {
+        return (httpClientResponse, throwable) -> {
+            Mono.error(getException(httpClientResponse));
+        };
+    }
+
+
+    private RuntimeException getException(HttpClientResponse response) {
         return new RuntimeException(String.format("Request for cloud config failed: HTTP %d",
-            response.statusCode().value()));
+            response.status().code()));
     }
 
     private <T> Mono<T> getJsonFromRequest(String body, Class<T> genericClassDeclaration) {
@@ -78,20 +88,22 @@ public class CloudHttpClient {
         return gson.fromJson(body, genericClassDeclaration);
     }
 
-    private static ExchangeFilterFunction logResponse() {
-        return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
-            LOGGER.info("Response status {}", clientResponse.statusCode());
-            return Mono.just(clientResponse);
-        });
+
+    private static BiConsumer<HttpClientRequest, Connection> logRequest() {
+        return (httpClientRequest, connection) -> {
+            LOGGER.debug("Request: {} {}", httpClientRequest.method(), httpClientRequest.uri());
+            httpClientRequest.requestHeaders().forEach(stringStringEntry -> {
+                LOGGER.trace("{}={}", stringStringEntry.getKey(), stringStringEntry.getValue());
+            });
+
+        };
     }
 
-    private static ExchangeFilterFunction logRequest() {
-        return ExchangeFilterFunction.ofRequestProcessor(clientRequest -> {
-            LOGGER.info("Request: {} {}", clientRequest.method(), clientRequest.url());
-            clientRequest.headers()
-                .forEach((name, values) -> values.forEach(value -> LOGGER.info("{}={}", name, value)));
-            return Mono.just(clientRequest);
-        });
+    private static BiConsumer<? super HttpClientResponse, ? super Connection> logResponse() {
+        return (httpClientresponse, connection) -> {
+            LOGGER.debug("Response status: {}", httpClientresponse.status());
+        };
     }
+
 
 }

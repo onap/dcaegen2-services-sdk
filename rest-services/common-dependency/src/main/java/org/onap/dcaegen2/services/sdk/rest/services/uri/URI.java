@@ -19,9 +19,9 @@
  *
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
+package org.onap.dcaegen2.services.sdk.rest.services.uri;
 
-final class URI {
+public final class URI {
     private String scheme;
     private String host;
     private int port;
@@ -36,7 +36,7 @@ final class URI {
     private URI() {
     }
 
-    static final class URIBuilder {
+    public static final class URIBuilder {
         private String scheme;
         private String host;
         private int port;
@@ -47,52 +47,52 @@ final class URI {
         private String query;
         private String schemeSpecificPart;
 
-        URIBuilder scheme(String scheme) {
+        public URIBuilder scheme(String scheme) {
             this.scheme = scheme;
             return this;
         }
 
-        URIBuilder host(String host) {
+        public URIBuilder host(String host) {
             this.host = host;
             return this;
         }
 
-        URIBuilder port(int port) {
+        public URIBuilder port(int port) {
             this.port = port;
             return this;
         }
 
-        URIBuilder path(String path) {
+        public URIBuilder path(String path) {
             this.path = path;
             return this;
         }
 
-        URIBuilder fragment(String fragment) {
+        public URIBuilder fragment(String fragment) {
             this.fragment = fragment;
             return this;
         }
 
-        URIBuilder authority(String authority) {
+        public URIBuilder authority(String authority) {
             this.authority = authority;
             return this;
         }
 
-        URIBuilder userInfo(String userInfo) {
+        public URIBuilder userInfo(String userInfo) {
             this.userInfo = userInfo;
             return this;
         }
 
-        URIBuilder query(String query) {
+        public URIBuilder query(String query) {
             this.query = query;
             return this;
         }
 
-        URIBuilder schemeSpecificPart(String schemeSpecificPart) {
+        public URIBuilder schemeSpecificPart(String schemeSpecificPart) {
             this.schemeSpecificPart = schemeSpecificPart;
             return this;
         }
 
-        URI build() {
+        public URI build() {
             URI uri = new URI();
             uri.scheme = this.scheme;
             uri.host = this.host;

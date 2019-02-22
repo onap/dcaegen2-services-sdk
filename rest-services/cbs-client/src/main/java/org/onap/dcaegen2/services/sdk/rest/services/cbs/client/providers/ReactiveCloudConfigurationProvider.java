@@ -25,6 +25,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
