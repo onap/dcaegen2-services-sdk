@@ -16,6 +16,46 @@
       "revId": "0be7985c641d67169a83f55632c187262aad3608",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4d5e559_ec46cf6b",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T10:27:46Z",
+      "side": 1,
+      "message": "Align with code style https://wiki.onap.org/display/DW/Java+code+style",
+      "range": {
+        "startLine": 55,
+        "startChar": 24,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "0be7985c641d67169a83f55632c187262aad3608",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5808c4d_db2f1d77",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T10:27:46Z",
+      "side": 1,
+      "message": "I\u0027d force clients of this API to provide non-null parameters. Let\u0027s fail fast and do not do \"defensive programming\" in the codebase. We can even add org.jetbrains.annotations.NotNull annotation to these params as a documentation.",
+      "revId": "0be7985c641d67169a83f55632c187262aad3608",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
