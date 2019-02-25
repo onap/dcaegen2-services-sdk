@@ -76,6 +76,40 @@
     },
     {
       "key": {
+        "uuid": "4b635415_00d5463c",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-25T09:19:44Z",
+      "side": 1,
+      "message": "Below dependency is not needed",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1b64ca3_29751298",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-25T09:19:44Z",
+      "side": 1,
+      "message": "Below dependecy is not needed",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "277100a0_9995cdb2",
         "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
         "patchSetId": 1
@@ -212,6 +246,23 @@
     },
     {
       "key": {
+        "uuid": "dc92378e_686d0cbb",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-25T09:19:44Z",
+      "side": 1,
+      "message": "What in case . does not exist?",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4805e299_ae08fe16",
         "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
         "patchSetId": 1
@@ -325,6 +376,23 @@
       "writtenOn": "2019-02-25T07:46:34Z",
       "side": 1,
       "message": "This method requires refactoring",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40dac9ff_d9177844",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-25T09:19:44Z",
+      "side": 1,
+      "message": "use foreach",
       "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
