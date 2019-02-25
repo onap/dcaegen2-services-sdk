@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efe53a52_7b0eb333",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/config/listeners/CompositeTreeChangeListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T07:31:17Z",
+      "side": 1,
+      "message": "Add note that it\u0027s thread-UNsafe",
+      "revId": "7f15551432fb1c071cee6c9cd9aa6fe6184d94c0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b0bc911_6265e3f1",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/config/listeners/CompositeTreeChangeListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T07:31:17Z",
+      "side": 1,
+      "message": "Should be package-private",
+      "revId": "7f15551432fb1c071cee6c9cd9aa6fe6184d94c0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2db94d2e_ef654433",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/config/listeners/TreePathListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T07:31:17Z",
+      "side": 1,
+      "message": "Should be package-private",
+      "revId": "7f15551432fb1c071cee6c9cd9aa6fe6184d94c0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dcb31df_5d9c1874",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/config/listeners/TreePathListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T07:31:17Z",
+      "side": 1,
+      "message": "surround with synchronized(this) as composite listener is not thread safe",
+      "revId": "7f15551432fb1c071cee6c9cd9aa6fe6184d94c0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
