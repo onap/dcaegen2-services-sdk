@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "66083106_86198771",
+        "filename": "rest-services/aai-client/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T10:40:34Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we just use ${project.version}?",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "5a274f3f720451e6b43bf5db4db9cbe66c953bf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "441e1660_8be54912",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/AaiHttpClientFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T10:40:34Z",
+      "side": 1,
+      "message": "Suggestion for general architecture - please ignore if this is a master plan and this MR is only a part of it.\n\nIMHO we should return an instance of AaiHttpClient initialized with this HttpClient. AaiHttpClient should be a base interface for all AAI requests (ie. AaiHttpGetClient and AaiHttpPatchClient). It should contain single method (apply/invoke/...).\n\nHere instead of build() we should have get() and patch() methods.",
+      "revId": "5a274f3f720451e6b43bf5db4db9cbe66c953bf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "106a70d9_048a108a",
         "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiHttpGetClient.java",
         "patchSetId": 3
@@ -13,6 +53,47 @@
       "writtenOn": "2019-02-25T09:13:45Z",
       "side": 1,
       "message": "May it be final?",
+      "revId": "5a274f3f720451e6b43bf5db4db9cbe66c953bf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4430351c_eab39449",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiHttpGetClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T10:40:34Z",
+      "side": 1,
+      "message": "What is the public API of this class? What can be called?",
+      "parentUuid": "106a70d9_048a108a",
+      "revId": "5a274f3f720451e6b43bf5db4db9cbe66c953bf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f809401_6764e777",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/patch/AaiHttpPatchClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T10:40:34Z",
+      "side": 1,
+      "message": "Can\u0027t we just assign configuration to a final field?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 53
+      },
       "revId": "5a274f3f720451e6b43bf5db4db9cbe66c953bf2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
