@@ -25,15 +25,17 @@ import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Objects;
+
 import org.jetbrains.annotations.NotNull;
 
 /**
  * An immutable <a href="https://en.wikipedia.org/wiki/Merkle_tree" target="_blank">Merkle Tree</a> implementation.
- *
+ * <p>
  * Each node is labelled with a {@code String} label. A path of a node is defined as a list of labels from root to a
  * given node.
  *
@@ -62,7 +64,7 @@ public final class MerkleTree<V> {
      * Create an empty tree with given serializer and using default digest algorithm as a hash function.
      *
      * @param serializer a way of serializing a value to array of bytes
-     * @param <V> type of values kept in a tree
+     * @param <V>        type of values kept in a tree
      * @return empty tree
      */
     public static @NotNull <V> MerkleTree<V> emptyWithDefaultDigest(@NotNull ValueSerializer<V> serializer) {
@@ -73,8 +75,8 @@ public final class MerkleTree<V> {
      * Create an empty tree with given serializer and given digest algorithm used as a hash function.
      *
      * @param digestAlgorithmName name of a digest algorithm as used by {@link MessageDigest#getInstance(String)}
-     * @param serializer a way of serializing a value to array of bytes
-     * @param <V> type of values kept in a tree
+     * @param serializer          a way of serializing a value to array of bytes
+     * @param <V>                 type of values kept in a tree
      * @return empty tree
      */
     public static @NotNull <V> MerkleTree<V> emptyWithDigest(
@@ -90,9 +92,9 @@ public final class MerkleTree<V> {
     /**
      * Create an empty tree with given hash function.
      *
-     * @param serializer a function which serializes values to a byte array
+     * @param serializer    a function which serializes values to a byte array
      * @param hashAlgorithm a function which calculates a hash of a serialized value
-     * @param <V> type of values kept in a tree
+     * @param <V>           type of values kept in a tree
      * @return empty tree
      */
     public static <V> MerkleTree<V> emptyWithHashProvider(ValueSerializer<V> serializer, HashAlgorithm hashAlgorithm) {
@@ -109,11 +111,11 @@ public final class MerkleTree<V> {
 
     /**
      * Assigns a value to a given path.
-     *
+     * <p>
      * Overrides current value if already exists.
      *
      * @param value a value to assign
-     * @param path path of labels from root
+     * @param path  path of labels from root
      * @return an updated tree instance or <code>this</code> if hashes are the same
      */
     public MerkleTree<V> add(V value, String... path) {
@@ -122,10 +124,10 @@ public final class MerkleTree<V> {
 
     /**
      * Assigns a value to a given path.
-     *
+     * <p>
      * Overrides current value if already exists.
      *
-     * @param path path of labels from root
+     * @param path  path of labels from root
      * @param value a value to assign
      * @return an updated tree instance or <code>this</code> if hashes are the same
      */
@@ -161,7 +163,7 @@ public final class MerkleTree<V> {
      * Checks if nodes under given path are the same in {@code this} and {@code other} tree.
      *
      * @param other a tree to compare with
-     * @param path a path to a subtree to compare
+     * @param path  a path to a subtree to compare
      * @return true if hashes are the same, false otherwise
      */
     public boolean isSame(MerkleTree<V> other, String... path) {
@@ -172,7 +174,7 @@ public final class MerkleTree<V> {
      * Checks if nodes under given path are the same in {@code this} and {@code other} tree.
      *
      * @param other a tree to compare with
-     * @param path a path to a subtree to compare
+     * @param path  a path to a subtree to compare
      * @return true if hashes are the same, false otherwise
      */
     public boolean isSame(List<String> path, MerkleTree<V> other) {
