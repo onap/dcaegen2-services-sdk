@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "5c26d030_c7fea03c",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "For now it may stay here, but the whole point of DCAE SDK is standarization. In the future we should think of refactoring our project structure.",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3419ce4_589a4646",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Use the same version for whole SDK",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6652e7ce_81d210be",
         "filename": "standardization/api-custom-header/pom.xml",
         "patchSetId": 1
@@ -110,6 +144,57 @@
     },
     {
       "key": {
+        "uuid": "b18bb7bc_dcc5cdff",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Don\u0027t use Vintage. We already use Jupiter.",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f31bac1_3ff63105",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Document public API using JavaDoc.",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72333820_f61cb1ed",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t have any value added.",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "277100a0_9995cdb2",
         "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
         "patchSetId": 1
@@ -172,6 +257,23 @@
       "writtenOn": "2019-02-25T07:46:34Z",
       "side": 1,
       "message": "Sonnar will occur",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07766375_7d231717",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Returning null should be avoided. You can: return empty list, return Optional\u003cList\u003c\u003e\u003e, throw a custom runtime exception.",
       "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -246,6 +348,23 @@
     },
     {
       "key": {
+        "uuid": "5e3d710a_4feed93d",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "This constructor contains quite a bit of logic. Please create a simple constructor to initialize all fields (btw. they should be final). This parsing logic can be extracted to static factory methods `ApiVersionModel.parse(String version)`",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc92378e_686d0cbb",
         "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
         "patchSetId": 1
@@ -280,6 +399,23 @@
     },
     {
       "key": {
+        "uuid": "bd817690_d646b50f",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "I believe patch version should contain all remaining parts, ie. for \"1.0.24.rc2\" it should yield patchVersion equal to \"24.rc2\"",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1b718f9_3a03692e",
         "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
         "patchSetId": 1
@@ -308,6 +444,24 @@
       "writtenOn": "2019-02-25T07:46:34Z",
       "side": 1,
       "message": "Dependency commons-collections from pom.xml can be removed",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9751c8d9_76d93117",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "1. Document public API using javadoc. Describe in few words what this class is responsible of.\n2. *Utils is very vague name.",
+      "parentUuid": "29f6ddde_5e5b6e7c",
       "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -427,6 +581,149 @@
       "writtenOn": "2019-02-25T07:46:34Z",
       "side": 1,
       "message": "Method candidate",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80888bb9_94cfd723",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Return boolean instead of Boolean. Don\u0027t force users of this method to think if result can be null or not.",
+      "range": {
+        "startLine": 200,
+        "startChar": 9,
+        "endLine": 200,
+        "endChar": 16
+      },
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12cb628f_c9327048",
+        "filename": "standardization/api-custom-header/src/test/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Remove all these prints. Use assertions with descriptive messages instead. Hint: you may use AssertJ for writing clean assertions.",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68867b49_8a6e2760",
+        "filename": "standardization/api-custom-header/src/test/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Avoid documenting private API if good naming will suffice.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 5
+      },
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c393098_89bbd909",
+        "filename": "standardization/api-custom-header/src/test/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Reformat the code to follow ONAP coding style.",
+      "range": {
+        "startLine": 69,
+        "startChar": 58,
+        "endLine": 71,
+        "endChar": 8
+      },
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b98f59_a2fd627a",
+        "filename": "standardization/docs/custom_header.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "remove space :)",
+      "range": {
+        "startLine": 8,
+        "startChar": 7,
+        "endLine": 8,
+        "endChar": 8
+      },
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27d712ca_d1eb5fce",
+        "filename": "standardization/docs/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we want to document the SDK API using RST docs. Why not keep whole documentation together with the code by means of JavaDoc?",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8ae145c_599a7cbb",
+        "filename": "standardization/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-25T09:35:46Z",
+      "side": 1,
+      "message": "Don\u0027t define version in child project. Use the version of parent pom.",
       "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
