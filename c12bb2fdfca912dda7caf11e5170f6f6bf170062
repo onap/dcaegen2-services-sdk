@@ -1,0 +1,367 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6652e7ce_81d210be",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Please set \u003cjava.version\u003e{version}\u003c/java.version\u003e",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 2
+      },
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "817daaa2_20e48c35",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Redundant dependency java features",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad80e998_2819c388",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Maybe better option is to use gson and build models in ApiVersionManagement ?",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e246a29_9f2c06f6",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Redundant dependency java features",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "277100a0_9995cdb2",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "redundant",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20c8c547_0ad43370",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "This method can be splitted to smaller responsibilities",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4f4a223_d00a7c58",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "This part of code can be replaced with gson, then we don\u0027t need synchronization block of code and operate with Object inscance",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1eb7af3_307991d8",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Sonnar will occur",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "567be734_91386972",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Java 8 try-with-resources \n\nJava 8 have utils to read string from file:\nnew String(Files.readAllBytes(Paths.get(filePath)))\n\nPlease remove redundant dependency",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d2e3701_8b5e0ac9",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Please log e",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6be557e9_44fc5647",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Returning null is not a good practice",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d253e70_10564fae",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "We should avoid mutable objects - setter method.",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4805e299_ae08fe16",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "This field can be a constructor parameter",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1b718f9_3a03692e",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Btw setter on this moment are not used, please remove",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29f6ddde_5e5b6e7c",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Dependency commons-collections from pom.xml can be removed",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d76c603_13e2e395",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "We don\u0027t have to use StringUtils to check if string \"\".isEmpty() so commons-lang from pom can be removed",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56c1d11e_dd4459ae",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Interface map have method isEmpty()",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbeb925d_8e3c6390",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "interface List have method isEmpty()",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d211ef03_47143519",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "This method requires refactoring",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe10b825_f74b59a0",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Operate on inexes will be hard to maintain",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c1bfe53_9727d6d2",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T07:46:34Z",
+      "side": 1,
+      "message": "Method candidate",
+      "revId": "c12bb2fdfca912dda7caf11e5170f6f6bf170062",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
