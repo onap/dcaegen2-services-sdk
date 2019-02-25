@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "2ffbfa1b_fc37dd51",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T12:59:37Z",
+      "side": 1,
+      "message": "Regarding to the email we can synchronize only access to file",
+      "revId": "0be7985c641d67169a83f55632c187262aad3608",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4d5e559_ec46cf6b",
         "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
         "patchSetId": 2
@@ -36,6 +53,74 @@
         "endLine": 56,
         "endChar": 7
       },
+      "revId": "0be7985c641d67169a83f55632c187262aad3608",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "042497df_958aed51",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T12:59:37Z",
+      "side": 1,
+      "message": "Please split this method to the smaller responsibilities",
+      "revId": "0be7985c641d67169a83f55632c187262aad3608",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40782139_7a305d0a",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T12:59:37Z",
+      "side": 1,
+      "message": "error not warn",
+      "revId": "0be7985c641d67169a83f55632c187262aad3608",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09e437a1_8e13b624",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T12:59:37Z",
+      "side": 1,
+      "message": "Please do not return null;",
+      "revId": "0be7985c641d67169a83f55632c187262aad3608",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34ee088e_0e246225",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-25T12:59:37Z",
+      "side": 1,
+      "message": "possible null, this parameters can be a constructor param",
       "revId": "0be7985c641d67169a83f55632c187262aad3608",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
