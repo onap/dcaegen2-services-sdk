@@ -22,13 +22,21 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters.CloudHttpClient;
 import reactor.core.publisher.Mono;
 
 public class CbsClientImpl implements CbsClient {
+    private final CloudHttpClient httpClient;
+    private final String serviceName;
 
-    @NotNull
+    public CbsClientImpl(
+            CloudHttpClient httpClient, String serviceName) {
+        this.httpClient = httpClient;
+        this.serviceName = serviceName;
+    }
+
     @Override
-    public Mono<JsonObject> get(String serviceComponentName) {
+    public @NotNull Mono<JsonObject> get() {
         return Mono.empty();
     }
 }
