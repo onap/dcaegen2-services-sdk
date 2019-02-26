@@ -67,6 +67,24 @@
       "revId": "7f15551432fb1c071cee6c9cd9aa6fe6184d94c0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa92f4bc_433b3edf",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/config/listeners/TreePathListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-02-26T13:51:09Z",
+      "side": 1,
+      "message": "Hm, it wasn\u0027t a synchronized block before i extracted it here. Gonna make the whole method synchronized if its ok.",
+      "parentUuid": "7dcb31df_5d9c1874",
+      "revId": "7f15551432fb1c071cee6c9cd9aa6fe6184d94c0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
