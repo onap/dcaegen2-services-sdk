@@ -22,14 +22,11 @@ package org.onap.dcaegen2.services.sdk.rest.services.aai.client.config;
 
 import org.immutables.gson.Gson;
 import org.immutables.value.Value;
-import org.springframework.stereotype.Component;
-
 
 import java.io.Serializable;
 import java.util.Map;
 
 
-@Component
 @Value.Immutable(prehash = true)
 @Value.Style(builder = "new")
 @Gson.TypeAdapters

@@ -30,7 +30,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.ssl.SslFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Mono;
 import reactor.netty.Connection;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientRequest;
