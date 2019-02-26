@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcf8bf1c_62c9f8e8",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-26T09:25:15Z",
+      "side": 1,
+      "message": "Scope compile to remove",
+      "revId": "c88ae8f3a880558f81303ab512bb7caa10fd3fd5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fc9ee12_8047298d",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-26T09:25:15Z",
+      "side": 1,
+      "message": "foreach could be used?",
+      "revId": "c88ae8f3a880558f81303ab512bb7caa10fd3fd5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f36c4e36_a8aa0609",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/util/ObjectManagement.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-26T09:25:15Z",
+      "side": 1,
+      "message": "Class could be final?",
+      "revId": "c88ae8f3a880558f81303ab512bb7caa10fd3fd5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f177b613_6709a211",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/util/ObjectManagement.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-26T09:25:15Z",
+      "side": 1,
+      "message": "Missing private constructor?",
+      "revId": "c88ae8f3a880558f81303ab512bb7caa10fd3fd5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
