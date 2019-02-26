@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aed4f1bd_e075b551",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/AaiHttpClientFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-26T09:00:49Z",
+      "side": 1,
+      "message": "add similar method for patch request",
+      "revId": "2b2cae3739554c79e61de26a31397c946cd2171a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fe7a32c_2e00f7fe",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/AaiHttpClientFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-26T09:00:49Z",
+      "side": 1,
+      "message": "make it more private",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 10
+      },
+      "revId": "2b2cae3739554c79e61de26a31397c946cd2171a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af730c64_1869c84c",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiHttpGetClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-26T09:00:49Z",
+      "side": 1,
+      "message": "Inline getAaiRequest and remove it.",
+      "revId": "2b2cae3739554c79e61de26a31397c946cd2171a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1027328_c18d3fe1",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/patch/AaiHttpPatchClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-26T09:00:49Z",
+      "side": 1,
+      "message": "Inline and remove private method",
+      "revId": "2b2cae3739554c79e61de26a31397c946cd2171a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22cd1b68_4d451b1d",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/patch/AaiReactiveHttpPatchClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-26T09:00:49Z",
+      "side": 1,
+      "message": "Add javadoc @deprecated with comment on what to use instead",
+      "revId": "2b2cae3739554c79e61de26a31397c946cd2171a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
