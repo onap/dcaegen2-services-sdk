@@ -21,6 +21,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientImpl;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters.CloudHttpClient;
 import reactor.core.publisher.Mono;
 
 /**
@@ -40,11 +42,16 @@ public class CbsClientFactory {
      * client configured with found address. Created client will be published in returned Mono instance.
      * </p>
      *
+     * @param env required environment properties
      * @return non-null {@link Mono} of {@link CbsClient} instance
      * @since 1.1.2
      */
-    @NotNull
-    public static Mono<CbsClient> createCbsClient() {
-        return Mono.just(new CbsClientImpl());
+    public static @NotNull Mono<CbsClient> createCbsClient(EnvProperties env) {
+        return Mono.defer(() -> {
+            final CloudHttpClient httpClient = new CloudHttpClient();
+            final CbsLookup lookup = new CbsLookup(httpClient);
+            return lookup.lookup(env)
+                    .map(addr -> new CbsClientImpl(httpClient, env.appName()));
+        });
     }
 }
