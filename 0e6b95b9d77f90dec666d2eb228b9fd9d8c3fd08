@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89b12795_20ffe5d8",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/EnvProperties.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-26T15:23:44Z",
+      "side": 1,
+      "message": "Extarct to constatnt variables with description",
+      "revId": "0e6b95b9d77f90dec666d2eb228b9fd9d8c3fd08",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
