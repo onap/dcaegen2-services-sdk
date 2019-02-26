@@ -28,17 +28,19 @@ import java.net.URI;
 import java.util.UUID;
 import java.util.function.Consumer;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapConsumerConfiguration;
+import org.onap.dcaegen2.services.sdk.rest.services.uri.URI.URIBuilder;
 import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
+
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 6/26/18
  */
 public class DMaaPConsumerReactiveHttpClient {
+
     private final String dmaapHostName;
     private final String dmaapProtocol;
     private final Integer dmaapPortNumber;
@@ -95,9 +97,9 @@ public class DMaaPConsumerReactiveHttpClient {
         return dmaapTopicName + "/" + consumerGroup + "/" + consumerId;
     }
 
-
     URI getUri() {
-        return new DefaultUriBuilderFactory().builder().scheme(dmaapProtocol).host(dmaapHostName).port(dmaapPortNumber)
-            .path(createRequestPath()).build();
+        return URI.create(
+            new URIBuilder().scheme(dmaapProtocol).host(dmaapHostName).port(dmaapPortNumber).path(createRequestPath())
+                .build().toString());
     }
 }
