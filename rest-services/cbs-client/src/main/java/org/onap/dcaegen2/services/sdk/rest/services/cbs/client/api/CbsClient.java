@@ -19,7 +19,10 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import java.time.Duration;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,9 +40,24 @@ public interface CbsClient {
      * <p>
      * Returns a {@link Mono} that publishes new configuration after CBS client retrieves one.
      *
-     * @param serviceComponentName url key under which CBS client should look for configuration
      * @return reactive stream of configuration
      * @since 1.1.2
      */
-    @NotNull Mono<JsonObject> get(String serviceComponentName);
+    @NotNull Mono<JsonObject> get();
+
+
+    /**
+     * Poll for configuration.
+     *
+     * Will call {@link #get()} after {@code initialDelay} every {@code period}. Resulting entries may or may not be
+     * changed, ie. items in the stream might be the same until change is made in CBS.
+     *
+     * @param initialDelay delay after first request attempt
+     * @param period frequency of update checks
+     * @return stream of configuration states
+     */
+    default Flux<JsonElement> get(Duration initialDelay, Duration period) {
+        return Flux.interval(initialDelay, period)
+                .flatMap(i -> get());
+    }
 }
