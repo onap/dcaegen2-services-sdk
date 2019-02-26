@@ -22,7 +22,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
 
 import com.google.gson.JsonObject;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.http.configuration.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.EnvProperties;
 import reactor.core.publisher.Mono;
 
 /**
