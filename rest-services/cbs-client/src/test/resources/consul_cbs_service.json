@@ -1,0 +1,23 @@
+[
+    {
+        "Address": "10.42.102.75",
+        "CreateIndex": 1097,
+        "Datacenter": "dc1",
+        "ID": "2a69de1b-4c2d-a958-5058-639acc926fde",
+        "ModifyIndex": 1097,
+        "Node": "dcae-bootstrap",
+        "NodeMeta": {
+            "consul-network-segment": ""
+        },
+        "ServiceAddress": "config-binding-service",
+        "ServiceEnableTagOverride": false,
+        "ServiceID": "dcae-cbs0",
+        "ServiceName": "config_binding_service",
+        "ServicePort": 10000,
+        "ServiceTags": [],
+        "TaggedAddresses": {
+            "lan": "10.42.102.75",
+            "wan": "10.42.102.75"
+        }
+    }
+]
