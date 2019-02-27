@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import java.net.URL;
 import java.util.function.BiConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,6 @@ public class CloudHttpClient {
         this.gson = new Gson();
         this.httpClient = httpClient;
     }
-
 
     public <T> Mono<T> callHttpGet(String url, Class<T> genericClassDeclaration) {
         return httpClient

@@ -20,23 +20,43 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import com.google.gson.JsonObject;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.InvalidCbsAddressException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters.CloudHttpClient;
 import reactor.core.publisher.Mono;
 
 public class CbsClientImpl implements CbsClient {
-    private final CloudHttpClient httpClient;
-    private final String serviceName;
 
-    public CbsClientImpl(
-            CloudHttpClient httpClient, String serviceName) {
+    private final CloudHttpClient httpClient;
+    private final String fetchUrl;
+
+    CbsClientImpl(CloudHttpClient httpClient, URL fetchUrl) {
         this.httpClient = httpClient;
-        this.serviceName = serviceName;
+        this.fetchUrl = fetchUrl.toString();
+    }
+
+    public static CbsClientImpl create(CloudHttpClient httpClient, InetSocketAddress cbsAddress, String serviceName) {
+        return new CbsClientImpl(httpClient, constructUrl(cbsAddress, serviceName));
+    }
+
+    private static URL constructUrl(InetSocketAddress cbsAddress, String serviceName) {
+        try {
+            return new URL(
+                    "http",
+                    cbsAddress.getHostString(),
+                    cbsAddress.getPort(),
+                    "/service_component/" + serviceName);
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("Invalid CBS URL", e);
+        }
     }
 
     @Override
     public @NotNull Mono<JsonObject> get() {
-        return Mono.empty();
+        return Mono.defer(() -> httpClient.callHttpGet(fetchUrl, JsonObject.class));
     }
 }
