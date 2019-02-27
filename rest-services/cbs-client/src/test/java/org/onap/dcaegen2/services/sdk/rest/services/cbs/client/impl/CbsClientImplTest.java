@@ -30,6 +30,7 @@ import static org.mockito.Mockito.verify;
 import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.DiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters.CloudHttpClient;
 import reactor.core.publisher.Mono;
 
@@ -47,13 +48,15 @@ class CbsClientImplTest {
         String serviceName = "dcaegen2-ves-collector";
         final CbsClientImpl cut = CbsClientImpl.create(httpClient, cbsAddress, serviceName);
         final JsonObject httpResponse = new JsonObject();
-        given(httpClient.callHttpGet(anyString(), any(Class.class))).willReturn(Mono.just(httpResponse));
+        given(httpClient.callHttpGet(anyString(), any(DiagnosticContext.class), any(Class.class))).willReturn(Mono.just(httpResponse));
+        DiagnosticContext diagnosticContext = DiagnosticContext.create();
 
         // when
-        final JsonObject result = cut.get().block();
+        final JsonObject result = cut.get(diagnosticContext).block();
 
         // then
-        verify(httpClient).callHttpGet("http://cbshost:6969/service_component/dcaegen2-ves-collector", JsonObject.class);
+        final String expectedUrl = "http://cbshost:6969/service_component/dcaegen2-ves-collector";
+        verify(httpClient).callHttpGet(expectedUrl, diagnosticContext, JsonObject.class);
         assertThat(result).isSameAs(httpResponse);
     }
 }

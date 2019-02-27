@@ -22,6 +22,9 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.time.Duration;
+import java.util.UUID;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.DiagnosticContext;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.ImmutableDiagnosticContext;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import org.jetbrains.annotations.NotNull;
@@ -41,23 +44,24 @@ public interface CbsClient {
      * Returns a {@link Mono} that publishes new configuration after CBS client retrieves one.
      *
      * @return reactive stream of configuration
+     * @param diagnosticContext diagnostic context as defined in Logging Guideline
      * @since 1.1.2
      */
-    @NotNull Mono<JsonObject> get();
-
+    @NotNull Mono<JsonObject> get(DiagnosticContext diagnosticContext);
 
     /**
      * Poll for configuration.
      *
-     * Will call {@link #get()} after {@code initialDelay} every {@code period}. Resulting entries may or may not be
+     * Will call {@link #get(DiagnosticContext)} after {@code initialDelay} every {@code period}. Resulting entries may or may not be
      * changed, ie. items in the stream might be the same until change is made in CBS.
      *
      * @param initialDelay delay after first request attempt
      * @param period frequency of update checks
      * @return stream of configuration states
      */
-    default Flux<JsonElement> get(Duration initialDelay, Duration period) {
+    default Flux<JsonElement> get(DiagnosticContext diagnosticContext, Duration initialDelay, Duration period) {
         return Flux.interval(initialDelay, period)
-                .flatMap(i -> get());
+                .map(i -> ImmutableDiagnosticContext.copyOf(diagnosticContext).withInvocationId(UUID.randomUUID()))
+                .flatMap(this::get);
     }
 }
