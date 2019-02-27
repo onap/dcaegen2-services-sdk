@@ -22,6 +22,12 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import io.netty.handler.codec.http.HttpStatusClass;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
 import java.util.function.BiConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +45,7 @@ public class CloudHttpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CloudHttpClient.class);
 
-    private final Gson gson;
+    private final Gson gson = new Gson();
     private final HttpClient httpClient;
 
 
@@ -49,18 +55,18 @@ public class CloudHttpClient {
 
 
     CloudHttpClient(HttpClient httpClient) {
-        this.gson = new Gson();
         this.httpClient = httpClient;
     }
 
-
-    public <T> Mono<T> callHttpGet(String url, Class<T> genericClassDeclaration) {
+    public <T> Mono<T> callHttpGet(String url, Class<T> bodyClass) {
         return httpClient
-            .baseUrl(url)
-            .doOnResponseError(doOnError())
-            .get()
-            .responseSingle(
-                (httpClientResponse, content) -> getJsonFromRequest(content.toString(), genericClassDeclaration));
+                .doOnResponseError(doOnError())
+                .get()
+                .uri(url)
+                .responseSingle((resp, content) -> HttpStatusClass.SUCCESS.contains(resp.status().code())
+                        ? content.asString()
+                        : Mono.error(new IOException("Request failed for URL '" + url + "'. Response: " + resp.status())))
+                .map(body -> parseJson(body, bodyClass));
     }
 
     private BiConsumer<HttpClientResponse, Throwable> doOnError() {
@@ -69,24 +75,14 @@ public class CloudHttpClient {
         };
     }
 
-
     private RuntimeException getException(HttpClientResponse response) {
         return new RuntimeException(String.format("Request for cloud config failed: HTTP %d",
-            response.status().code()));
+                response.status().code()));
     }
 
-    private <T> Mono<T> getJsonFromRequest(String body, Class<T> genericClassDeclaration) {
-        try {
-            return Mono.just(parseJson(body, genericClassDeclaration));
-        } catch (JsonSyntaxException | IllegalStateException e) {
-            return Mono.error(e);
-        }
+    private <T> T parseJson(String body, Class<T> bodyClass) {
+        return gson.fromJson(body, bodyClass);
     }
-
-    private <T> T parseJson(String body, Class<T> genericClassDeclaration) {
-        return gson.fromJson(body, genericClassDeclaration);
-    }
-
 
     private static BiConsumer<HttpClientRequest, Connection> logRequest() {
         return (httpClientRequest, connection) -> {
