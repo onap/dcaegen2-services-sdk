@@ -22,7 +22,15 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import io.netty.handler.codec.http.HttpStatusClass;
+import io.vavr.collection.Stream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
@@ -39,70 +47,52 @@ public class CloudHttpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CloudHttpClient.class);
 
-    private final Gson gson;
+    private final Gson gson = new Gson();
     private final HttpClient httpClient;
 
-
     public CloudHttpClient() {
-        this(HttpClient.create().doOnRequest(logRequest()).doOnResponse(logResponse()));
+        this(HttpClient.create()
+                .doOnRequest(CloudHttpClient::logRequest)
+                .doOnResponse(CloudHttpClient::logResponse));
     }
 
 
     CloudHttpClient(HttpClient httpClient) {
-        this.gson = new Gson();
         this.httpClient = httpClient;
     }
 
-
-    public <T> Mono<T> callHttpGet(String url, Class<T> genericClassDeclaration) {
+    public <T> Mono<T> callHttpGet(String url, Class<T> bodyClass) {
         return httpClient
-            .baseUrl(url)
-            .doOnResponseError(doOnError())
-            .get()
-            .responseSingle(
-                (httpClientResponse, content) -> getJsonFromRequest(content.toString(), genericClassDeclaration));
+                .get()
+                .uri(url)
+                .responseSingle((resp, content) -> HttpStatusClass.SUCCESS.contains(resp.status().code())
+                        ? content.asString()
+                        : Mono.error(createException(url, resp)))
+                .map(body -> parseJson(body, bodyClass));
     }
 
-    private BiConsumer<HttpClientResponse, Throwable> doOnError() {
-        return (httpClientResponse, throwable) -> {
-            Mono.error(getException(httpClientResponse));
-        };
+    private Exception createException(String url, HttpClientResponse response) {
+        return new IOException(String.format("Request failed for URL '%s'. Response code: %s",
+                url,
+                response.status()));
     }
 
-
-    private RuntimeException getException(HttpClientResponse response) {
-        return new RuntimeException(String.format("Request for cloud config failed: HTTP %d",
-            response.status().code()));
+    private <T> T parseJson(String body, Class<T> bodyClass) {
+        return gson.fromJson(body, bodyClass);
     }
 
-    private <T> Mono<T> getJsonFromRequest(String body, Class<T> genericClassDeclaration) {
-        try {
-            return Mono.just(parseJson(body, genericClassDeclaration));
-        } catch (JsonSyntaxException | IllegalStateException e) {
-            return Mono.error(e);
+    private static void logRequest(HttpClientRequest httpClientRequest, Connection connection) {
+        LOGGER.debug("Request: {} {}", httpClientRequest.method(), httpClientRequest.uri());
+        if (LOGGER.isTraceEnabled()) {
+            final String headers = Stream.ofAll(httpClientRequest.requestHeaders())
+                    .map(entry -> entry.getKey() + "=" + entry.getValue())
+                    .collect(Collectors.joining("\n"));
+            LOGGER.trace(headers);
         }
     }
 
-    private <T> T parseJson(String body, Class<T> genericClassDeclaration) {
-        return gson.fromJson(body, genericClassDeclaration);
+    private static void logResponse(HttpClientResponse httpClientResponse, Connection connection) {
+        LOGGER.debug("Response status: {}", httpClientResponse.status());
     }
-
-
-    private static BiConsumer<HttpClientRequest, Connection> logRequest() {
-        return (httpClientRequest, connection) -> {
-            LOGGER.debug("Request: {} {}", httpClientRequest.method(), httpClientRequest.uri());
-            httpClientRequest.requestHeaders().forEach(stringStringEntry -> {
-                LOGGER.trace("{}={}", stringStringEntry.getKey(), stringStringEntry.getValue());
-            });
-
-        };
-    }
-
-    private static BiConsumer<? super HttpClientResponse, ? super Connection> logResponse() {
-        return (httpClientresponse, connection) -> {
-            LOGGER.debug("Response status: {}", httpClientresponse.status());
-        };
-    }
-
 
 }
