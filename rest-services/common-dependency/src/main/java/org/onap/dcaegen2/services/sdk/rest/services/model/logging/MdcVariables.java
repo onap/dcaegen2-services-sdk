@@ -26,17 +26,37 @@ import java.util.Map;
 
 public final class MdcVariables {
 
+    @Deprecated
     public static final String X_ONAP_REQUEST_ID = "X-ONAP-RequestID";
+    @Deprecated
     public static final String X_INVOCATION_ID = "X-InvocationID";
-    public static final String REQUEST_ID = "RequestID";
-    public static final String INVOCATION_ID = "InvocationID";
+
     public static final String INSTANCE_UUID = "InstanceUUID";
     public static final String RESPONSE_CODE = "ResponseCode";
+    public static final String REQUEST_ID = "RequestID";
+    public static final String CLIENT_NAME = "PartnerName";
+    public static final String CLIENT_IP = "ClientIPAddress";
+    public static final String INVOCATION_ID = "InvocationID";
+    public static final String INVOCATION_TIMESTAMP = "InvokeTimestamp";
+    public static final String STATUS_CODE = "StatusCode";
+    public static final String INSTANCE_ID = "InstanceID";
+    public static final String SERVER_FQDN = "ServerFQDN";
     public static final String SERVICE_NAME = "ServiceName";
+
+    private static final String HTTP_HEADER_PREFIX = "X-";
 
     private MdcVariables() {
     }
 
+    public static String httpHeader(String mdcName) {
+        return HTTP_HEADER_PREFIX + mdcName;
+    }
+
+    /**
+     * @deprecated use {@link RequestDiagnosticContext#setSlf4jMdc()}.
+     * @param mdcContextMap
+     */
+    @Deprecated
     public static void setMdcContextMap(Map<String, String> mdcContextMap) {
         if (mdcContextMap != null) {
             MDC.setContextMap(mdcContextMap);

@@ -53,7 +53,7 @@ public class CbsLookup {
     }
 
     private Mono<JsonArray> fetchHttpData(String consulUrl) {
-        return httpClient.callHttpGet(consulUrl, JsonArray.class);
+        return httpClient.get(consulUrl, JsonArray.class);
     }
 
     private Mono<JsonObject> firstService(JsonArray services) {
