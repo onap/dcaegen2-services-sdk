@@ -28,6 +28,7 @@ import java.time.Duration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.EnvProperties;
@@ -75,7 +76,7 @@ class CbsClientImplIT {
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(env);
 
         // when
-        final Mono<JsonObject> result = sut.flatMap(CbsClient::get);
+        final Mono<JsonObject> result = sut.flatMap(cbsClient -> cbsClient.get(RequestDiagnosticContext.create()));
 
         // then
         StepVerifier.create(result.map(obj -> obj.get("keystore.path").getAsString()))

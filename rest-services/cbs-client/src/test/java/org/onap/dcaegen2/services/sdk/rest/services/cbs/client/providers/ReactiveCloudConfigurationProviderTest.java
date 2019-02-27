@@ -67,9 +67,9 @@ class ReactiveCloudConfigurationProviderTest {
         // given
         CloudHttpClient webClient = mock(CloudHttpClient.class);
         when(
-            webClient.callHttpGet("http://consul:8500/v1/catalog/service/config-binding-service", JsonArray.class))
+            webClient.get("http://consul:8500/v1/catalog/service/config-binding-service", JsonArray.class))
             .thenReturn(Mono.just(configBindingServiceJson));
-        when(webClient.callHttpGet("http://config-binding-service:10000/service_component/dcae-prh", JsonObject.class))
+        when(webClient.get("http://config-binding-service:10000/service_component/dcae-prh", JsonObject.class))
             .thenReturn(Mono.just(configurationJsonMock));
 
         ReactiveCloudConfigurationProvider provider = new ReactiveCloudConfigurationProvider(webClient);
@@ -84,7 +84,7 @@ class ReactiveCloudConfigurationProviderTest {
         // given
         CloudHttpClient webClient = mock(CloudHttpClient.class);
         when(
-            webClient.callHttpGet("http://consul:8500/v1/catalog/service/config-binding-service", JsonArray.class))
+            webClient.get("http://consul:8500/v1/catalog/service/config-binding-service", JsonArray.class))
             .thenReturn(Mono.just(emptyConfigBindingServiceJson));
 
         ReactiveCloudConfigurationProvider provider = new ReactiveCloudConfigurationProvider(webClient);

@@ -24,12 +24,16 @@ import org.slf4j.MDC;
 
 import java.util.Map;
 
+/**
+ * @deprecated Use new API from {@link RequestDiagnosticContext} class.
+ */
+@Deprecated
 public final class MdcVariables {
 
     public static final String X_ONAP_REQUEST_ID = "X-ONAP-RequestID";
     public static final String X_INVOCATION_ID = "X-InvocationID";
-    public static final String REQUEST_ID = "RequestID";
-    public static final String INVOCATION_ID = "InvocationID";
+    public static final String REQUEST_ID = OnapMdc.REQUEST_ID;
+    public static final String INVOCATION_ID = OnapMdc.INVOCATION_ID;
     public static final String INSTANCE_UUID = "InstanceUUID";
     public static final String RESPONSE_CODE = "ResponseCode";
     public static final String SERVICE_NAME = "ServiceName";
