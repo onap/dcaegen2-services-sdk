@@ -18,19 +18,21 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters;
+package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpStatusClass;
+import io.netty.handler.ssl.SslContext;
 import io.vavr.collection.Stream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
-import reactor.netty.Connection;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientRequest;
 import reactor.netty.http.client.HttpClientResponse;
@@ -42,7 +44,6 @@ import reactor.netty.http.client.HttpClientResponse;
 public class CloudHttpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CloudHttpClient.class);
-
     private final Gson gson = new Gson();
     private final HttpClient httpClient;
 
@@ -50,16 +51,25 @@ public class CloudHttpClient {
         this(HttpClient.create());
     }
 
+    public CloudHttpClient(SslContext sslContext) {
+        this(HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext)));
+    }
 
-    CloudHttpClient(HttpClient httpClient) {
+    private CloudHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
+
     }
 
     public <T> Mono<T> get(String url, RequestDiagnosticContext context, Class<T> bodyClass) {
+        return get(url, context, Collections.EMPTY_MAP, bodyClass);
+    }
+
+    public <T> Mono<T> get(String url, RequestDiagnosticContext context, Map<String, String> customHeaders, Class<T> bodyClass) {
         final HttpClient clientWithHeaders = httpClient
-                .doOnRequest((req, conn) -> logRequest(context, req))
-                .doOnResponse((rsp, conn) -> logResponse(context, rsp))
-                .headers(hdrs -> context.remoteCallHttpHeaders().forEach((BiConsumer<String, String>) hdrs::set));
+            .doOnRequest((req, conn) -> logRequest(context, req))
+            .doOnResponse((rsp, conn) -> logResponse(context, rsp))
+            .headers(hdrs -> context.remoteCallHttpHeaders().forEach((BiConsumer<String, String>) hdrs::set))
+            .headers(hdrs -> customHeaders.forEach(hdrs::set));
         return callHttpGet(clientWithHeaders, url, bodyClass);
     }
 
@@ -69,17 +79,17 @@ public class CloudHttpClient {
 
     private <T> Mono<T> callHttpGet(HttpClient client, String url, Class<T> bodyClass) {
         return client.get()
-                .uri(url)
-                .responseSingle((resp, content) -> HttpStatusClass.SUCCESS.contains(resp.status().code())
-                        ? content.asString()
-                        : Mono.error(createException(url, resp)))
-                .map(body -> parseJson(body, bodyClass));
+            .uri(url)
+            .responseSingle((resp, content) -> HttpStatusClass.SUCCESS.contains(resp.status().code())
+                ? content.asString()
+                : Mono.error(createException(url, resp)))
+            .map(body -> parseJson(body, bodyClass));
     }
 
     private Exception createException(String url, HttpClientResponse response) {
         return new IOException(String.format("Request failed for URL '%s'. Response code: %s",
-                url,
-                response.status()));
+            url,
+            response.status()));
     }
 
     private <T> T parseJson(String body, Class<T> bodyClass) {
@@ -91,8 +101,8 @@ public class CloudHttpClient {
             LOGGER.debug("Request: {} {}", httpClientRequest.method(), httpClientRequest.uri());
             if (LOGGER.isTraceEnabled()) {
                 final String headers = Stream.ofAll(httpClientRequest.requestHeaders())
-                        .map(entry -> entry.getKey() + "=" + entry.getValue())
-                        .collect(Collectors.joining("\n"));
+                    .map(entry -> entry.getKey() + "=" + entry.getValue())
+                    .collect(Collectors.joining("\n"));
                 LOGGER.trace(headers);
             }
         });

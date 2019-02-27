@@ -31,7 +31,7 @@ import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import reactor.core.publisher.Mono;
 
 /**
