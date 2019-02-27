@@ -73,7 +73,7 @@ public final class ReactiveCloudConfigurationProvider implements CloudConfigurat
 
     private Mono<String> callConsulForConfigBindingServiceEndpoint(EnvProperties envProperties) {
         LOGGER.info("Retrieving Config Binding Service endpoint from Consul");
-        return cloudHttpClient.callHttpGet(getConsulUrl(envProperties), JsonArray.class)
+        return cloudHttpClient.get(getConsulUrl(envProperties), JsonArray.class)
             .flatMap(jsonArray -> this.createConfigBindingServiceUrl(jsonArray, envProperties.appName()));
     }
 
@@ -84,7 +84,7 @@ public final class ReactiveCloudConfigurationProvider implements CloudConfigurat
 
     private Mono<JsonObject> callConfigBindingServiceForConfiguration(String configBindingServiceUri) {
         LOGGER.info("Retrieving configuration");
-        return cloudHttpClient.callHttpGet(configBindingServiceUri, JsonObject.class);
+        return cloudHttpClient.get(configBindingServiceUri, JsonObject.class);
     }
 
 

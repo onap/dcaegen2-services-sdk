@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters.CloudHttpClient;
 import reactor.core.publisher.Mono;
 
@@ -55,7 +56,7 @@ public class CbsClientImpl implements CbsClient {
     }
 
     @Override
-    public @NotNull Mono<JsonObject> get() {
-        return Mono.defer(() -> httpClient.callHttpGet(fetchUrl, JsonObject.class));
+    public @NotNull Mono<JsonObject> get(RequestDiagnosticContext diagnosticContext) {
+        return Mono.defer(() -> httpClient.get(fetchUrl, diagnosticContext, JsonObject.class));
     }
 }
