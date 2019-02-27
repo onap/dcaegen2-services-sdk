@@ -87,7 +87,7 @@ class CbsLookupTest {
                 + env.consulPort()
                 + "/v1/catalog/service/"
                 + env.cbsName();
-        given(httpClient.callHttpGet(url, JsonArray.class))
+        given(httpClient.get(url, JsonArray.class))
                 .willReturn(Mono.just(jsonArray));
     }
 

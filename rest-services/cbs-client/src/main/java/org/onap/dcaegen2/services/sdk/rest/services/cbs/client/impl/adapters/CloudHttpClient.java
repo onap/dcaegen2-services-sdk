@@ -21,16 +21,12 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.http.HttpStatusClass;
 import io.vavr.collection.Stream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
@@ -51,9 +47,7 @@ public class CloudHttpClient {
     private final HttpClient httpClient;
 
     public CloudHttpClient() {
-        this(HttpClient.create()
-                .doOnRequest(CloudHttpClient::logRequest)
-                .doOnResponse(CloudHttpClient::logResponse));
+        this(HttpClient.create());
     }
 
 
@@ -61,9 +55,20 @@ public class CloudHttpClient {
         this.httpClient = httpClient;
     }
 
-    public <T> Mono<T> callHttpGet(String url, Class<T> bodyClass) {
-        return httpClient
-                .get()
+    public <T> Mono<T> get(String url, RequestDiagnosticContext context, Class<T> bodyClass) {
+        final HttpClient clientWithHeaders = httpClient
+                .doOnRequest((req, conn) -> logRequest(context, req))
+                .doOnResponse((rsp, conn) -> logResponse(context, rsp))
+                .headers(hdrs -> context.remoteCallHttpHeaders().forEach((BiConsumer<String, String>) hdrs::set));
+        return callHttpGet(clientWithHeaders, url, bodyClass);
+    }
+
+    public <T> Mono<T> get(String url, Class<T> bodyClass) {
+        return callHttpGet(httpClient, url, bodyClass);
+    }
+
+    private <T> Mono<T> callHttpGet(HttpClient client, String url, Class<T> bodyClass) {
+        return client.get()
                 .uri(url)
                 .responseSingle((resp, content) -> HttpStatusClass.SUCCESS.contains(resp.status().code())
                         ? content.asString()
@@ -81,18 +86,22 @@ public class CloudHttpClient {
         return gson.fromJson(body, bodyClass);
     }
 
-    private static void logRequest(HttpClientRequest httpClientRequest, Connection connection) {
-        LOGGER.debug("Request: {} {}", httpClientRequest.method(), httpClientRequest.uri());
-        if (LOGGER.isTraceEnabled()) {
-            final String headers = Stream.ofAll(httpClientRequest.requestHeaders())
-                    .map(entry -> entry.getKey() + "=" + entry.getValue())
-                    .collect(Collectors.joining("\n"));
-            LOGGER.trace(headers);
-        }
+    private void logRequest(RequestDiagnosticContext context, HttpClientRequest httpClientRequest) {
+        context.withSlf4jMdc(LOGGER.isDebugEnabled(), () -> {
+            LOGGER.debug("Request: {} {}", httpClientRequest.method(), httpClientRequest.uri());
+            if (LOGGER.isTraceEnabled()) {
+                final String headers = Stream.ofAll(httpClientRequest.requestHeaders())
+                        .map(entry -> entry.getKey() + "=" + entry.getValue())
+                        .collect(Collectors.joining("\n"));
+                LOGGER.trace(headers);
+            }
+        });
     }
 
-    private static void logResponse(HttpClientResponse httpClientResponse, Connection connection) {
-        LOGGER.debug("Response status: {}", httpClientResponse.status());
+    private void logResponse(RequestDiagnosticContext context, HttpClientResponse httpClientResponse) {
+        context.withSlf4jMdc(LOGGER.isDebugEnabled(), () -> {
+            LOGGER.debug("Response status: {}", httpClientResponse.status());
+        });
     }
-
 }
+
