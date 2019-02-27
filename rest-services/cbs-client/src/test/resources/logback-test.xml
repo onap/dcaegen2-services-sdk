@@ -19,19 +19,30 @@
   ~ ============LICENSE_END=========================================================
 -->
 <configuration>
-  <property name="p_tim" value="%date{&quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;, UTC}"/>
-  <property name="p_lvl" value="%highlight(%-5level)"/>
-  <property name="p_log" value="%50.50logger"/>
-  <property name="SIMPLE_LOG_PATTERN" value="
+  <property name="p_log" value="%logger"/>
+  <property name="p_lor" value="%50.50logger"/>
+  <property name="p_tim" value="%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX,UTC}"/>
+  <property name="p_lvl" value="%level"/>
+  <property name="p_msg" value="%replace(%replace(%msg){'\t', '\\\\t'}){'\n','\\\\n'}"/>
+  <property name="p_mdc" value="%replace(%replace(%mdc){'\t', '\\\\t'}){'\n', '\\\\n'}"/>
+  <property name="p_exc" value="%replace(%replace(%rootException){'\t', '\\\\t'}){'\n','\\\\n'}"/>
+  <property name="p_mak" value="%replace(%replace(%marker){'\t', '\\\\t'}){'\n','\\\\n'}"/>
+  <property name="p_thr" value="%thread"/>
+
+  <property name="READABLE_LOG_PATTERN" value="
 %nopexception
 | ${p_tim}\t
-| ${p_log}\t
+| ${p_lor}\t
 | ${p_lvl}\t
-| %msg%n"/>
+| %msg\t
+| ${p_mak}\t
+| %rootException\t
+| ${p_mdc}\t
+| ${p_thr}%n"/>
 
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>${SIMPLE_LOG_PATTERN}</pattern>
+      <pattern>${READABLE_LOG_PATTERN}</pattern>
     </encoder>
   </appender>
 
