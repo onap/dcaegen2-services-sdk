@@ -36,6 +36,8 @@ public interface RequestDiagnosticContext {
 
     UUID requestId();
 
+    @Nullable String contentType();
+
     @Nullable UUID invocationId();
 
     @Value.Default
@@ -53,6 +55,10 @@ public interface RequestDiagnosticContext {
             result.put(MdcVariables.httpHeader(MdcVariables.INVOCATION_ID), invocationId().toString());
         }
 
+        if (contentType() != null) {
+            result.put(MdcVariables.httpHeader(MdcVariables.CONTENT_TYPE), contentType().toString());
+        }
+
         return HashMap.ofAll(result);
     }
 
@@ -66,6 +72,10 @@ public interface RequestDiagnosticContext {
 
         if (invocationId() != null) {
             result.put(MdcVariables.INVOCATION_ID, invocationId().toString());
+        }
+
+        if (contentType() != null) {
+            result.put(MdcVariables.httpHeader(MdcVariables.CONTENT_TYPE), contentType().toString());
         }
 
         return global().asMap().merge(HashMap.ofAll(result));

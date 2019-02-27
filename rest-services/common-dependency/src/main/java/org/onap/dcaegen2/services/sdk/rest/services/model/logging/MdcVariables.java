@@ -42,6 +42,8 @@ public final class MdcVariables {
     public static final String INSTANCE_ID = "InstanceID";
     public static final String SERVER_FQDN = "ServerFQDN";
     public static final String SERVICE_NAME = "ServiceName";
+    public static final String CONTENT_TYPE = "Content-Type";
+
 
     private static final String HTTP_HEADER_PREFIX = "X-";
 

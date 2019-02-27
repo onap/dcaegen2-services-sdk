@@ -27,12 +27,13 @@ import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVari
 import java.net.URI;
 import java.util.UUID;
 import java.util.function.Consumer;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapConsumerConfiguration;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.ImmutableRequestDiagnosticContext;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI.URIBuilder;
 import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 
@@ -41,6 +42,7 @@ import reactor.core.publisher.Mono;
  */
 public class DMaaPConsumerReactiveHttpClient {
 
+    private final static String SLASH="/";
     private final String dmaapHostName;
     private final String dmaapProtocol;
     private final Integer dmaapPortNumber;
@@ -48,15 +50,16 @@ public class DMaaPConsumerReactiveHttpClient {
     private final String consumerGroup;
     private final String consumerId;
     private final String contentType;
-    private final WebClient webClient;
-    private final static String SLASH="/";
+    private final CloudHttpClient cloudHttpClient;
 
     /**
      * Constructor of DMaaPConsumerReactiveHttpClient.
      *
      * @param consumerConfiguration - DMaaP consumer configuration object
      */
-    public DMaaPConsumerReactiveHttpClient(DmaapConsumerConfiguration consumerConfiguration, WebClient webClient) {
+
+
+    public DMaaPConsumerReactiveHttpClient(DmaapConsumerConfiguration consumerConfiguration, CloudHttpClient cloudHttpClient) {
         this.dmaapHostName = consumerConfiguration.dmaapHostName();
         this.dmaapProtocol = consumerConfiguration.dmaapProtocol();
         this.dmaapPortNumber = consumerConfiguration.dmaapPortNumber();
@@ -64,8 +67,9 @@ public class DMaaPConsumerReactiveHttpClient {
         this.consumerGroup = consumerConfiguration.consumerGroup();
         this.consumerId = consumerConfiguration.consumerId();
         this.contentType = consumerConfiguration.dmaapContentType();
-        this.webClient = webClient;
+        this.cloudHttpClient = cloudHttpClient;
     }
+
 
     /**
      * Function for calling DMaaP HTTP consumer - consuming messages from Kafka/DMaaP from topic.
@@ -73,19 +77,11 @@ public class DMaaPConsumerReactiveHttpClient {
      * @return reactive response from DMaaP in string format
      */
     public Mono<String> getDMaaPConsumerResponse() {
-        return webClient
-            .get()
-            .uri(getUri())
-            .headers(getHeaders())
-            .retrieve()
-            .onStatus(HttpStatus::is4xxClientError, clientResponse ->
-                Mono.error(new RuntimeException("DmaaPConsumer HTTP " + clientResponse.statusCode()))
-            )
-            .onStatus(HttpStatus::is5xxServerError, clientResponse ->
-                Mono.error(new RuntimeException("DmaaPConsumer HTTP " + clientResponse.statusCode())))
-            .bodyToMono(String.class);
+        RequestDiagnosticContext requestDiagnosticContext = ImmutableRequestDiagnosticContext.builder().invocationId(UUID.randomUUID()).contentType(contentType).requestId(UUID.randomUUID()).build();
+        return cloudHttpClient.get(getUri().toString(),requestDiagnosticContext,String.class);
     }
 
+    //TODO wyjasnic z Jaszczurem....
     private Consumer<HttpHeaders> getHeaders() {
         return httpHeaders -> {
             httpHeaders.set(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID));
@@ -94,13 +90,13 @@ public class DMaaPConsumerReactiveHttpClient {
         };
     }
 
-    private String createRequestPath() {
-        return  new StringBuilder().append(SLASH).append(dmaapTopicName).append(SLASH).append(consumerGroup).append(SLASH).append(consumerId).toString();
-    }
-
     URI getUri() {
         return URI.create(
             new URIBuilder().scheme(dmaapProtocol).host(dmaapHostName).port(dmaapPortNumber).path(createRequestPath())
                 .build().toString());
+    }
+
+    private String createRequestPath() {
+        return  new StringBuilder().append(SLASH).append(dmaapTopicName).append(SLASH).append(consumerGroup).append(SLASH).append(consumerId).toString();
     }
 }
