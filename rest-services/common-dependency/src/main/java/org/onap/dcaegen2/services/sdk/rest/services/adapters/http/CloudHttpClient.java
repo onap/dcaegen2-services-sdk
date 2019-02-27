@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters;
+package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpStatusClass;
@@ -30,10 +30,11 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnos
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
-import reactor.netty.Connection;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientRequest;
 import reactor.netty.http.client.HttpClientResponse;
+
+import io.netty.handler.ssl.SslContext;
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/15/18
@@ -50,9 +51,14 @@ public class CloudHttpClient {
         this(HttpClient.create());
     }
 
+    public CloudHttpClient(SslContext sslContext){
+        this(HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext)));
+    }
 
-    CloudHttpClient(HttpClient httpClient) {
+
+    private CloudHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
+
     }
 
     public <T> Mono<T> get(String url, RequestDiagnosticContext context, Class<T> bodyClass) {
