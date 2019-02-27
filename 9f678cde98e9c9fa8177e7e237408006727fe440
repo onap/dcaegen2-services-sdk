@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "37879d66_08c5e8af",
+        "filename": "standardization/api-custom-header/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-27T09:07:09Z",
+      "side": 1,
+      "message": "This can be replaced to simple junit",
+      "revId": "9f678cde98e9c9fa8177e7e237408006727fe440",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8aff2767_6ae29ba6",
         "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
         "patchSetId": 4
@@ -13,6 +30,40 @@
       "writtenOn": "2019-02-27T08:50:47Z",
       "side": 1,
       "message": "All methods static. What about constructor?",
+      "revId": "9f678cde98e9c9fa8177e7e237408006727fe440",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27d3e78d_1a158755",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-27T09:07:09Z",
+      "side": 1,
+      "message": "possible sonar issue",
+      "revId": "9f678cde98e9c9fa8177e7e237408006727fe440",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34924a33_e4584393",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-02-27T09:07:09Z",
+      "side": 1,
+      "message": "extract methods",
       "revId": "9f678cde98e9c9fa8177e7e237408006727fe440",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
