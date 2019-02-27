@@ -21,16 +21,12 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.adapters;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.http.HttpStatusClass;
 import io.vavr.collection.Stream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
@@ -61,9 +57,19 @@ public class CloudHttpClient {
         this.httpClient = httpClient;
     }
 
-    public <T> Mono<T> callHttpGet(String url, Class<T> bodyClass) {
-        return httpClient
-                .get()
+    public <T> Mono<T> get(String url, RequestDiagnosticContext context, Class<T> bodyClass) {
+        final HttpClient clientWithHeaders = httpClient
+                .headers(hdrs -> context.remoteCallHttpHeaders().forEach((BiConsumer<String, String>) hdrs::set));
+        return callHttpGet(clientWithHeaders, url, bodyClass);
+
+    }
+
+    public <T> Mono<T> get(String url, Class<T> bodyClass) {
+        return callHttpGet(httpClient, url, bodyClass);
+    }
+
+    private  <T> Mono<T> callHttpGet(HttpClient client, String url, Class<T> bodyClass) {
+        return client.get()
                 .uri(url)
                 .responseSingle((resp, content) -> HttpStatusClass.SUCCESS.contains(resp.status().code())
                         ? content.asString()
