@@ -89,6 +89,8 @@ public class DMaaPPublisherReactiveHttpClient {
         });
     }
 
+
+    //TODO Jaszczur, REQUEST_ID as String???
     private HttpHeaders getAllHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID));
