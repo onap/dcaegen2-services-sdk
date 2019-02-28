@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 
@@ -33,6 +34,7 @@ import reactor.core.publisher.Flux;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.2
  */
+@ExperimentalApi
 public class ListenableCbsConfig {
 
     private MerkleTree<String> tree = MerkleTree.emptyWithDefaultDigest(String::getBytes);

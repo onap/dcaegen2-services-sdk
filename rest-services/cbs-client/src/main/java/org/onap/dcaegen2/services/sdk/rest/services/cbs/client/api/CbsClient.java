@@ -19,15 +19,16 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.time.Duration;
 import java.util.UUID;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
+import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.ImmutableRequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * <p>Main Config Binding Service client interface.</p>
@@ -39,7 +40,9 @@ import org.jetbrains.annotations.NotNull;
 public interface CbsClient {
 
     /**
-     * Get reactive configuration stream.
+     * <p>
+     * Get current application configuration.
+     *
      * <p>
      * Returns a {@link Mono} that publishes new configuration after CBS client retrieves one.
      *
@@ -50,11 +53,14 @@ public interface CbsClient {
     @NotNull Mono<JsonObject> get(RequestDiagnosticContext diagnosticContext);
 
     /**
+     * <p>
      * Poll for configuration.
      *
+     * <p>
      * Will call {@link #get(RequestDiagnosticContext)} after {@code initialDelay} every {@code period}. Resulting entries may or may not be
      * changed, ie. items in the stream might be the same until change is made in CBS.
      *
+     * @param diagnosticContext diagnostic context as defined in Logging Guideline
      * @param initialDelay delay after first request attempt
      * @param period frequency of update checks
      * @return stream of configuration states
@@ -63,5 +69,35 @@ public interface CbsClient {
         return Flux.interval(initialDelay, period)
                 .map(i -> ImmutableRequestDiagnosticContext.copyOf(diagnosticContext).withInvocationId(UUID.randomUUID()))
                 .flatMap(this::get);
+    }
+
+    /**
+     * <p>
+     * Poll for configuration updates.
+     *
+     * <p>
+     * Will call {@link #get(RequestDiagnosticContext)} after {@code initialDelay} every {@code period}. Will emit an item
+     * only when an update was detected, ie. when new item is different then last emitted item.
+     *
+     * <p>
+     * For more tailored change detection approach you can:
+     * <ul>
+     *     <li>
+     *         Use {@link org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener.ListenableCbsConfig}
+     *         (<b>experimental API</b>) if you want to react differently to changes in subsets of the configuration.
+     *     </li>
+     *     <li>
+     *         Use {@link #get(RequestDiagnosticContext, Duration, Duration)} with
+     *         {@link Flux#distinctUntilChanged(Function, BiPredicate)} if you want to specify custom comparison logic.
+     *     </li>
+     * </ul>
+     *
+     * @param diagnosticContext diagnostic context as defined in Logging Guideline
+     * @param initialDelay delay after first request attempt
+     * @param period frequency of update checks
+     * @return stream of configuration updates
+     */
+    default Flux<JsonObject> updates(RequestDiagnosticContext diagnosticContext, Duration initialDelay, Duration period) {
+        return get(diagnosticContext, initialDelay, period).distinctUntilChanged();
     }
 }

@@ -21,11 +21,13 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 
 import io.vavr.Function1;
+import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.2
  */
+@ExperimentalApi
 @FunctionalInterface
 public interface ValueSerializer<V> extends Function1<V, byte[]> {
 

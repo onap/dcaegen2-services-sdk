@@ -18,24 +18,24 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
+package org.onap.dcaegen2.services.sdk.rest.services.annotations;
 
-import io.vavr.Function1;
-import io.vavr.collection.List;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
+ * Annotate experimental API.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.2
  */
-@ExperimentalApi
-@FunctionalInterface
-public interface HashAlgorithm extends Function1<byte[], byte[]> {
-
-    @Override
-    default byte[] apply(byte[] bytes) {
-        return apply(List.of(bytes));
-    }
-
-    byte[] apply(Iterable<byte[]> bytes);
+@Documented
+@Target({ElementType.METHOD, ElementType.TYPE, ElementType.PACKAGE})
+@Retention(RetentionPolicy.SOURCE)
+public @interface ExperimentalApi {
+    String value() default "Experimental API. Might be deleted or changed in the future SDK versions.";
+    String expectedInVersion() default "unknown";
 }

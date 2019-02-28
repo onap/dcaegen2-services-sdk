@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
 import java.util.function.Consumer;
+import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
  * The listener for changes of the {@link MerkleTree} subtree.
@@ -30,6 +31,7 @@ import java.util.function.Consumer;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.2
  */
+@ExperimentalApi
 @FunctionalInterface
 public interface TreeChangeListener<V> extends Consumer<Option<MerkleTree<V>>> {
 
