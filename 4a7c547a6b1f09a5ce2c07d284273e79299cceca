@@ -16,6 +16,24 @@
       "revId": "4a7c547a6b1f09a5ce2c07d284273e79299cceca",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52c7fb3b_5866ec3d",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTreeParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-02-28T13:48:42Z",
+      "side": 1,
+      "message": "Totally agree - I\u0027m probably quite fixed on current parsing \nalgorithm, however I did not come up with any other that \nwould not include radical changes to MerkleTree class.\nOnly improvement for solution proposed in this change set \nwould be some further refactor of JOWrapper, but IMO it\u0027s not\nworth the effort.\n \nI find the master-branch solution easier to understand from \nalgorithmic POV. Refactor can be re-thought in the future if\nchanges to this class arrive.",
+      "parentUuid": "8099f64c_ed020ad6",
+      "revId": "4a7c547a6b1f09a5ce2c07d284273e79299cceca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
