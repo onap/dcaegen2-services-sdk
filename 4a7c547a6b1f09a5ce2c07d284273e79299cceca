@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8099f64c_ed020ad6",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTreeParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-28T08:47:41Z",
+      "side": 1,
+      "message": "The idea of having this fluent api is very nice. Nevertheless, IMHO using immutable collections with vavr api is not a good idea. MerkleTreeParser looks nice. But corresponding JsonObjectWrapper, despite having nice \u0026 short functions, is a mess. What do you think? Can we improve this or is it a dead end?",
+      "revId": "4a7c547a6b1f09a5ce2c07d284273e79299cceca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
