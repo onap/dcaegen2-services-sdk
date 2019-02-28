@@ -16,6 +16,63 @@
       "revId": "74f1255663a63dab58a8fad6cddd376748506890",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ae609f2_afa655f6",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/producer/DMaaPPublisherReactiveHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2831
+      },
+      "writtenOn": "2019-02-28T12:10:09Z",
+      "side": 1,
+      "message": "TODO left",
+      "revId": "74f1255663a63dab58a8fad6cddd376748506890",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b837fbd9_c00b372f",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/DMaaPConsumerReactiveHttpClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2831
+      },
+      "writtenOn": "2019-02-28T12:10:09Z",
+      "side": 1,
+      "message": "commented",
+      "range": {
+        "startLine": 45,
+        "startChar": 40,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "74f1255663a63dab58a8fad6cddd376748506890",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c45bb85_d41d9e67",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/DMaaPConsumerReactiveHttpClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2831
+      },
+      "writtenOn": "2019-02-28T12:10:09Z",
+      "side": 1,
+      "message": "variable name is meaningless - please call it like \"exampleUri\" or smth like that as it now looks like hardcoded magic value",
+      "revId": "74f1255663a63dab58a8fad6cddd376748506890",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
