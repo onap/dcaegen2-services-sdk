@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "803fb2ae_0d9703b7",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/model/logging/RequestDiagnosticContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-28T14:09:45Z",
+      "side": 1,
+      "message": "Right. Topic discussed",
+      "parentUuid": "7b92b129_3e587c6c",
+      "revId": "74f1255663a63dab58a8fad6cddd376748506890",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ae609f2_afa655f6",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/producer/DMaaPPublisherReactiveHttpClient.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-28T12:10:09Z",
       "side": 1,
       "message": "TODO left",
+      "revId": "74f1255663a63dab58a8fad6cddd376748506890",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16e19b98_9dc2bd38",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/producer/DMaaPPublisherReactiveHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-28T14:09:45Z",
+      "side": 1,
+      "message": "Right",
+      "parentUuid": "3ae609f2_afa655f6",
       "revId": "74f1255663a63dab58a8fad6cddd376748506890",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "8a85bfce_5e3ee60b",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/DMaaPConsumerReactiveHttpClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-28T14:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b837fbd9_c00b372f",
+      "range": {
+        "startLine": 45,
+        "startChar": 40,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "74f1255663a63dab58a8fad6cddd376748506890",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c45bb85_d41d9e67",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/DMaaPConsumerReactiveHttpClientTest.java",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2019-02-28T12:10:09Z",
       "side": 1,
       "message": "variable name is meaningless - please call it like \"exampleUri\" or smth like that as it now looks like hardcoded magic value",
+      "revId": "74f1255663a63dab58a8fad6cddd376748506890",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d16d4ce9_5bbc4684",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/DMaaPConsumerReactiveHttpClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-02-28T14:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c45bb85_d41d9e67",
       "revId": "74f1255663a63dab58a8fad6cddd376748506890",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
