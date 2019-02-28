@@ -98,12 +98,32 @@ class CbsClientImplIT {
         final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
 
         // when
-        final Flux<JsonObject> result = sut.flatMapMany(cbsClient -> cbsClient.get(diagnosticContext, Duration.ZERO, Duration.ofMillis(10)));
+        final Flux<JsonObject> result = sut
+                .flatMapMany(cbsClient -> cbsClient.get(diagnosticContext, Duration.ZERO, Duration.ofMillis(10)));
 
         // then
         final int itemsToTake = 5;
         StepVerifier.create(result.take(itemsToTake).map(this::sampleConfigValue))
                 .expectNextSequence(Stream.of(EXPECTED_CONFIG_VALUE).cycle(itemsToTake))
+                .expectComplete()
+                .verify(Duration.ofSeconds(5));
+    }
+
+    @Test
+    void testCbsClientWithUpdatesCall() {
+        // given
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+        final Duration period = Duration.ofMillis(10);
+
+        // when
+        final Flux<JsonObject> result = sut
+                .flatMapMany(cbsClient -> cbsClient.updates(diagnosticContext, Duration.ZERO, period));
+
+        // then
+        final Duration timeToCollectItemsFor = period.multipliedBy(50);
+        StepVerifier.create(result.take(timeToCollectItemsFor).map(this::sampleConfigValue))
+                .expectNext(EXPECTED_CONFIG_VALUE)
                 .expectComplete()
                 .verify(Duration.ofSeconds(5));
     }
