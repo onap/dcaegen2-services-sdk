@@ -30,7 +30,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapConsumerConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.ssl.SslFactory;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 7/5/18
@@ -51,7 +52,7 @@ class DMaaPReactiveWebClientFactoryTest {
         DmaapConsumerConfiguration dmaapConsumerConfiguration = givenDmaapConfigurationWithSslDisabled();
 
         //when
-        WebClient dmaapReactiveWebClient = webClientFactory.build(dmaapConsumerConfiguration);
+        CloudHttpClient dmaapReactiveWebClient = webClientFactory.build(dmaapConsumerConfiguration);
 
         //then
         Assertions.assertNotNull(dmaapReactiveWebClient);
@@ -64,7 +65,7 @@ class DMaaPReactiveWebClientFactoryTest {
         DmaapConsumerConfiguration dmaapConsumerConfiguration = givenDmaapConfigurationWithSslEnabled();
 
         //when
-        WebClient dmaapReactiveWebClient = webClientFactory.build(dmaapConsumerConfiguration);
+        CloudHttpClient dmaapReactiveWebClient = webClientFactory.build(dmaapConsumerConfiguration);
 
         //then
         Assertions.assertNotNull(dmaapReactiveWebClient);
