@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b92b129_3e587c6c",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/model/logging/RequestDiagnosticContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-02-28T12:01:17Z",
+      "side": 1,
+      "message": "I cannot see ContentType MDC anywhere in https://wiki.onap.org/pages/viewpage.action?pageId\u003d28378955#ONAPApplicationLoggingSpecificationv1.2(Casablanca)-MDC-InvocationID . Are you sure we don\u0027t need just a custom HTTP header?",
+      "revId": "74f1255663a63dab58a8fad6cddd376748506890",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
