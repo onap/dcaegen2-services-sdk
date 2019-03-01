@@ -46,17 +46,23 @@ public final class MerkleTree<V> {
 
     private static final String DEFAULT_DIGEST_ALGORITHM = "SHA-256";
     private final ValueSerializer<V> valueSerializer;
+    private final byte[] hash;
+    private final Option<V> value;
+    private final Map<String, MerkleTree<V>> children;
     private final HashAlgorithm hashAlgorithm;
-    private final MTNode<V> root;
     private final Function1<V, byte[]> hashForValue;
 
     private MerkleTree(
             @NotNull ValueSerializer<V> valueSerializer,
             @NotNull HashAlgorithm hashAlgorithm,
-            @NotNull MTNode<V> root) {
-        this.valueSerializer = Objects.requireNonNull(valueSerializer);
+            @NotNull byte[] hash,
+            @NotNull Option<V> value,
+            @NotNull Map<String, MerkleTree<V>> children) {
         this.hashAlgorithm = Objects.requireNonNull(hashAlgorithm);
-        this.root = Objects.requireNonNull(root);
+        this.valueSerializer = Objects.requireNonNull(valueSerializer);
+        this.hash = Objects.requireNonNull(hash.clone());
+        this.value = Objects.requireNonNull(value);
+        this.children = Objects.requireNonNull(children);
         hashForValue = valueSerializer.andThen(hashAlgorithm);
     }
 
@@ -64,7 +70,7 @@ public final class MerkleTree<V> {
      * Create an empty tree with given serializer and using default digest algorithm as a hash function.
      *
      * @param serializer a way of serializing a value to array of bytes
-     * @param <V> type of values kept in a tree
+     * @param <V>        type of values kept in a tree
      * @return empty tree
      */
     public static @NotNull <V> MerkleTree<V> emptyWithDefaultDigest(@NotNull ValueSerializer<V> serializer) {
@@ -75,8 +81,8 @@ public final class MerkleTree<V> {
      * Create an empty tree with given serializer and given digest algorithm used as a hash function.
      *
      * @param digestAlgorithmName name of a digest algorithm as used by {@link MessageDigest#getInstance(String)}
-     * @param serializer a way of serializing a value to array of bytes
-     * @param <V> type of values kept in a tree
+     * @param serializer          a way of serializing a value to array of bytes
+     * @param <V>                 type of values kept in a tree
      * @return empty tree
      */
     public static @NotNull <V> MerkleTree<V> emptyWithDigest(
@@ -92,13 +98,18 @@ public final class MerkleTree<V> {
     /**
      * Create an empty tree with given hash function.
      *
-     * @param serializer a function which serializes values to a byte array
+     * @param serializer    a function which serializes values to a byte array
      * @param hashAlgorithm a function which calculates a hash of a serialized value
-     * @param <V> type of values kept in a tree
+     * @param <V>           type of values kept in a tree
      * @return empty tree
      */
+
     public static <V> MerkleTree<V> emptyWithHashProvider(ValueSerializer<V> serializer, HashAlgorithm hashAlgorithm) {
-        return new MerkleTree<>(serializer, hashAlgorithm, MTNode.empty(hashAlgorithm));
+        return MerkleTree.empty(serializer, hashAlgorithm);
+    }
+
+    private static <V> MerkleTree<V> empty(@NotNull ValueSerializer<V> serializer, HashAlgorithm hashAlgorithm) {
+        return new MerkleTree<>(serializer, hashAlgorithm, new byte[0], Option.none(), HashMap.empty());
     }
 
     private static MessageDigest messageDigest(String digestAlgorithmName) {
@@ -109,74 +120,71 @@ public final class MerkleTree<V> {
         }
     }
 
-    /**
-     * Assigns a value to a given path.
-     *
-     * Overrides current value if already exists.
-     *
-     * @param value a value to assign
-     * @param path path of labels from root
-     * @return an updated tree instance or <code>this</code> if hashes are the same
-     */
-    public MerkleTree<V> add(V value, String... path) {
-        return add(List.of(path), value);
-    }
 
     /**
      * Assigns a value to a given path.
-     *
+     * <p>
      * Overrides current value if already exists.
      *
-     * @param path path of labels from root
+     * @param path  path of labels from root
      * @param value a value to assign
      * @return an updated tree instance or <code>this</code> if hashes are the same
      */
+
     public MerkleTree<V> add(List<String> path, V value) {
-        final MTNode<V> result = root.addChild(path, MTNode.leaf(hashAlgorithm, hashForValue.apply(value), value));
-        return Arrays.equals(result.hash(), root.hash())
-                ? this
-                : new MerkleTree<>(valueSerializer, hashAlgorithm, result);
+        return addSubtree(path, leaf(value));
     }
 
+    private MerkleTree<V> addSubtree(final List<String> path, final MerkleTree<V> subtree) {
+        if (path.isEmpty()) {
+            return subtree;
+        } else {
+            String label = path.head();
+            MerkleTree<V> newSubtree = children.get(label).fold(
+                    () -> MerkleTree.empty(valueSerializer, hashAlgorithm).addSubtree(path.tail(), subtree),
+                    node -> node.addSubtree(path.tail(), subtree)
+            );
+            return addSubtree(label, newSubtree);
+        }
+    }
 
-    /**
-     * Gets a value assigned to a given path.
-     *
-     * @param path to search for
-     * @return Some(value) if path exists and contains a value, None otherwise
-     */
-    public Option<V> get(String... path) {
-        return get(List.of(path));
+    private MerkleTree<V> addSubtree(String label, MerkleTree<V> subtree) {
+        final Map<String, MerkleTree<V>> newSubtrees = children.put(label, subtree);
+        byte[] newHash = composeHashes(newSubtrees.iterator(this::hashForSubtree));
+        return Arrays.equals(newHash, hash) ? this : new MerkleTree<>(
+                valueSerializer,
+                hashAlgorithm,
+                newHash,
+                value,
+                newSubtrees
+        );
+    }
+
+    private MerkleTree<V> leaf(V value) {
+        return new MerkleTree<>(valueSerializer, hashAlgorithm, hashForValue.apply(value), Option.of(value), HashMap.empty());
     }
 
     /**
-     * Gets a value assigned to a given path.
+     * Returns a subtree with given node as a root.
      *
-     * @param path to search for
-     * @return Some(value) if path exists and contains a value, None otherwise
+     * @param path a path of a node to be a subtree root
+     * @return Some(subtree) if path exists, None otherwise
      */
-    public Option<V> get(List<String> path) {
-        return root.findNode(path).flatMap(MTNode::value);
+    public Option<MerkleTree<V>> subtree(List<String> path) {
+        return path.headOption().fold(
+                () -> Option.of(this),
+                head -> children.get(head).flatMap(subtree -> subtree.subtree(path.tail()))
+        );
     }
 
     /**
      * Checks if nodes under given path are the same in {@code this} and {@code other} tree.
      *
      * @param other a tree to compare with
-     * @param path a path to a subtree to compare
+     * @param path  a path to a subtree to compare
      * @return true if hashes are the same, false otherwise
      */
-    public boolean isSame(MerkleTree<V> other, String... path) {
-        return isSame(List.of(path), other);
-    }
 
-    /**
-     * Checks if nodes under given path are the same in {@code this} and {@code other} tree.
-     *
-     * @param other a tree to compare with
-     * @param path a path to a subtree to compare
-     * @return true if hashes are the same, false otherwise
-     */
     public boolean isSame(List<String> path, MerkleTree<V> other) {
         final byte[] oldHash = other.hashOf(path);
         final byte[] curHash = hashOf(path);
@@ -189,142 +197,34 @@ public final class MerkleTree<V> {
      * @param path a path of a node to check
      * @return a hash or empty array if node does not exist
      */
+
     public byte[] hashOf(List<String> path) {
-        return root
-                .findNode(path)
-                .map(node -> node.hash().clone())
+        return subtree(path)
+                .map(MerkleTree::hash)
                 .getOrElse(() -> new byte[0]);
     }
 
     /**
-     * Returns a hash of a node under given path.
+     * Gets a value assigned to a given path.
      *
-     * @param path a path of a node to check
-     * @return a hash or empty array if node does not exist
+     * @param path to search for
+     * @return Some(value) if path exists and contains a value, None otherwise
      */
-    public byte[] hashOf(String... path) {
-        return hashOf(List.of(path));
-    }
 
-    /**
-     * Returns a subtree with given node as a root.
-     *
-     * @param path a path of a node to be a subtree root
-     * @return Some(subtree) if path exists, None otherwise
-     */
-    public Option<MerkleTree<V>> subtree(List<String> path) {
-        return root.findNode(path).map(node -> new MerkleTree<>(valueSerializer, hashAlgorithm, node));
-    }
-
-    /**
-     * Returns a subtree with given node as a root.
-     *
-     * @param path a path of a node to be a subtree root
-     * @return Some(subtree) if path exists, None otherwise
-     */
-    public Option<MerkleTree<V>> subtree(String... path) {
-        return subtree(List.of(path));
-    }
-
-    /**
-     * Hash of a root node.
-     *
-     * @return a copy of root node's hash
-     */
-    public byte[] hash() {
-        return root.hash().clone();
-    }
-
-    @Override
-    public String toString() {
-        return root.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MerkleTree<?> that = (MerkleTree<?>) o;
-        return Objects.equals(root, that.root);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(root);
-    }
-}
-
-final class MTNode<V> {
-
-    private final byte[] hash;
-    private final Option<V> value;
-    private final Map<String, MTNode<V>> children;
-    private final HashAlgorithm hashAlgorithm;
-
-    static <V> MTNode<V> empty(HashAlgorithm hashAlgorithm) {
-        return new MTNode<>(hashAlgorithm, new byte[0], Option.none(), HashMap.empty());
-    }
-
-    static <V> MTNode<V> leaf(HashAlgorithm hashAlgorithm, byte[] hash, V value) {
-        return new MTNode<>(hashAlgorithm, hash, Option.of(value), HashMap.empty());
-    }
-
-    private MTNode(
-            HashAlgorithm hashAlgorithm,
-            byte[] hash,
-            Option<V> value,
-            Map<String, MTNode<V>> children) {
-        this.hashAlgorithm = hashAlgorithm;
-        this.hash = hash.clone();
-        this.value = value;
-        this.children = children;
-    }
-
-    MTNode<V> addChild(final List<String> path, final MTNode<V> child) {
-        if (path.isEmpty()) {
-            return child;
-        } else {
-            String label = path.head();
-            MTNode<V> newChild = children.get(label).fold(
-                    () -> MTNode.<V>empty(hashAlgorithm).addChild(path.tail(), child),
-                    node -> node.addChild(path.tail(), child)
-            );
-            return addChild(label, newChild);
-        }
-    }
-
-    Option<V> value() {
-        return value;
-    }
-
-    Option<MTNode<V>> findNode(List<String> path) {
-        return path.headOption().fold(
-                () -> Option.of(this),
-                head -> children.get(head).flatMap(child -> child.findNode(path.tail()))
-        );
+    public Option<V> get(List<String> path) {
+        return subtree(path).flatMap(MerkleTree::value);
     }
 
     byte[] hash() {
-        return hash;
+        return hash.clone();
     }
 
-    private MTNode<V> addChild(String label, MTNode<V> child) {
-        final Map<String, MTNode<V>> newChildren = children.put(label, child);
-        byte[] newHash = composeHashes(newChildren.iterator(this::hashForChild));
-        return Arrays.equals(newHash, hash) ? this : new MTNode<>(
-                hashAlgorithm,
-                newHash,
-                value,
-                newChildren
-        );
+    private Option<V> value() {
+        return value;
     }
 
-    private byte[] hashForChild(String label, MTNode<V> child) {
-        return composeHashes(List.of(label.getBytes(), child.hash()));
+    private byte[] hashForSubtree(String label, MerkleTree<V> subtree) {
+        return composeHashes(List.of(label.getBytes(), subtree.hash()));
     }
 
     private byte[] composeHashes(Iterable<byte[]> hashes) {
@@ -346,7 +246,7 @@ final class MTNode<V> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MTNode<?> mtNode = (MTNode<?>) o;
+        MerkleTree<?> mtNode = (MerkleTree<?>) o;
         return Arrays.equals(hash, mtNode.hash);
     }
 
