@@ -71,7 +71,7 @@ public interface EnvProperties {
     static EnvProperties fromEnvironment() {
         return ImmutableEnvProperties.builder()
                 .consulHost(System.getenv(ENV_CONSUL_HOST))
-                .consulPort(8050)
+                .consulPort(8500)
                 .cbsName(System.getenv(ENV_CBS_NAME))
                 .appName(System.getenv(ENV_APP_NAME))
                 .build();
