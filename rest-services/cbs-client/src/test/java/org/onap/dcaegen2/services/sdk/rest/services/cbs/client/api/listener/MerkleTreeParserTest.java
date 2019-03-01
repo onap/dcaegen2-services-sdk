@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.vavr.collection.List;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
@@ -39,8 +40,7 @@ class MerkleTreeParserTest {
         JsonObject jsonObject = new JsonObject();
 
         MerkleTree<String> tree = cut.fromJsonObject(jsonObject);
-
-        assertThat(tree.isSame(emptyTree())).isTrue();
+        assertThat(tree.isSame(List.empty(), emptyTree())).isTrue();
     }
 
     @Test
@@ -51,7 +51,7 @@ class MerkleTreeParserTest {
         MerkleTree<String> tree = cut.fromJsonObject(jsonObject);
 
         MerkleTree<String> expected = emptyTree()
-                .add("v1", "p1");
+                .add(List.of("p1"), "v1");
         assertThat(tree).isEqualTo(expected);
     }
 
@@ -67,7 +67,7 @@ class MerkleTreeParserTest {
         MerkleTree<String> tree = cut.fromJsonObject(jsonObject);
 
         MerkleTree<String> expected = emptyTree()
-                .add("v1", "p1", "p2", "p3");
+                .add(List.of("p1", "p2", "p3"), "v1");
         assertThat(tree).isEqualTo(expected);
     }
 
@@ -82,8 +82,8 @@ class MerkleTreeParserTest {
         MerkleTree<String> tree = cut.fromJsonObject(jsonObject);
 
         MerkleTree<String> expected = emptyTree()
-                .add("vA", "p1", "A")
-                .add("vB", "p1", "B");
+                .add(List.of("p1", "A"), "vA")
+                .add(List.of("p1", "B"), "vB");
         assertThat(tree).isEqualTo(expected);
     }
 
@@ -100,8 +100,8 @@ class MerkleTreeParserTest {
         MerkleTree<String> tree = cut.fromJsonObject(jsonObject);
 
         MerkleTree<String> expected = emptyTree()
-                .add("v1", "p1", "0")
-                .add("v2", "p1", "1", "p2");
+                .add(List.of("p1", "0"), "v1")
+                .add(List.of("p1", "1", "p2"), "v2");
         assertThat(tree).isEqualTo(expected);
     }
 
@@ -123,10 +123,10 @@ class MerkleTreeParserTest {
         MerkleTree<String> tree = cut.fromJsonObject(jsonObject);
 
         MerkleTree<String> expected = emptyTree()
-                .add("v1", "p1")
-                .add("v2", "p2", "0")
-                .add("v3", "p2", "1")
-                .add("v4", "p3", "p4");
+                .add(List.of("p1"), "v1")
+                .add(List.of("p2", "0"), "v2")
+                .add(List.of("p2", "1"), "v3")
+                .add(List.of("p3", "p4"), "v4");
         assertThat(tree).isEqualTo(expected);
     }
 
@@ -144,11 +144,11 @@ class MerkleTreeParserTest {
         MerkleTree<String> tree = cut.fromJsonObject(jsonObject);
 
         MerkleTree<String> expected = emptyTree()
-                .add("1", "p1", "0")
-                .add("2", "p1", "1")
-                .add("3.0", "p1", "2")
-                .add("true", "p1", "3")
-                .add("999799799799799", "p1", "4");
+                .add(List.of("p1", "0"), "1")
+                .add(List.of("p1", "1"), "2")
+                .add(List.of("p1", "2"), "3.0")
+                .add(List.of("p1", "3"), "true")
+                .add(List.of("p1", "4"), "999799799799799");
         assertThat(tree).isEqualTo(expected);
     }
 

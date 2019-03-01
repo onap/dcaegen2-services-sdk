@@ -46,7 +46,7 @@ class ListenableCbsConfigTest {
 
         cut.listen(List.of("some-key"), subtreeOption ->
                 actualChanges.updateAndGet(
-                        changes -> changes.append(subtreeOption.flatMap(subtree -> subtree.get()).getOrElse("[None]")))
+                        changes -> changes.append(subtreeOption.flatMap(subtree -> subtree.get(List.empty())).getOrElse("[None]")))
 
         );
 
@@ -77,7 +77,7 @@ class ListenableCbsConfigTest {
 
         cut.subtreeChanges(List.of("some-key"))
                 .map(subtreeOption ->
-                        subtreeOption.flatMap(subtree -> subtree.get()).getOrElse("[None]")
+                        subtreeOption.flatMap(subtree -> subtree.get(List.empty())).getOrElse("[None]")
                 )
                 .subscribe(replayProcessor);
 
@@ -107,7 +107,7 @@ class ListenableCbsConfigTest {
 
         cut.subtreeChanges(List.of("streams", "publishes"))
                 .map(subtreeOption ->
-                        subtreeOption.flatMap(subtree -> subtree.get("topic1", "dmaap-url")).getOrElse("[None]")
+                        subtreeOption.flatMap(subtree -> subtree.get(List.of("topic1", "dmaap-url"))).getOrElse("[None]")
                 )
                 .subscribe(actualChanges);
 
