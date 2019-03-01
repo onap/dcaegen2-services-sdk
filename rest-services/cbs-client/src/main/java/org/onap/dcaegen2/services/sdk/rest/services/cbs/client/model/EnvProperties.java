@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model;
 
 import org.immutables.value.Value;
 
