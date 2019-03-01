@@ -18,21 +18,23 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
-
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
+import io.vavr.control.Either;
+import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener.MerkleTree;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since February 2019
+ * @since 1.1.2
  */
-class EnvPropertiesTest {
-    @Test
-    void fromEnvironmentShouldFailWhenEnvVariablesAreMissing() {
-        assertThatExceptionOfType(NullPointerException.class).isThrownBy(EnvProperties::fromEnvironment);
+@ExperimentalApi
+public interface StreamParser<S extends DataStream> {
+
+    Either<StreamParserError, S> parse(MerkleTree<String> subtree);
+
+    default S unsafeParse(MerkleTree<String> subtree) {
+        return parse(subtree).getOrElseThrow(StreamParsingException::new);
     }
 }

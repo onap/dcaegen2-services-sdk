@@ -18,21 +18,17 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
-
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
+ * AKA SubscribeStream
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since February 2019
+ * @version  1.2.1
  */
-class EnvPropertiesTest {
-    @Test
-    void fromEnvironmentShouldFailWhenEnvVariablesAreMissing() {
-        assertThatExceptionOfType(NullPointerException.class).isThrownBy(EnvProperties::fromEnvironment);
-    }
+@ExperimentalApi
+public interface SourceStream {
+
 }
