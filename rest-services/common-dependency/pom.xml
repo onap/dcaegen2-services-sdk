@@ -8,13 +8,11 @@
     <parent>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
         <artifactId>dcaegen2-services-sdk-rest-services</artifactId>
-        <version>1.1.2-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.1.3-SNAPSHOT</version>
     </parent>
 
     <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
     <artifactId>common-dependency</artifactId>
-    <version>1.1.3-SNAPSHOT</version>
 
     <name>dcaegen2-services-sdk-rest-services-common-dependency</name>
     <description>Common functionality in the project</description>

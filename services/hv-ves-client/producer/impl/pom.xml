@@ -26,12 +26,10 @@
   <parent>
     <groupId>org.onap.dcaegen2.services.sdk</groupId>
     <artifactId>hvvesclient-producer</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
-    <relativePath>..</relativePath>
+    <version>1.1.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>hvvesclient-producer-impl</artifactId>
-  <version>1.1.2-SNAPSHOT</version>
 
   <name>High Volume VES Collector Client :: Producer :: Implementation</name>
   <packaging>jar</packaging>
