@@ -27,9 +27,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.ImmutableEnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
