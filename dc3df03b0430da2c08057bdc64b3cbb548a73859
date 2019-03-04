@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44f906a7_4327d703",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-04T07:26:36Z",
+      "side": 1,
+      "message": "Add `@NotNull` and `requireNonNull` to hash as you are using it directly in constructor. \n\nOption\u003cV\u003e and Map\u003cK,V\u003e objects should also never be null, so apply same contract.",
+      "revId": "dc3df03b0430da2c08057bdc64b3cbb548a73859",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7989bdf_75e7f388",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-04T07:26:36Z",
+      "side": 1,
+      "message": "This method is used only in tests and I don\u0027t think it brings to them much value in terms of readability - let\u0027s get rid of it as this class is big enough.\n\nThen we can also remove `subtree(String... path)`[unused] and `isSame(MerkleTree\u003cV\u003e other, String... path)`[similarly no value] methods for further slimming.",
+      "revId": "dc3df03b0430da2c08057bdc64b3cbb548a73859",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3a84285_0eb5d655",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-04T07:26:36Z",
+      "side": 1,
+      "message": "Let\u0027s use all these fields directly in `leaf` method:\n```\nprivate MerkleTree\u003cV\u003e leaf(V value) {\n    return new MerkleTree\u003c\u003e(valueSerializer, hashAlgorithm, hashForValue.apply(value), Option.of(value), HashMap.empty());\n}\n```\n\nso here we would have \n```\nfinal MerkleTree\u003cV\u003e result \u003d addSubtree(path, leaf(value));\n```",
+      "revId": "dc3df03b0430da2c08057bdc64b3cbb548a73859",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94611e2b_470a1714",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-04T07:26:36Z",
+      "side": 1,
+      "message": "We should return `result` directly, because we are also checking for Arrays.equals in `addSubtree(String label, MerkleTree\u003cV\u003e subtree)` [:171].",
+      "revId": "dc3df03b0430da2c08057bdc64b3cbb548a73859",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e0d54ab_ed137851",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/listener/MerkleTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-04T07:26:36Z",
+      "side": 1,
+      "message": "This var is actually \"newSubtrees\" (plural). Maybe we should name this class field \"children\" instead to avoid confusion?",
+      "revId": "dc3df03b0430da2c08057bdc64b3cbb548a73859",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
