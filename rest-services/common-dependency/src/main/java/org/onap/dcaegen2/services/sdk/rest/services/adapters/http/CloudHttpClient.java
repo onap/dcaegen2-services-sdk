@@ -29,10 +29,13 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
+import org.onap.dcaegen2.services.sdk.rest.services.model.ClientModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
+import reactor.netty.ByteBufFlux;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientRequest;
 import reactor.netty.http.client.HttpClientResponse;
@@ -64,17 +67,35 @@ public class CloudHttpClient {
         return get(url, context, Collections.EMPTY_MAP, bodyClass);
     }
 
-    public <T> Mono<T> get(String url, RequestDiagnosticContext context, Map<String, String> customHeaders, Class<T> bodyClass) {
-        final HttpClient clientWithHeaders = httpClient
-            .doOnRequest((req, conn) -> logRequest(context, req))
-            .doOnResponse((rsp, conn) -> logResponse(context, rsp))
-            .headers(hdrs -> context.remoteCallHttpHeaders().forEach((BiConsumer<String, String>) hdrs::set))
-            .headers(hdrs -> customHeaders.forEach(hdrs::set));
+    public <T> Mono<T> get(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
+        Class<T> bodyClass) {
+        final HttpClient clientWithHeaders = getHttpClientWithHeaders(context, customHeaders);
         return callHttpGet(clientWithHeaders, url, bodyClass);
     }
 
     public <T> Mono<T> get(String url, Class<T> bodyClass) {
         return callHttpGet(httpClient, url, bodyClass);
+    }
+
+    public Mono<Integer> post(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
+        JsonBodyBuilder jsonBodyBuilder, ClientModel clientModel) {
+        final HttpClient clientWithHeaders = getHttpClientWithHeaders(context, customHeaders);
+        return callHttpPost(clientWithHeaders, url, jsonBodyBuilder, clientModel);
+    }
+
+    public Mono<Integer> patch(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
+        JsonBodyBuilder jsonBodyBuilder, ClientModel clientModel) {
+        final HttpClient clientWithHeaders = getHttpClientWithHeaders(context, customHeaders);
+        return callHttpPatch(clientWithHeaders, url, jsonBodyBuilder, clientModel);
+    }
+
+    private HttpClient getHttpClientWithHeaders(RequestDiagnosticContext context, Map<String, String> customHeaders) {
+        final HttpClient clientWithHeaders = httpClient
+            .doOnRequest((req, conn) -> logRequest(context, req))
+            .doOnResponse((rsp, conn) -> logResponse(context, rsp))
+            .headers(hdrs -> context.remoteCallHttpHeaders().forEach((BiConsumer<String, String>) hdrs::set))
+            .headers(hdrs -> customHeaders.forEach(hdrs::set));
+        return clientWithHeaders;
     }
 
     private <T> Mono<T> callHttpGet(HttpClient client, String url, Class<T> bodyClass) {
@@ -84,6 +105,20 @@ public class CloudHttpClient {
                 ? content.asString()
                 : Mono.error(createException(url, resp)))
             .map(body -> parseJson(body, bodyClass));
+    }
+
+    private <T extends ClientModel> Mono<Integer> callHttpPost(HttpClient client, String url,
+        JsonBodyBuilder<T> jsonBodyBuilder, T clientModel) {
+        return client.baseUrl(url).post()
+            .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(clientModel))))
+            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse.status().code()));
+    }
+
+    private <T extends ClientModel> Mono<Integer> callHttpPatch(HttpClient client, String url,
+        JsonBodyBuilder<T> jsonBodyBuilder, T clientModel) {
+        return client.baseUrl(url).patch()
+            .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(clientModel))))
+            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse.status().code()));
     }
 
     private Exception createException(String url, HttpClientResponse response) {
