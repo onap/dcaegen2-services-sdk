@@ -38,6 +38,7 @@
     <mockito.version>2.23.4</mockito.version>
     <protobuf.version>3.6.1</protobuf.version>
     <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
+    <maven-failsafe-plugin.version>2.22.1</maven-failsafe-plugin.version>
   </properties>
 
   <modules>
@@ -115,6 +116,19 @@
             <id>attach-javadoc</id>
             <goals>
               <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven-failsafe-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
             </goals>
           </execution>
         </executions>
