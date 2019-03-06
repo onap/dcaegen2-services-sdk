@@ -20,95 +20,66 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service;
 
-import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.ssl.SslContext;
+import io.vavr.control.Try;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
-import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.get.AaiHttpGetClient;
-import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.patch.AaiHttpPatchClient;
-import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
-import org.onap.dcaegen2.services.sdk.rest.services.ssl.SslFactory;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.ImmutableRequestDiagnosticContext;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
+import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.netty.Connection;
-import reactor.netty.http.client.HttpClient;
-import reactor.netty.http.client.HttpClientRequest;
-import reactor.netty.http.client.HttpClientResponse;
 
-import javax.net.ssl.SSLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
-import java.util.Map;
-import java.util.function.BiConsumer;
+import java.util.UUID;
 
 public class AaiHttpClientFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AaiHttpClientFactory.class);
 
     private final AaiClientConfiguration configuration;
-    private final SslFactory sslFactory;
+    private final SslFactory sslFactory = new SslFactory();
 
 
-    public AaiHttpClientFactory(SslFactory sslFactory, AaiClientConfiguration configuration) {
+    public AaiHttpClientFactory(AaiClientConfiguration configuration) {
         this.configuration = configuration;
-        this.sslFactory = sslFactory;
     }
 
-    public AaiHttpClient<String> get() throws SSLException {
-        return new AaiHttpGetClient(configuration).createAaiHttpClient(build());
-    }
-
-    public AaiHttpClient<Integer> patch(JsonBodyBuilder jsonBodyBuilder) throws SSLException {
-        return new AaiHttpPatchClient(configuration, jsonBodyBuilder).createAaiHttpClient(build());
-    }
-
-    private HttpClient build() throws SSLException {
+    public CloudHttpClient build() {
         LOGGER.debug("Setting ssl context");
-
-        SslContext sslContext = createSslContext();
-
-        return HttpClient.create()
-                .secure(sslContextSpec -> sslContextSpec.sslContext(sslContext))
-                .headers(this::settingHeaders)
-                .doOnRequest(logRequest())
-                .doOnResponse(logResponse());
+        return new CloudHttpClient(createSslContext());
     }
 
-    private SslContext createSslContext() throws SSLException {
+    private SslContext createSslContext() {
         if (configuration.enableAaiCertAuth()) {
-            return sslFactory.createSecureContext(
-                    configuration.keyStorePath(),
-                    configuration.keyStorePasswordPath(),
-                    configuration.trustStorePath(),
-                    configuration.trustStorePasswordPath()
-            );
+            final SecurityKeys collectorSecurityKeys = ImmutableSecurityKeys.builder()
+                    .keyStore(ImmutableSecurityKeysStore.of(resource(configuration.keyStorePath()).get()))
+                    .keyStorePassword(Passwords.fromResource(configuration.keyStorePasswordPath()))
+                    .trustStore(ImmutableSecurityKeysStore.of(resource(configuration.trustStorePath()).get()))
+                    .trustStorePassword(Passwords.fromResource(configuration.trustStorePasswordPath()))
+                    .build();
+            return sslFactory.createSecureClientContext(collectorSecurityKeys);
         }
-        return sslFactory.createInsecureContext();
+        return sslFactory.createInsecureClientContext();
     }
 
-    private HttpHeaders settingHeaders(HttpHeaders httpHeaders) {
-        httpHeaders.add("Authorization", "Basic " + performBasicAuthentication());
-        for(Map.Entry<String,String> header : configuration.aaiHeaders().entrySet())
-            httpHeaders.add(header.getKey(), header.getValue());
-        return httpHeaders;
+    private Try<Path> resource(String resource) {
+        return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()));
     }
 
-    private String performBasicAuthentication() {
-        return Base64.getEncoder().encodeToString(
-                (configuration.aaiUserName() + ":" + configuration.aaiUserPassword()).getBytes()
-        );
+    public static String performBasicAuthentication(String userName, String password) {
+        return Base64.getEncoder().encodeToString((userName + ":" + password).getBytes());
     }
 
-    private static BiConsumer<HttpClientRequest, Connection> logRequest() {
-        return (httpClientRequest, connection) -> {
-            LOGGER.info("Request: {} {}", httpClientRequest.method(), httpClientRequest.uri());
-            httpClientRequest.requestHeaders().forEach(stringStringEntry ->
-                    LOGGER.info("{}={}", stringStringEntry.getKey(), stringStringEntry.getValue())
-            );
-        };
+    public static RequestDiagnosticContext createRequestDiagnosticContext() {
+        return ImmutableRequestDiagnosticContext.builder()
+                .invocationId(UUID.randomUUID()).requestId(UUID.randomUUID()).build();
     }
 
-    private static BiConsumer<? super HttpClientResponse, ? super Connection>  logResponse() {
-        return (httpClientResponse, connection) ->
-                LOGGER.info("ResponseStatus {}", httpClientResponse.status().code());
-    }
 }
