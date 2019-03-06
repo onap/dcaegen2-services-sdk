@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.onap.dcaegen2.services.sdk</groupId>
     <artifactId>dcaegen2-services-sdk-rest-services</artifactId>
-    <version>1.1.3-SNAPSHOT</version>
+    <version>1.1.4-SNAPSHOT</version>
   </parent>
 
   <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
@@ -38,5 +38,11 @@
       <artifactId>reactor-test</artifactId>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.onap.dcaegen2.services.sdk.security</groupId>
+          <artifactId>ssl</artifactId>
+          <version>1.1.3-SNAPSHOT</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 </project>

@@ -22,42 +22,46 @@ package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.get
 
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.client.HttpClient;
+
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.performBasicAuthentication;
 
 
 public final class AaiHttpGetClient implements AaiHttpClient<String> {
 
-    private HttpClient httpClient;
+    private CloudHttpClient httpGetClient;
     private final AaiClientConfiguration configuration;
 
 
     public AaiHttpGetClient(AaiClientConfiguration configuration) {
         this.configuration = configuration;
+        addAuthorizationBasicHeader();
     }
 
     @Override
     public Mono<String> getAaiResponse(AaiModel aaiModel) {
-        return httpClient
-                .baseUrl(getUri(aaiModel.getCorrelationId()))
-                .get()
-                .responseContent()
-                .aggregate()
-                .asString();
+        return httpGetClient.get(getUri(aaiModel.getCorrelationId()), createRequestDiagnosticContext(), configuration.aaiHeaders(), String.class);
     }
 
-    public AaiHttpGetClient createAaiHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
+    public AaiHttpGetClient createAaiHttpClient(CloudHttpClient httpGetClient) {
+        this.httpGetClient = httpGetClient;
         return this;
     }
 
-    String getUri(String pnfName) {
+    private String getUri(String pnfName) {
         return new URI.URIBuilder()
                 .scheme(configuration.aaiProtocol())
                 .host(configuration.aaiHost())
                 .port(configuration.aaiPort())
                 .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
+    }
+
+    private void addAuthorizationBasicHeader() {
+        configuration.aaiHeaders().put("Authorization",
+                "Basic " + performBasicAuthentication(configuration.aaiUserName(), configuration.aaiUserPassword()));
     }
 }

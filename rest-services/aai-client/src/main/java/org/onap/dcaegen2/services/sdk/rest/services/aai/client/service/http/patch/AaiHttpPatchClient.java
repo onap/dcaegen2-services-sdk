@@ -20,27 +20,21 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.patch;
 
-import io.netty.handler.codec.http.HttpHeaders;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
-import org.slf4j.MDC;
 import reactor.core.publisher.Mono;
-import reactor.netty.ByteBufFlux;
-import reactor.netty.http.client.HttpClient;
 
-import java.util.UUID;
-import java.util.function.Consumer;
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.performBasicAuthentication;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.REQUEST_ID;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_INVOCATION_ID;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
 
 public final class AaiHttpPatchClient implements AaiHttpClient<Integer> {
 
-    private HttpClient httpClient;
+    private CloudHttpClient httpPatchClient;
     private final AaiClientConfiguration configuration;
     private final JsonBodyBuilder jsonBodyBuilder;
 
@@ -48,24 +42,20 @@ public final class AaiHttpPatchClient implements AaiHttpClient<Integer> {
     public AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder) {
         this.configuration = configuration;
         this.jsonBodyBuilder = jsonBodyBuilder;
+        addAuthorizationBasicHeader();
     }
-
 
     public Mono<Integer> getAaiResponse(AaiModel aaiModel) {
-        return httpClient
-                .headers(addHeaders())
-                .baseUrl(getUri(aaiModel.getCorrelationId()))
-                .patch()
-                .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(aaiModel))))
-                .responseSingle((res, content) -> Mono.just(res.status().code()));
+        return httpPatchClient
+                .patch(getUri(aaiModel.getCorrelationId()), createRequestDiagnosticContext(), configuration.aaiHeaders(), jsonBodyBuilder, aaiModel);
     }
 
-    public AaiHttpPatchClient createAaiHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
+    public AaiHttpPatchClient createAaiHttpClient(CloudHttpClient httpPatchClient) {
+        this.httpPatchClient = httpPatchClient;
         return this;
     }
 
-    String getUri(String pnfName) {
+    private String getUri(String pnfName) {
         return new URI.URIBuilder()
                 .scheme(configuration.aaiProtocol())
                 .host(configuration.aaiHost())
@@ -73,10 +63,8 @@ public final class AaiHttpPatchClient implements AaiHttpClient<Integer> {
                 .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
     }
 
-    private Consumer<? super HttpHeaders> addHeaders() {
-        return h -> {
-            h.add(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID));
-            h.add(X_INVOCATION_ID, UUID.randomUUID().toString());
-        };
+    private void addAuthorizationBasicHeader() {
+        configuration.aaiHeaders().put("Authorization",
+                "Basic " + performBasicAuthentication(configuration.aaiUserName(), configuration.aaiUserPassword()));
     }
 }
