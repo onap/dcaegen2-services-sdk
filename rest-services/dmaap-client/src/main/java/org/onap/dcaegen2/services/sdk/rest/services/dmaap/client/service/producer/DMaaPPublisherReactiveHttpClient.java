@@ -21,9 +21,16 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
 
 
+import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.REQUEST_ID;
+import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_INVOCATION_ID;
+import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
+
+import java.net.URI;
+import java.util.UUID;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.model.DmaapModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
+import org.onap.dcaegen2.services.sdk.rest.services.uri.URI.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -32,15 +39,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
-
-import java.net.URI;
-import java.util.UUID;
-
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.REQUEST_ID;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_INVOCATION_ID;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
 
 
 /**
@@ -48,6 +47,7 @@ import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVari
  */
 public class DMaaPPublisherReactiveHttpClient {
 
+    private final static String SLASH = "/";
     private final Logger logger = LoggerFactory.getLogger(DMaaPPublisherReactiveHttpClient.class);
     private final String dmaapHostName;
     private final Integer dmaapPortNumber;
@@ -99,8 +99,13 @@ public class DMaaPPublisherReactiveHttpClient {
     }
 
     URI getUri() {
-        return new DefaultUriBuilderFactory().builder().scheme(dmaapProtocol).host(dmaapHostName).port(dmaapPortNumber)
-                .path(dmaapTopicName).build();
+        return URI.create(
+            new URIBuilder().scheme(dmaapProtocol).host(dmaapHostName).port(dmaapPortNumber).path(createRequestPath())
+                .build().toString());
+    }
+
+    private String createRequestPath() {
+        return new StringBuilder().append(SLASH).append(dmaapTopicName).toString();
     }
 
 }
