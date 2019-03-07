@@ -58,7 +58,7 @@ public class CloudHttpClient {
         this(HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext)));
     }
 
-    private CloudHttpClient(HttpClient httpClient) {
+    CloudHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
 
     }
