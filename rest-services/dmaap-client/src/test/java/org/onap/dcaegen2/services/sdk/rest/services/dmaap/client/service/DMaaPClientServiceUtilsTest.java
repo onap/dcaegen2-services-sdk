@@ -18,27 +18,26 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service;
 
-import javax.net.ssl.SSLException;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
+import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.DMaaPClientServiceUtils;
 
-public class PublisherReactiveHttpClientFactory {
+public class DMaaPClientServiceUtilsTest {
 
-    private final DmaaPRestTemplateFactory restTemplateFactory;
 
-    private final JsonBodyBuilder jsonBodyBuilder;
+    private final static  String contentType = "myType";
 
-    public PublisherReactiveHttpClientFactory(DmaaPRestTemplateFactory restTemplateFactory,
-        JsonBodyBuilder jsonBodyBuilder) {
-        this.restTemplateFactory = restTemplateFactory;
-        this.jsonBodyBuilder = jsonBodyBuilder;
+    @Test
+    public void getHeaders(){
+
+        Map<String,String> headres = DMaaPClientServiceUtils.getHeaders(contentType);
+        assertEquals(1,headres.size());
+        assertEquals(contentType,headres.get(DMaaPClientServiceUtils.CONTENT_TYPE));
+
     }
 
-    public DMaaPPublisherReactiveHttpClient create(DmaapPublisherConfiguration publisherConfiguration)
-        throws SSLException {
-        return new DMaaPPublisherReactiveHttpClient(publisherConfiguration,
-            restTemplateFactory.build(publisherConfiguration), jsonBodyBuilder);
-    }
+
 }

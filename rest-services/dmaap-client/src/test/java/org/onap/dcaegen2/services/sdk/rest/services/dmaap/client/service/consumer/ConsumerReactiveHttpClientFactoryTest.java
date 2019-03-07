@@ -32,7 +32,7 @@ class ConsumerReactiveHttpClientFactoryTest {
     private DmaapConsumerConfiguration dmaapConsumerConfiguration = mock(DmaapConsumerConfiguration.class);
     private DMaaPReactiveWebClientFactory reactiveWebClientFactory = mock(DMaaPReactiveWebClientFactory.class);
     private ConsumerReactiveHttpClientFactory httpClientFactory =
-            new ConsumerReactiveHttpClientFactory(reactiveWebClientFactory);
+        new ConsumerReactiveHttpClientFactory(reactiveWebClientFactory);
 
     @Test
     void create_shouldReturnNotNullFactoryInstance() throws Exception {

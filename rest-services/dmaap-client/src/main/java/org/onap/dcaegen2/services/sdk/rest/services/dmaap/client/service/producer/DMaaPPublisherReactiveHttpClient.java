@@ -21,55 +21,39 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
 
 
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.REQUEST_ID;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_INVOCATION_ID;
-import static org.onap.dcaegen2.services.sdk.rest.services.model.logging.MdcVariables.X_ONAP_REQUEST_ID;
-
 import java.net.URI;
-import java.util.UUID;
+import java.util.Map;
+import java.util.Optional;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.DMaaPAbstractReactiveHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.DMaaPClientServiceUtils;
 import org.onap.dcaegen2.services.sdk.rest.services.model.DmaapModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI.URIBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Mono;
 
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 7/4/18
  */
-public class DMaaPPublisherReactiveHttpClient {
+public class DMaaPPublisherReactiveHttpClient extends DMaaPAbstractReactiveHttpClient {
 
-    private final static String SLASH = "/";
-    private final Logger logger = LoggerFactory.getLogger(DMaaPPublisherReactiveHttpClient.class);
-    private final String dmaapHostName;
-    private final Integer dmaapPortNumber;
-    private final String dmaapProtocol;
-    private final String dmaapTopicName;
-    private final String dmaapContentType;
-    private final Mono<RestTemplate> restTemplateMono;
+    private final DmaapPublisherConfiguration dmaapPublisherConfiguration;
     private final JsonBodyBuilder jsonBodyBuilder;
+    private final CloudHttpClient cloudHttpClient;
 
     /**
      * Constructor DMaaPPublisherReactiveHttpClient.
      *
      * @param dmaapPublisherConfiguration - DMaaP producer configuration object
+     * @param cloudHttpClient - cloudHttpClient sending http requests
      */
     DMaaPPublisherReactiveHttpClient(DmaapPublisherConfiguration dmaapPublisherConfiguration,
-                                     Mono<RestTemplate> restTemplateMono, JsonBodyBuilder jsonBodyBuilder) {
-        this.dmaapHostName = dmaapPublisherConfiguration.dmaapHostName();
-        this.dmaapProtocol = dmaapPublisherConfiguration.dmaapProtocol();
-        this.dmaapPortNumber = dmaapPublisherConfiguration.dmaapPortNumber();
-        this.dmaapTopicName = dmaapPublisherConfiguration.dmaapTopicName();
-        this.dmaapContentType = dmaapPublisherConfiguration.dmaapContentType();
-        this.restTemplateMono = restTemplateMono;
+        CloudHttpClient cloudHttpClient, JsonBodyBuilder jsonBodyBuilder) {
+        this.dmaapPublisherConfiguration = dmaapPublisherConfiguration;
+        this.cloudHttpClient = cloudHttpClient;
         this.jsonBodyBuilder = jsonBodyBuilder;
     }
 
@@ -80,32 +64,31 @@ public class DMaaPPublisherReactiveHttpClient {
      * @return status code of operation
      */
 
-    public Mono<ResponseEntity<String>> getDMaaPProducerResponse(DmaapModel dmaapModel) {
+    public Mono<Integer> getDMaaPProducerResponse(DmaapModel dmaapModel,
+        Optional<RequestDiagnosticContext> requestDiagnosticContextOptional) {
         return Mono.defer(() -> {
-            HttpEntity<String> request = new HttpEntity<>(jsonBodyBuilder.createJsonBody(dmaapModel), getAllHeaders());
-            logger.info("Request: {} {}", getUri(), request);
-            return restTemplateMono.map(
-                restTemplate -> restTemplate.exchange(getUri(), HttpMethod.POST, request, String.class));
+            Map<String, String> headers = DMaaPClientServiceUtils.getHeaders(dmaapPublisherConfiguration.dmaapContentType());
+            if (requestDiagnosticContextOptional.isPresent()) {
+                cloudHttpClient
+                    .post(getUri().toString(), requestDiagnosticContextOptional.get(), headers, jsonBodyBuilder,
+                        dmaapModel);
+            }
+            return cloudHttpClient
+                .post(getUri().toString(), getRequestDiagnosticContext(), headers, jsonBodyBuilder, dmaapModel);
         });
     }
 
-    private HttpHeaders getAllHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(X_ONAP_REQUEST_ID, MDC.get(REQUEST_ID));
-        headers.set(X_INVOCATION_ID, UUID.randomUUID().toString());
-        headers.set(HttpHeaders.CONTENT_TYPE, dmaapContentType);
-        return headers;
-
-    }
 
     URI getUri() {
         return URI.create(
-            new URIBuilder().scheme(dmaapProtocol).host(dmaapHostName).port(dmaapPortNumber).path(createRequestPath())
+            new URIBuilder().scheme(dmaapPublisherConfiguration.dmaapProtocol())
+                .host(dmaapPublisherConfiguration.dmaapHostName()).port(dmaapPublisherConfiguration.dmaapPortNumber())
+                .path(createRequestPath())
                 .build().toString());
     }
 
     private String createRequestPath() {
-        return new StringBuilder().append(SLASH).append(dmaapTopicName).toString();
+        return new StringBuilder().append(SLASH).append(dmaapPublisherConfiguration.dmaapTopicName()).toString();
     }
 
 }

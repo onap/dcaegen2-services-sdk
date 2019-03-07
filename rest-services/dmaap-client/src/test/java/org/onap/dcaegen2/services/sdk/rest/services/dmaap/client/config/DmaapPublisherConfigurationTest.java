@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.config;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
