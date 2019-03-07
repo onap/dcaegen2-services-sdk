@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.produc
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import javax.net.ssl.SSLException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
@@ -38,21 +39,21 @@ class DmaaPRestTemplateFactoryTest {
     private DmaaPRestTemplateFactory factory = new DmaaPRestTemplateFactory();
 
     @Test
-    void build_shouldCreateRestTemplateWithoutSslConfiguration() {
+    void build_shouldCreateRestTemplateWithoutSslConfiguration() throws SSLException {
         when(publisherConfiguration.enableDmaapCertAuth()).thenReturn(false);
 
-        Assertions.assertNotNull(factory.build(publisherConfiguration).block());
+        Assertions.assertNotNull(factory.build(publisherConfiguration));
     }
 
     @Test
-    void build_shouldCreateRestTemplateWithSslConfiguration() {
+    void build_shouldCreateRestTemplateWithSslConfiguration() throws SSLException {
         when(publisherConfiguration.enableDmaapCertAuth()).thenReturn(true);
         when(publisherConfiguration.keyStorePath()).thenReturn(getPath(KEY_STORE));
         when(publisherConfiguration.keyStorePasswordPath()).thenReturn(getPath(KEYSTORE_PASSWORD));
         when(publisherConfiguration.trustStorePath()).thenReturn(getPath(TRUST_STORE));
         when(publisherConfiguration.trustStorePasswordPath()).thenReturn(getPath(TRUSTSTORE_PASSWORD));
 
-        Assertions.assertNotNull(factory.build(publisherConfiguration).block());
+        Assertions.assertNotNull(factory.build(publisherConfiguration));
     }
 
     private String getPath(String fileName) {
