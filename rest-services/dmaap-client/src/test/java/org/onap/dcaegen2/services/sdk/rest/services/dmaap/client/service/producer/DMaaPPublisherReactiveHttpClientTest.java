@@ -20,24 +20,22 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.net.URI;
+import java.util.Optional;
+import org.apache.http.entity.ContentType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
-
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.DMaaPClientServiceUtils;
+import org.onap.dcaegen2.services.sdk.rest.services.model.ClientModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.DmaapModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -49,12 +47,11 @@ class DMaaPPublisherReactiveHttpClientTest {
 
     private DMaaPPublisherReactiveHttpClient dmaapPublisherReactiveHttpClient;
     private DmaapPublisherConfiguration dmaapPublisherConfigurationMock = mock(DmaapPublisherConfiguration.class);
-
-    private RestTemplate restTemplate = mock(RestTemplate.class);
-
-    private DmaapModel dmaapModel = mock(DmaapModel.class);
-    private JsonBodyBuilder<DmaapModel> jsonBodyBuilder = mock(JsonBodyBuilder.class);
-
+    private CloudHttpClient cloudHttpClientMock = mock(CloudHttpClient.class);
+    private DmaapModel dmaapModelMock = mock(DmaapModel.class);
+    private JsonBodyBuilder<DmaapModel> jsonBodyBuilderMock = mock(JsonBodyBuilder.class);
+    private Optional<RequestDiagnosticContext> requestDiagnosticContextOptionalMock = Optional
+        .of(mock(RequestDiagnosticContext.class));
 
     @BeforeEach
     void setUp() {
@@ -66,33 +63,43 @@ class DMaaPPublisherReactiveHttpClientTest {
         when(dmaapPublisherConfigurationMock.dmaapContentType()).thenReturn("application/json");
         when(dmaapPublisherConfigurationMock.dmaapTopicName()).thenReturn("unauthenticated.PNF_READY");
 
-        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(
-                "{\"correlationId\":\"NOKnhfsadhff\"," +
-                        "\"ipaddress-v4\":\"256.22.33.155\", " +
-                        "\"ipaddress-v6\":\"200J:0db8:85a3:0000:0000:8a2e:0370:7334\"}");
+        when(jsonBodyBuilderMock.createJsonBody(dmaapModelMock)).thenReturn(
+            "{\"correlationId\":\"NOKnhfsadhff\"," +
+                "\"ipaddress-v4\":\"256.22.33.155\", " +
+                "\"ipaddress-v6\":\"200J:0db8:85a3:0000:0000:8a2e:0370:7334\"}");
 
         dmaapPublisherReactiveHttpClient =
-                new DMaaPPublisherReactiveHttpClient(dmaapPublisherConfigurationMock, Mono.just(restTemplate),jsonBodyBuilder);
+            new DMaaPPublisherReactiveHttpClient(dmaapPublisherConfigurationMock, cloudHttpClientMock,
+                jsonBodyBuilderMock);
     }
 
     @Test
     void getHttpResponse_Success() {
         //given
-        int responseSuccess = 200;
-        ResponseEntity<String> mockedResponseEntity = mock(ResponseEntity.class);
+        Mono<Integer> expectedResult = Mono.just(Integer.valueOf(200));
         //when
-        when(mockedResponseEntity.getStatusCode()).thenReturn(HttpStatus.valueOf(responseSuccess));
-        doReturn(mockedResponseEntity).when(restTemplate)
-                .exchange(any(URI.class), any(HttpMethod.class), any(HttpEntity.class), (Class<Object>) any());
-
+        when(
+            cloudHttpClientMock
+                .post(getUri().toString(), requestDiagnosticContextOptionalMock.get(),
+                    DMaaPClientServiceUtils.getHeaders(ContentType.APPLICATION_JSON.getMimeType()),
+                    jsonBodyBuilderMock,
+                    mock(ClientModel.class)))
+            .thenReturn(Mono.just(Integer.valueOf(200)));
         //then
-        StepVerifier.create(dmaapPublisherReactiveHttpClient.getDMaaPProducerResponse(dmaapModel))
-                .expectSubscription().expectNext(mockedResponseEntity).verifyComplete();
+        StepVerifier.create(expectedResult).expectSubscription()
+            .expectNextMatches(results -> {
+                Assertions.assertEquals(results, expectedResult.block());
+                return true;
+            }).verifyComplete();
     }
 
     @Test
     void getAppropriateUri_whenPassingCorrectedPathForPnf() {
         Assertions.assertEquals(dmaapPublisherReactiveHttpClient.getUri(),
-                URI.create("https://54.45.33.2:1234/unauthenticated.PNF_READY"));
+            getUri());
+    }
+
+    private URI getUri() {
+        return URI.create("https://54.45.33.2:1234/unauthenticated.PNF_READY");
     }
 }

@@ -18,27 +18,32 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service;
 
-import javax.net.ssl.SSLException;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
+import java.util.HashMap;
+import java.util.Map;
 
-public class PublisherReactiveHttpClientFactory {
+/**
+ * @author <a href="mailto:marcin.wmigdal@nokia.com">Marcin Migdal</a> on 3/8/2019
+ */
+public final class DMaaPClientServiceUtils {
 
-    private final DmaaPRestTemplateFactory restTemplateFactory;
+    public final static String CONTENT_TYPE = "Content-Type";
 
-    private final JsonBodyBuilder jsonBodyBuilder;
+    private DMaaPClientServiceUtils() {
 
-    public PublisherReactiveHttpClientFactory(DmaaPRestTemplateFactory restTemplateFactory,
-        JsonBodyBuilder jsonBodyBuilder) {
-        this.restTemplateFactory = restTemplateFactory;
-        this.jsonBodyBuilder = jsonBodyBuilder;
     }
 
-    public DMaaPPublisherReactiveHttpClient create(DmaapPublisherConfiguration publisherConfiguration)
-        throws SSLException {
-        return new DMaaPPublisherReactiveHttpClient(publisherConfiguration,
-            restTemplateFactory.build(publisherConfiguration), jsonBodyBuilder);
+    /**
+    * Method generates headers for HTTP requests
+    * @param contentType contentType to be used in HTTP header*
+    * @return Map of Headers
+    * */
+    public static Map<String, String> getHeaders(String contentType) {
+        Map<String, String> header = new HashMap<>();
+        header.put(CONTENT_TYPE, contentType);
+        return header;
     }
+
+
 }

@@ -24,8 +24,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import org.apache.http.entity.ContentType;
 import org.junit.jupiter.api.Assertions;
@@ -33,6 +31,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapConsumerConfiguration;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.DMaaPClientServiceUtils;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -69,7 +68,7 @@ class DMaaPConsumerReactiveHttpClientTest {
     void getHttpResponse_Success() {
         //given
         expectedResult = Mono.just(JSON_MESSAGE);
-        when(httpClient.get(exampleTestUri.toString(), requestDiagnosticContext, getCustomHeaders(), String.class))
+        when(httpClient.get(exampleTestUri.toString(), requestDiagnosticContext, DMaaPClientServiceUtils.getHeaders(ContentType.APPLICATION_JSON.getMimeType()), String.class))
             .thenReturn(expectedResult);
         //when
         Mono<String> response = dmaapConsumerReactiveHttpClient
@@ -87,10 +86,5 @@ class DMaaPConsumerReactiveHttpClientTest {
         Assertions.assertEquals(dmaapConsumerReactiveHttpClient.getUri(), exampleTestUri);
     }
 
-    private Map<String, String> getCustomHeaders() {
-        Map<String, String> customHeaders = new HashMap<>();
-        customHeaders.put("Content-Type", ContentType.APPLICATION_JSON.getMimeType());
-        return customHeaders;
-    }
 
 }

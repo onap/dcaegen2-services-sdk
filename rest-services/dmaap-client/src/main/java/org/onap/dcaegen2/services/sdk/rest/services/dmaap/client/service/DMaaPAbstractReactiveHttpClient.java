@@ -18,27 +18,20 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service;
 
-import javax.net.ssl.SSLException;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
+import java.util.UUID;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.ImmutableRequestDiagnosticContext;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 
-public class PublisherReactiveHttpClientFactory {
+public abstract class DMaaPAbstractReactiveHttpClient {
 
-    private final DmaaPRestTemplateFactory restTemplateFactory;
+    protected final static String SLASH = "/";
 
-    private final JsonBodyBuilder jsonBodyBuilder;
-
-    public PublisherReactiveHttpClientFactory(DmaaPRestTemplateFactory restTemplateFactory,
-        JsonBodyBuilder jsonBodyBuilder) {
-        this.restTemplateFactory = restTemplateFactory;
-        this.jsonBodyBuilder = jsonBodyBuilder;
+    protected RequestDiagnosticContext getRequestDiagnosticContext() {
+        return ImmutableRequestDiagnosticContext.builder()
+            .invocationId(UUID.randomUUID()).requestId(UUID.randomUUID()).build();
     }
 
-    public DMaaPPublisherReactiveHttpClient create(DmaapPublisherConfiguration publisherConfiguration)
-        throws SSLException {
-        return new DMaaPPublisherReactiveHttpClient(publisherConfiguration,
-            restTemplateFactory.build(publisherConfiguration), jsonBodyBuilder);
-    }
+
 }
