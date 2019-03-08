@@ -33,6 +33,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI.URIBuilder;
 import reactor.core.publisher.Mono;
+import reactor.netty.http.client.HttpClientResponse;
 
 
 /**
@@ -64,7 +65,7 @@ public class DMaaPPublisherReactiveHttpClient extends DMaaPAbstractReactiveHttpC
      * @return status code of operation
      */
 
-    public Mono<Integer> getDMaaPProducerResponse(DmaapModel dmaapModel,
+    public Mono<HttpClientResponse> getDMaaPProducerResponse(DmaapModel dmaapModel,
         Optional<RequestDiagnosticContext> requestDiagnosticContextOptional) {
         return Mono.defer(() -> {
             Map<String, String> headers = DMaaPClientServiceUtils.getHeaders(dmaapPublisherConfiguration.dmaapContentType());

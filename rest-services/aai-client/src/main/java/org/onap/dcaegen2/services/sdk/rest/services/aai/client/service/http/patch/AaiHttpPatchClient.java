@@ -27,12 +27,13 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import reactor.core.publisher.Mono;
+import reactor.netty.http.client.HttpClientResponse;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.performBasicAuthentication;
 
 
-public final class AaiHttpPatchClient implements AaiHttpClient<Integer> {
+public final class AaiHttpPatchClient implements AaiHttpClient<HttpClientResponse> {
 
     private CloudHttpClient httpPatchClient;
     private final AaiClientConfiguration configuration;
@@ -45,7 +46,7 @@ public final class AaiHttpPatchClient implements AaiHttpClient<Integer> {
         addAuthorizationBasicHeader();
     }
 
-    public Mono<Integer> getAaiResponse(AaiModel aaiModel) {
+    public Mono<HttpClientResponse> getAaiResponse(AaiModel aaiModel) {
         return httpPatchClient
                 .patch(getUri(aaiModel.getCorrelationId()), createRequestDiagnosticContext(), configuration.aaiHeaders(), jsonBodyBuilder, aaiModel);
     }

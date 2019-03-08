@@ -40,6 +40,7 @@ import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientRequest;
 import reactor.netty.http.client.HttpClientResponse;
 
+
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/15/18
  */
@@ -77,13 +78,13 @@ public class CloudHttpClient {
         return callHttpGet(httpClient, url, bodyClass);
     }
 
-    public Mono<Integer> post(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
+    public Mono<HttpClientResponse> post(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
         JsonBodyBuilder jsonBodyBuilder, ClientModel clientModel) {
         final HttpClient clientWithHeaders = getHttpClientWithHeaders(context, customHeaders);
         return callHttpPost(clientWithHeaders, url, jsonBodyBuilder, clientModel);
     }
 
-    public Mono<Integer> patch(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
+    public Mono<HttpClientResponse> patch(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
         JsonBodyBuilder jsonBodyBuilder, ClientModel clientModel) {
         final HttpClient clientWithHeaders = getHttpClientWithHeaders(context, customHeaders);
         return callHttpPatch(clientWithHeaders, url, jsonBodyBuilder, clientModel);
@@ -107,18 +108,18 @@ public class CloudHttpClient {
             .map(body -> parseJson(body, bodyClass));
     }
 
-    private <T extends ClientModel> Mono<Integer> callHttpPost(HttpClient client, String url,
+    private <T extends ClientModel> Mono<HttpClientResponse> callHttpPost(HttpClient client, String url,
         JsonBodyBuilder<T> jsonBodyBuilder, T clientModel) {
         return client.baseUrl(url).post()
             .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(clientModel))))
-            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse.status().code()));
+            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse));
     }
 
-    private <T extends ClientModel> Mono<Integer> callHttpPatch(HttpClient client, String url,
+    private <T extends ClientModel> Mono<HttpClientResponse> callHttpPatch(HttpClient client, String url,
         JsonBodyBuilder<T> jsonBodyBuilder, T clientModel) {
         return client.baseUrl(url).patch()
             .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(clientModel))))
-            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse.status().code()));
+            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse));
     }
 
     private Exception createException(String url, HttpClientResponse response) {

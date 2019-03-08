@@ -38,6 +38,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+import reactor.netty.http.client.HttpClientResponse;
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 7/4/18
@@ -76,7 +77,7 @@ class DMaaPPublisherReactiveHttpClientTest {
     @Test
     void getHttpResponse_Success() {
         //given
-        Mono<Integer> expectedResult = Mono.just(Integer.valueOf(200));
+        Mono<HttpClientResponse> expectedResult = Mono.just(mock(HttpClientResponse.class));
         //when
         when(
             cloudHttpClientMock
@@ -84,7 +85,7 @@ class DMaaPPublisherReactiveHttpClientTest {
                     DMaaPClientServiceUtils.getHeaders(ContentType.APPLICATION_JSON.getMimeType()),
                     jsonBodyBuilderMock,
                     mock(ClientModel.class)))
-            .thenReturn(Mono.just(Integer.valueOf(200)));
+            .thenReturn(Mono.just(mock(HttpClientResponse.class)));
         //then
         StepVerifier.create(expectedResult).expectSubscription()
             .expectNextMatches(results -> {
