@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8954f8f8_a5c33477",
+        "filename": "rest-services/common-dependency/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/CloudHttpClientIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3773
+      },
+      "writtenOn": "2019-03-08T10:54:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3745ba6_1a8612ca",
+      "revId": "02f036ed13af5ab568c5946fcb510f2119cf00ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34c46e44_d202d8f4",
         "filename": "rest-services/common-dependency/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/CloudHttpClientIT.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-07T13:49:46Z",
       "side": 1,
       "message": "remove empty line",
+      "revId": "02f036ed13af5ab568c5946fcb510f2119cf00ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7bc1611b_c43fd965",
+        "filename": "rest-services/common-dependency/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/CloudHttpClientIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 3773
+      },
+      "writtenOn": "2019-03-08T10:54:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34c46e44_d202d8f4",
       "revId": "02f036ed13af5ab568c5946fcb510f2119cf00ca",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
