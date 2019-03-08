@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +28,6 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.model.DmaapModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
@@ -53,7 +53,6 @@ class CloudHttpClientIT {
     private DmaapModel dmaapModel = mock(DmaapModel.class);
     private JsonBodyBuilder<DmaapModel> jsonBodyBuilder = mock(JsonBodyBuilder.class);
 
-    @Disabled
     @Test
     void successfulPatchResponse() {
         DisposableServer server = createValidServer();
@@ -63,15 +62,12 @@ class CloudHttpClientIT {
         when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
         Mono<HttpClientResponse> content = cloudHttpClient.patch(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
             jsonBodyBuilder, dmaapModel);
+        HttpClientResponse httpClientResponse = content.block();
 
-        StepVerifier.create(content)
-            .expectNext(content.block())
-            .expectComplete()
-            .verify();
+        assertEquals(HttpResponseStatus.OK, httpClientResponse.status());
         server.disposeNow();
     }
 
-    @Disabled
     @Test
     void errorPatchRequest() {
         DisposableServer server = createInvalidServer();
@@ -81,11 +77,39 @@ class CloudHttpClientIT {
         when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
         Mono<HttpClientResponse> content = cloudHttpClient.patch(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
             jsonBodyBuilder, dmaapModel);
+        HttpClientResponse httpClientResponse = content.block();
 
-        StepVerifier.create(content)
-            .expectNext(content.block())
-            .expectComplete()
-            .verify();
+        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR, httpClientResponse.status());
+        server.disposeNow();
+    }
+
+    @Test
+    void successfulPostResponse() {
+        DisposableServer server = createValidServer();
+        HttpClient httpClient = createHttpClientForContextWithAddress(server, connectionProvider);
+        CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
+
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
+        Mono<HttpClientResponse> content = cloudHttpClient.post(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
+            jsonBodyBuilder, dmaapModel);
+        HttpClientResponse httpClientResponse = content.block();
+
+        assertEquals(HttpResponseStatus.OK, httpClientResponse.status());
+        server.disposeNow();
+    }
+
+    @Test
+    void errorPostRequest() {
+        DisposableServer server = createInvalidServer();
+        HttpClient httpClient = createHttpClientForContextWithAddress(server, connectionProvider);
+        CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
+
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
+        Mono<HttpClientResponse> content = cloudHttpClient.post(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
+            jsonBodyBuilder, dmaapModel);
+        HttpClientResponse httpClientResponse = content.block();
+
+        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR, httpClientResponse.status());
         server.disposeNow();
     }
 
@@ -95,14 +119,22 @@ class CloudHttpClientIT {
         HttpClient httpClient = createHttpClientForContextWithAddress(server, connectionProvider);
         CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
 
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
         Mono<String> content = cloudHttpClient.get(SAMPLE_URL, String.class);
+        Mono<String> contentWithHeaders = cloudHttpClient.get(SAMPLE_URL, createRequestDiagnosticContext(),
+            createCustomHeaders(), String.class);
 
         StepVerifier.create(content)
             .expectNext(SAMPLE_STRING)
             .expectComplete()
             .verify();
+        StepVerifier.create(contentWithHeaders)
+            .expectNext(SAMPLE_STRING)
+            .expectComplete()
+            .verify();
         server.disposeNow();
     }
+
     @Test
     void errorGetRequest() {
         DisposableServer server = createInvalidServer();
@@ -120,7 +152,6 @@ class CloudHttpClientIT {
     private Map<String, String> createCustomHeaders() {
         Map<String, String> customHeaders = new HashMap<>();
         customHeaders.put("X_INVOCATION_ID", UUID.randomUUID().toString());
-
         return customHeaders;
     }
 
