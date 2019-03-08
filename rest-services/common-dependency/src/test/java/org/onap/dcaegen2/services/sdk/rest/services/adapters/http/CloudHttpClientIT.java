@@ -86,19 +86,61 @@ class CloudHttpClientIT {
     }
 
     @Test
+    void successfulPostResponse() {
+        DisposableServer server = createValidServer();
+        HttpClient httpClient = createHttpClientForContextWithAddress(server, connectionProvider);
+        CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
+
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
+        Mono<Integer> content = cloudHttpClient.post(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
+            jsonBodyBuilder, dmaapModel);
+
+        StepVerifier.create(content)
+            .expectNext(HttpResponseStatus.OK.code())
+            .expectComplete()
+            .verify();
+        server.disposeNow();
+    }
+
+    @Test
+    void errorPostRequest() {
+        DisposableServer server = createInvalidServer();
+        HttpClient httpClient = createHttpClientForContextWithAddress(server, connectionProvider);
+        CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
+
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
+        Mono<Integer> content = cloudHttpClient.post(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
+            jsonBodyBuilder, dmaapModel);
+
+        StepVerifier.create(content)
+            .expectNext(HttpResponseStatus.INTERNAL_SERVER_ERROR.code())
+            .expectComplete()
+            .verify();
+        server.disposeNow();
+    }
+
+    @Test
     void successfulGetResponse() {
         DisposableServer server = createValidServer();
         HttpClient httpClient = createHttpClientForContextWithAddress(server, connectionProvider);
         CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
 
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
         Mono<String> content = cloudHttpClient.get(SAMPLE_URL, String.class);
+        Mono<String> contentWithHeaders = cloudHttpClient.get(SAMPLE_URL, createRequestDiagnosticContext(),
+            createCustomHeaders(), String.class);
 
         StepVerifier.create(content)
             .expectNext(SAMPLE_STRING)
             .expectComplete()
             .verify();
+        StepVerifier.create(contentWithHeaders)
+            .expectNext(SAMPLE_STRING)
+            .expectComplete()
+            .verify();
         server.disposeNow();
     }
+
     @Test
     void errorGetRequest() {
         DisposableServer server = createInvalidServer();
@@ -116,7 +158,6 @@ class CloudHttpClientIT {
     private Map<String, String> createCustomHeaders() {
         Map<String, String> customHeaders = new HashMap<>();
         customHeaders.put("X_INVOCATION_ID", UUID.randomUUID().toString());
-
         return customHeaders;
     }
 
