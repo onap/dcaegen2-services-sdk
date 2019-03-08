@@ -39,7 +39,7 @@
     <vavr.version>0.10.0</vavr.version>
     <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
     <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
-    <maven-failsafe-plugin.version>2.22.1</maven-failsafe-plugin.version>
+    <maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
   </properties>
 
   <modules>
