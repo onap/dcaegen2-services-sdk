@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e1f8ad6_296f509b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/AafCredentials.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-11T11:05:54Z",
+      "side": 1,
+      "message": "Class name already puts us in AAF context, thus there is no need to add aaf prefix before every field.",
+      "range": {
+        "startLine": 40,
+        "startChar": 20,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "8a71b2b54ba2a5288e2a9a08bddc77d37b98db27",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6d6da08_ea9dd7c5",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Stream.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-11T11:05:54Z",
+      "side": 1,
+      "message": "Why is DMaaP specific stuff placed in general Stream?",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "8a71b2b54ba2a5288e2a9a08bddc77d37b98db27",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
