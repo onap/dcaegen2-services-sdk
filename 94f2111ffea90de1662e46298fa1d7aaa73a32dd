@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56df7d59_d2aae3ce",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/Subscriber.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-11T11:05:54Z",
+      "side": 1,
+      "message": "I believe NotNull annotations are all what\u0027s required here. Immutables should validate nullability for you.",
+      "revId": "94f2111ffea90de1662e46298fa1d7aaa73a32dd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
