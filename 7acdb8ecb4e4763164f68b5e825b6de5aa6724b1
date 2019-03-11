@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c03e79cc_79780833",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionManagement.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "org.onap.dcaegen2.services.sdk",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef3fd8cf_dd50b982",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/ApiVersionModel.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "to be fixed",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f53321ba_35f81f23",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "to be updated to sdk repo",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e2c2f24_f82c822e",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "typo - should be API_MINOR_VERSION; change all references",
+      "range": {
+        "startLine": 38,
+        "startChar": 30,
+        "endLine": 38,
+        "endChar": 48
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6972ff45_d52eff8a",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 70,
+        "startChar": 41,
+        "endLine": 70,
+        "endChar": 59
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7831947d_5533865e",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 138,
+        "startChar": 20,
+        "endLine": 138,
+        "endChar": 38
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67397f5c_b9fc3f19",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/util/ObjectManagement.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "to be updated to sdk repo",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "316f8d15_22d0011f",
+        "filename": "standardization/api-custom-header/src/test/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtilsTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "to be updated to sdk repo",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18a2a73c_ece65fd3",
+        "filename": "standardization/docs/custom_header.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "fix padded spaces",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4af5c6e5_c66910a5",
+        "filename": "standardization/docs/custom_header.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "remove extra space",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1f1990a_faaa68e1",
+        "filename": "standardization/docs/custom_header.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "remove extra space",
+      "range": {
+        "startLine": 58,
+        "startChar": 45,
+        "endLine": 58,
+        "endChar": 90
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14ec91a0_5ef2e7f5",
+        "filename": "standardization/docs/custom_header.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-11T03:06:31Z",
+      "side": 1,
+      "message": "remove extra space",
+      "range": {
+        "startLine": 68,
+        "startChar": 45,
+        "endLine": 68,
+        "endChar": 91
+      },
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
