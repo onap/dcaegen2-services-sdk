@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.vavr.collection.List;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -33,38 +34,38 @@ class MerkleTreeTest {
     @Test
     void shouldBeAbleToGetEntries() {
         MerkleTree<String> cut = emptyTree()
-                .add("value1", "ala", "ma", "kota")
-                .add("value2", "ala", "ma", "psa");
+                .add(List.of("ala","ma", "kota"), "value1")
+                .add(List.of("ala", "ma", "psa"),"value2");
 
-        assertThat(cut.get("ala", "ma", "kota")).contains("value1");
-        assertThat(cut.get("ala", "ma", "psa")).contains("value2");
+        assertThat(cut.get(List.of("ala", "ma", "kota"))).contains("value1");
+        assertThat(cut.get(List.of("ala", "ma", "psa"))).contains("value2");
     }
 
     @Test
     void shouldReturnNoneForNonExistingPaths() {
         MerkleTree<String> cut = emptyTree()
-                .add("value1", "ala", "ma", "kota")
-                .add("value2", "ala", "ma", "psa");
+                .add(List.of("ala", "ma", "kota"), "value1")
+                .add(List.of("ala", "ma", "psa"),"value2");
 
-        assertThat(cut.get("ala", "je", "obiad")).isEmpty();
+        assertThat(cut.get(List.of("ala", "je", "obiad"))).isEmpty();
     }
 
     @Test
     void shouldReturnNoneWhenNodeDoesntContainValue() {
         MerkleTree<String> cut = emptyTree()
-                .add("value1", "ala", "ma", "kota")
-                .add("value2", "ala", "ma", "psa");
+                .add(List.of("ala", "ma", "kota"),"value1")
+                .add(List.of("ala", "ma", "psa"), "value2");
 
-        assertThat(cut.get("ala", "ma")).isEmpty();
+        assertThat(cut.get(List.of("ala", "ma"))).isEmpty();
     }
 
 
     @Test
     void shouldNotCreateNewObjectWhenNothingChanged() {
         MerkleTree<String> cut = emptyTree()
-                .add("some value", "ala", "ma", "kota");
+                .add(List.of("ala", "ma", "kota"), "some value");
 
-        final MerkleTree<String> result = cut.add("some value", "ala", "ma", "kota");
+        final MerkleTree<String> result = cut.add(List.of("ala", "ma", "kota"),"some value");
 
         assertThat(result).isSameAs(cut);
     }
@@ -72,21 +73,21 @@ class MerkleTreeTest {
     @Test
     void shouldRecalculateHashesAfterAddingNewNode() {
         MerkleTree<String> cut = emptyTree()
-                .add("value1", "ala", "ma", "kota")
-                .add("value2", "ala", "ma", "psa")
-                .add("value3", "ala", "name");
+                .add(List.of("ala", "ma", "kota"), "value1")
+                .add(List.of("ala", "ma", "psa"), "value2")
+                .add(List.of("ala", "name"), "value3");
 
-        final MerkleTree<String> modified = cut.add("value4", "ala", "surname");
+        final MerkleTree<String> modified = cut.add(List.of("ala", "surname"), "value4");
 
         assertThat(modified).isNotSameAs(cut);
 
-        assertThat(modified.hashOf("ala", "ma")).isEqualTo(cut.hashOf("ala", "ma"));
-        assertThat(modified.hashOf("ala", "ma", "kota")).isEqualTo(cut.hashOf("ala", "ma", "kota"));
-        assertThat(modified.hashOf("ala", "ma", "psa")).isEqualTo(cut.hashOf("ala", "ma", "psa"));
-        assertThat(modified.hashOf("ala", "name")).isEqualTo(cut.hashOf("ala", "name"));
+        assertThat(modified.hashOf(List.of("ala", "ma"))).isEqualTo(cut.hashOf(List.of("ala", "ma")));
+        assertThat(modified.hashOf(List.of("ala", "ma", "kota"))).isEqualTo(cut.hashOf(List.of("ala", "ma", "kota")));
+        assertThat(modified.hashOf(List.of("ala", "ma", "psa"))).isEqualTo(cut.hashOf(List.of("ala", "ma", "psa")));
+        assertThat(modified.hashOf(List.of("ala", "name"))).isEqualTo(cut.hashOf(List.of("ala", "name")));
 
-        assertThat(modified.hashOf("ala", "surname")).isNotEqualTo(cut.hashOf("ala", "surname"));
-        assertThat(modified.hashOf("ala")).isNotEqualTo(cut.hashOf("ala"));
+        assertThat(modified.hashOf(List.of("ala", "surname"))).isNotEqualTo(cut.hashOf(List.of("ala", "surname")));
+        assertThat(modified.hashOf(List.of("ala"))).isNotEqualTo(cut.hashOf(List.of("ala")));
         assertThat(modified.hash()).isNotEqualTo(cut.hash());
     }
 
