@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions;
 
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
@@ -27,14 +27,16 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
  * @since 1.1.2
  */
 @ExperimentalApi
-public class StreamParserError {
-    private final String message;
+public class StreamParsingException extends CbsClientException {
 
-    public StreamParserError(String message) {
-        this.message = message;
+    private final StreamParserError cause;
+
+    public StreamParsingException(StreamParserError cause) {
+        super(cause.message());
+        this.cause = cause;
     }
 
-    public String message() {
-        return message;
+    public StreamParserError cause() {
+        return cause;
     }
 }

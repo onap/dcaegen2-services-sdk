@@ -31,6 +31,7 @@ import com.google.gson.JsonParser;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.ServiceLookupException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
@@ -65,7 +66,7 @@ class CbsLookupTest {
     }
 
     @Test
-    void lookupShouldReturnEmptyResultWhenServiceArrayIsEmpty() {
+    void lookupShouldEmitErrorWhenServiceArrayIsEmpty() {
         // given
         givenConsulResponse(new JsonArray());
 
@@ -73,7 +74,7 @@ class CbsLookupTest {
         final Mono<InetSocketAddress> result = cut.lookup(env);
 
         // then
-        StepVerifier.create(result).verifyComplete();
+        StepVerifier.create(result).verifyError(ServiceLookupException.class);
     }
 
     private JsonElement parseResource(String resource) {
