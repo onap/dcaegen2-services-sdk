@@ -65,7 +65,7 @@ class CbsLookupTest {
     }
 
     @Test
-    void lookupShouldReturnEmptyResultWhenServiceArrayIsEmpty() {
+    void lookupShouldEmitErrorWhenServiceArrayIsEmpty() {
         // given
         givenConsulResponse(new JsonArray());
 
@@ -73,7 +73,7 @@ class CbsLookupTest {
         final Mono<InetSocketAddress> result = cut.lookup(env);
 
         // then
-        StepVerifier.create(result).verifyComplete();
+        StepVerifier.create(result).verifyError(ServiceLookupException.class);
     }
 
     private JsonElement parseResource(String resource) {

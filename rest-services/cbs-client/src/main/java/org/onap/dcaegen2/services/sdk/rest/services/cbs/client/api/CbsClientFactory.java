@@ -42,6 +42,10 @@ public class CbsClientFactory {
      * This method will do a lookup of Config Binding Service using Consul as service discovery mechanism and create
      * client configured with found address. Created client will be published in returned Mono instance.
      * </p>
+     * <p>
+     * In case of failure during CBS resolution, returned Mono will emit error signal with possible cause.
+     * User is expected to handle this signal and possibly retry subscription to returned Mono.
+     * </p>
      *
      * @param env required environment properties
      * @return non-null {@link Mono} of {@link CbsClient} instance

@@ -22,7 +22,10 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import java.net.InetSocketAddress;
+
+import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import reactor.core.publisher.Mono;
@@ -58,7 +61,7 @@ public class CbsLookup {
 
     private Mono<JsonObject> firstService(JsonArray services) {
         return services.size() == 0
-                ? Mono.empty()
+                ? Mono.error(new ServiceLookupException("Consul server did not return any service with given name"))
                 : Mono.just(services.get(0).getAsJsonObject());
     }
 
@@ -70,3 +73,8 @@ public class CbsLookup {
 
 }
 
+class ServiceLookupException extends RuntimeException {
+    ServiceLookupException(final @NotNull String msg) {
+        super(msg);
+    }
+}
