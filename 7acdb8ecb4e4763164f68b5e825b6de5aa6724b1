@@ -140,6 +140,23 @@
     },
     {
       "key": {
+        "uuid": "d7cef54a_bde98f45",
+        "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/header/CustomHeaderUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-03-11T06:17:35Z",
+      "side": 1,
+      "message": "Why not used foreach instead of for index ?",
+      "revId": "7acdb8ecb4e4763164f68b5e825b6de5aa6724b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67397f5c_b9fc3f19",
         "filename": "standardization/api-custom-header/src/main/java/org/onap/dcaegen2/services/sdk/standardization/util/ObjectManagement.java",
         "patchSetId": 7
