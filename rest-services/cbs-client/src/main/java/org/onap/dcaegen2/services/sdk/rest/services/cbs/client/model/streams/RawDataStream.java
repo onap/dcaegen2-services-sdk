@@ -18,40 +18,18 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
-import static io.vavr.Predicates.not;
-
-import io.vavr.collection.List;
 import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since March 2019
  */
-@ExperimentalApi
-public interface Kafka {
-
-    String bootstrapServers();
-
-    String topicName();
-
-    @Nullable AafCredentials aafCredentials();
-
-    @Nullable String clientRole();
-
-    @Nullable String clientId();
-
-    @Value.Default
-    default int maxPayloadSizeBytes() {
-        return 1024 * 1024;
-    }
-
-    @Value.Derived
-    default List<String> bootstrapServerList() {
-        return List.of(bootstrapServers().split(",")).filter(not(String::isEmpty));
-    }
+@Value.Immutable
+public interface RawDataStream<T> {
+    String name();
+    String type();
+    DataStreamDirection direction();
+    T descriptor();
 }

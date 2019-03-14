@@ -27,7 +27,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since March 2019
+ * @since 1.1.4
  */
 public final class StreamFromGsonParsers {
 
