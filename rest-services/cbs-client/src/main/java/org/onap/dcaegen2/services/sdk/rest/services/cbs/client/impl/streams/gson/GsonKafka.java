@@ -33,7 +33,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
  */
 abstract class GsonKafka implements Kafka {
 
-    protected final KafkaInfo kafkaInfo;
+    final KafkaInfo kafkaInfo;
     private final AafCredentials aafCredentials;
 
     GsonKafka(@NotNull KafkaInfo kafkaInfo,

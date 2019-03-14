@@ -26,6 +26,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.vavr.Lazy;
+import io.vavr.control.Option;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -39,6 +40,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Gso
  * @since March 2019
  */
 final class GsonUtils {
+
     private static final Lazy<Gson> GSON = Lazy.of(() -> {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersKafkaInfo());
@@ -56,7 +58,8 @@ final class GsonUtils {
     static void assertStreamType(JsonObject json, String expectedType) {
         final String actualType = requiredString(json, "type");
         if (!actualType.equals(expectedType)) {
-            throw new IllegalArgumentException("Invalid stream type. Expected '" + expectedType + "', but was '" + actualType + "'");
+            throw new IllegalArgumentException(
+                    "Invalid stream type. Expected '" + expectedType + "', but was '" + actualType + "'");
         }
     }
 
@@ -65,11 +68,18 @@ final class GsonUtils {
     }
 
     static JsonElement requiredChild(JsonObject parent, String childName) {
+        return optionalChild(parent, childName)
+                .getOrElseThrow(() -> new IllegalArgumentException(
+                        "Could not find sub-node '" + childName + "'. Actual sub-nodes: "
+                                + stringifyChildrenNames(parent)));
+
+    }
+
+    static Option<JsonElement> optionalChild(JsonObject parent, String childName) {
         if (parent.has(childName)) {
-            return parent.get(childName);
+            return Option.of(parent.get(childName));
         } else {
-            throw new IllegalArgumentException(
-                    "Could not find sub-node '" + childName + "'. Actual sub-nodes: " + stringifyChildrenNames(parent));
+            return Option.none();
         }
     }
 

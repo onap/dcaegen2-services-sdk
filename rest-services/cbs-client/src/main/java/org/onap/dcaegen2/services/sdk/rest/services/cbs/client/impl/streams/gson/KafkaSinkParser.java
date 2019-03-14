@@ -22,12 +22,13 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gso
 
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.assertStreamType;
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.gsonInstance;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.requiredChild;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.KafkaUtils.extractAafCredentials;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.KafkaUtils.extractKafkaInfo;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
 
 /**
@@ -49,10 +50,8 @@ public class KafkaSinkParser implements StreamFromGsonParser<KafkaSink> {
     @Override
     public KafkaSink unsafeParse(JsonObject input) {
         assertStreamType(input, "kafka");
-
-        final JsonElement kafkaInfoJson = requiredChild(input, "kafka_info");
-        final KafkaInfo kafkaInfo = gson.fromJson(kafkaInfoJson, ImmutableKafkaInfo.class);
-
-        return new GsonKafkaSink(kafkaInfo, null);
+        final KafkaInfo kafkaInfo = extractKafkaInfo(gson, input);
+        final AafCredentials aafCreds = extractAafCredentials(gson, input).getOrNull();
+        return new GsonKafkaSink(kafkaInfo, aafCreds);
     }
 }

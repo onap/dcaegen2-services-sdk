@@ -34,6 +34,7 @@ import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableAafCredentials;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
 
 /**
@@ -66,7 +67,7 @@ class KafkaSinkParserTest {
     }
 
     @Test
-    void shouldParseBasicKafkaSinkDefinition() throws IOException {
+    void shouldParseFullKafkaSinkDefinition() throws IOException {
         // given
         JsonObject input = GsonUtils.readObjectFromResource("/streams/kafka_sink.json");
 
@@ -74,7 +75,11 @@ class KafkaSinkParserTest {
         final KafkaSink result = cut.unsafeParse(input);
 
         // then
-        assertThat(result.aafCredentials()).isNull();
+        final ImmutableAafCredentials expectedCredentials = ImmutableAafCredentials.builder()
+                .username("the user")
+                .password("the passwd")
+                .build();
+        assertThat(result.aafCredentials()).isEqualTo(expectedCredentials);
         assertThat(result.bootstrapServers()).isEqualTo("dmaap-mr-kafka-0:6060,dmaap-mr-kafka-1:6060");
         assertThat(result.topicName()).isEqualTo("HVVES_PERF3GPP");
         assertThat(result.clientId()).isEqualTo("1500462518108");
@@ -99,7 +104,7 @@ class KafkaSinkParserTest {
     @Test
     void shouldReturnErrorWhenTypeIsWrong() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/kafka_sink_invalid_type.json");
+        JsonObject input = GsonUtils.readObjectFromResource("/streams/kafka_invalid_type.json");
 
         // when
         final Either<StreamParserError, KafkaSink> result = cut.parse(input);
