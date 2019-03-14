@@ -18,17 +18,39 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import com.google.gson.annotations.SerializedName;
+import org.immutables.gson.Gson;
+import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * AKA SubscribeStream
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since March 2019
  */
-@ExperimentalApi
-public interface SourceStream extends DataStream {
+@Value.Immutable
+@Gson.TypeAdapters
+public interface KafkaInfo {
 
+    @SerializedName("bootstrap_servers")
+    String bootstrapServers();
+
+    @SerializedName("topic_name")
+    String topicName();
+
+    @SerializedName("consumer_group_id")
+    @Nullable String consumerGroupId();
+
+    @SerializedName("client_role")
+    @Nullable String clientRole();
+
+    @SerializedName("client_id")
+    @Nullable String clientId();
+
+    @Value.Default
+    @SerializedName("max_payload_size_bytes")
+    default int maxPayloadSizeBytes() {
+        return 1024 * 1024;
+    }
 }

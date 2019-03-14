@@ -18,17 +18,18 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
+import org.immutables.value.Value;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SinkStream;
 
 /**
- * AKA SubscribeStream
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since 1.1.4
  */
 @ExperimentalApi
-public interface SourceStream extends DataStream {
+@Value.Immutable
+public abstract interface KafkaSink extends Kafka, SinkStream {
 
 }

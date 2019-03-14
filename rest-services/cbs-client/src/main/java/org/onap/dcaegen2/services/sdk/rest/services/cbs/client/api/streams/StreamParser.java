@@ -21,22 +21,44 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
 import io.vavr.control.Either;
+import io.vavr.control.Try;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener.MerkleTree;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
 
 /**
+ * A generic data stream parser which parses {@code T} to data stream {@code S}.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.2
+ * @param <T> input data type, eg. Gson Object
+ * @param <S> output data type
+ * @since 1.1.3
  */
 @ExperimentalApi
-public interface StreamParser<S extends DataStream> {
+public interface StreamParser<T, S extends DataStream> {
 
-    Either<StreamParserError, S> parse(MerkleTree<String> subtree);
+    /**
+     * Parse the input data {@code T} producing the {@link DataStream}.
+     *
+     * @param input - the input data
+     * @return Right(parsing result) or Left(parsing error)
+     */
+    default Either<StreamParserError, S> parse(T input) {
+        return Try.of(() -> unsafeParse(input))
+                .toEither()
+                .mapLeft(StreamParserError::fromThrowable);
+    }
 
-    default S unsafeParse(MerkleTree<String> subtree) {
-        return parse(subtree).getOrElseThrow(StreamParsingException::new);
+    /**
+     * Parse the input data {@code T} producing the {@link DataStream}. Will throw StreamParsingException when input
+     * was invalid.
+     *
+     * @param input - the input data
+     * @return parsing result
+     * @throws StreamParsingException when parsing was unsuccessful
+     */
+    default S unsafeParse(T input) {
+        return parse(input).getOrElseThrow(StreamParsingException::new);
     }
 }

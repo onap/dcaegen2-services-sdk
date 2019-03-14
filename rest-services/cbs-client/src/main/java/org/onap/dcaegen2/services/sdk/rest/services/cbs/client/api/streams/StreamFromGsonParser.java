@@ -18,17 +18,20 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
+import com.google.gson.JsonObject;
+import io.vavr.control.Either;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
 
 /**
- * AKA SubscribeStream
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since 1.1.4
  */
 @ExperimentalApi
-public interface SourceStream extends DataStream {
+public interface StreamFromGsonParser<S extends DataStream> extends StreamParser<JsonObject, S> {
 
 }

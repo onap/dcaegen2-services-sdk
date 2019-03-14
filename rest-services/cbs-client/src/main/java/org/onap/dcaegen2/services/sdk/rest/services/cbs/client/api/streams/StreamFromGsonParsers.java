@@ -18,17 +18,27 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.KafkaSinkParser;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.KafkaSourceParser;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
 
 /**
- * AKA SubscribeStream
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since March 2019
  */
-@ExperimentalApi
-public interface SourceStream extends DataStream {
+public final class StreamFromGsonParsers {
 
+    private StreamFromGsonParsers() {
+    }
+
+    public static StreamFromGsonParser<KafkaSink> kafkaSinkParser() {
+        return KafkaSinkParser.create();
+    }
+
+    public static StreamFromGsonParser<KafkaSource> kafkaSourceParser() {
+        return KafkaSourceParser.create();
+    }
 }

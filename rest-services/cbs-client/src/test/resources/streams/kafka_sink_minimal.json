@@ -1,0 +1,7 @@
+{
+    "type": "kafka",
+    "kafka_info": {
+        "bootstrap_servers": "dmaap-mr-kafka-0:6060,dmaap-mr-kafka-1:6060",
+        "topic_name": "HVVES_PERF3GPP"
+    }
+}

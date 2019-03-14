@@ -18,17 +18,22 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
 
 /**
- * AKA SubscribeStream
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since March 2019
  */
-@ExperimentalApi
-public interface SourceStream extends DataStream {
+class GsonKafkaSink extends GsonKafka implements KafkaSink {
 
+    GsonKafkaSink(
+            @NotNull KafkaInfo kafkaInfo,
+            @Nullable AafCredentials aafCredentials) {
+        super(kafkaInfo, aafCredentials);
+    }
 }
