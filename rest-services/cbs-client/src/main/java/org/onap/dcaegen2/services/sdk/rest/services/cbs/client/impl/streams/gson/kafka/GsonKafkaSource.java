@@ -18,39 +18,29 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka;
 
-import com.google.gson.annotations.SerializedName;
-import org.immutables.gson.Gson;
-import org.immutables.value.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
  */
-@Value.Immutable
-@Gson.TypeAdapters
-public interface KafkaInfo {
+class GsonKafkaSource extends GsonKafka implements KafkaSource {
 
-    @SerializedName("bootstrap_servers")
-    String bootstrapServers();
-
-    @SerializedName("topic_name")
-    String topicName();
-
-    @SerializedName("consumer_group_id")
-    @Nullable String consumerGroupId();
-
-    @SerializedName("client_role")
-    @Nullable String clientRole();
-
-    @SerializedName("client_id")
-    @Nullable String clientId();
-
-    @Value.Default
-    @SerializedName("max_payload_size_bytes")
-    default int maxPayloadSizeBytes() {
-        return 1024 * 1024;
+    GsonKafkaSource(
+            @NotNull String name,
+            @NotNull KafkaInfo kafkaInfo,
+            @Nullable AafCredentials aafCredentials) {
+        super(name, kafkaInfo, aafCredentials);
     }
+
+    @Override
+    public @Nullable String consumerGroupId() {
+        return kafkaInfo.consumerGroupId();
+    }
+
 }

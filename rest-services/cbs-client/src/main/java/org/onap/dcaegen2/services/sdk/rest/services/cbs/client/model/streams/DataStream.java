@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
+import org.immutables.value.Value;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
@@ -28,5 +29,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
  */
 @ExperimentalApi
 public interface DataStream {
-
+    @Value.Default
+    default String name() {
+        return "";
+    }
 }

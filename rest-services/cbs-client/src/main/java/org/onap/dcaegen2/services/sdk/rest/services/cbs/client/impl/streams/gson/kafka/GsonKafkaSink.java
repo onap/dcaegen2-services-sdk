@@ -17,21 +17,25 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSource;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
 
 /**
- * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
+ * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
+ * @since March 2019
  */
+class GsonKafkaSink extends GsonKafka implements KafkaSink {
 
-public class GsonMessageRouterSource extends GsonMessageRouter implements MessageRouterSource {
-    GsonMessageRouterSource(
-            @NotNull MessageRouterDmaapInfo dmaapInfo,
+    GsonKafkaSink(
+            @NotNull String name,
+            @NotNull KafkaInfo kafkaInfo,
             @Nullable AafCredentials aafCredentials) {
-        super(dmaapInfo, aafCredentials);
+        super(name, kafkaInfo, aafCredentials);
     }
+
 }

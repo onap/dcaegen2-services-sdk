@@ -17,41 +17,21 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
-import static io.vavr.Predicates.not;
-
-import io.vavr.collection.List;
-import org.immutables.value.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSource;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
-@ExperimentalApi
-public interface Kafka {
 
-    String bootstrapServers();
-
-    String topicName();
-
-    @Nullable AafCredentials aafCredentials();
-
-    @Nullable String clientRole();
-
-    @Nullable String clientId();
-
-    @Value.Default
-    default int maxPayloadSizeBytes() {
-        return 1024 * 1024;
-    }
-
-    @Value.Derived
-    default List<String> bootstrapServerList() {
-        return List.of(bootstrapServers().split(",")).filter(not(String::isEmpty));
+public class GsonMessageRouterSource extends GsonMessageRouter implements MessageRouterSource {
+    GsonMessageRouterSource(
+            String name, @NotNull MessageRouterDmaapInfo dmaapInfo,
+            @Nullable AafCredentials aafCredentials) {
+        super(name, dmaapInfo, aafCredentials);
     }
 }

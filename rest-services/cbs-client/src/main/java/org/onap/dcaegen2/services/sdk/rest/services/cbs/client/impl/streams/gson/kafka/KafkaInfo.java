@@ -18,40 +18,39 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka;
 
-import static io.vavr.Predicates.not;
-
-import io.vavr.collection.List;
+import com.google.gson.annotations.SerializedName;
+import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since March 2019
  */
-@ExperimentalApi
-public interface Kafka {
+@Value.Immutable
+@Gson.TypeAdapters
+public interface KafkaInfo {
 
+    @SerializedName("bootstrap_servers")
     String bootstrapServers();
 
+    @SerializedName("topic_name")
     String topicName();
 
-    @Nullable AafCredentials aafCredentials();
+    @SerializedName("consumer_group_id")
+    @Nullable String consumerGroupId();
 
+    @SerializedName("client_role")
     @Nullable String clientRole();
 
+    @SerializedName("client_id")
     @Nullable String clientId();
 
     @Value.Default
+    @SerializedName("max_payload_size_bytes")
     default int maxPayloadSizeBytes() {
         return 1024 * 1024;
-    }
-
-    @Value.Derived
-    default List<String> bootstrapServerList() {
-        return List.of(bootstrapServers().split(",")).filter(not(String::isEmpty));
     }
 }
