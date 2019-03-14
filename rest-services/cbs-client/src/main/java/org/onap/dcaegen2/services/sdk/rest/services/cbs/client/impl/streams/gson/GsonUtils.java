@@ -26,14 +26,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.vavr.Lazy;
-
+import io.vavr.control.Option;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-
-import io.vavr.control.Option;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr.GsonAdaptersMessageRouterDmaapInfo;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka.GsonAdaptersKafkaInfo;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.GsonAdaptersAafCredentials;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.GsonAdaptersDataRouterSink;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.GsonAdaptersDataRouterSource;
@@ -42,7 +42,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
  */
-final class GsonUtils {
+public final class GsonUtils {
+
     private static final Lazy<Gson> GSON = Lazy.of(() -> {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersKafkaInfo());
@@ -56,39 +57,35 @@ final class GsonUtils {
     private GsonUtils() {
     }
 
-    static Gson gsonInstance() {
+    public  static Gson gsonInstance() {
         return GSON.get();
     }
 
-    static void assertStreamType(JsonObject json, String expectedType) {
-        final String actualType = requiredString(json, "type");
-        if (!actualType.equals(expectedType)) {
-            throw new IllegalArgumentException("Invalid stream type. Expected '" + expectedType + "', but was '" + actualType + "'");
-        }
-    }
-
-    static String requiredString(JsonObject parent, String childName) {
+    public  static String requiredString(JsonObject parent, String childName) {
         return requiredChild(parent, childName).getAsString();
     }
 
-    static Option<String> optionalString(JsonObject parent, String childName) {
+    public  static Option<String> optionalString(JsonObject parent, String childName) {
             return Option.of(parent.get(childName).getAsString());
     }
 
-    static JsonElement requiredChild(JsonObject parent, String childName) {
-        if (parent.has(childName)) {
-            return parent.get(childName);
-        } else {
-            throw new IllegalArgumentException(
-                    "Could not find sub-node '" + childName + "'. Actual sub-nodes: " + stringifyChildrenNames(parent));
-        }
+    public static JsonElement requiredChild(JsonObject parent, String childName) {
+        return optionalChild(parent, childName)
+                .getOrElseThrow(() -> new IllegalArgumentException(
+                        "Could not find sub-node '" + childName + "'. Actual sub-nodes: "
+                                + stringifyChildrenNames(parent)));
+
     }
 
-    static JsonObject readObjectFromResource(String resource) throws IOException {
+    public  static Option<JsonElement> optionalChild(JsonObject parent, String childName) {
+        return Option.of(parent.get(childName));
+    }
+
+    public  static JsonObject readObjectFromResource(String resource) throws IOException {
         return readFromResource(resource).getAsJsonObject();
     }
 
-    static JsonElement readFromResource(String resource) throws IOException {
+    public static JsonElement readFromResource(String resource) throws IOException {
         try (Reader reader = new InputStreamReader(GsonUtils.class.getResourceAsStream(resource))) {
             return new JsonParser().parse(reader);
         }

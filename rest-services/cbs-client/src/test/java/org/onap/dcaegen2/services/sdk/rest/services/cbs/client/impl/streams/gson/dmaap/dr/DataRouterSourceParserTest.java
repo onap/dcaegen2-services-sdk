@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.dr;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,7 +28,11 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.St
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamParser;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.DataStreamUtils;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableRawDataStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.*;
 
 import java.io.IOException;
@@ -38,54 +42,60 @@ import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.strea
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.MESSAGE_ROUTER_TYPE;
 
 public class DataRouterSourceParserTest {
+
     private static final String SAMPLE_LOCATION = "mtc00";
     private static final String SAMPLE_DELIVERY_URL = "https://my-subscriber-app.dcae:8080/target-path";
     private static final String SAMPLE_USER = "some-user";
     private static final String SAMPLE_PASSWORD = "some-password";
     private static final String SAMPLE_SUBSCRIBER_ID = "789012";
 
-    private static final Gson gson = new Gson();
-
-    private static final DataRouterSource fullConfigurationStream = ImmutableDataRouterSource.builder()
-            .location(SAMPLE_LOCATION)
-            .deliveryUrl(SAMPLE_DELIVERY_URL)
-            .username(SAMPLE_USER)
-            .password(SAMPLE_PASSWORD)
-            .subscriberId(SAMPLE_SUBSCRIBER_ID)
-            .build();
-
-    private static final DataRouterSource minimalConfigurationStream = ImmutableDataRouterSource.builder()
-            .build();
-
-
     private final StreamFromGsonParser<DataRouterSource> streamParser = StreamFromGsonParsers.dataRouterSourceParser();
 
     @Test
     void fullConfiguration_shouldGenerateDataRouterSinkObject() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/data_router_source_full.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSourceFromResource("/streams/data_router_source_full.json");
+
         // when
         DataRouterSource result = streamParser.unsafeParse(input);
+
         // then
+
+        final DataRouterSource fullConfigurationStream = ImmutableDataRouterSource.builder()
+                .name(input.name())
+                .location(SAMPLE_LOCATION)
+                .deliveryUrl(SAMPLE_DELIVERY_URL)
+                .username(SAMPLE_USER)
+                .password(SAMPLE_PASSWORD)
+                .subscriberId(SAMPLE_SUBSCRIBER_ID)
+                .build();
         assertThat(result).isEqualTo(fullConfigurationStream);
     }
 
     @Test
     void minimalConfiguration_shouldGenerateDataRouterSinkObject() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/data_router_source_minimal.json");
+        RawDataStream<JsonObject> input = DataStreamUtils
+                .readSourceFromResource("/streams/data_router_source_minimal.json");
+
         // when
         DataRouterSource result = streamParser.unsafeParse(input);
+
         // then
+        final DataRouterSource minimalConfigurationStream = ImmutableDataRouterSource.builder()
+                .name(input.name())
+                .build();
         assertThat(result).isEqualTo(minimalConfigurationStream);
     }
 
     @Test
     void incorrectConfiguration_shouldParseToStreamParserError() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/message_router_full.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSourceFromResource("/streams/message_router_full.json");
+
         // when
         Either<StreamParserError, DataRouterSource> result = streamParser.parse(input);
+
         // then
         assertThat(result.getLeft()).isInstanceOf(StreamParserError.class);
         result.peekLeft(error -> {
@@ -99,9 +109,17 @@ public class DataRouterSourceParserTest {
     @Test
     void emptyConfiguration_shouldBeParsedToStreamParserError() {
         // given
-        JsonObject input = gson.fromJson("{}", JsonObject.class);
+        JsonObject json = new JsonObject();
+        final ImmutableRawDataStream<JsonObject> input = ImmutableRawDataStream.<JsonObject>builder()
+                .name("empty")
+                .type("data_router")
+                .descriptor(json)
+                .direction(DataStreamDirection.SOURCE)
+                .build();
+
         // when
         Either<StreamParserError, DataRouterSource> result = streamParser.parse(input);
+
         // then
         assertThat(result.getLeft()).isInstanceOf(StreamParserError.class);
     }

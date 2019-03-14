@@ -18,22 +18,34 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.optionalChild;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.requiredChild;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import io.vavr.control.Option;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableAafCredentials;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
  */
-class GsonKafkaSink extends GsonKafka implements KafkaSink {
+final class KafkaUtils {
 
-    GsonKafkaSink(
-            @NotNull KafkaInfo kafkaInfo,
-            @Nullable AafCredentials aafCredentials) {
-        super(kafkaInfo, aafCredentials);
+    private KafkaUtils() {
+    }
+
+    static KafkaInfo extractKafkaInfo(Gson gson, JsonObject input) {
+        final JsonElement kafkaInfoJson = requiredChild(input, "kafka_info");
+        return gson.fromJson(kafkaInfoJson, ImmutableKafkaInfo.class);
+    }
+
+    static Option<AafCredentials> extractAafCredentials(Gson gson, JsonObject input) {
+        return optionalChild(input, "aaf_credentials")
+                .map(aafCredsJson -> gson.fromJson(aafCredsJson, ImmutableAafCredentials.class));
     }
 }

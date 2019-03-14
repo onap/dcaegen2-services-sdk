@@ -26,6 +26,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 
 /**
  * A generic data stream parser which parses {@code T} to data stream {@code S}.
@@ -33,7 +34,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Dat
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @param <T> input data type, eg. Gson Object
  * @param <S> output data type
- * @since 1.1.3
+ * @since 1.1.4
  */
 @ExperimentalApi
 public interface StreamParser<T, S extends DataStream> {
@@ -44,7 +45,7 @@ public interface StreamParser<T, S extends DataStream> {
      * @param input - the input data
      * @return Right(parsing result) or Left(parsing error)
      */
-    default Either<StreamParserError, S> parse(T input) {
+    default Either<StreamParserError, S> parse(RawDataStream<T> input) {
         return Try.of(() -> unsafeParse(input))
                 .toEither()
                 .mapLeft(StreamParserError::fromThrowable);
@@ -58,7 +59,7 @@ public interface StreamParser<T, S extends DataStream> {
      * @return parsing result
      * @throws StreamParsingException when parsing was unsuccessful
      */
-    default S unsafeParse(T input) {
+    default S unsafeParse(RawDataStream<T> input) {
         return parse(input).getOrElseThrow(StreamParsingException::new);
     }
 }
