@@ -20,13 +20,15 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.immutables.value.Value;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since March 2019
  */
-@ExperimentalApi
-public interface DataStream {
+@Value.Immutable
+public interface RawDataStream<T> {
     String name();
+    DataStreamDirection direction();
+    T descriptor();
 }

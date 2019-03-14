@@ -23,10 +23,15 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gso
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.google.gson.JsonObject;
+import io.vavr.collection.List;
+import io.vavr.control.Either;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableAafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
 
 /**
@@ -45,7 +50,7 @@ class KafkaSourceParserTest {
     @Test
     void shouldParseMinimalKafkaSourceDefinition() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/kafka_source_minimal.json");
+        RawDataStream<JsonObject> input = GsonUtils.readDataSourceFromResource("/streams/kafka_source_minimal.json");
 
         // when
         final KafkaSource result = cut.unsafeParse(input);
@@ -56,5 +61,58 @@ class KafkaSourceParserTest {
         assertThat(result.topicName()).isEqualTo("HVVES_PERF3GPP");
         assertThat(result.clientId()).isNull();
         assertThat(result.clientRole()).isNull();
+    }
+
+    @Test
+    void shouldParseFullKafkaSourceDefinition() throws IOException {
+        // given
+        RawDataStream<JsonObject> input = GsonUtils.readDataSourceFromResource("/streams/kafka_source.json");
+
+        // when
+        final KafkaSource result = cut.unsafeParse(input);
+
+        // then
+        final ImmutableAafCredentials expectedCredentials = ImmutableAafCredentials.builder()
+                .username("the user")
+                .password("the passwd")
+                .build();
+        assertThat(result.aafCredentials()).isEqualTo(expectedCredentials);
+        assertThat(result.bootstrapServerList()).isEqualTo(List.of("dmaap-mr-kafka-0:6060", "dmaap-mr-kafka-1:6060"));
+        assertThat(result.topicName()).isEqualTo("HVVES_PERF3GPP");
+        assertThat(result.consumerGroupId()).isEqualTo("nokia-perf3gpp-processor");
+        assertThat(result.clientId()).isEqualTo("1500462518108");
+        assertThat(result.clientRole()).isEqualTo("com.dcae.member");
+    }
+
+    @Test
+    void shouldReturnErrorWhenTypeIsWrong() throws IOException {
+        // given
+        RawDataStream<JsonObject> input = GsonUtils.readDataSourceFromResource("/streams/kafka_invalid_type.json");
+
+        // when
+        final Either<StreamParserError, KafkaSource> result = cut.parse(input);
+
+        // then
+        assertThat(result.isRight()).describedAs("should not be right").isFalse();
+        result.peekLeft(error -> {
+            assertThat(error.message()).containsIgnoringCase("invalid stream type");
+            assertThat(error.message()).containsIgnoringCase("kafka");
+            assertThat(error.message()).containsIgnoringCase("message_router");
+        });
+    }
+
+    @Test
+    void shouldReturnErrorWhenDirectionIsWrong() throws IOException {
+        // given
+        RawDataStream<JsonObject> input = GsonUtils.readDataSinkFromResource("/streams/kafka_source.json");
+
+        // when
+        final Either<StreamParserError, KafkaSource> result = cut.parse(input);
+
+        // then
+        assertThat(result.isRight()).describedAs("should not be right").isFalse();
+        result.peekLeft(error -> {
+            assertThat(error.message()).containsIgnoringCase("invalid stream direction");
+        });
     }
 }

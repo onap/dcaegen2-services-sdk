@@ -20,16 +20,23 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.DummyHttpServer.sendResource;
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.DummyHttpServer.sendString;
 
 import com.google.gson.JsonObject;
+import io.vavr.Tuple2;
 import io.vavr.collection.Stream;
+import java.io.IOException;
 import java.time.Duration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.DataStreams;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientFactory;
@@ -124,6 +131,31 @@ class CbsClientImplIT {
         final Duration timeToCollectItemsFor = period.multipliedBy(50);
         StepVerifier.create(result.take(timeToCollectItemsFor).map(this::sampleConfigValue))
                 .expectNext(EXPECTED_CONFIG_VALUE)
+                .expectComplete()
+                .verify(Duration.ofSeconds(5));
+    }
+
+
+    @Test
+    void testCbsClientWithStreamsParsing() {
+        // given
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final StreamFromGsonParser<KafkaSink> kafkaSinkParser = StreamFromGsonParsers.kafkaSinkParser();
+        final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+
+        // when
+        final Mono<KafkaSink> result = sut.flatMap(cbsClient -> cbsClient.get(diagnosticContext))
+                .map(json ->
+                    DataStreams.namedSinks(json).map(kafkaSinkParser::unsafeParse).head()
+                );
+
+        // then
+        StepVerifier.create(result)
+                .consumeNextWith(kafkaSink -> {
+                    assertThat(kafkaSink.name()).isEqualTo("perf3gpp");
+                    assertThat(kafkaSink.bootstrapServers()).isEqualTo("dmaap-mr-kafka:6060");
+                    assertThat(kafkaSink.topicName()).isEqualTo("HVVES_PERF3GPP");
+                })
                 .expectComplete()
                 .verify(Duration.ofSeconds(5));
     }

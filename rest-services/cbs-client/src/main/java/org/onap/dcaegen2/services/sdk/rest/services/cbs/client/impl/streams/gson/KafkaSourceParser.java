@@ -22,12 +22,15 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gso
 
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.assertStreamType;
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.gsonInstance;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.requiredChild;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.KafkaUtils.extractAafCredentials;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.KafkaUtils.extractKafkaInfo;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
 
 /**
@@ -35,6 +38,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
  * @since 1.1.4
  */
 public class KafkaSourceParser implements StreamFromGsonParser<KafkaSource> {
+
     private final Gson gson;
 
     public static KafkaSourceParser create() {
@@ -46,12 +50,13 @@ public class KafkaSourceParser implements StreamFromGsonParser<KafkaSource> {
     }
 
     @Override
-    public KafkaSource unsafeParse(JsonObject input) {
-        assertStreamType(input, "kafka");
+    public KafkaSource unsafeParse(RawDataStream<JsonObject> input) {
+        assertStreamType(input, "kafka", DataStreamDirection.SOURCE);
+        final JsonObject json = input.descriptor();
 
-        final JsonElement kafkaInfoJson = requiredChild(input, "kafka_info");
-        final KafkaInfo kafkaInfo = gson.fromJson(kafkaInfoJson, ImmutableKafkaInfo.class);
+        final KafkaInfo kafkaInfo = extractKafkaInfo(gson, json);
+        final AafCredentials aafCreds = extractAafCredentials(gson, json).getOrNull();
 
-        return new GsonKafkaSource(kafkaInfo, null);
+        return new GsonKafkaSource(input.name(), kafkaInfo, aafCreds);
     }
 }

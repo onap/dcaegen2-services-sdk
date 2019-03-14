@@ -26,19 +26,23 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.vavr.Lazy;
+import io.vavr.control.Option;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.GsonAdaptersAafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableRawDataStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
  */
 final class GsonUtils {
+
     private static final Lazy<Gson> GSON = Lazy.of(() -> {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersKafkaInfo());
@@ -53,10 +57,19 @@ final class GsonUtils {
         return GSON.get();
     }
 
-    static void assertStreamType(JsonObject json, String expectedType) {
-        final String actualType = requiredString(json, "type");
+    static void assertStreamType(
+            RawDataStream<JsonObject> json,
+            String expectedType,
+            DataStreamDirection expectedDirection) {
+        final String actualType = requiredString(json.descriptor(), "type");
         if (!actualType.equals(expectedType)) {
-            throw new IllegalArgumentException("Invalid stream type. Expected '" + expectedType + "', but was '" + actualType + "'");
+            throw new IllegalArgumentException(
+                    "Invalid stream type. Expected '" + expectedType + "', but was '" + actualType + "'");
+        }
+        if (json.direction() != expectedDirection) {
+            throw new IllegalArgumentException(
+                    "Invalid stream direction. Expected '" + expectedDirection + "', but was '" + json.direction()
+                            + "'");
         }
     }
 
@@ -65,12 +78,27 @@ final class GsonUtils {
     }
 
     static JsonElement requiredChild(JsonObject parent, String childName) {
+        return optionalChild(parent, childName)
+                .getOrElseThrow(() -> new IllegalArgumentException(
+                        "Could not find sub-node '" + childName + "'. Actual sub-nodes: "
+                                + stringifyChildrenNames(parent)));
+
+    }
+
+    static Option<JsonElement> optionalChild(JsonObject parent, String childName) {
         if (parent.has(childName)) {
-            return parent.get(childName);
+            return Option.of(parent.get(childName));
         } else {
-            throw new IllegalArgumentException(
-                    "Could not find sub-node '" + childName + "'. Actual sub-nodes: " + stringifyChildrenNames(parent));
+            return Option.none();
         }
+    }
+
+    static RawDataStream<JsonObject> readDataSourceFromResource(String resource) throws IOException {
+        return rawDataStream(resource, DataStreamDirection.SOURCE, readObjectFromResource(resource));
+    }
+
+    static RawDataStream<JsonObject> readDataSinkFromResource(String resource) throws IOException {
+        return rawDataStream(resource, DataStreamDirection.SINK, readObjectFromResource(resource));
     }
 
     static JsonObject readObjectFromResource(String resource) throws IOException {
@@ -85,5 +113,13 @@ final class GsonUtils {
 
     private static String stringifyChildrenNames(JsonObject parent) {
         return parent.entrySet().stream().map(Entry::getKey).collect(Collectors.joining(", "));
+    }
+
+    private static RawDataStream<JsonObject> rawDataStream(String name, DataStreamDirection direction, JsonObject json) {
+        return ImmutableRawDataStream.<JsonObject>builder()
+                .name(name)
+                .direction(direction)
+                .descriptor(json)
+                .build();
     }
 }
