@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
 
+import com.google.gson.annotations.SerializedName;
 import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
@@ -34,8 +35,9 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 @Value.Immutable
 @Gson.TypeAdapters
 public interface AafCredentials {
-
+    @SerializedName(value = "username", alternate = "aaf_username")
     @Nullable String username();
 
+    @SerializedName(value = "password", alternate = "aaf_password")
     @Nullable String password();
 }

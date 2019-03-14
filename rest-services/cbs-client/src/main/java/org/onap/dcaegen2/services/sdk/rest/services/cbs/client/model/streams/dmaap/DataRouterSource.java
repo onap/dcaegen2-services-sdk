@@ -21,7 +21,10 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
 
+import com.google.gson.annotations.SerializedName;
+import org.immutables.gson.Gson;
 import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SourceStream;
 
@@ -29,11 +32,14 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Sou
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @version 1.2.1
  */
+@Gson.TypeAdapters
 @ExperimentalApi
 @Value.Immutable
-public abstract class DataRouterSource implements DataRouter, SourceStream {
+public interface DataRouterSource extends DataRouter, SourceStream {
 
-    abstract String deliveryUrl();
+    @SerializedName(value = "delivery_url")
+    @Nullable String deliveryUrl();
 
-    abstract String subscriberId();
+    @SerializedName(value = "subscriber_id")
+    @Nullable String subscriberId();
 }

@@ -20,29 +20,26 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.assertStreamType;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.gsonInstance;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.requiredChild;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.*;
+
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
 public class KafkaSinkParser implements StreamFromGsonParser<KafkaSink> {
-
     private final Gson gson;
 
     public static KafkaSinkParser create() {
         return new KafkaSinkParser(gsonInstance());
     }
 
-    KafkaSinkParser(Gson gson) {
+    private KafkaSinkParser(Gson gson) {
         this.gson = gson;
     }
 

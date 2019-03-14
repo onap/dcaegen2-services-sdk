@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
 
+import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
@@ -32,13 +33,18 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Aaf
 @ExperimentalApi
 public interface MessageRouter {
 
+    @SerializedName(value = "topic_url")
     String topicUrl();
 
+    @SerializedName(value = "client_role")
     @Nullable String clientRole();
 
+    @SerializedName(value = "client_id")
     @Nullable String clientId();
 
+    @SerializedName(value = "location")
     @Nullable String location();
 
+    @SerializedName(value = "aaf_credentials")
     @Nullable AafCredentials aafCredentials();
 }

@@ -17,39 +17,39 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.DataRouterSource;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.ImmutableDataRouterSource;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.*;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
-public class KafkaSourceParser implements StreamFromGsonParser<KafkaSource> {
+
+public class DataRouterSourceParser implements StreamFromGsonParser<DataRouterSource> {
     private final Gson gson;
 
-    public static KafkaSourceParser create() {
-        return new KafkaSourceParser(gsonInstance());
+    public static DataRouterSourceParser create() {
+        return new DataRouterSourceParser(gsonInstance());
     }
 
-    private KafkaSourceParser(Gson gson) {
+    private DataRouterSourceParser(Gson gson) {
         this.gson = gson;
     }
 
-    @Override
-    public KafkaSource unsafeParse(JsonObject input) {
-        assertStreamType(input, "kafka");
+    public DataRouterSource unsafeParse(JsonObject input) {
+        assertStreamType(input, "data_router");
 
-        final JsonElement kafkaInfoJson = requiredChild(input, "kafka_info");
-        final KafkaInfo kafkaInfo = gson.fromJson(kafkaInfoJson, ImmutableKafkaInfo.class);
+        final JsonElement dmaapInfoJson = requiredChild(input, "dmaap_info");
 
-        return new GsonKafkaSource(kafkaInfo, null);
+        return gson.fromJson(dmaapInfoJson, ImmutableDataRouterSource.class);
+
     }
+
 }

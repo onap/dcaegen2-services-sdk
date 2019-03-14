@@ -1,0 +1,6 @@
+{
+    "type": "message_router",
+    "dmaap_info": {
+        "topic_url": "https://we-are-message-router.us:3905/events/some-topic"
+    }
+}

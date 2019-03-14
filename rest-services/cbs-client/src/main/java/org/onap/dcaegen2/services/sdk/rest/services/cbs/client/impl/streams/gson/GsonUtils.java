@@ -26,13 +26,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.vavr.Lazy;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
+
+import io.vavr.control.Option;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.GsonAdaptersAafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.GsonAdaptersDataRouterSink;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.GsonAdaptersDataRouterSource;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -43,6 +47,9 @@ final class GsonUtils {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersKafkaInfo());
         gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersAafCredentials());
+        gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersMessageRouterDmaapInfo());
+        gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersDataRouterSink());
+        gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersDataRouterSource());
         return gsonBuilder.create();
     });
 
@@ -62,6 +69,10 @@ final class GsonUtils {
 
     static String requiredString(JsonObject parent, String childName) {
         return requiredChild(parent, childName).getAsString();
+    }
+
+    static Option<String> optionalString(JsonObject parent, String childName) {
+            return Option.of(parent.get(childName).getAsString());
     }
 
     static JsonElement requiredChild(JsonObject parent, String childName) {
