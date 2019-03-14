@@ -20,15 +20,38 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import io.vavr.collection.Stream;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.DataStreamUtils;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
 @ExperimentalApi
-public interface StreamFromGsonParser<S extends DataStream> extends StreamParser<JsonObject, S> {
+public final class DataStreams {
+
+    private DataStreams() {
+    }
+
+    public static Stream<RawDataStream<JsonObject>> namedSources(JsonObject rootJson) {
+        return createCollectionOfStreams(rootJson, DataStreamDirection.SOURCE);
+    }
+
+    public static Stream<RawDataStream<JsonObject>> namedSinks(JsonObject rootJson) {
+        return createCollectionOfStreams(rootJson, DataStreamDirection.SINK);
+    }
+
+    private static Stream<RawDataStream<JsonObject>> createCollectionOfStreams(JsonObject rootJson, DataStreamDirection direction) {
+        final JsonElement streamsJson = rootJson.get(direction.configurationKey());
+        return streamsJson == null
+                ? Stream.empty()
+                : DataStreamUtils.mapJsonToStreams(streamsJson, direction);
+    }
+
 
 }

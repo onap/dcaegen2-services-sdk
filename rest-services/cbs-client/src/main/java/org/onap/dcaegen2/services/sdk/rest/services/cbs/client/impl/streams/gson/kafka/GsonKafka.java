@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka;
 
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -32,13 +32,21 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
  */
 abstract class GsonKafka implements Kafka {
 
-    protected final KafkaInfo kafkaInfo;
+    private final String name;
+    final KafkaInfo kafkaInfo;
     private final AafCredentials aafCredentials;
 
-    GsonKafka(@NotNull KafkaInfo kafkaInfo,
+    GsonKafka(
+            @NotNull String name,
+            @NotNull KafkaInfo kafkaInfo,
             @Nullable AafCredentials aafCredentials) {
+        this.name = Objects.requireNonNull(name, "name");
         this.kafkaInfo = Objects.requireNonNull(kafkaInfo, "kafkaInfo");
         this.aafCredentials = aafCredentials;
+    }
+
+    public String name() {
+        return name;
     }
 
     @Override

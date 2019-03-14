@@ -17,29 +17,26 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
-
-import org.jetbrains.annotations.NotNull;
+import com.google.gson.annotations.SerializedName;
+import org.immutables.gson.Gson;
+import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since March 2019
- */
-class GsonKafkaSource extends GsonKafka implements KafkaSource {
+@Gson.TypeAdapters
+@Value.Immutable
+public interface MessageRouterDmaapInfo {
 
-    GsonKafkaSource(
-            @NotNull KafkaInfo kafkaInfo,
-            @Nullable AafCredentials aafCredentials) {
-        super(kafkaInfo, aafCredentials);
-    }
+    @SerializedName("topic_url")
+    String topicUrl();
 
-    @Override
-    public @Nullable String consumerGroupId() {
-        return kafkaInfo.consumerGroupId();
-    }
+    @SerializedName("client_role")
+    @Nullable String clientRole();
 
+    @SerializedName("client_id")
+    @Nullable String clientId();
+
+    @SerializedName("location")
+    @Nullable String location();
 }

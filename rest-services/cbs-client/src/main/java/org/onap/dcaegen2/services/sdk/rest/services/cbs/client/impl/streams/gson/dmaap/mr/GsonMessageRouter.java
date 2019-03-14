@@ -17,21 +17,57 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSink;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouter;
+
+import java.util.Objects;
 
 /**
  * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
 
-public class GsonMessageRouterSink extends GsonMessageRouter implements MessageRouterSink {
-    GsonMessageRouterSink(
-            @NotNull MessageRouterDmaapInfo dmaapInfo,
+abstract class GsonMessageRouter implements MessageRouter {
+    private final String name;
+    private final MessageRouterDmaapInfo dmaapInfo;
+    private final AafCredentials aafCredentials;
+
+    GsonMessageRouter(String name, @NotNull MessageRouterDmaapInfo dmaapInfo,
             @Nullable AafCredentials aafCredentials) {
-        super(dmaapInfo, aafCredentials);
+        this.name = name;
+        this.dmaapInfo = Objects.requireNonNull(dmaapInfo, "dmaapInfo");
+        this.aafCredentials = aafCredentials;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    @Override
+    public String topicUrl() {
+        return dmaapInfo.topicUrl();
+    }
+
+    @Override
+    public @Nullable String clientRole() {
+        return dmaapInfo.clientRole();
+    }
+
+    @Override
+    public @Nullable String clientId() {
+        return dmaapInfo.clientId();
+    }
+
+    @Override
+    public @Nullable String location() {
+        return dmaapInfo.location();
+    }
+
+    @Override
+    public @Nullable AafCredentials aafCredentials() {
+        return aafCredentials;
     }
 }

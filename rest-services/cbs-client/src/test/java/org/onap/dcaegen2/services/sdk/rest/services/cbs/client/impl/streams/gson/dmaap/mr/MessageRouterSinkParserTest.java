@@ -17,7 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -26,6 +26,10 @@ import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.DataStreamUtils;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableRawDataStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.DataRouterSink;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSink;
 
@@ -48,16 +52,16 @@ public class MessageRouterSinkParserTest {
     private static final String SAMPLE_CLIENT_ID = "1500462518108";
     private static final String SAMPLE_TOPIC_URL = "https://we-are-message-router.us:3905/events/some-topic";
 
-    private static final Gson gson = new Gson();
-
     private final StreamFromGsonParser<MessageRouterSink> streamParser = StreamFromGsonParsers.messageRouterSinkParser();
 
     @Test
     void fullConfiguration_shouldGenerateDataRouterSinkObject() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/message_router_full.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSinkFromResource("/streams/message_router_full.json");
+
         // when
         MessageRouterSink result = streamParser.unsafeParse(input);
+
         // then
         assertThat(result).isInstanceOf(MessageRouterSink.class);
         assertThat(result.aafCredentials().username()).isEqualTo(SAMPLE_AAF_USERNAME);
@@ -71,10 +75,11 @@ public class MessageRouterSinkParserTest {
     @Test
     void minimalConfiguration_shouldGenerateDataRouterSinkObject() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/message_router_minimal.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSinkFromResource("/streams/message_router_minimal.json");
 
         // when
         MessageRouterSink result = streamParser.unsafeParse(input);
+
         // then
         assertThat(result).isInstanceOf(MessageRouterSink.class);
         assertThat(result.topicUrl()).isEqualTo(SAMPLE_TOPIC_URL);
@@ -86,9 +91,11 @@ public class MessageRouterSinkParserTest {
     @Test
     void incorrectConfiguration_shouldParseToStreamParserError() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/data_router_sink_full.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSinkFromResource("/streams/data_router_sink_full.json");
+
         // when
         Either<StreamParserError, MessageRouterSink> result = streamParser.parse(input);
+
         // then
         assertThat(result.getLeft()).isInstanceOf(StreamParserError.class);
         result.peekLeft(error -> {
@@ -102,9 +109,17 @@ public class MessageRouterSinkParserTest {
     @Test
     void emptyConfiguration_shouldParseToStreamParserError() {
         // given
-        JsonObject input = gson.fromJson("{}", JsonObject.class);
+        JsonObject json = new JsonObject();
+        final ImmutableRawDataStream<JsonObject> input = ImmutableRawDataStream.<JsonObject>builder()
+                .name("empty")
+                .type("data_router")
+                .descriptor(json)
+                .direction(DataStreamDirection.SINK)
+                .build();
+
         // when
         Either<StreamParserError, MessageRouterSink> result = streamParser.parse(input);
+
         // then
         assertThat(result.getLeft()).isInstanceOf(StreamParserError.class);
     }

@@ -17,51 +17,21 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouter;
-
-import java.util.Objects;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSink;
 
 /**
  * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
 
-abstract class GsonMessageRouter implements MessageRouter {
-    private final MessageRouterDmaapInfo dmaapInfo;
-    private final AafCredentials aafCredentials;
-
-    GsonMessageRouter(@NotNull MessageRouterDmaapInfo dmaapInfo,
-                      @Nullable AafCredentials aafCredentials) {
-        this.dmaapInfo = Objects.requireNonNull(dmaapInfo, "dmaapInfo");
-        this.aafCredentials = aafCredentials;
-    }
-
-    @Override
-    public String topicUrl() {
-        return dmaapInfo.topicUrl();
-    }
-
-    @Override
-    public @Nullable String clientRole() {
-        return dmaapInfo.clientRole();
-    }
-
-    @Override
-    public @Nullable String clientId() {
-        return dmaapInfo.clientId();
-    }
-
-    @Override
-    public @Nullable String location() {
-        return dmaapInfo.location();
-    }
-
-    @Override
-    public @Nullable AafCredentials aafCredentials() {
-        return aafCredentials;
+public class GsonMessageRouterSink extends GsonMessageRouter implements MessageRouterSink {
+    GsonMessageRouterSink(
+            String name, @NotNull MessageRouterDmaapInfo dmaapInfo,
+            @Nullable AafCredentials aafCredentials) {
+        super(name, dmaapInfo, aafCredentials);
     }
 }

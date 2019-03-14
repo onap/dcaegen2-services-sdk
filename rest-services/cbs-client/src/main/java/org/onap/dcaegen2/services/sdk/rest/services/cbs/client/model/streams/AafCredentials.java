@@ -36,9 +36,9 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 @Gson.TypeAdapters
 public interface AafCredentials {
 
-    @SerializedName("aaf_username")
+    @SerializedName(value = "username", alternate = "aaf_username")
     @Nullable String username();
 
-    @SerializedName("aaf_password")
+    @SerializedName(value = "password", alternate = "aaf_password")
     @Nullable String password();
 }
