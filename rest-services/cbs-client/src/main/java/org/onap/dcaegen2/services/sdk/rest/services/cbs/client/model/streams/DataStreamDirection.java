@@ -20,13 +20,22 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since March 2019
  */
-@ExperimentalApi
-public interface DataStream {
-    String name();
+public enum DataStreamDirection {
+
+    SINK("streams_publishes"),
+    SOURCE("streams_subscribes");
+
+    private final String configurationKey;
+
+    DataStreamDirection(String configurationKey) {
+        this.configurationKey = configurationKey;
+    }
+
+    public String configurationKey() {
+        return configurationKey;
+    }
 }

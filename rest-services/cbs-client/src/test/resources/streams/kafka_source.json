@@ -7,7 +7,8 @@
     "kafka_info": {
         "client_role": "com.dcae.member",
         "client_id": "1500462518108",
-        "bootstrap_servers": "dmaap-mr-kafka-0:6060,dmaap-mr-kafka-1:6060",
-        "topic_name": "HVVES_PERF3GPP"
+        "bootstrap_servers": "dmaap-mr-kafka-0:6060,,dmaap-mr-kafka-1:6060,",
+        "topic_name": "HVVES_PERF3GPP",
+        "consumer_group_id": "nokia-perf3gpp-processor"
     }
 }
