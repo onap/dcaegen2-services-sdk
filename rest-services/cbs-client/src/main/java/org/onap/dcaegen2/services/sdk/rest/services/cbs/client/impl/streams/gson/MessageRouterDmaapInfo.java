@@ -17,29 +17,26 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
 import com.google.gson.annotations.SerializedName;
 import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SourceStream;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version 1.2.1
- */
 @Gson.TypeAdapters
-@ExperimentalApi
 @Value.Immutable
-public interface DataRouterSource extends DataRouter, SourceStream {
+public interface MessageRouterDmaapInfo {
 
-    @SerializedName("delivery_url")
-    @Nullable String deliveryUrl();
+    @SerializedName("topic_url")
+    String topicUrl();
 
-    @SerializedName("subscriber_id")
-    @Nullable String subscriberId();
+    @SerializedName("client_role")
+    @Nullable String clientRole();
+
+    @SerializedName("client_id")
+    @Nullable String clientId();
+
+    @SerializedName("location")
+    @Nullable String location();
 }

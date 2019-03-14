@@ -17,29 +17,21 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
-
-import com.google.gson.annotations.SerializedName;
-import org.immutables.gson.Gson;
-import org.immutables.value.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SourceStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSink;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version 1.2.1
+ * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
-@Gson.TypeAdapters
-@ExperimentalApi
-@Value.Immutable
-public interface DataRouterSource extends DataRouter, SourceStream {
 
-    @SerializedName("delivery_url")
-    @Nullable String deliveryUrl();
-
-    @SerializedName("subscriber_id")
-    @Nullable String subscriberId();
+public class GsonMessageRouterSink extends GsonMessageRouter implements MessageRouterSink {
+    GsonMessageRouterSink(
+            @NotNull MessageRouterDmaapInfo dmaapInfo,
+            @Nullable AafCredentials aafCredentials) {
+        super(dmaapInfo, aafCredentials);
+    }
 }

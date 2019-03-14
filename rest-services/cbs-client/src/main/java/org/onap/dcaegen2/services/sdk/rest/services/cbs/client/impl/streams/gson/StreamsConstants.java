@@ -17,29 +17,22 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
-
-import com.google.gson.annotations.SerializedName;
-import org.immutables.gson.Gson;
-import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SourceStream;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version 1.2.1
+ * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
-@Gson.TypeAdapters
-@ExperimentalApi
-@Value.Immutable
-public interface DataRouterSource extends DataRouter, SourceStream {
 
-    @SerializedName("delivery_url")
-    @Nullable String deliveryUrl();
+public final class StreamsConstants {
 
-    @SerializedName("subscriber_id")
-    @Nullable String subscriberId();
+    public static final String DATA_ROUTER_TYPE = "data_router";
+
+    public static final String MESSAGE_ROUTER_TYPE = "message_router";
+
+    public static final String KAFKA_TYPE = "kafka";
+
+    public static final String DMAAP_INFO_CHILD_NAME = "dmaap_info";
+
+    public static final String KAFKA_INFO_CHILD_NAME = "kafka_info";
+
 }

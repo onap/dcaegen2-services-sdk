@@ -30,6 +30,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Sin
  */
 @ExperimentalApi
 @Value.Immutable
-public abstract interface KafkaSink extends Kafka, SinkStream {
+public interface KafkaSink extends Kafka, SinkStream {
 
 }

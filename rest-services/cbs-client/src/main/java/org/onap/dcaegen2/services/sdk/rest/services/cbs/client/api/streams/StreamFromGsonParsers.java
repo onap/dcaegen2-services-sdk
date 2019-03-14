@@ -20,10 +20,8 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.KafkaSinkParser;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.KafkaSourceParser;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.*;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.*;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -40,5 +38,21 @@ public final class StreamFromGsonParsers {
 
     public static StreamFromGsonParser<KafkaSource> kafkaSourceParser() {
         return KafkaSourceParser.create();
+    }
+
+    public static StreamFromGsonParser<MessageRouterSink> messageRouterSinkParser() {
+        return MessageRouterSinkParser.create();
+    }
+
+    public static StreamFromGsonParser<MessageRouterSource> messageRouterSourceParser() {
+        return MessageRouterSourceParser.create();
+    }
+
+    public static StreamFromGsonParser<DataRouterSink> dataRouterSinkParser() {
+        return DataRouterSinkParser.create();
+    }
+
+    public static StreamFromGsonParser<DataRouterSource> dataRouterSourceParser() {
+        return DataRouterSourceParser.create();
     }
 }

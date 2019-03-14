@@ -1,0 +1,11 @@
+{
+  "type": "message_router",
+  "aaf_username": "some-user",
+  "aaf_password": "some-password",
+  "dmaap_info": {
+    "client_role": "com.dcae.member",
+    "client_id": "1500462518108",
+    "location": "mtc00",
+    "topic_url": "https://we-are-message-router.us:3905/events/some-topic"
+  }
+}
