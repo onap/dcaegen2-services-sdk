@@ -21,10 +21,10 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
 import io.vavr.control.Either;
+import io.vavr.control.Try;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener.MerkleTree;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
 
 /**
@@ -32,11 +32,15 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Dat
  * @since 1.1.2
  */
 @ExperimentalApi
-public interface StreamParser<S extends DataStream> {
+public interface StreamParser<T, S extends DataStream> {
 
-    Either<StreamParserError, S> parse(MerkleTree<String> subtree);
+    default Either<StreamParserError, S> parse(T subtree) {
+        return Try.of(() -> unsafeParse(subtree))
+                .toEither()
+                .mapLeft(StreamParserError::fromThrowable);
+    }
 
-    default S unsafeParse(MerkleTree<String> subtree) {
+    default S unsafeParse(T subtree) {
         return parse(subtree).getOrElseThrow(StreamParsingException::new);
     }
 }
