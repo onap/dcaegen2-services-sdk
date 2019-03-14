@@ -18,41 +18,34 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-import static io.vavr.Predicates.not;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.optionalChild;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.requiredChild;
 
-import io.vavr.Predicates;
-import io.vavr.collection.List;
-import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import io.vavr.control.Option;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableAafCredentials;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since March 2019
  */
-@ExperimentalApi
-public interface Kafka {
+final class KafkaUtils {
 
-    String bootstrapServers();
-
-    String topicName();
-
-    @Nullable AafCredentials aafCredentials();
-
-    @Nullable String clientRole();
-
-    @Nullable String clientId();
-
-    @Value.Default
-    default int maxPayloadSizeBytes() {
-        return 1024 * 1024;
+    private KafkaUtils() {
     }
 
-    @Value.Derived
-    default List<String> bootstrapServerList() {
-        return List.of(bootstrapServers().split(",")).filter(not(String::isEmpty));
+    static KafkaInfo extractKafkaInfo(Gson gson, JsonObject input) {
+        final JsonElement kafkaInfoJson = requiredChild(input, "kafka_info");
+        return gson.fromJson(kafkaInfoJson, ImmutableKafkaInfo.class);
+    }
+
+    static Option<AafCredentials> extractAafCredentials(Gson gson, JsonObject input) {
+        return optionalChild(input, "aaf_credentials")
+                .map(aafCredsJson -> gson.fromJson(aafCredsJson, ImmutableAafCredentials.class));
     }
 }
