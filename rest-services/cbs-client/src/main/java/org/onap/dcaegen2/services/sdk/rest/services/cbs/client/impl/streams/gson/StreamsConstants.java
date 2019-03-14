@@ -17,19 +17,22 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
-import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SinkStream;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
-@ExperimentalApi
-@Value.Immutable
-public interface KafkaSink extends Kafka, SinkStream {
+
+public final class StreamsConstants {
+
+    public static final String DATA_ROUTER_TYPE = "data_router";
+
+    public static final String MESSAGE_ROUTER_TYPE = "message_router";
+
+    public static final String KAFKA_TYPE = "kafka";
+
+    public static final String DMAAP_INFO_CHILD_NAME = "dmaap_info";
+
+    public static final String KAFKA_INFO_CHILD_NAME = "kafka_info";
 
 }

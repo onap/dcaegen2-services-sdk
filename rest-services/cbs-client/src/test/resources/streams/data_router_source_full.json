@@ -1,0 +1,10 @@
+{
+  "type": "data_router",
+  "dmaap_info": {
+    "location": "mtc00",
+    "delivery_url": "https://my-subscriber-app.dcae:8080/target-path",
+    "username": "some-user",
+    "password": "some-password",
+    "subscriber_id": "789012"
+  }
+}

@@ -17,75 +17,51 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.Kafka;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouter;
+
+import java.util.Objects;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since March 2019
+ * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
-abstract class GsonKafka implements Kafka {
 
-    protected final KafkaInfo kafkaInfo;
+abstract class GsonMessageRouter implements MessageRouter {
+    private final MessageRouterDmaapInfo dmaapInfo;
     private final AafCredentials aafCredentials;
 
-    GsonKafka(@NotNull KafkaInfo kafkaInfo,
-            @Nullable AafCredentials aafCredentials) {
-        this.kafkaInfo = Objects.requireNonNull(kafkaInfo, "kafkaInfo");
+    GsonMessageRouter(@NotNull MessageRouterDmaapInfo dmaapInfo,
+                      @Nullable AafCredentials aafCredentials) {
+        this.dmaapInfo = Objects.requireNonNull(dmaapInfo, "dmaapInfo");
         this.aafCredentials = aafCredentials;
     }
 
     @Override
-    public String bootstrapServers() {
-        return kafkaInfo.bootstrapServers();
+    public String topicUrl() {
+        return dmaapInfo.topicUrl();
     }
 
     @Override
-    public String topicName() {
-        return kafkaInfo.topicName();
+    public @Nullable String clientRole() {
+        return dmaapInfo.clientRole();
+    }
+
+    @Override
+    public @Nullable String clientId() {
+        return dmaapInfo.clientId();
+    }
+
+    @Override
+    public @Nullable String location() {
+        return dmaapInfo.location();
     }
 
     @Override
     public @Nullable AafCredentials aafCredentials() {
         return aafCredentials;
-    }
-
-    @Override
-    public @Nullable String clientRole() {
-        return kafkaInfo.clientRole();
-    }
-
-    @Override
-    public @Nullable String clientId() {
-        return kafkaInfo.clientId();
-    }
-
-    @Override
-    public int maxPayloadSizeBytes() {
-        return kafkaInfo.maxPayloadSizeBytes();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        GsonKafka gsonKafka = (GsonKafka) o;
-        return kafkaInfo.equals(gsonKafka.kafkaInfo) &&
-                Objects.equals(aafCredentials, gsonKafka.aafCredentials);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(kafkaInfo, aafCredentials);
     }
 }

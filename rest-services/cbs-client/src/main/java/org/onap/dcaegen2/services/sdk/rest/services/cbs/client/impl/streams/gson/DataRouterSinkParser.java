@@ -17,41 +17,41 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.DataRouterSink;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.ImmutableDataRouterSink;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.DATA_ROUTER_TYPE;
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.*;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.KAFKA_INFO_CHILD_NAME;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.KAFKA_TYPE;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.DMAAP_INFO_CHILD_NAME;
 
 /**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
-public final class KafkaSourceParser implements StreamFromGsonParser<KafkaSource> {
+
+public final class DataRouterSinkParser implements StreamFromGsonParser<DataRouterSink> {
     private final Gson gson;
 
-    public static KafkaSourceParser create() {
-        return new KafkaSourceParser(gsonInstance());
+    public static DataRouterSinkParser create() {
+        return new DataRouterSinkParser(gsonInstance());
     }
 
-    private KafkaSourceParser(Gson gson) {
+    private DataRouterSinkParser(Gson gson) {
         this.gson = gson;
     }
 
-    @Override
-    public KafkaSource unsafeParse(JsonObject input) {
-        assertStreamType(input, KAFKA_TYPE);
+    public DataRouterSink unsafeParse(JsonObject input) {
+        assertStreamType(input, DATA_ROUTER_TYPE);
 
-        final JsonElement kafkaInfoJson = requiredChild(input, KAFKA_INFO_CHILD_NAME);
-        final KafkaInfo kafkaInfo = gson.fromJson(kafkaInfoJson, ImmutableKafkaInfo.class);
+        final JsonElement dmaapInfoJson = requiredChild(input, DMAAP_INFO_CHILD_NAME);
 
-        return new GsonKafkaSource(kafkaInfo, null);
+        return gson.fromJson(dmaapInfoJson, ImmutableDataRouterSink.class);
+
     }
+
 }

@@ -1,0 +1,11 @@
+{
+  "type": "data_router",
+  "dmaap_info": {
+    "location": "mtc00",
+    "publish_url": "https://we-are-data-router.us/feed/xyz",
+    "log_url": "https://we-are-data-router.us/feed/xyz/logs",
+    "username": "some-user",
+    "password": "some-password",
+    "publisher_id": "123456"
+  }
+}
