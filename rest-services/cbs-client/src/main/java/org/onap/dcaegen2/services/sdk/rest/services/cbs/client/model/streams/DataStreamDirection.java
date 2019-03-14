@@ -18,40 +18,24 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
-import static io.vavr.Predicates.not;
-
-import io.vavr.collection.List;
-import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since March 2019
  */
-@ExperimentalApi
-public interface Kafka {
+public enum DataStreamDirection {
 
-    String bootstrapServers();
+    SINK("streams_publishes"),
+    SOURCE("streams_subscribes");
 
-    String topicName();
+    private final String configurationKey;
 
-    @Nullable AafCredentials aafCredentials();
-
-    @Nullable String clientRole();
-
-    @Nullable String clientId();
-
-    @Value.Default
-    default int maxPayloadSizeBytes() {
-        return 1024 * 1024;
+    DataStreamDirection(String configurationKey) {
+        this.configurationKey = configurationKey;
     }
 
-    @Value.Derived
-    default List<String> bootstrapServerList() {
-        return List.of(bootstrapServers().split(",")).filter(not(String::isEmpty));
+    public String configurationKey() {
+        return configurationKey;
     }
 }

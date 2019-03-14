@@ -28,5 +28,5 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
  */
 @ExperimentalApi
 public interface DataStream {
-
+    String name();
 }

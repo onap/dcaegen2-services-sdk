@@ -20,16 +20,14 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.vavr.collection.List;
+import java.math.BigInteger;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
-
-import java.math.BigInteger;
-
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class MerkleTreeParserTest {
 
