@@ -31,13 +31,19 @@ import java.util.Objects;
  */
 
 abstract class GsonMessageRouter implements MessageRouter {
+    private final String name;
     private final MessageRouterDmaapInfo dmaapInfo;
     private final AafCredentials aafCredentials;
 
-    GsonMessageRouter(@NotNull MessageRouterDmaapInfo dmaapInfo,
-                      @Nullable AafCredentials aafCredentials) {
+    GsonMessageRouter(String name, @NotNull MessageRouterDmaapInfo dmaapInfo,
+            @Nullable AafCredentials aafCredentials) {
+        this.name = name;
         this.dmaapInfo = Objects.requireNonNull(dmaapInfo, "dmaapInfo");
         this.aafCredentials = aafCredentials;
+    }
+
+    public String name() {
+        return name;
     }
 
     @Override

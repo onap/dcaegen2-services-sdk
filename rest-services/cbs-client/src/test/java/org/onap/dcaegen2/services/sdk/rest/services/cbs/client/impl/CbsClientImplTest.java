@@ -30,8 +30,8 @@ import static org.mockito.Mockito.verify;
 import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 
 /**

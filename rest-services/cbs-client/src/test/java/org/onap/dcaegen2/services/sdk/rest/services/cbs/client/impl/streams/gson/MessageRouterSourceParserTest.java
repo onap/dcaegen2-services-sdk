@@ -26,6 +26,9 @@ import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableRawDataStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSink;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSource;
 
@@ -48,16 +51,16 @@ public class MessageRouterSourceParserTest {
     private static final String SAMPLE_CLIENT_ID = "1500462518108";
     private static final String SAMPLE_TOPIC_URL = "https://we-are-message-router.us:3905/events/some-topic";
 
-    private static final Gson gson = new Gson();
-
     private final StreamFromGsonParser<MessageRouterSource> streamParser = StreamFromGsonParsers.messageRouterSourceParser();
 
     @Test
     void fullConfiguration_shouldGenerateDataRouterSourceObject() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/message_router_full.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSourceFromResource("/streams/message_router_full.json");
+
         // when
         MessageRouterSource result = streamParser.unsafeParse(input);
+
         // then
         assertThat(result.aafCredentials().username()).isEqualTo(SAMPLE_AAF_USERNAME);
         assertThat(result.aafCredentials().password()).isEqualTo(SAMPLE_AAF_PASSWORD);
@@ -70,10 +73,11 @@ public class MessageRouterSourceParserTest {
     @Test
     void minimalConfiguration_shouldGenerateDataRouterSourceObject() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/message_router_minimal.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSourceFromResource("/streams/message_router_minimal.json");
 
         // when
         MessageRouterSource result = streamParser.unsafeParse(input);
+
         // then
         assertThat(result.topicUrl()).isEqualTo(SAMPLE_TOPIC_URL);
         assertThat(result.aafCredentials().username()).isNull();
@@ -84,9 +88,11 @@ public class MessageRouterSourceParserTest {
     @Test
     void incorrectConfiguration_shouldParseToStreamParserError() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/data_router_sink_full.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSourceFromResource("/streams/data_router_sink_full.json");
+
         // when
         Either<StreamParserError, MessageRouterSource> result = streamParser.parse(input);
+
         // then
         assertThat(result.getLeft()).isInstanceOf(StreamParserError.class);
         result.peekLeft(error -> {
@@ -100,7 +106,13 @@ public class MessageRouterSourceParserTest {
     @Test
     void emptyConfiguration_shouldParseToStreamParserError() {
         // given
-        JsonObject input = gson.fromJson("{}", JsonObject.class);
+        JsonObject json = new JsonObject();
+        final ImmutableRawDataStream<JsonObject> input = ImmutableRawDataStream.<JsonObject>builder()
+                .name("empty")
+                .type("data_router")
+                .descriptor(json)
+                .direction(DataStreamDirection.SOURCE)
+                .build();
         // when
         Either<StreamParserError, MessageRouterSource> result = streamParser.parse(input);
         // then
