@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
 
+import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SinkStream;
@@ -31,6 +32,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Sin
  */
 @ExperimentalApi
 @Value.Immutable
-public abstract class MessageRouterSink implements MessageRouter, SinkStream {
+public interface MessageRouterSink extends MessageRouter, SinkStream {
 
 }

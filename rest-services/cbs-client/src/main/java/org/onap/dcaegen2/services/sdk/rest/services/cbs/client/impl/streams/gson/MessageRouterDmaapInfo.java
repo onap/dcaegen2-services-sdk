@@ -17,19 +17,26 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
+import com.google.gson.annotations.SerializedName;
+import org.immutables.gson.Gson;
 import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SinkStream;
+import org.jetbrains.annotations.Nullable;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
-@ExperimentalApi
+@Gson.TypeAdapters
 @Value.Immutable
-public interface KafkaSink extends Kafka, SinkStream {
+public interface MessageRouterDmaapInfo {
 
+    @SerializedName(value = "topic_url", alternate = "topicUrl")
+    String topicUrl();
+
+    @SerializedName(value = "client_role", alternate = "clientRole")
+    @Nullable String clientRole();
+
+    @SerializedName(value = "client_id", alternate = "clientId")
+    @Nullable String clientId();
+
+    @SerializedName(value = "location")
+    @Nullable String location();
 }
