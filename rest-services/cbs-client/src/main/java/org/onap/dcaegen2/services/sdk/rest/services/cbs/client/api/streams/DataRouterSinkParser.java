@@ -17,26 +17,28 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
 import com.google.gson.JsonObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.JsonIOException;
 import io.vavr.control.Either;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.DataRouterSink;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.GsonAdaptersDataRouterSink;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.2
- */
-@ExperimentalApi
-public interface StreamParser<S extends DataStream> {
+public class DataRouterSinkParser implements StreamParser<DataRouterSink> {
+    private Gson gson = new GsonBuilder()
+            .registerTypeAdapterFactory(new GsonAdaptersDataRouterSink())
+            .create();
 
-    Either<StreamParserError, S> parse(JsonObject object);
-
-    default S unsafeParse(JsonObject object) {
-        return parse(object).getOrElseThrow(StreamParsingException::new);
+    public Either<StreamParserError, DataRouterSink> parse(JsonObject conf) {
+        try {
+            return Either.right(gson.fromJson(conf, DataRouterSink.class));
+        } catch (JsonSyntaxException | JsonIOException e) {
+            return Either.left(new StreamParserError(e.getMessage()));
+        }
     }
 }

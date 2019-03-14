@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dm
 
 
 import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SourceStream;
 
@@ -33,7 +34,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Sou
 @Value.Immutable
 public abstract class DataRouterSource implements DataRouter, SourceStream {
 
-    abstract String deliveryUrl();
+    abstract @Nullable String deliveryUrl();
 
-    abstract String subscriberId();
+    abstract @Nullable String subscriberId();
 }
