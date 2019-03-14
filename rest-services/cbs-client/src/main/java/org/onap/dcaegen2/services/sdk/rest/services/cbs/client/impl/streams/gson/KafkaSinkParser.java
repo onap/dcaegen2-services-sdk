@@ -18,17 +18,22 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import com.google.gson.JsonObject;
+import io.vavr.control.Either;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
 
 /**
- * AKA SubscribeStream
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since March 2019
  */
-@ExperimentalApi
-public interface SourceStream extends DataStream {
+public class KafkaSinkParser implements StreamFromGsonParser<KafkaSink> {
 
+    @Override
+    public Either<StreamParserError, KafkaSink> parse(JsonObject subtree) {
+        return Either.left(new StreamParserError("TODO"));
+    }
 }
