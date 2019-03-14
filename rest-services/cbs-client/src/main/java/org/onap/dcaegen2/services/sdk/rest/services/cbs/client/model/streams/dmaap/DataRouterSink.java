@@ -21,6 +21,8 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
 
+import com.google.gson.annotations.SerializedName;
+import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
@@ -30,14 +32,18 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Sin
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @version 1.2.1
  */
+@Gson.TypeAdapters
 @ExperimentalApi
 @Value.Immutable
-public abstract class DataRouterSink implements DataRouter, SinkStream {
+public interface DataRouterSink extends DataRouter, SinkStream {
 
-    abstract String publisherUrl();
+    @SerializedName(value = "publish_url", alternate = "publishUrl")
+    String publishUrl();
 
-    abstract String publisherId();
+    @SerializedName(value = "publisher_id", alternate = "publisherId")
+    @Nullable String publisherId();
 
-    abstract @Nullable String logUrl();
+    @SerializedName(value = "log_url", alternate = "logUrl")
+    @Nullable String logUrl();
 
 }

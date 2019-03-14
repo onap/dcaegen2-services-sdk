@@ -26,12 +26,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.vavr.Lazy;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
+
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.GsonAdaptersAafCredentials;
 
 /**
@@ -43,6 +44,7 @@ final class GsonUtils {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersKafkaInfo());
         gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersAafCredentials());
+        gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersMessageRouterDmaapInfo());
         return gsonBuilder.create();
     });
 

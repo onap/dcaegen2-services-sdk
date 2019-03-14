@@ -20,15 +20,13 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.assertStreamType;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.gsonInstance;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.requiredChild;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
+
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.*;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -41,7 +39,7 @@ public class KafkaSourceParser implements StreamFromGsonParser<KafkaSource> {
         return new KafkaSourceParser(gsonInstance());
     }
 
-    KafkaSourceParser(Gson gson) {
+    private KafkaSourceParser(Gson gson) {
         this.gson = gson;
     }
 

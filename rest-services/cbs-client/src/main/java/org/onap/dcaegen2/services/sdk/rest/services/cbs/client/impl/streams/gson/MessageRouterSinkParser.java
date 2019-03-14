@@ -17,40 +17,46 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.sun.javafx.css.CssError;
+import io.vavr.control.Either;
+import io.vavr.control.Try;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSink;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils.*;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
-public class KafkaSinkParser implements StreamFromGsonParser<KafkaSink> {
+public class MessageRouterSinkParser implements StreamFromGsonParser<MessageRouterSink> {
 
     private final Gson gson;
 
-    public static KafkaSinkParser create() {
-        return new KafkaSinkParser(gsonInstance());
+    public static MessageRouterSinkParser create() {
+        return new MessageRouterSinkParser(gsonInstance());
     }
 
-    KafkaSinkParser(Gson gson) {
+    private MessageRouterSinkParser(Gson gson) {
         this.gson = gson;
     }
 
-    @Override
-    public KafkaSink unsafeParse(JsonObject input) {
-        assertStreamType(input, "kafka");
+    public MessageRouterSink unsafeParse(JsonObject input) {
+        assertStreamType(input, "message_router");
 
-        final JsonElement kafkaInfoJson = requiredChild(input, "kafka_info");
-        final KafkaInfo kafkaInfo = gson.fromJson(kafkaInfoJson, ImmutableKafkaInfo.class);
+        Either<StreamParserError, String> aafUsername = Try.of(() -> requiredString(input, "aaf_username"))
+                .toEither()
+                .mapLeft(StreamParserError::fromThrowable);
+        Either<StreamParserError, String> aafPassword = Try.of(() -> requiredString(input, "aaf_password"))
+                .toEither()
+                .mapLeft(StreamParserError::fromThrowable);
 
-        return new GsonKafkaSink(kafkaInfo, null);
+        final JsonElement dmaapInfoJson = requiredChild(input, "dmaap_info");
+        final MessageRouterDmaapInfo dmaapInfo = gson.fromJson(dmaapInfoJson, ImmutableMessageRouterDmaapInfo.class);
+
+        return new GsonMessageRouterSink(dmaapInfo, aafUsername.getOrNull(), aafPassword.getOrNull());
+
     }
 }

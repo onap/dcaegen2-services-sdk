@@ -17,21 +17,16 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
 import com.google.gson.annotations.SerializedName;
+import org.immutables.gson.Gson;
+import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version 1.2.1
- */
-@ExperimentalApi
-public interface MessageRouter {
+@Gson.TypeAdapters
+@Value.Immutable
+public interface MessageRouterDmaapInfo {
 
     @SerializedName(value = "topic_url", alternate = "topicUrl")
     String topicUrl();
@@ -44,7 +39,4 @@ public interface MessageRouter {
 
     @SerializedName(value = "location")
     @Nullable String location();
-
-    @SerializedName(value = "aaf_credentials", alternate = "aafCredentials")
-    @Nullable AafCredentials aafCredentials();
 }
