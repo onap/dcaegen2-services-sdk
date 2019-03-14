@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
 
+import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
@@ -31,9 +32,12 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 @ExperimentalApi
 public interface DataRouter {
 
-    String location();
+    @SerializedName("location")
+    @Nullable String location();
 
+    @SerializedName("username")
     @Nullable String username();
 
+    @SerializedName("password")
     @Nullable String password();
 }

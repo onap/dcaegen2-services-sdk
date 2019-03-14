@@ -1,0 +1,6 @@
+{
+  "type": "data_router",
+  "dmaap_info": {
+    "publish_url": "https://we-are-data-router.us/feed/xyz"
+  }
+}
