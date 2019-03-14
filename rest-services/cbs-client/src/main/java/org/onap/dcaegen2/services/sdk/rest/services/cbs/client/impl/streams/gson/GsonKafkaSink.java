@@ -32,8 +32,10 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
 class GsonKafkaSink extends GsonKafka implements KafkaSink {
 
     GsonKafkaSink(
+            @NotNull String name,
             @NotNull KafkaInfo kafkaInfo,
             @Nullable AafCredentials aafCredentials) {
-        super(kafkaInfo, aafCredentials);
+        super(name, kafkaInfo, aafCredentials);
     }
+
 }

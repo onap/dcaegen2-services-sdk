@@ -32,9 +32,10 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
 class GsonKafkaSource extends GsonKafka implements KafkaSource {
 
     GsonKafkaSource(
+            @NotNull String name,
             @NotNull KafkaInfo kafkaInfo,
             @Nullable AafCredentials aafCredentials) {
-        super(kafkaInfo, aafCredentials);
+        super(name, kafkaInfo, aafCredentials);
     }
 
     @Override

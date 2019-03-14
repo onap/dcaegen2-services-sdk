@@ -19,17 +19,16 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.listener;
 
+import static java.lang.String.valueOf;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.vavr.collection.List;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import static java.lang.String.valueOf;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
