@@ -21,6 +21,8 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
 
+import org.immutables.gson.Gson;
+import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
@@ -29,6 +31,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
  * @version 1.2.1
  */
 @ExperimentalApi
+@Value.Immutable
+@Gson.TypeAdapters
 public interface AafCredentials {
 
     @Nullable String username();
