@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions;
 
+import io.vavr.control.Either;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
@@ -29,6 +30,14 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 @ExperimentalApi
 public class StreamParserError {
     private final String message;
+
+    public static <R> Either<StreamParserError, R> left(Throwable ex) {
+        return Either.left(fromThrowable(ex));
+    }
+
+    public static StreamParserError fromThrowable(Throwable ex) {
+        return new StreamParserError(ex.getMessage());
+    }
 
     public StreamParserError(String message) {
         this.message = message;

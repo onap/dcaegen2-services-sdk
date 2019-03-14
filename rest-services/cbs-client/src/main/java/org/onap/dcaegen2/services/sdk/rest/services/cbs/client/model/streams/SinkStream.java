@@ -29,6 +29,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
  * @version  1.2.1
  */
 @ExperimentalApi
-public interface SinkStream {
+public interface SinkStream extends DataStream {
 
 }

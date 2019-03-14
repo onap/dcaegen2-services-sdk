@@ -18,17 +18,31 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
 
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 /**
- * AKA SubscribeStream
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since March 2019
  */
-@ExperimentalApi
-public interface SourceStream extends DataStream {
+final class GsonUtils {
 
+    private GsonUtils() {
+    }
+
+    public static JsonObject readObjectFromResource(String resource) throws IOException {
+        return readFromResource(resource).getAsJsonObject();
+    }
+
+    public static JsonElement readFromResource(String resource) throws IOException {
+        try(Reader reader = new InputStreamReader(GsonUtils.class.getResourceAsStream(resource))) {
+            return new JsonParser().parse(reader);
+        }
+    }
 }
