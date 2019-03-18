@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23d0bfec_81e2f2d8",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/DataRouterSinkParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "I believe we should extract these constants to separate class, let\u0027s say DmaapConstants",
+      "range": {
+        "startLine": 47,
+        "startChar": 32,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9459d6e4_ac1a6d16",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/MessageRouterDmaapInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "* leave only one option which is compliant with the specification",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 64
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c579e21_42cd30f4",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/MessageRouterSinkParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "If you make only constructor private make the class final - if that is what you intended.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79644f5b_42e26ef5",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "Is the location nullable?",
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77c26b88_358670ed",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouterSink.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "remove value in all annotations where it\u0027s the only argument",
+      "range": {
+        "startLine": 40,
+        "startChar": 20,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5983928_34995070",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouterSource.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "Is it nullable?",
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a936bb8a_011f989c",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/DataRouterSinkParserTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "Use proper AssertJ function in each equality assertion.",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 32
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c744ae42_ba57ffba",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/MessageRouterSinkParserTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "for each test add a scenario for checking when the type is invalid",
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2afa5298_9aef2ba7",
+        "filename": "rest-services/cbs-client/src/test/resources/streams/data_router_source_minimal.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-18T13:58:38Z",
+      "side": 1,
+      "message": "This doesnn\u0027t look like minimal config... Relates to my comment about nullability in the data class.",
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
