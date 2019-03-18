@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a874afcf_6594bcd4",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/DataStreamUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-18T15:34:13Z",
+      "side": 1,
+      "message": "I would propose invert order of Data. It could be misleading. \nrename eg.\nfrom:\nreadDataSourceFromResource\nto: \nreadSourceDataFromResource",
+      "revId": "0d7f6b65b7f6f20656dab16f65c02734ce3c03b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0430893_bc0221ca",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/DataStreamUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-18T15:34:13Z",
+      "side": 1,
+      "message": "here: readSinkDataFromResource",
+      "revId": "0d7f6b65b7f6f20656dab16f65c02734ce3c03b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "753fcbb8_c50af036",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/GsonUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-18T15:34:13Z",
+      "side": 1,
+      "message": "Shorter and does the same:\n```\nstatic Option\u003cJsonElement\u003e optionalChild(JsonObject parent, String childName) {\n        return Option.of(parent.get(childName));\n    }\n```",
+      "revId": "0d7f6b65b7f6f20656dab16f65c02734ce3c03b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "548242ae_bd74c6fc",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/RawDataStream.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-18T15:34:13Z",
+      "side": 1,
+      "message": "Is possible that we will need here something else than JsonObject?",
+      "revId": "0d7f6b65b7f6f20656dab16f65c02734ce3c03b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
