@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e77f57cd_0a64164a",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/DataRouterSinkParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23d0bfec_81e2f2d8",
+      "range": {
+        "startLine": 47,
+        "startChar": 32,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9459d6e4_ac1a6d16",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/MessageRouterDmaapInfo.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-18T13:58:38Z",
       "side": 1,
       "message": "* leave only one option which is compliant with the specification",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 64
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4dfab7b_0b5c587e",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/MessageRouterDmaapInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9459d6e4_ac1a6d16",
       "range": {
         "startLine": 31,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "be4ff5b6_8603174b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/MessageRouterSinkParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c579e21_42cd30f4",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79644f5b_42e26ef5",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouter.java",
         "patchSetId": 4
@@ -82,6 +154,24 @@
       "writtenOn": "2019-03-18T13:58:38Z",
       "side": 1,
       "message": "Is the location nullable?",
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33e6c5ae_fea21bcf",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "According to https://onap.readthedocs.io/en/latest/submodules/dcaegen2.git/docs/sections/components/component-specification/dmaap-connection-objects.html location could not be set.",
+      "parentUuid": "79644f5b_42e26ef5",
       "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "ecdb8b63_6cf0b233",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouterSink.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77c26b88_358670ed",
+      "range": {
+        "startLine": 40,
+        "startChar": 20,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5983928_34995070",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouterSource.java",
         "patchSetId": 4
@@ -122,6 +236,24 @@
       "writtenOn": "2019-03-18T13:58:38Z",
       "side": 1,
       "message": "Is it nullable?",
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1695fded_b5927097",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouterSource.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "According to https://onap.readthedocs.io/en/latest/submodules/dcaegen2.git/docs/sections/components/component-specification/dmaap-connection-objects.html yes.",
+      "parentUuid": "b5983928_34995070",
       "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "693f0e5f_2663a902",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/DataRouterSinkParserTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a936bb8a_011f989c",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 32
+      },
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c744ae42_ba57ffba",
         "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/MessageRouterSinkParserTest.java",
         "patchSetId": 4
@@ -168,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "aedebdf7_bac97571",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/MessageRouterSinkParserTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c744ae42_ba57ffba",
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2afa5298_9aef2ba7",
         "filename": "rest-services/cbs-client/src/test/resources/streams/data_router_source_minimal.json",
         "patchSetId": 4
@@ -179,6 +353,24 @@
       "writtenOn": "2019-03-18T13:58:38Z",
       "side": 1,
       "message": "This doesnn\u0027t look like minimal config... Relates to my comment about nullability in the data class.",
+      "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeb73053_d6c6a144",
+        "filename": "rest-services/cbs-client/src/test/resources/streams/data_router_source_minimal.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T08:32:24Z",
+      "side": 1,
+      "message": "RTD shows different I will approach you with this.",
+      "parentUuid": "2afa5298_9aef2ba7",
       "revId": "071eb5d34d41da51edf1f4977c2b3fdae614b3b5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
