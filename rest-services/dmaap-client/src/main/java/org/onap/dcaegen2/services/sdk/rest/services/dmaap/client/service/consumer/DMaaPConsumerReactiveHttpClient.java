@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.consumer;
 
+import com.google.gson.JsonArray;
 import java.net.URI;
 import java.util.Map;
 import java.util.Optional;
@@ -59,15 +60,15 @@ public class DMaaPConsumerReactiveHttpClient extends DMaaPAbstractReactiveHttpCl
      *
      * @return reactive response from DMaaP in string format
      */
-    public Mono<String> getDMaaPConsumerResponse(Optional<RequestDiagnosticContext> requestDiagnosticContextOptional) {
+    public Mono<JsonArray> getDMaaPConsumerResponse(Optional<RequestDiagnosticContext> requestDiagnosticContextOptional) {
         Map<String,String> headers = DMaaPClientServiceUtils.getHeaders(consumerConfiguration.dmaapContentType());
         if (requestDiagnosticContextOptional.isPresent()) {
             return cloudHttpClient
-                .get(getUri().toString(), requestDiagnosticContextOptional.get(), headers, String.class);
+                .get(getUri().toString(), requestDiagnosticContextOptional.get(), headers, JsonArray.class);
         }
         RequestDiagnosticContext requestDiagnosticContext = ImmutableRequestDiagnosticContext.builder()
             .invocationId(UUID.randomUUID()).requestId(UUID.randomUUID()).build();
-        return cloudHttpClient.get(getUri().toString(), requestDiagnosticContext, headers, String.class);
+        return cloudHttpClient.get(getUri().toString(), requestDiagnosticContext, headers, JsonArray.class);
     }
 
     URI getUri() {

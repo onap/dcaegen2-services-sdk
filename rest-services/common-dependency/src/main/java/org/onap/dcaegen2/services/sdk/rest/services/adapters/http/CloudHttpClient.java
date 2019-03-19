@@ -64,10 +64,14 @@ public class CloudHttpClient {
 
     }
 
+
+
+    @Deprecated
     public <T> Mono<T> get(String url, RequestDiagnosticContext context, Class<T> bodyClass) {
         return get(url, context, Collections.EMPTY_MAP, bodyClass);
     }
 
+    @Deprecated
     public <T> Mono<T> get(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
         Class<T> bodyClass) {
         final HttpClient clientWithHeaders = getHttpClientWithHeaders(context, customHeaders);
