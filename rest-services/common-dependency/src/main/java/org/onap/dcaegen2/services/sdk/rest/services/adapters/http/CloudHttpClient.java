@@ -121,8 +121,10 @@ public class CloudHttpClient {
 
     private <T extends ClientModel> Mono<HttpClientResponse> callHttpPatch(HttpClient client, String url,
         JsonBodyBuilder<T> jsonBodyBuilder, T clientModel) {
+        String jsonBodyRequest = jsonBodyBuilder.createJsonBody(clientModel);
+        LOGGER.debug( String.format("Json body request: %s ",jsonBodyRequest));
         return client.baseUrl(url).patch()
-            .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(clientModel))))
+            .send(ByteBufFlux.fromString(Mono.just(jsonBodyRequest)))
             .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse));
     }
 
@@ -138,7 +140,7 @@ public class CloudHttpClient {
 
     private void logRequest(RequestDiagnosticContext context, HttpClientRequest httpClientRequest) {
         context.withSlf4jMdc(LOGGER.isDebugEnabled(), () -> {
-            LOGGER.debug("Request: {} {}", httpClientRequest.method(), httpClientRequest.uri());
+            LOGGER.debug("Request: {} {} {}", httpClientRequest.method(), httpClientRequest.uri(), httpClientRequest.requestHeaders());
             if (LOGGER.isTraceEnabled()) {
                 final String headers = Stream.ofAll(httpClientRequest.requestHeaders())
                     .map(entry -> entry.getKey() + "=" + entry.getValue())
