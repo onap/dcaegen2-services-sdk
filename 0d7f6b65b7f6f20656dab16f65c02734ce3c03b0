@@ -103,6 +103,24 @@
       "revId": "0d7f6b65b7f6f20656dab16f65c02734ce3c03b0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17aa6874_4ac75528",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/RawDataStream.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-19T10:13:26Z",
+      "side": 1,
+      "message": "Ok, I got it. Thanks",
+      "parentUuid": "e34bcc2e_d9c2b17f",
+      "revId": "0d7f6b65b7f6f20656dab16f65c02734ce3c03b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
