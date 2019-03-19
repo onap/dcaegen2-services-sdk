@@ -73,10 +73,6 @@ public class AaiHttpClientFactory {
         return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()));
     }
 
-    public static String performBasicAuthentication(String userName, String password) {
-        return Base64.getEncoder().encodeToString((userName + ":" + password).getBytes());
-    }
-
     public static RequestDiagnosticContext createRequestDiagnosticContext() {
         return ImmutableRequestDiagnosticContext.builder()
                 .invocationId(UUID.randomUUID()).requestId(UUID.randomUUID()).build();

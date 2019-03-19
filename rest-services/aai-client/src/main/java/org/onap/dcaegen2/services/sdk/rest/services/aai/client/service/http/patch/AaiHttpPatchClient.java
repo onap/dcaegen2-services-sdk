@@ -30,8 +30,6 @@ import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClientResponse;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
-import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.performBasicAuthentication;
-
 
 public final class AaiHttpPatchClient implements AaiHttpClient<HttpClientResponse> {
 
@@ -43,7 +41,6 @@ public final class AaiHttpPatchClient implements AaiHttpClient<HttpClientRespons
     public AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder) {
         this.configuration = configuration;
         this.jsonBodyBuilder = jsonBodyBuilder;
-        addAuthorizationBasicHeader();
     }
 
     public Mono<HttpClientResponse> getAaiResponse(AaiModel aaiModel) {
@@ -64,8 +61,4 @@ public final class AaiHttpPatchClient implements AaiHttpClient<HttpClientRespons
                 .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
     }
 
-    private void addAuthorizationBasicHeader() {
-        configuration.aaiHeaders().put("Authorization",
-                "Basic " + performBasicAuthentication(configuration.aaiUserName(), configuration.aaiUserPassword()));
-    }
 }
