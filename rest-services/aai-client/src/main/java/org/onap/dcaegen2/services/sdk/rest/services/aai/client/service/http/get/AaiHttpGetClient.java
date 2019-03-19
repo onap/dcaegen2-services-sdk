@@ -28,8 +28,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import reactor.core.publisher.Mono;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
-import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.performBasicAuthentication;
-
 
 public final class AaiHttpGetClient implements AaiHttpClient<String> {
 
@@ -39,7 +37,6 @@ public final class AaiHttpGetClient implements AaiHttpClient<String> {
 
     public AaiHttpGetClient(AaiClientConfiguration configuration) {
         this.configuration = configuration;
-        addAuthorizationBasicHeader();
     }
 
     @Override
@@ -60,8 +57,4 @@ public final class AaiHttpGetClient implements AaiHttpClient<String> {
                 .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
     }
 
-    private void addAuthorizationBasicHeader() {
-        configuration.aaiHeaders().put("Authorization",
-                "Basic " + performBasicAuthentication(configuration.aaiUserName(), configuration.aaiUserPassword()));
-    }
 }
