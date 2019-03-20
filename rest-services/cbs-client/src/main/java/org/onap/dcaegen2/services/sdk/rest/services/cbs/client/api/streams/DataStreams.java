@@ -29,6 +29,38 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Dat
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 
 /**
+ * Extract streams from the application configuration represented as GSON JsonObject.
+ *
+ * Example input:
+ * <pre>
+ * {
+ *     "application_config_1": "value_1,
+ *     ...
+ *     "streams_publishes": {
+ *         "stream1": {
+ *             "type": "message_router",
+ *             "dmaap_info": {
+ *                 ...
+ *             }
+ *         },
+ *         "stream2": {
+ *             "type": "data_router",
+ *             "dmaap_info": {
+ *                 ...
+ *             }
+ *         }
+ *     },
+ *     "streams_subscribes": {
+ *         "stream3": {
+ *             "type": "message_router",
+ *             "dmaap_info": {
+ *                 ...
+ *             }
+ *         },
+ *     }
+ * }
+ * </pre>
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
@@ -38,10 +70,78 @@ public final class DataStreams {
     private DataStreams() {
     }
 
+    /**
+     * <p>
+     * Extracts sources from application configuration. Parses <em>streams_subscribes</em> subtree.
+     * </p>
+     *
+     * <p>
+     * For sample input it will yield:
+     * </p>
+     *
+     * <pre>
+     * [
+     *     RawDataStream{
+     *         name="stream3"
+     *         type="message_router"
+     *         direction=SOURCE
+     *         descriptor=JsonObject{
+     *             type: "message_router",
+     *             dmaap_info: {
+     *                 ...
+     *             }
+     *         }
+     *     }
+     * ]
+     * </pre>
+     *
+     * @param rootJson - the full application configuration
+     * @return io.vavr.collection.Stream of data streams
+     */
     public static Stream<RawDataStream<JsonObject>> namedSources(JsonObject rootJson) {
         return createCollectionOfStreams(rootJson, DataStreamDirection.SOURCE);
     }
 
+
+    /**
+     * <p>
+     * Extracts sinks from application configuration. Parses <em>streams_publishes</em> subtree.
+     * </p>
+     *
+     * <p>
+     * For sample input it will yield:
+     * </p>
+     *
+     * <pre>
+     * [
+     *     RawDataStream{
+     *         name="stream1"
+     *         type="message_router"
+     *         direction=SINK
+     *         descriptor=JsonObject{
+     *             type: "message_router",
+     *             dmaap_info: {
+     *                 ...
+     *             }
+     *         }
+     *     },
+     *     RawDataStream{
+     *         name="stream2"
+     *         type="data_router"
+     *         direction=SINK
+     *         descriptor=JsonObject{
+     *             type: "data_router"
+     *             dmaap_info: {
+     *                 ...
+     *             }
+     *         }
+     *     }
+     * ]
+     * </pre>
+     *
+     * @param rootJson - the full application configuration
+     * @return io.vavr.collection.Stream of data streams
+     */
     public static Stream<RawDataStream<JsonObject>> namedSinks(JsonObject rootJson) {
         return createCollectionOfStreams(rootJson, DataStreamDirection.SINK);
     }

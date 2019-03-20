@@ -36,6 +36,10 @@ public class StreamParsingException extends CbsClientException {
         this.cause = cause;
     }
 
+    public StreamParsingException(String message) {
+        this(new StreamParserError(message));
+    }
+
     public StreamParserError cause() {
         return cause;
     }

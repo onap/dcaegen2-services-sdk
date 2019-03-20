@@ -17,7 +17,6 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
 import static io.vavr.Predicates.not;
@@ -35,21 +34,44 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Aaf
 @ExperimentalApi
 public interface Kafka {
 
+    /**
+     * Kafka bootstrap servers as defined in Kafka client documentation under <em>bootstrap.servers</em> configuration
+     * key.
+     */
     String bootstrapServers();
 
+    /**
+     * The name of the topic where application should publish or subscribe for the messages.
+     */
     String topicName();
 
+    /**
+     * The credentials to use when authenticating to Kafka cluster or null when connection should be unauthenticated.
+     */
     @Nullable AafCredentials aafCredentials();
 
+    /**
+     * AAF client role that’s requesting publish or subscribe access to the topic.
+     */
     @Nullable String clientRole();
 
+    /**
+     * Client id for given AAF client
+     */
     @Nullable String clientId();
 
+    /**
+     * The limit on the size of message published to/subscribed from the topic. Can be used to set Kafka client
+     * <em>max.request.size</em> configuration property.
+     */
     @Value.Default
     default int maxPayloadSizeBytes() {
         return 1024 * 1024;
     }
 
+    /**
+     * The {@code bootstrapServers} converted to list of servers.
+     */
     @Value.Derived
     default List<String> bootstrapServerList() {
         return List.of(bootstrapServers().split(",")).filter(not(String::isEmpty));

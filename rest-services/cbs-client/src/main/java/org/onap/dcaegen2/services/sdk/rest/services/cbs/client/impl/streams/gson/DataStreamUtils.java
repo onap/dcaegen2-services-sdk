@@ -24,6 +24,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.vavr.collection.Stream;
 import java.io.IOException;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableRawDataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
@@ -48,11 +49,11 @@ public final class DataStreamUtils {
             String expectedType,
             DataStreamDirection expectedDirection) {
         if (!json.type().equals(expectedType)) {
-            throw new IllegalArgumentException(
+            throw new StreamParsingException(
                     "Invalid stream type. Expected '" + expectedType + "', but was '" + json.type() + "'");
         }
         if (json.direction() != expectedDirection) {
-            throw new IllegalArgumentException(
+            throw new StreamParsingException(
                     "Invalid stream direction. Expected '" + expectedDirection + "', but was '" + json.direction()
                             + "'");
         }

@@ -23,8 +23,11 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 import org.immutables.value.Value;
 
 /**
+ * Represents a raw/uninterpreted data stream.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since March 2019
+ * @since 1.1.4
+ * @param <T> type of raw data, eg. JsonObject
  */
 @Value.Immutable
 public interface RawDataStream<T> {
