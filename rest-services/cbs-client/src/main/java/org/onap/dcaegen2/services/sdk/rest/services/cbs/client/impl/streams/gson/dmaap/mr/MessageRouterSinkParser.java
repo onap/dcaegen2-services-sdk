@@ -39,12 +39,12 @@ public final class MessageRouterSinkParser implements StreamFromGsonParser<Messa
 
     private final Gson gson;
 
-    public static MessageRouterSinkParser create() {
-        return new MessageRouterSinkParser(gsonInstance());
-    }
-
     private MessageRouterSinkParser(Gson gson) {
         this.gson = gson;
+    }
+
+    public static MessageRouterSinkParser create() {
+        return new MessageRouterSinkParser(gsonInstance());
     }
 
     @Override

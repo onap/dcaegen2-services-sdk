@@ -42,12 +42,12 @@ import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.strea
 public final class KafkaSourceParser implements StreamFromGsonParser<KafkaSource> {
     private final Gson gson;
 
-    public static KafkaSourceParser create() {
-        return new KafkaSourceParser(gsonInstance());
-    }
-
     private KafkaSourceParser(Gson gson) {
         this.gson = gson;
+    }
+
+    public static KafkaSourceParser create() {
+        return new KafkaSourceParser(gsonInstance());
     }
 
     @Override

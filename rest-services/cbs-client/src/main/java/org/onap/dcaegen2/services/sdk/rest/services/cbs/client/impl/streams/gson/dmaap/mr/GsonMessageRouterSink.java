@@ -30,7 +30,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
 
 public class GsonMessageRouterSink extends GsonMessageRouter implements MessageRouterSink {
     GsonMessageRouterSink(
-            String name, @NotNull MessageRouterDmaapInfo dmaapInfo,
+            String name,
+            @NotNull MessageRouterDmaapInfo dmaapInfo,
             @Nullable AafCredentials aafCredentials) {
         super(name, dmaapInfo, aafCredentials);
     }

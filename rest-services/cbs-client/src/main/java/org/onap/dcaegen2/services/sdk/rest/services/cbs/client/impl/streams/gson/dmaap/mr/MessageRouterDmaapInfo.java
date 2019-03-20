@@ -27,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
 @Gson.TypeAdapters
 @Value.Immutable
 public interface MessageRouterDmaapInfo {
-
     @SerializedName("topic_url")
     String topicUrl();
 
