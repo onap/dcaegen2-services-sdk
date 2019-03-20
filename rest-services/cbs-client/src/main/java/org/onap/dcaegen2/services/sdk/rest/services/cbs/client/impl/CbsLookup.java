@@ -23,7 +23,10 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ResponseTransformer;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.SimpleHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.ServiceLookupException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import reactor.core.publisher.Mono;
@@ -36,9 +39,9 @@ public class CbsLookup {
 
     private static final String CONSUL_JSON_SERVICE_ADDRESS = "ServiceAddress";
     private static final String CONSUL_JSON_SERVICE_PORT = "ServicePort";
-    private final CloudHttpClient httpClient;
+    private final SimpleHttpClient httpClient;
 
-    public CbsLookup(CloudHttpClient httpClient) {
+    public CbsLookup(SimpleHttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
@@ -54,7 +57,13 @@ public class CbsLookup {
     }
 
     private Mono<JsonArray> fetchHttpData(String consulUrl) {
-        return httpClient.get(consulUrl, JsonArray.class);
+        return httpClient.call(
+                ImmutableHttpRequest.builder()
+                        .method(HttpMethod.GET)
+                        .url(consulUrl)
+                        .build(),
+                ResponseTransformer.fromJson(JsonArray.class)
+        );
     }
 
     private Mono<JsonObject> firstService(JsonArray services) {
