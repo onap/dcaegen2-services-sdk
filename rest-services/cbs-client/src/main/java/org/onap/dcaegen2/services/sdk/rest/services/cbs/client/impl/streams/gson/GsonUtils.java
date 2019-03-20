@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr.GsonAdaptersMessageRouterDmaapInfo;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka.GsonAdaptersKafkaInfo;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.GsonAdaptersAafCredentials;
@@ -71,7 +72,7 @@ public final class GsonUtils {
 
     public static JsonElement requiredChild(JsonObject parent, String childName) {
         return optionalChild(parent, childName)
-                .getOrElseThrow(() -> new IllegalArgumentException(
+                .getOrElseThrow(() -> new StreamParsingException(
                         "Could not find sub-node '" + childName + "'. Actual sub-nodes: "
                                 + stringifyChildrenNames(parent)));
 

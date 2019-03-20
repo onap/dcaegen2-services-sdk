@@ -23,10 +23,11 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
- * AKA PublishStream
+ * Represents an output stream, ie. one of objects in <em>streams_publishes</em> array from application configuration.
+ * Application can put data to this stream.
  *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since 1.1.4
  */
 @ExperimentalApi
 public interface SinkStream extends DataStream {

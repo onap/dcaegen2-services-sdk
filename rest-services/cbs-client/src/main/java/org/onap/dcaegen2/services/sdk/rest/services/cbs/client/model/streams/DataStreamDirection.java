@@ -21,8 +21,10 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 
 /**
+ * The direction of the stream, ie. whether it's input ({@code SOURCE}) or output ({@code SINK}) stream.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since March 2019
+ * @since 1.1.4
  */
 public enum DataStreamDirection {
 
@@ -35,6 +37,11 @@ public enum DataStreamDirection {
         this.configurationKey = configurationKey;
     }
 
+    /**
+     * The configuration key under which the single stream definitions should reside.
+     *
+     * @return the configuration key
+     */
     public String configurationKey() {
         return configurationKey;
     }

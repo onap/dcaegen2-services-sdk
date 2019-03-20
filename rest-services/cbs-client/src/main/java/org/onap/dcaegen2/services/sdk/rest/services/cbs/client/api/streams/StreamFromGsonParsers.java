@@ -29,6 +29,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.*;
 
 /**
+ * Factory methods for GSON-based {@code StreamParser}s
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
@@ -37,26 +39,56 @@ public final class StreamFromGsonParsers {
     private StreamFromGsonParsers() {
     }
 
+    /**
+     * Creates a stream parser capable of parsing Kafka sinks.
+     *
+     * @return a stream parser
+     */
     public static StreamFromGsonParser<KafkaSink> kafkaSinkParser() {
         return KafkaSinkParser.create();
     }
 
+    /**
+     * Creates a stream parser capable of parsing Kafka sources.
+     *
+     * @return a stream parser
+     */
     public static StreamFromGsonParser<KafkaSource> kafkaSourceParser() {
         return KafkaSourceParser.create();
     }
 
+    /**
+     * Creates a stream parser capable of parsing DMaaP Message Router sinks.
+     *
+     * @return a stream parser
+     */
     public static StreamFromGsonParser<MessageRouterSink> messageRouterSinkParser() {
         return MessageRouterSinkParser.create();
     }
 
+    /**
+     * Creates a stream parser capable of parsing DMaaP Message Router sources.
+     *
+     * @return a stream parser
+     */
     public static StreamFromGsonParser<MessageRouterSource> messageRouterSourceParser() {
         return MessageRouterSourceParser.create();
     }
 
+    /**
+     * Creates a stream parser capable of parsing DMaaP Data Router sinks.
+     *
+     * @return a stream parser
+     */
     public static StreamFromGsonParser<DataRouterSink> dataRouterSinkParser() {
         return DataRouterSinkParser.create();
     }
 
+    /**
+     * Creates a stream parser capable of parsing DMaaP Data Router sources.
+     *
+     * @return a stream parser
+     */
     public static StreamFromGsonParser<DataRouterSource> dataRouterSourceParser() {
         return DataRouterSourceParser.create();
     }

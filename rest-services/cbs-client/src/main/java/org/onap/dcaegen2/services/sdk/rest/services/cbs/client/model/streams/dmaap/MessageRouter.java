@@ -17,9 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
-
 
 import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.Nullable;
@@ -28,23 +26,38 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Aaf
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version 1.2.1
+ * @since 1.1.4
  */
 @ExperimentalApi
 public interface MessageRouter {
 
+    /**
+     * URL for accessing the topic to publish or receive events.
+     */
     @SerializedName("topic_url")
     String topicUrl();
 
+    /**
+     * AAF client role that’s requesting publish or subscribe access to the topic.
+     */
     @SerializedName("client_role")
     @Nullable String clientRole();
 
+    /**
+     * Client id for given AAF client.
+     */
     @SerializedName("client_id")
     @Nullable String clientId();
 
+    /**
+     * DCAE location for the publisher or subscriber, used to set up routing.
+     */
     @SerializedName("location")
     @Nullable String location();
 
+    /**
+     * The AAF credentials.
+     */
     @SerializedName("aaf_credentials")
     @Nullable AafCredentials aafCredentials();
 }

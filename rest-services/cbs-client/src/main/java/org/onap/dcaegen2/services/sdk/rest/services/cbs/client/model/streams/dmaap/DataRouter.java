@@ -17,7 +17,6 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
 
@@ -27,17 +26,34 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version 1.2.1
+ * @since 1.1.4
  */
 @ExperimentalApi
 public interface DataRouter {
 
+    /**
+     * DCAE location for the publisher, used to set up routing.
+     */
     @SerializedName("location")
     @Nullable String location();
 
+    /**
+     * Username
+     * <ul>
+     * <li>Data Router uses to authenticate to the subscriber when delivering files OR</li>
+     * <li>the publisher uses to authenticate to Data Router.</li>
+     * </ul>
+     */
     @SerializedName("username")
     @Nullable String username();
 
+    /**
+     * Password
+     * <ul>
+     * <li>Data Router uses to authenticate to the subscriber when delivering files OR</li>
+     * <li>the publisher uses to authenticate to Data Router.</li>
+     * </ul>
+     */
     @SerializedName("password")
     @Nullable String password();
 }
