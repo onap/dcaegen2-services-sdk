@@ -35,18 +35,14 @@ public final class AaiHttpGetClient implements AaiHttpClient<String> {
     private final AaiClientConfiguration configuration;
 
 
-    public AaiHttpGetClient(AaiClientConfiguration configuration) {
+    public AaiHttpGetClient(AaiClientConfiguration configuration, CloudHttpClient httpGetClient) {
         this.configuration = configuration;
+        this.httpGetClient = httpGetClient;
     }
 
     @Override
     public Mono<String> getAaiResponse(AaiModel aaiModel) {
         return httpGetClient.get(getUri(aaiModel.getCorrelationId()), createRequestDiagnosticContext(), configuration.aaiHeaders(), String.class);
-    }
-
-    public AaiHttpGetClient createAaiHttpClient(CloudHttpClient httpGetClient) {
-        this.httpGetClient = httpGetClient;
-        return this;
     }
 
     private String getUri(String pnfName) {
