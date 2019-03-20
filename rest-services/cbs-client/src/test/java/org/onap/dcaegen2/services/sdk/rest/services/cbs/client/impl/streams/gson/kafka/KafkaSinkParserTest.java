@@ -18,22 +18,21 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import io.vavr.Function1;
 import io.vavr.control.Either;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.DataStreamUtils;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka.KafkaSinkParser;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableAafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSink;
 
 /**
@@ -52,7 +51,7 @@ class KafkaSinkParserTest {
     @Test
     void shouldParseMinimalKafkaSinkDefinition() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/kafka_sink_minimal.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSinkFromResource("/streams/kafka_sink_minimal.json");
 
         // when
         final KafkaSink result = cut.unsafeParse(input);
@@ -66,15 +65,19 @@ class KafkaSinkParserTest {
     }
 
     @Test
-    void shouldParseBasicKafkaSinkDefinition() throws IOException {
+    void shouldParseFullKafkaSinkDefinition() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/kafka_sink.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSinkFromResource("/streams/kafka_sink.json");
 
         // when
         final KafkaSink result = cut.unsafeParse(input);
 
         // then
-        assertThat(result.aafCredentials()).isNull();
+        final ImmutableAafCredentials expectedCredentials = ImmutableAafCredentials.builder()
+                .username("the user")
+                .password("the passwd")
+                .build();
+        assertThat(result.aafCredentials()).isEqualTo(expectedCredentials);
         assertThat(result.bootstrapServers()).isEqualTo("dmaap-mr-kafka-0:6060,dmaap-mr-kafka-1:6060");
         assertThat(result.topicName()).isEqualTo("HVVES_PERF3GPP");
         assertThat(result.clientId()).isEqualTo("1500462518108");
@@ -84,7 +87,7 @@ class KafkaSinkParserTest {
     @Test
     void shouldReturnErrorWhenStructureIsWrong() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/kafka_sink_missing_child.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSinkFromResource("/streams/kafka_sink_missing_child.json");
 
         // when
         final Either<StreamParserError, KafkaSink> result = cut.parse(input);
@@ -99,7 +102,7 @@ class KafkaSinkParserTest {
     @Test
     void shouldReturnErrorWhenTypeIsWrong() throws IOException {
         // given
-        JsonObject input = GsonUtils.readObjectFromResource("/streams/kafka_sink_invalid_type.json");
+        RawDataStream<JsonObject> input = DataStreamUtils.readSinkFromResource("/streams/kafka_invalid_type.json");
 
         // when
         final Either<StreamParserError, KafkaSink> result = cut.parse(input);
@@ -110,6 +113,21 @@ class KafkaSinkParserTest {
             assertThat(error.message()).containsIgnoringCase("invalid stream type");
             assertThat(error.message()).containsIgnoringCase("kafka");
             assertThat(error.message()).containsIgnoringCase("message_router");
+        });
+    }
+
+    @Test
+    void shouldReturnErrorWhenDirectionIsWrong() throws IOException {
+        // given
+        RawDataStream<JsonObject> input = DataStreamUtils.readSourceFromResource("/streams/kafka_sink.json");
+
+        // when
+        final Either<StreamParserError, KafkaSink> result = cut.parse(input);
+
+        // then
+        assertThat(result.isRight()).describedAs("should not be right").isFalse();
+        result.peekLeft(error -> {
+            assertThat(error.message()).containsIgnoringCase("invalid stream direction");
         });
     }
 }

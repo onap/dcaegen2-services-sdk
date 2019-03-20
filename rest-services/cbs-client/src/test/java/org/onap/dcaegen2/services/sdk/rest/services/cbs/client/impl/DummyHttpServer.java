@@ -21,9 +21,6 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import io.vavr.CheckedFunction0;
-import io.vavr.Function0;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
