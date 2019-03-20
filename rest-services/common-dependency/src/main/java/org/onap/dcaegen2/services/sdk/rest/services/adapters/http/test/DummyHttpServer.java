@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
+package org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test;
 
 import io.vavr.CheckedFunction0;
 import java.net.URL;
