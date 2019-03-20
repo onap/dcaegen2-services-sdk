@@ -90,6 +90,12 @@ public class CloudHttpClient {
         return callHttpPatch(clientWithHeaders, url, jsonBodyBuilder, clientModel);
     }
 
+    public Mono<HttpClientResponse> put(String url, RequestDiagnosticContext context, Map<String, String> customHeaders,
+        JsonBodyBuilder jsonBodyBuilder, ClientModel clientModel) {
+        final HttpClient clientWithHeaders = getHttpClientWithHeaders(context, customHeaders);
+        return callHttpPut(clientWithHeaders, url, jsonBodyBuilder, clientModel);
+    }
+
     private HttpClient getHttpClientWithHeaders(RequestDiagnosticContext context, Map<String, String> customHeaders) {
         final HttpClient clientWithHeaders = httpClient
             .doOnRequest((req, conn) -> logRequest(context, req))
@@ -118,6 +124,13 @@ public class CloudHttpClient {
     private <T extends ClientModel> Mono<HttpClientResponse> callHttpPatch(HttpClient client, String url,
         JsonBodyBuilder<T> jsonBodyBuilder, T clientModel) {
         return client.baseUrl(url).patch()
+            .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(clientModel))))
+            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse));
+    }
+
+    private <T extends ClientModel> Mono<HttpClientResponse> callHttpPut(HttpClient client, String url,
+        JsonBodyBuilder<T> jsonBodyBuilder, T clientModel) {
+        return client.baseUrl(url).put()
             .send(ByteBufFlux.fromString(Mono.just(jsonBodyBuilder.createJsonBody(clientModel))))
             .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse));
     }
