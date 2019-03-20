@@ -24,22 +24,24 @@ import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.BodyTransformer;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.SimpleHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 
 public class CbsClientImpl implements CbsClient {
 
-    private final CloudHttpClient httpClient;
+    private final SimpleHttpClient httpClient;
     private final String fetchUrl;
 
-    CbsClientImpl(CloudHttpClient httpClient, URL fetchUrl) {
+    CbsClientImpl(SimpleHttpClient httpClient, URL fetchUrl) {
         this.httpClient = httpClient;
         this.fetchUrl = fetchUrl.toString();
     }
 
-    public static CbsClientImpl create(CloudHttpClient httpClient, InetSocketAddress cbsAddress, String serviceName) {
+    public static CbsClientImpl create(SimpleHttpClient httpClient, InetSocketAddress cbsAddress, String serviceName) {
         return new CbsClientImpl(httpClient, constructUrl(cbsAddress, serviceName));
     }
 
@@ -57,6 +59,13 @@ public class CbsClientImpl implements CbsClient {
 
     @Override
     public @NotNull Mono<JsonObject> get(RequestDiagnosticContext diagnosticContext) {
-        return Mono.defer(() -> httpClient.get(fetchUrl, diagnosticContext, JsonObject.class));
+        return Mono.defer(() ->
+                httpClient.call(
+                        ImmutableHttpRequest.builder()
+                                .diagnosticContext(diagnosticContext)
+                                .url(fetchUrl)
+                                .build(),
+                        BodyTransformer.fromJson(JsonObject.class))
+        );
     }
 }

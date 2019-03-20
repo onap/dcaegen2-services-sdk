@@ -22,8 +22,12 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -31,7 +35,11 @@ import com.google.gson.JsonParser;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.mockito.ArgumentCaptor;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.BodyTransformer;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.SimpleHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.ServiceLookupException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
@@ -49,7 +57,7 @@ class CbsLookupTest {
             .consulHost("consul.local")
             .consulPort(8050)
             .appName("whatever").build();
-    private final CloudHttpClient httpClient = mock(CloudHttpClient.class);
+    private final SimpleHttpClient httpClient = mock(SimpleHttpClient.class);
     private final CbsLookup cut = new CbsLookup(httpClient);
 
     @Test
@@ -63,6 +71,14 @@ class CbsLookupTest {
         // then
         assertThat(result.getHostString()).isEqualTo("config-binding-service");
         assertThat(result.getPort()).isEqualTo(10000);
+
+        final String url = "http://"
+                + env.consulHost()
+                + ":"
+                + env.consulPort()
+                + "/v1/catalog/service/"
+                + env.cbsName();
+        verifyHttpGetHasBeenCalled(url);
     }
 
     @Test
@@ -82,14 +98,16 @@ class CbsLookupTest {
     }
 
     private void givenConsulResponse(JsonArray jsonArray) {
-        final String url = "http://"
-                + env.consulHost()
-                + ":"
-                + env.consulPort()
-                + "/v1/catalog/service/"
-                + env.cbsName();
-        given(httpClient.get(url, JsonArray.class))
+        given(httpClient.call(any(HttpRequest.class), any(BodyTransformer.class)))
                 .willReturn(Mono.just(jsonArray));
     }
+
+    private void verifyHttpGetHasBeenCalled(String url) {
+        final ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
+        verify(httpClient).call(httpRequestArgumentCaptor.capture(), isA(BodyTransformer.class));
+        assertThat(httpRequestArgumentCaptor.getValue().url()).isEqualTo(url);
+        assertThat(httpRequestArgumentCaptor.getValue().method()).isEqualTo(HttpMethod.GET);
+    }
+
 
 }
