@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c46090e3_6f450449",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/streams/StreamFromGsonParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-03-20T16:11:05Z",
+      "side": 1,
+      "message": "\"Represents a stream parser, which takes GSON JsonObject as an input.\" Sounds better i guess. \nAlso make a @code link for the JsonObject class if possible.",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc8d9cbb_fc2b568a",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/DataStreamDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-03-20T16:11:05Z",
+      "side": 1,
+      "message": "Use period instead of comma and expand the \"ie.\" acronym",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd9a7f7f_ab6b38ee",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/SinkStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-03-20T16:11:05Z",
+      "side": 1,
+      "message": "Same case as in DataStreamDirection class",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e3bf368_0163f96f",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/SourceStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-03-20T16:11:05Z",
+      "side": 1,
+      "message": "Same case as before",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10af65ca_65af0521",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-03-20T16:11:05Z",
+      "side": 1,
+      "message": "\"Used by Data Router..OR by publisher to authenticate..\" sounds better. Consider using this form when describing Password",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7eea8f0e_b1ded813",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouterSource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-03-20T16:11:05Z",
+      "side": 1,
+      "message": "Verify sentences for missing periods",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "075b0a7f_50b96e85",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/Kafka.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-03-20T16:11:05Z",
+      "side": 1,
+      "message": "\"to the list of servers\u0027 addresses\"",
+      "range": {
+        "startLine": 73,
+        "startChar": 46,
+        "endLine": 73,
+        "endChar": 64
+      },
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
