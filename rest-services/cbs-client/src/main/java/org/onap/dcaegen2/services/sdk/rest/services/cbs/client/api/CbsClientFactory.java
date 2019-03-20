@@ -20,7 +20,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 
 import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.SimpleHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientImpl;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
@@ -53,7 +53,7 @@ public class CbsClientFactory {
      */
     public static @NotNull Mono<CbsClient> createCbsClient(EnvProperties env) {
         return Mono.defer(() -> {
-            final CloudHttpClient httpClient = new CloudHttpClient();
+            final SimpleHttpClient httpClient = new SimpleHttpClient();
             final CbsLookup lookup = new CbsLookup(httpClient);
             return lookup.lookup(env)
                     .map(addr -> CbsClientImpl.create(httpClient, addr, env.appName()));
