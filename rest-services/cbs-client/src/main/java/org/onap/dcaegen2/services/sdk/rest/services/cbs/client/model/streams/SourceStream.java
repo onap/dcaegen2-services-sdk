@@ -23,10 +23,11 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
- * AKA SubscribeStream
+ * Represents an input stream, ie. one of objects in <em>streams_subscribes</em> array from application configuration.
+ * Application can read data from this stream.
  *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version  1.2.1
+ * @since 1.1.4
  */
 @ExperimentalApi
 public interface SourceStream extends DataStream {

@@ -35,6 +35,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttp
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.DataStreams;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
@@ -222,7 +223,7 @@ class CbsClientImplIT {
         // then
         StepVerifier.create(result)
                 .expectErrorSatisfies(ex -> {
-                    assertThat(ex).isInstanceOf(IllegalArgumentException.class);
+                    assertThat(ex).isInstanceOf(StreamParsingException.class);
                     assertThat(ex).hasMessageContaining("Invalid stream type");
                     assertThat(ex).hasMessageContaining("message_router");
                     assertThat(ex).hasMessageContaining("kafka");

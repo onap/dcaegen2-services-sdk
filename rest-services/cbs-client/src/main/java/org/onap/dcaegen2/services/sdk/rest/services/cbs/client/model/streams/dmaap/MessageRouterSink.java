@@ -17,7 +17,6 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
 import org.immutables.value.Value;
@@ -26,7 +25,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Sin
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @version 1.2.1
+ * @since 1.1.4
  */
 @ExperimentalApi
 @Value.Immutable
