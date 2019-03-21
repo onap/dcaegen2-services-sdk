@@ -56,7 +56,7 @@ public class CbsClientFactory {
             final CloudHttpClient httpClient = new CloudHttpClient();
             final CbsLookup lookup = new CbsLookup(httpClient);
             return lookup.lookup(env)
-                    .map(addr -> CbsClientImpl.create(httpClient, addr, env.appName()));
+                    .map(addr -> new CbsClientImpl(httpClient, addr));
         });
     }
 }

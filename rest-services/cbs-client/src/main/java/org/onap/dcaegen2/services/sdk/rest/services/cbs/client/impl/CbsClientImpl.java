@@ -26,37 +26,48 @@ import java.net.URL;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 public class CbsClientImpl implements CbsClient {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientImpl.class);
     private final CloudHttpClient httpClient;
-    private final String fetchUrl;
+    private final InetSocketAddress cbsAddress;
 
-    CbsClientImpl(CloudHttpClient httpClient, URL fetchUrl) {
+    public CbsClientImpl(CloudHttpClient httpClient, InetSocketAddress cbsAddress) {
         this.httpClient = httpClient;
-        this.fetchUrl = fetchUrl.toString();
+        this.cbsAddress = cbsAddress;
     }
 
-    public static CbsClientImpl create(CloudHttpClient httpClient, InetSocketAddress cbsAddress, String serviceName) {
-        return new CbsClientImpl(httpClient, constructUrl(cbsAddress, serviceName));
-    }
-
-    private static URL constructUrl(InetSocketAddress cbsAddress, String serviceName) {
+    private URL constructUrl(CbsRequest request) {
         try {
             return new URL(
                     "http",
                     cbsAddress.getHostString(),
                     cbsAddress.getPort(),
-                    "/service_component/" + serviceName);
+                    request.requestPath());
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException("Invalid CBS URL", e);
         }
     }
 
     @Override
-    public @NotNull Mono<JsonObject> get(RequestDiagnosticContext diagnosticContext) {
-        return Mono.defer(() -> httpClient.get(fetchUrl, diagnosticContext, JsonObject.class));
+    public @NotNull Mono<JsonObject> get(CbsRequest request) {
+        return Mono.fromCallable(() -> constructUrl(request).toString())
+                .doOnNext(this::logRequestUrl)
+                .flatMap(url -> httpClient.get(url, request.diagnosticContext(), JsonObject.class))
+                .doOnNext(this::logCbsResponse);
+    }
+
+    private void logRequestUrl(String url) {
+        LOGGER.debug("Calling {} for configuration", url);
+    }
+
+    private void logCbsResponse(JsonObject json) {
+        LOGGER.info("Got successful response from Config Binding Service");
+        LOGGER.debug("CBS response: {}", json);
     }
 }
