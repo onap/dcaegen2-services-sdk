@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cd55433_b64e79e5",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-21T08:29:06Z",
+      "side": 1,
+      "message": "I\u0027d highly discourage using package-scoped constructors for testing only and recommend using a more \"sophisticated\" solution like a factory instead:) The main benefits are you do not end up with an unnatural piece of code, that is not used in production, HttpClient responsibility is moved away from the SimpleHttpClient to a separate entity which will allow more flexibility if any additional configuration is needed (instead of adding another constructor).\n\nSince a factory would replace the construction rules it should also be the only way to get instances of SimpleHttpClient:\n- factory and SimpleClient reside in same package\n- SimpleHttpClient changed to packaged scoped and construction only allowed through factory\n- factory would have two methods for construction (replacing default and SslContext constructors)\n- Only the parametrized, package-scoped constructor would be left inside SimpleHttpClient (used by factory)\n- unit tests can use the SimpleHttpClient or the factory*.\n* in this case you would need a way to inject a mocked HttpClient. This would require declaring the HttpClient as a field inside the factory, and using mockito @InjectMocks for reflection based injection - which in my opinion is one of the rare cases when it should be permitted as the factory as a initializer is part of the logic\u0027s \"main\" that glues stuff together. \nConsider it :)",
+      "revId": "bfd42f4ef82b54b6f09deb43fb38a6dd79de6590",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
