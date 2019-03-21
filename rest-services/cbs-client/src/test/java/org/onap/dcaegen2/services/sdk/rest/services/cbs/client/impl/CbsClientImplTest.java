@@ -29,13 +29,14 @@ import static org.mockito.Mockito.verify;
 import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 
@@ -51,7 +52,7 @@ class CbsClientImplTest {
         // given
         InetSocketAddress cbsAddress = InetSocketAddress.createUnresolved("cbshost", 6969);
         String serviceName = "dcaegen2-ves-collector";
-        final CbsClientImpl cut = CbsClientImpl.create(httpClient, cbsAddress, serviceName);
+        final CbsClient cut = new CbsClientImpl(httpClient, serviceName, cbsAddress);
         final HttpResponse httpResponse = ImmutableHttpResponse.builder()
                 .url("http://xxx")
                 .statusCode(200)
@@ -61,7 +62,7 @@ class CbsClientImplTest {
         RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
 
         // when
-        final JsonObject result = cut.get(diagnosticContext).block();
+        final JsonObject result = cut.get(CbsRequests.getConfiguration(diagnosticContext)).block();
 
         // then
         final String expectedUrl = "http://cbshost:6969/service_component/dcaegen2-ves-collector";

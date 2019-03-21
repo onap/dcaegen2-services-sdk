@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
@@ -29,6 +30,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpR
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.ServiceLookupException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 /**
@@ -37,6 +40,7 @@ import reactor.core.publisher.Mono;
  */
 public class CbsLookup {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CbsLookup.class);
     private static final String CONSUL_JSON_SERVICE_ADDRESS = "ServiceAddress";
     private static final String CONSUL_JSON_SERVICE_PORT = "ServicePort";
     private final RxHttpClient httpClient;
@@ -47,13 +51,20 @@ public class CbsLookup {
 
     public Mono<InetSocketAddress> lookup(EnvProperties env) {
         return Mono.fromCallable(() -> createConsulUrl(env))
+                .doOnNext(this::logConsulRequestUrl)
                 .flatMap(this::fetchHttpData)
+                .doOnNext(this::logConsulResponse)
                 .flatMap(this::firstService)
-                .map(this::parseServiceEntry);
+                .map(this::parseServiceEntry)
+                .doOnNext(this::logCbsServiceAddress);
     }
 
     private String createConsulUrl(EnvProperties env) {
         return String.format("http://%s:%s/v1/catalog/service/%s", env.consulHost(), env.consulPort(), env.cbsName());
+    }
+
+    private void logConsulRequestUrl(String consulUrl) {
+        LOGGER.debug("Calling Consul for CBS address. consulUrl={}", consulUrl);
     }
 
     private Mono<JsonArray> fetchHttpData(String consulUrl) {
@@ -66,6 +77,10 @@ public class CbsLookup {
                 .map(resp -> resp.bodyAsJson(JsonArray.class));
     }
 
+    private void logConsulResponse(JsonArray consulResponse) {
+        LOGGER.debug("Consul response with CBS service list. Will use 1st one. response={}", consulResponse);
+    }
+
     private Mono<JsonObject> firstService(JsonArray services) {
         return services.size() == 0
                 ? Mono.error(new ServiceLookupException("Consul server did not return any service with given name"))
@@ -76,6 +91,10 @@ public class CbsLookup {
         return InetSocketAddress.createUnresolved(
                 service.get(CONSUL_JSON_SERVICE_ADDRESS).getAsString(),
                 service.get(CONSUL_JSON_SERVICE_PORT).getAsInt());
+    }
+
+    private void logCbsServiceAddress(InetSocketAddress address) {
+        LOGGER.info("Config Binding Service address: {}", address);
     }
 
 }
