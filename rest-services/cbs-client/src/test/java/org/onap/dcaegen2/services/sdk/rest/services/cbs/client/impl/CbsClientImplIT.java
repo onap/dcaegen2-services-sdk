@@ -33,9 +33,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientFactory;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.DataStreams;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
@@ -88,10 +90,10 @@ class CbsClientImplIT {
     void testCbsClientWithSingleCall() {
         // given
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
-        final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create(), sampleEnvironment);
 
         // when
-        final Mono<JsonObject> result = sut.flatMap(cbsClient -> cbsClient.get(diagnosticContext));
+        final Mono<JsonObject> result = sut.flatMap(cbsClient -> cbsClient.get(request));
 
         // then
         StepVerifier.create(result.map(this::sampleConfigValue))
@@ -104,11 +106,11 @@ class CbsClientImplIT {
     void testCbsClientWithPeriodicCall() {
         // given
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
-        final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create(), sampleEnvironment);
 
         // when
         final Flux<JsonObject> result = sut
-                .flatMapMany(cbsClient -> cbsClient.get(diagnosticContext, Duration.ZERO, Duration.ofMillis(10)));
+                .flatMapMany(cbsClient -> cbsClient.get(request, Duration.ZERO, Duration.ofMillis(10)));
 
         // then
         final int itemsToTake = 5;
@@ -122,12 +124,12 @@ class CbsClientImplIT {
     void testCbsClientWithUpdatesCall() {
         // given
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
-        final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create(), sampleEnvironment);
         final Duration period = Duration.ofMillis(10);
 
         // when
         final Flux<JsonObject> result = sut
-                .flatMapMany(cbsClient -> cbsClient.updates(diagnosticContext, Duration.ZERO, period));
+                .flatMapMany(cbsClient -> cbsClient.updates(request, Duration.ZERO, period));
 
         // then
         final Duration timeToCollectItemsFor = period.multipliedBy(50);
@@ -142,10 +144,10 @@ class CbsClientImplIT {
         // given
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
         final StreamFromGsonParser<KafkaSink> kafkaSinkParser = StreamFromGsonParsers.kafkaSinkParser();
-        final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create(), sampleEnvironment);
 
         // when
-        final Mono<KafkaSink> result = sut.flatMap(cbsClient -> cbsClient.get(diagnosticContext))
+        final Mono<KafkaSink> result = sut.flatMap(cbsClient -> cbsClient.get(request))
                 .map(json ->
                         DataStreams.namedSinks(json).map(kafkaSinkParser::unsafeParse).head()
                 );
@@ -165,13 +167,13 @@ class CbsClientImplIT {
     void testCbsClientWithStreamsParsingUsingSwitch() {
         // given
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
-        final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create(), sampleEnvironment);
         // TODO: Use these parsers below
         final StreamFromGsonParser<KafkaSink> kafkaSinkParser = StreamFromGsonParsers.kafkaSinkParser();
         final StreamFromGsonParser<MessageRouterSink> mrSinkParser = StreamFromGsonParsers.messageRouterSinkParser();
 
         // when
-        final Mono<Void> result = sut.flatMap(cbsClient -> cbsClient.get(diagnosticContext))
+        final Mono<Void> result = sut.flatMap(cbsClient -> cbsClient.get(request))
                 .map(json -> {
                     final Map<String, Stream<RawDataStream<JsonObject>>> sinks = DataStreams.namedSinks(json)
                             .groupBy(RawDataStream::type);
@@ -203,10 +205,10 @@ class CbsClientImplIT {
         // given
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
         final StreamFromGsonParser<KafkaSource> kafkaSourceParser = StreamFromGsonParsers.kafkaSourceParser();
-        final RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create(), sampleEnvironment);
 
         // when
-        final Mono<KafkaSource> result = sut.flatMap(cbsClient -> cbsClient.get(diagnosticContext))
+        final Mono<KafkaSource> result = sut.flatMap(cbsClient -> cbsClient.get(request))
                 .map(json ->
                         DataStreams.namedSources(json).map(kafkaSourceParser::unsafeParse).head()
                 );
