@@ -31,6 +31,7 @@ import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 
@@ -46,13 +47,13 @@ class CbsClientImplTest {
         // given
         InetSocketAddress cbsAddress = InetSocketAddress.createUnresolved("cbshost", 6969);
         String serviceName = "dcaegen2-ves-collector";
-        final CbsClientImpl cut = CbsClientImpl.create(httpClient, cbsAddress, serviceName);
+        final CbsClientImpl cut = new CbsClientImpl(httpClient, cbsAddress);
         final JsonObject httpResponse = new JsonObject();
         given(httpClient.get(anyString(), any(RequestDiagnosticContext.class), any(Class.class))).willReturn(Mono.just(httpResponse));
         RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
 
         // when
-        final JsonObject result = cut.get(diagnosticContext).block();
+        final JsonObject result = cut.get(CbsRequests.getConfiguration(diagnosticContext, serviceName)).block();
 
         // then
         final String expectedUrl = "http://cbshost:6969/service_component/dcaegen2-ves-collector";
