@@ -224,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "daef4526_76c80db8",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-21T07:09:39Z",
+      "side": 1,
+      "message": "Yes it will. Basically this puts you in MDC scope with optional condition to check.",
+      "parentUuid": "3b74f304_2de9ccf0",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 50
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df5c4492_240d06aa",
         "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
         "patchSetId": 3
