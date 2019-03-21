@@ -56,7 +56,7 @@ public class CbsClientFactory {
             final RxHttpClient httpClient = RxHttpClient.create();
             final CbsLookup lookup = new CbsLookup(httpClient);
             return lookup.lookup(env)
-                    .map(addr -> CbsClientImpl.create(httpClient, addr, env.appName()));
+                    .map(addr -> new CbsClientImpl(httpClient, addr));
         });
     }
 }

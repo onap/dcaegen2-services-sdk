@@ -1,0 +1,41 @@
+{
+    "config": {
+        "keystore.path": "/var/run/security/keystore.p12",
+        "streams_publishes": {
+            "perf3gpp": {
+                "type": "kafka",
+                "kafka_info": {
+                    "bootstrap_servers": "dmaap-mr-kafka:6060",
+                    "topic_name": "HVVES_PERF3GPP"
+                }
+            },
+            "pnf_ready": {
+                "type": "message_router",
+                "dmaap_info": {
+                    "topic_url": "http://message-router:3904/events/VES_PNF_READY"
+                }
+            },
+            "call_trace": {
+                "type": "kafka",
+                "kafka_info": {
+                    "bootstrap_servers": "dmaap-mr-kafka:6060",
+                    "topic_name": "HVVES_TRACE"
+                }
+            }
+        },
+        "streams_subscribes": {
+            "measurements": {
+                "type": "message_router",
+                "dmaap_info": {
+                    "topic_url": "http://message-router:3904/events/VES_MEASUREMENT"
+                }
+            }
+        }
+    },
+    "policies": {
+        "samplePolicy": "sample value"
+    },
+    "sampleKey": {
+        "key": "value"
+    }
+}
