@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7e9c454c_87db0ef2",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsLookupTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-21T06:49:40Z",
+      "side": 1,
+      "message": "Can you elaborate on why? I\u0027m curious because in my practice it was very useful :) That said, I forgot to add descriptions to assertions in that method.",
+      "parentUuid": "2a685bed_c348e40b",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 34
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad315211_d7149cdc",
         "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpMethod.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-21T06:15:59Z",
       "side": 1,
       "message": "Why? What we gain?",
+      "range": {
+        "startLine": 27,
+        "startChar": 12,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3a9511d_3f0c28bb",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpMethod.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-21T06:49:40Z",
+      "side": 1,
+      "message": "Can you provide a better way of saying which HTTP method to use in SimpleHttpClient::call methods?",
+      "parentUuid": "ad315211_d7149cdc",
       "range": {
         "startLine": 27,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e48d874e_b3bb4c20",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpRequest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-21T06:49:40Z",
+      "side": 1,
+      "message": "Fair point.",
+      "parentUuid": "8d6e72be_8e08032a",
+      "range": {
+        "startLine": 46,
+        "startChar": 15,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66f9263a_3346464a",
         "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RequestBody.java",
         "patchSetId": 3
@@ -82,6 +154,24 @@
       "writtenOn": "2019-03-21T06:15:59Z",
       "side": 1,
       "message": "How about fromModel(T model) method?",
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e73b56c_83562860",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RequestBody.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-21T06:49:40Z",
+      "side": 1,
+      "message": "I don\u0027t use this \"model\" thing. If you will need this please add it.",
+      "parentUuid": "66f9263a_3346464a",
       "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -168,6 +258,30 @@
       "writtenOn": "2019-03-21T06:15:59Z",
       "side": 1,
       "message": "How about logging also body? Could be on trace-level if it is too verbose for debug.",
+      "range": {
+        "startLine": 105,
+        "startChar": 67,
+        "endLine": 105,
+        "endChar": 72
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "486b265b_a52227cb",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-21T06:49:40Z",
+      "side": 1,
+      "message": "As you probably have seen this is a copy paste from old CloudHttpClient. AFAIK PRH CSIT tests are checking log messages in their assertions. For now I wouuldn\u0027t change anything in logging format nor level.",
+      "parentUuid": "b7a12c53_80f43e08",
       "range": {
         "startLine": 105,
         "startChar": 67,
