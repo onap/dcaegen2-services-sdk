@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cf79f95c_91af3330",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsLookupTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T07:41:55Z",
+      "side": 1,
+      "message": "So when I happen to peek into some test I almost always only want to fix it because it is broken. And what is most interesting then is assertions (and their strictness).\n\nSometimes I make an exception when every (or many) test uses same large assertion block, then method is indeed useful.\n\nBut I\u0027m aware this is matter of taste",
+      "parentUuid": "7e9c454c_87db0ef2",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 34
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad315211_d7149cdc",
         "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpMethod.java",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Can you provide a better way of saying which HTTP method to use in SimpleHttpClient::call methods?",
       "parentUuid": "ad315211_d7149cdc",
+      "range": {
+        "startLine": 27,
+        "startChar": 12,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f153277_9587613c",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpMethod.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T07:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3a9511d_3f0c28bb",
       "range": {
         "startLine": 27,
         "startChar": 12,
@@ -248,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "38cf0e49_a8abf014",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T07:41:55Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "daef4526_76c80db8",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 50
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df5c4492_240d06aa",
         "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
         "patchSetId": 3
@@ -259,6 +331,30 @@
       "writtenOn": "2019-03-21T06:15:59Z",
       "side": 1,
       "message": "Not sure if I would change level to trace to gain some header formatting.\n\nMore interesting would be to log request body, either formatted or not.",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 99,
+        "endChar": 38
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "390ed09b_680bcbcc",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T07:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df5c4492_240d06aa",
       "range": {
         "startLine": 96,
         "startChar": 16,
@@ -306,6 +402,30 @@
       "side": 1,
       "message": "As you probably have seen this is a copy paste from old CloudHttpClient. AFAIK PRH CSIT tests are checking log messages in their assertions. For now I wouuldn\u0027t change anything in logging format nor level.",
       "parentUuid": "b7a12c53_80f43e08",
+      "range": {
+        "startLine": 105,
+        "startChar": 67,
+        "endLine": 105,
+        "endChar": 72
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "615d30b4_c9c238f9",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T07:41:55Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "486b265b_a52227cb",
       "range": {
         "startLine": 105,
         "startChar": 67,
