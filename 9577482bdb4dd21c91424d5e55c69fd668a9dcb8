@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "30da588a_36c9bbb6",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/streams/StreamFromGsonParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-21T11:06:17Z",
+      "side": 1,
+      "message": "\"whose\", Kuba\u0027s proposition, or IMO most natural is \"parser taking JsonObject as an input\".",
+      "range": {
+        "startLine": 28,
+        "startChar": 30,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc8d9cbb_fc2b568a",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/DataStreamDirection.java",
         "patchSetId": 1
@@ -120,6 +143,29 @@
         "startChar": 46,
         "endLine": 73,
         "endChar": 64
+      },
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed878a47_7ed5588f",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/MessageRouter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-21T11:06:17Z",
+      "side": 1,
+      "message": "Missing javadoc?",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 59,
+        "endChar": 46
       },
       "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
