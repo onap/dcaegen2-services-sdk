@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a685bed_c348e40b",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsLookupTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T06:15:59Z",
+      "side": 1,
+      "message": "In my practice hiding asserts in methods wasn\u0027t good in long run.",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 34
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad315211_d7149cdc",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpMethod.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T06:15:59Z",
+      "side": 1,
+      "message": "Why? What we gain?",
+      "range": {
+        "startLine": 27,
+        "startChar": 12,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d6e72be_8e08032a",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpRequest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T06:15:59Z",
+      "side": 1,
+      "message": "I don\u0027t think this is good idea to add default value for this field:\n\n1) from client perspective I don\u0027t know what is under hood (GET method)\n2) absence of method would be strange/suspicious in production code",
+      "range": {
+        "startLine": 46,
+        "startChar": 15,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66f9263a_3346464a",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RequestBody.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T06:15:59Z",
+      "side": 1,
+      "message": "How about fromModel(T model) method?",
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52c87a61_afc9006b",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T06:15:59Z",
+      "side": 1,
+      "message": "Could be replaced with custom exception",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 5
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b74f304_2de9ccf0",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T06:15:59Z",
+      "side": 1,
+      "message": "You put TRACE logging inside DEBUG-scope lambda. Will it work properly?",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 50
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df5c4492_240d06aa",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T06:15:59Z",
+      "side": 1,
+      "message": "Not sure if I would change level to trace to gain some header formatting.\n\nMore interesting would be to log request body, either formatted or not.",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 99,
+        "endChar": 38
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7a12c53_80f43e08",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/SimpleHttpClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-03-21T06:15:59Z",
+      "side": 1,
+      "message": "How about logging also body? Could be on trace-level if it is too verbose for debug.",
+      "range": {
+        "startLine": 105,
+        "startChar": 67,
+        "endLine": 105,
+        "endChar": 72
+      },
+      "revId": "ee2414e3aff542bd58eacb6a2bbb017b60efb3b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
