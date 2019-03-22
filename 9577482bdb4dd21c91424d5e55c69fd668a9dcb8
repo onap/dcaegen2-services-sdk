@@ -101,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "67849d08_1b535db4",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/DataStreamDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-03-22T11:16:24Z",
+      "side": 1,
+      "message": "Well, i misunderstood the acronym.",
+      "parentUuid": "23f8f565_3e279e0b",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd9a7f7f_ab6b38ee",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/SinkStream.java",
         "patchSetId": 1
