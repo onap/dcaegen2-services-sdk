@@ -30,7 +30,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
 
 public class GsonMessageRouterSource extends GsonMessageRouter implements MessageRouterSource {
     GsonMessageRouterSource(
-            String name, @NotNull MessageRouterDmaapInfo dmaapInfo,
+            String name,
+            @NotNull MessageRouterDmaapInfo dmaapInfo,
             @Nullable AafCredentials aafCredentials) {
         super(name, dmaapInfo, aafCredentials);
     }

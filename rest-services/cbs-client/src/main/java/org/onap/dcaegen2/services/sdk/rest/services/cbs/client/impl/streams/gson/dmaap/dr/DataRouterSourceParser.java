@@ -41,12 +41,12 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dma
 public final class DataRouterSourceParser implements StreamFromGsonParser<DataRouterSource> {
     private final Gson gson;
 
-    public static DataRouterSourceParser create() {
-        return new DataRouterSourceParser(gsonInstance());
-    }
-
     private DataRouterSourceParser(Gson gson) {
         this.gson = gson;
+    }
+
+    public static DataRouterSourceParser create() {
+        return new DataRouterSourceParser(gsonInstance());
     }
 
     @Override
