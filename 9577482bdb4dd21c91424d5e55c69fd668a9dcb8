@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "a71bfe61_26d85c20",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/streams/StreamFromGsonParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-22T11:08:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30da588a_36c9bbb6",
+      "range": {
+        "startLine": 28,
+        "startChar": 30,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc8d9cbb_fc2b568a",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/DataStreamDirection.java",
         "patchSetId": 1
@@ -53,6 +77,24 @@
       "writtenOn": "2019-03-20T16:11:05Z",
       "side": 1,
       "message": "Use period instead of comma and expand the \"ie.\" acronym",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23f8f565_3e279e0b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/DataStreamDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-22T11:08:45Z",
+      "side": 1,
+      "message": "IMHO current version is better than \"The direction of the stream. That is whether it\u0027s input ...\"",
+      "parentUuid": "fc8d9cbb_fc2b568a",
       "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -104,6 +146,24 @@
       "writtenOn": "2019-03-20T16:11:05Z",
       "side": 1,
       "message": "\"Used by Data Router..OR by publisher to authenticate..\" sounds better. Consider using this form when describing Password",
+      "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38070643_f2ffea8b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/streams/dmaap/DataRouter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-22T11:08:45Z",
+      "side": 1,
+      "message": "That is a plain copy-paste from read-the-docs documentation.",
+      "parentUuid": "10af65ca_65af0521",
       "revId": "9577482bdb4dd21c91424d5e55c69fd668a9dcb8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
