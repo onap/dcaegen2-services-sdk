@@ -24,22 +24,24 @@ import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 
 public class CbsClientImpl implements CbsClient {
 
-    private final CloudHttpClient httpClient;
+    private final RxHttpClient httpClient;
     private final String fetchUrl;
 
-    CbsClientImpl(CloudHttpClient httpClient, URL fetchUrl) {
+    CbsClientImpl(RxHttpClient httpClient, URL fetchUrl) {
         this.httpClient = httpClient;
         this.fetchUrl = fetchUrl.toString();
     }
 
-    public static CbsClientImpl create(CloudHttpClient httpClient, InetSocketAddress cbsAddress, String serviceName) {
+    public static CbsClientImpl create(RxHttpClient httpClient, InetSocketAddress cbsAddress, String serviceName) {
         return new CbsClientImpl(httpClient, constructUrl(cbsAddress, serviceName));
     }
 
@@ -57,6 +59,14 @@ public class CbsClientImpl implements CbsClient {
 
     @Override
     public @NotNull Mono<JsonObject> get(RequestDiagnosticContext diagnosticContext) {
-        return Mono.defer(() -> httpClient.get(fetchUrl, diagnosticContext, JsonObject.class));
+        return Mono.defer(() -> {
+            final ImmutableHttpRequest request = ImmutableHttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .url(fetchUrl)
+                    .diagnosticContext(diagnosticContext)
+                    .build();
+            return httpClient.call(request)
+                    .map(resp -> resp.bodyAsJson(JsonObject.class));
+        });
     }
 }
