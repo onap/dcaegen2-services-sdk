@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb025782_461f6894",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-22T08:17:05Z",
+      "side": 1,
+      "message": "unused + UUID also",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 90
+      },
+      "revId": "d1e5ca6acdfd8e367d0c36361ffda02dc021f1ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2df50824_4dbc5c95",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsRequestsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-22T08:17:05Z",
+      "side": 1,
+      "message": "unused",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "d1e5ca6acdfd8e367d0c36361ffda02dc021f1ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70d08cb8_ebdf5d87",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImplIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-03-22T08:17:05Z",
+      "side": 1,
+      "message": "This could be renamed as \"sample_full_config\" or maybe other file should be changed - it\u0027s confusing when looking at \"sample_config\" and \"sample_all\" names",
+      "range": {
+        "startLine": 66,
+        "startChar": 32,
+        "endLine": 66,
+        "endChar": 63
+      },
+      "revId": "d1e5ca6acdfd8e367d0c36361ffda02dc021f1ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
