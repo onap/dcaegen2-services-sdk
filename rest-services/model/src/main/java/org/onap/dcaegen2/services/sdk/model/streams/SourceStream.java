@@ -18,21 +18,15 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
-
-import org.immutables.value.Value;
+package org.onap.dcaegen2.services.sdk.model.streams;
 
 /**
- * Represents a raw/uninterpreted data stream.
+ * Represents an input stream, ie. one of objects in <em>streams_subscribes</em> array from application configuration.
+ * Application can read data from this stream.
  *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
- * @param <T> type of raw data, eg. JsonObject
  */
-@Value.Immutable
-public interface RawDataStream<T> {
-    String name();
-    String type();
-    DataStreamDirection direction();
-    T descriptor();
+public interface SourceStream extends DataStream {
+
 }

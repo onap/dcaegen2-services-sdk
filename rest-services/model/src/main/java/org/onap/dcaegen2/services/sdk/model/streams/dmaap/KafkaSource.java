@@ -17,19 +17,22 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.model.streams.dmaap;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
-
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.model.streams.SourceStream;
 
 /**
- * Represents an input stream, ie. one of objects in <em>streams_subscribes</em> array from application configuration.
- * Application can read data from this stream.
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
-public interface SourceStream extends DataStream {
+@Value.Immutable
+public interface KafkaSource extends Kafka, SourceStream {
 
+    /**
+     * A unique string that identifies the consumer group this consumer belongs to as defined in Kafka consumer
+     * configuration key <em>group.id</em>.
+     */
+    @Nullable String consumerGroupId();
 }

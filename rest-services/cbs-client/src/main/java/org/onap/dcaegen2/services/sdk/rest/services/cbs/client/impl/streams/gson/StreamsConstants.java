@@ -25,12 +25,6 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gso
 
 public final class StreamsConstants {
 
-    public static final String DATA_ROUTER_TYPE = "data_router";
-
-    public static final String MESSAGE_ROUTER_TYPE = "message_router";
-
-    public static final String KAFKA_TYPE = "kafka";
-
     public static final String DMAAP_INFO_CHILD_NAME = "dmaap_info";
 
     public static final String KAFKA_INFO_CHILD_NAME = "kafka_info";

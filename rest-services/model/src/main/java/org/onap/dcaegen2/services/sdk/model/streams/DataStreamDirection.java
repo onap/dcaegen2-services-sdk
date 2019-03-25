@@ -17,43 +17,32 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
-
-import com.google.gson.annotations.SerializedName;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+package org.onap.dcaegen2.services.sdk.model.streams;
 
 /**
+ * The direction of the stream, ie. whether it's input ({@code SOURCE}) or output ({@code SINK}) stream.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
-public interface DataRouter {
+public enum DataStreamDirection {
+
+    SINK("streams_publishes"),
+    SOURCE("streams_subscribes");
+
+    private final String configurationKey;
+
+    DataStreamDirection(String configurationKey) {
+        this.configurationKey = configurationKey;
+    }
 
     /**
-     * DCAE location for the publisher, used to set up routing.
+     * The configuration key under which the single stream definitions should reside.
+     *
+     * @return the configuration key
      */
-    @SerializedName("location")
-    @Nullable String location();
-
-    /**
-     * Username
-     * <ul>
-     * <li>Data Router uses to authenticate to the subscriber when delivering files OR</li>
-     * <li>the publisher uses to authenticate to Data Router.</li>
-     * </ul>
-     */
-    @SerializedName("username")
-    @Nullable String username();
-
-    /**
-     * Password
-     * <ul>
-     * <li>Data Router uses to authenticate to the subscriber when delivering files OR</li>
-     * <li>the publisher uses to authenticate to Data Router.</li>
-     * </ul>
-     */
-    @SerializedName("password")
-    @Nullable String password();
+    public String configurationKey() {
+        return configurationKey;
+    }
 }

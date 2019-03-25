@@ -22,11 +22,10 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
 import io.vavr.control.Either;
 import io.vavr.control.Try;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.DataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.RawDataStream;
 
 /**
  * A generic data stream parser which parses {@code T} to data stream {@code S}.
@@ -36,7 +35,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Raw
  * @param <S> output data type
  * @since 1.1.4
  */
-@ExperimentalApi
 public interface StreamParser<T, S extends DataStream> {
 
     /**

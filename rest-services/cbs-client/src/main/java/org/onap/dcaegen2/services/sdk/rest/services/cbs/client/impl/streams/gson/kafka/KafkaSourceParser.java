@@ -28,12 +28,11 @@ import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.strea
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.KafkaSource;
-
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.KAFKA_TYPE;
+import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.model.streams.RawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.StreamType;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSource;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -52,7 +51,7 @@ public final class KafkaSourceParser implements StreamFromGsonParser<KafkaSource
 
     @Override
     public KafkaSource unsafeParse(RawDataStream<JsonObject> input) {
-        assertStreamType(input, KAFKA_TYPE, DataStreamDirection.SOURCE);
+        assertStreamType(input, StreamType.KAFKA, DataStreamDirection.SOURCE);
         final JsonObject json = input.descriptor();
 
         final KafkaInfo kafkaInfo = extractKafkaInfo(gson, json);

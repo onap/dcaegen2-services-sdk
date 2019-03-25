@@ -19,25 +19,21 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr;
 
-import com.google.gson.Gson;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.google.gson.JsonObject;
 import io.vavr.control.Either;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.DataStreamUtils;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableRawDataStream;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.DataRouterSink;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.MessageRouterSink;
-
-import java.io.IOException;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.DATA_ROUTER_TYPE;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.MESSAGE_ROUTER_TYPE;
+import org.onap.dcaegen2.services.sdk.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.model.streams.ImmutableRawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.RawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.StreamType;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
 
 /**
  * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
@@ -83,8 +79,7 @@ public class MessageRouterSinkParserTest {
         // then
         assertThat(result).isInstanceOf(MessageRouterSink.class);
         assertThat(result.topicUrl()).isEqualTo(SAMPLE_TOPIC_URL);
-        assertThat(result.aafCredentials().username()).isNull();
-        assertThat(result.aafCredentials().password()).isNull();
+        assertThat(result.aafCredentials()).isNull();
         assertThat(result.clientId()).isNull();
     }
 
@@ -100,8 +95,8 @@ public class MessageRouterSinkParserTest {
         assertThat(result.getLeft()).isInstanceOf(StreamParserError.class);
         result.peekLeft(error -> {
                     assertThat(error.message()).contains("Invalid stream type");
-                    assertThat(error.message()).contains("Expected '" + MESSAGE_ROUTER_TYPE + "', but was '"
-                            + DATA_ROUTER_TYPE + "'");
+                    assertThat(error.message()).contains("Expected '" + StreamType.MESSAGE_ROUTER + "', but was '"
+                            + StreamType.DATA_ROUTER + "'");
                 }
         );
     }
@@ -112,7 +107,7 @@ public class MessageRouterSinkParserTest {
         JsonObject json = new JsonObject();
         final ImmutableRawDataStream<JsonObject> input = ImmutableRawDataStream.<JsonObject>builder()
                 .name("empty")
-                .type("data_router")
+                .type(StreamType.MESSAGE_ROUTER)
                 .descriptor(json)
                 .direction(DataStreamDirection.SINK)
                 .build();

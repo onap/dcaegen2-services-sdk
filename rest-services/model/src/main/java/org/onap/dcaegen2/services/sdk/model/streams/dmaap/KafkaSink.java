@@ -17,32 +17,16 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.model.streams.dmaap;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+import org.immutables.value.Value;
+import org.onap.dcaegen2.services.sdk.model.streams.SinkStream;
 
 /**
- * The direction of the stream, ie. whether it's input ({@code SOURCE}) or output ({@code SINK}) stream.
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-public enum DataStreamDirection {
+@Value.Immutable
+public interface KafkaSink extends Kafka, SinkStream {
 
-    SINK("streams_publishes"),
-    SOURCE("streams_subscribes");
-
-    private final String configurationKey;
-
-    DataStreamDirection(String configurationKey) {
-        this.configurationKey = configurationKey;
-    }
-
-    /**
-     * The configuration key under which the single stream definitions should reside.
-     *
-     * @return the configuration key
-     */
-    public String configurationKey() {
-        return configurationKey;
-    }
 }

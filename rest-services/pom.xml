@@ -18,6 +18,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>model</module>
     <module>common-dependency</module>
     <module>aai-client</module>
     <module>cbs-client</module>

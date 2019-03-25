@@ -17,47 +17,41 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
+package org.onap.dcaegen2.services.sdk.model.streams.dmaap;
+
 
 import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
-public interface MessageRouter {
+public interface DataRouter {
 
     /**
-     * URL for accessing the topic to publish or receive events.
-     */
-    @SerializedName("topic_url")
-    String topicUrl();
-
-    /**
-     * AAF client role that’s requesting publish or subscribe access to the topic.
-     */
-    @SerializedName("client_role")
-    @Nullable String clientRole();
-
-    /**
-     * Client id for given AAF client.
-     */
-    @SerializedName("client_id")
-    @Nullable String clientId();
-
-    /**
-     * DCAE location for the publisher or subscriber, used to set up routing.
+     * DCAE location for the publisher, used to set up routing.
      */
     @SerializedName("location")
     @Nullable String location();
 
     /**
-     * The AAF credentials.
+     * Username
+     * <ul>
+     * <li>Data Router uses to authenticate to the subscriber when delivering files OR</li>
+     * <li>the publisher uses to authenticate to Data Router.</li>
+     * </ul>
      */
-    @SerializedName("aaf_credentials")
-    @Nullable AafCredentials aafCredentials();
+    @SerializedName("username")
+    @Nullable String username();
+
+    /**
+     * Password
+     * <ul>
+     * <li>Data Router uses to authenticate to the subscriber when delivering files OR</li>
+     * <li>the publisher uses to authenticate to Data Router.</li>
+     * </ul>
+     */
+    @SerializedName("password")
+    @Nullable String password();
 }

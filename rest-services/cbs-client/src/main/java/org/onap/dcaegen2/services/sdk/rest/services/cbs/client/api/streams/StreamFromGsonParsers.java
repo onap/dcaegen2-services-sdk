@@ -26,7 +26,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.mr.MessageRouterSourceParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka.KafkaSinkParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka.KafkaSourceParser;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.*;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.*;
 
 /**
  * Factory methods for GSON-based {@code StreamParser}s
