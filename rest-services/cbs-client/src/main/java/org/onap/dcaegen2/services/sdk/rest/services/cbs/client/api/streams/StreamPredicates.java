@@ -20,16 +20,24 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
-import com.google.gson.JsonObject;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
+import java.util.Objects;
+import java.util.function.Predicate;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
 
 /**
- * Represents parser taking GSON JsonObject as an input
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-public interface StreamFromGsonParser<S extends DataStream> extends StreamParser<JsonObject, S> {
+public final class StreamPredicates {
 
+    public StreamPredicates() {
+    }
+
+    public static <T> Predicate<RawDataStream<T>> streamWithName(String name) {
+        return stream -> Objects.equals(stream.name(), name);
+    }
+
+    public static <T> Predicate<RawDataStream<T>> streamOfType(String type) {
+        return stream -> Objects.equals(stream.type(), type);
+    }
 }
