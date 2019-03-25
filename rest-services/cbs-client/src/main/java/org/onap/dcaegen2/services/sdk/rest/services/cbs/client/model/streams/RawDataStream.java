@@ -32,7 +32,7 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface RawDataStream<T> {
     String name();
-    String type();
+    StreamType type();
     DataStreamDirection direction();
     T descriptor();
 }

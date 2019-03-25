@@ -19,27 +19,22 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap.dr;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.google.gson.JsonObject;
 import io.vavr.control.Either;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParserError;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.DataStreamUtils;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableRawDataStream;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.*;
-
-import java.io.IOException;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.DATA_ROUTER_TYPE;
-import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.StreamsConstants.MESSAGE_ROUTER_TYPE;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.StreamType;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.DataRouterSource;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap.ImmutableDataRouterSource;
 
 public class DataRouterSourceParserTest {
 
@@ -100,8 +95,8 @@ public class DataRouterSourceParserTest {
         assertThat(result.getLeft()).isInstanceOf(StreamParserError.class);
         result.peekLeft(error -> {
                     assertThat(error.message()).contains("Invalid stream type");
-                    assertThat(error.message()).contains("Expected '" + DATA_ROUTER_TYPE + "', but was '"
-                            + MESSAGE_ROUTER_TYPE + "'");
+                    assertThat(error.message()).contains("Expected '" + StreamType.DATA_ROUTER + "', but was '"
+                            + StreamType.MESSAGE_ROUTER + "'");
                 }
         );
     }
@@ -112,7 +107,7 @@ public class DataRouterSourceParserTest {
         JsonObject json = new JsonObject();
         final ImmutableRawDataStream<JsonObject> input = ImmutableRawDataStream.<JsonObject>builder()
                 .name("empty")
-                .type("data_router")
+                .type(StreamType.DATA_ROUTER)
                 .descriptor(json)
                 .direction(DataStreamDirection.SOURCE)
                 .build();

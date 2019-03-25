@@ -36,7 +36,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Raw
  * @param <S> output data type
  * @since 1.1.4
  */
-@ExperimentalApi
 public interface StreamParser<T, S extends DataStream> {
 
     /**

@@ -23,9 +23,11 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendResource;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamPredicates.streamOfType;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.StreamType.KAFKA;
+import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.StreamType.MESSAGE_ROUTER;
 
 import com.google.gson.JsonObject;
-import io.vavr.collection.Map;
 import io.vavr.collection.Stream;
 import java.time.Duration;
 import org.junit.jupiter.api.AfterAll;
@@ -182,12 +184,11 @@ class CbsClientImplIT {
         // when
         final Mono<Void> result = sut.flatMap(cbsClient -> cbsClient.get(request))
                 .map(json -> {
-                    final Map<String, Stream<RawDataStream<JsonObject>>> sinks = DataStreams.namedSinks(json)
-                            .groupBy(RawDataStream::type);
+                    final Stream<RawDataStream<JsonObject>> sinks = DataStreams.namedSinks(json);
 
-                    final Stream<KafkaSink> allKafkaSinks = sinks.getOrElse("kafka", Stream.empty())
+                    final Stream<KafkaSink> allKafkaSinks = sinks.filter(streamOfType(KAFKA))
                             .map(kafkaSinkParser::unsafeParse);
-                    final Stream<MessageRouterSink> allMrSinks = sinks.getOrElse("message_router", Stream.empty())
+                    final Stream<MessageRouterSink> allMrSinks = sinks.filter(streamOfType(MESSAGE_ROUTER))
                             .map(mrSinkParser::unsafeParse);
 
                     assertThat(allKafkaSinks.size())
@@ -225,8 +226,8 @@ class CbsClientImplIT {
                 .expectErrorSatisfies(ex -> {
                     assertThat(ex).isInstanceOf(StreamParsingException.class);
                     assertThat(ex).hasMessageContaining("Invalid stream type");
-                    assertThat(ex).hasMessageContaining("message_router");
-                    assertThat(ex).hasMessageContaining("kafka");
+                    assertThat(ex).hasMessageContaining(MESSAGE_ROUTER.toString());
+                    assertThat(ex).hasMessageContaining(KAFKA.toString());
                 })
                 .verify(Duration.ofSeconds(5));
     }

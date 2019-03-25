@@ -18,18 +18,27 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
+import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableAafCredentials;
 
 /**
- * Represents parser taking GSON JsonObject as an input
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since March 2019
  */
-public interface StreamFromGsonParser<S extends DataStream> extends StreamParser<JsonObject, S> {
+public class DmaapUtils {
 
+    public static final ImmutableAafCredentials EMPTY_CREDENTIALS = ImmutableAafCredentials.builder().build();
+
+    private DmaapUtils() {
+    }
+
+    public static @Nullable AafCredentials extractAafCredentials(Gson gson, JsonObject input) {
+        final AafCredentials aafCredentials = gson.fromJson(input, ImmutableAafCredentials.class);
+        return EMPTY_CREDENTIALS.equals(aafCredentials) ? null : aafCredentials;
+    }
 }
