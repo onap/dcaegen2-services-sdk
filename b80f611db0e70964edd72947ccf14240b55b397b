@@ -46,6 +46,30 @@
       "revId": "b80f611db0e70964edd72947ccf14240b55b397b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e78d44b5_754864ea",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/put/AaiHttpPutClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-25T09:45:32Z",
+      "side": 1,
+      "message": "OK. That\u0027s fine with me. Please create a new Jira issue so we won\u0027t forget about it.",
+      "parentUuid": "a0fcf2f4_107046e6",
+      "range": {
+        "startLine": 41,
+        "startChar": 117,
+        "endLine": 41,
+        "endChar": 132
+      },
+      "revId": "b80f611db0e70964edd72947ccf14240b55b397b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
