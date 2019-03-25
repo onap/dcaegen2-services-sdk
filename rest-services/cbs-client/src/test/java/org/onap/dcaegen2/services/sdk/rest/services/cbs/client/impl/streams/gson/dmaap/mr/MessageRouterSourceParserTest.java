@@ -81,8 +81,7 @@ public class MessageRouterSourceParserTest {
 
         // then
         assertThat(result.topicUrl()).isEqualTo(SAMPLE_TOPIC_URL);
-        assertThat(result.aafCredentials().username()).isNull();
-        assertThat(result.aafCredentials().password()).isNull();
+        assertThat(result.aafCredentials()).isNull();
         assertThat(result.clientId()).isNull();
     }
 
