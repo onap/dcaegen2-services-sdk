@@ -17,30 +17,33 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.model.streams.dmaap;
 
 
 import com.google.gson.annotations.SerializedName;
 import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.onap.dcaegen2.services.sdk.model.streams.SourceStream;
 
 /**
- * Represents the AAF Credentials. Currently it contains only user name and password.
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
-@Value.Immutable
 @Gson.TypeAdapters
-public interface AafCredentials {
+@Value.Immutable
+public interface DataRouterSource extends DataRouter, SourceStream {
 
-    @SerializedName(value = "username", alternate = "aaf_username")
-    @Nullable String username();
+    /**
+     * URL to which the Data Router should deliver files.
+     */
+    // TODO: since crucial, we need to verify if it should be non-null
+    @SerializedName("delivery_url")
+    @Nullable String deliveryUrl();
 
-    @SerializedName(value = "password", alternate = "aaf_password")
-    @Nullable String password();
+    /**
+     * Subscriber id in Data Router.
+     */
+    @SerializedName("subscriber_id")
+    @Nullable String subscriberId();
 }

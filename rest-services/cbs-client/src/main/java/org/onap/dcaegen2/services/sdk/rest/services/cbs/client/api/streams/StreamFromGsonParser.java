@@ -21,8 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 
 import com.google.gson.JsonObject;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.DataStream;
 
 /**
  * Represents parser taking GSON JsonObject as an input
@@ -30,7 +29,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Dat
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
 public interface StreamFromGsonParser<S extends DataStream> extends StreamParser<JsonObject, S> {
 
 }

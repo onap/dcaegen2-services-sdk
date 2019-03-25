@@ -18,18 +18,35 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams;
+package org.onap.dcaegen2.services.sdk.model.streams;
 
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import io.vavr.collection.Stream;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents an output stream, ie. one of objects in <em>streams_publishes</em> array from application configuration.
- * Application can put data to this stream.
- *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
-public interface SinkStream extends DataStream {
+public enum StreamType {
+    MESSAGE_ROUTER("message_router"),
+    DATA_ROUTER("data_router"),
+    KAFKA("kafka"),
+    UNKNOWN("unknown");
 
+    private final String rawType;
+
+    StreamType(String rawType) {
+        this.rawType = rawType;
+    }
+
+    public static StreamType parse(@NotNull String rawType) {
+        return Stream.of(StreamType.values())
+                .find(type -> type.rawType.equals(rawType))
+                .getOrElse(UNKNOWN);
+    }
+
+    @Override
+    public String toString() {
+        return rawType;
+    }
 }

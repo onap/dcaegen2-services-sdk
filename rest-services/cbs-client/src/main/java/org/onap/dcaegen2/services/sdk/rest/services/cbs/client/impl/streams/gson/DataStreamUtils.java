@@ -25,9 +25,10 @@ import com.google.gson.JsonObject;
 import io.vavr.collection.Stream;
 import java.io.IOException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.ImmutableRawDataStream;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.model.streams.ImmutableRawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.RawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.StreamType;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -46,9 +47,9 @@ public final class DataStreamUtils {
 
     public static void assertStreamType(
             RawDataStream<JsonObject> json,
-            String expectedType,
+            StreamType expectedType,
             DataStreamDirection expectedDirection) {
-        if (!json.type().equals(expectedType)) {
+        if (json.type() != expectedType) {
             throw new StreamParsingException(
                     "Invalid stream type. Expected '" + expectedType + "', but was '" + json.type() + "'");
         }
@@ -71,7 +72,7 @@ public final class DataStreamUtils {
         return ImmutableRawDataStream.<JsonObject>builder()
                 .name(name)
                 .direction(direction)
-                .type(GsonUtils.requiredString(json, "type"))
+                .type(StreamType.parse(GsonUtils.requiredString(json, "type")))
                 .descriptor(json)
                 .build();
     }

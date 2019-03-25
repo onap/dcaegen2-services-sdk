@@ -17,41 +17,28 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
+
+package org.onap.dcaegen2.services.sdk.model.streams;
 
 
 import com.google.gson.annotations.SerializedName;
 import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SinkStream;
 
 /**
+ * Represents the AAF Credentials. Currently it contains only user name and password.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@Gson.TypeAdapters
-@ExperimentalApi
 @Value.Immutable
-public interface DataRouterSink extends DataRouter, SinkStream {
+@Gson.TypeAdapters
+public interface AafCredentials {
 
-    /**
-     * URL to which the publisher makes Data Router publish requests.
-     */
-    @SerializedName("publish_url")
-    String publishUrl();
+    @SerializedName(value = "username", alternate = "aaf_username")
+    @Nullable String username();
 
-    /**
-     * Publisher id in Data Router
-     */
-    @SerializedName("publisher_id")
-    @Nullable String publisherId();
-
-    /**
-     * URL from which log data for the feed can be obtained.
-     */
-    @SerializedName("log_url")
-    @Nullable String logUrl();
-
+    @SerializedName(value = "password", alternate = "aaf_password")
+    @Nullable String password();
 }

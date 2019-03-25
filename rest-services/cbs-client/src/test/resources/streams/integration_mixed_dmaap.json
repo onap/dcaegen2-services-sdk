@@ -1,0 +1,80 @@
+{
+
+    "streams_subscribes": {
+        "DCAE_GUEST_OS": {
+            "type": "data_router",
+            "dmaap_info": {
+                "username": "xyz",
+                "password": "abc",
+                "location": "mtn23",
+                "delivery_url": "https://dr.global:8666/DCAE_SAM_GUEST_OS",
+                "subscriber_id": "811"
+            }
+        },
+        "DCAE_RAW_DATA": {
+            "type": "data_router",
+            "dmaap_info": {
+                "username": "abc",
+                "password": "xyz",
+                "location": "mtn23",
+                "delivery_url": "https://dr.global:8666/DCAE_CEILOMETER_RAW_DATA",
+                "subscriber_id": "812"
+            }
+        },
+        "sec-measurement-output": {
+            "type": "message_router",
+            "aaf_password": "aaf_password",
+            "dmaap_info": {
+                "topic_url": "https://mr.hostname:3905/events/com.att.dcae.dmaap.SEC-MEASUREMENT-OUTPUT-v1",
+                "client_role": "com.att.dcae.member",
+                "location": "mtn23",
+                "client_id": "1111"
+            },
+            "aaf_username": "aaf_username"
+
+        }
+
+    },
+
+    "streams_publishes": {
+
+        "DCAE_VOIP_PM_DATA": {
+            "type": "data_router",
+            "dmaap_info": {
+                "username": "abc",
+                "log_url": "https://dcae-drps/feedlog/206",
+                "publish_url": "https://dcae-drps/publish/206",
+                "location": "mtn23",
+                "password": "xyz",
+                "publisher_id": "206.518hu"
+
+            }
+        },
+
+        "DCAE_GUEST_OS_O": {
+            "type": "data_router",
+            "dmaap_info": {
+                "username": "axyz",
+                "log_url": "https://dcae-drps/feedlog/203",
+                "publish_url": "https://dcae-drps/publish/203",
+                "location": "mtn23",
+                "password": "abc",
+
+                "publisher_id": "203.2od8s"
+            }
+        },
+
+        "DCAE_PM_DATA": {
+            "type": "data_router",
+            "dmaap_info": {
+                "username": "xyz",
+                "log_url": "https://dcae-drps/feedlog/493",
+                "publish_url": "https://dcae-drps/publish/493",
+                "location": "mtn23bdce2",
+                "password": "abc",
+                "publisher_id": "493.eacqs"
+            }
+        }
+    }
+
+}

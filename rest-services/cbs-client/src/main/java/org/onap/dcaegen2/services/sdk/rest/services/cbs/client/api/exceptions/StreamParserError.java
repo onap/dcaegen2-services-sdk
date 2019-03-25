@@ -21,13 +21,11 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions;
 
 import io.vavr.control.Either;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.2
  */
-@ExperimentalApi
 public class StreamParserError {
     private final String message;
 

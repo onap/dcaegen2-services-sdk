@@ -17,18 +17,16 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
-import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SinkStream;
+package org.onap.dcaegen2.services.sdk.model.streams;
 
 /**
+ * Represents an output stream, ie. one of objects in <em>streams_publishes</em> array from application configuration.
+ * Application can put data to this stream.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
-@Value.Immutable
-public interface KafkaSink extends Kafka, SinkStream {
+public interface SinkStream extends DataStream {
 
 }

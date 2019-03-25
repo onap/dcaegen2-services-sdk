@@ -23,10 +23,9 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.vavr.collection.Stream;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.DataStreamUtils;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.DataStreamDirection;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.RawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.DataStreamDirection;
+import org.onap.dcaegen2.services.sdk.model.streams.RawDataStream;
 
 /**
  * Extract streams from the application configuration represented as GSON JsonObject.
@@ -64,7 +63,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.Raw
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
 public final class DataStreams {
 
     private DataStreams() {

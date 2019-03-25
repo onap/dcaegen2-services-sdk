@@ -17,24 +17,45 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
+package org.onap.dcaegen2.services.sdk.model.streams.dmaap;
 
-import org.immutables.value.Value;
+import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SourceStream;
+import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
-@Value.Immutable
-public interface KafkaSource extends Kafka, SourceStream {
+public interface MessageRouter {
 
     /**
-     * A unique string that identifies the consumer group this consumer belongs to as defined in Kafka consumer
-     * configuration key <em>group.id</em>.
+     * URL for accessing the topic to publish or receive events.
      */
-    @Nullable String consumerGroupId();
+    @SerializedName("topic_url")
+    String topicUrl();
+
+    /**
+     * AAF client role that’s requesting publish or subscribe access to the topic.
+     */
+    @SerializedName("client_role")
+    @Nullable String clientRole();
+
+    /**
+     * Client id for given AAF client.
+     */
+    @SerializedName("client_id")
+    @Nullable String clientId();
+
+    /**
+     * DCAE location for the publisher or subscriber, used to set up routing.
+     */
+    @SerializedName("location")
+    @Nullable String location();
+
+    /**
+     * The AAF credentials.
+     */
+    @SerializedName("aaf_credentials")
+    @Nullable AafCredentials aafCredentials();
 }

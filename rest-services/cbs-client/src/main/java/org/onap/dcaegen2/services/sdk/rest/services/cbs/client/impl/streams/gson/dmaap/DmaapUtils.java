@@ -17,35 +17,28 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
 
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.dmaap;
 
-import com.google.gson.annotations.SerializedName;
-import org.immutables.gson.Gson;
-import org.immutables.value.Value;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SourceStream;
+import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
+import org.onap.dcaegen2.services.sdk.model.streams.ImmutableAafCredentials;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since March 2019
  */
-@Gson.TypeAdapters
-@ExperimentalApi
-@Value.Immutable
-public interface DataRouterSource extends DataRouter, SourceStream {
+public class DmaapUtils {
 
-    /**
-     * URL to which the Data Router should deliver files.
-     */
-    // TODO: since crucial, we need to verify if it should be non-null
-    @SerializedName("delivery_url")
-    @Nullable String deliveryUrl();
+    public static final ImmutableAafCredentials EMPTY_CREDENTIALS = ImmutableAafCredentials.builder().build();
 
-    /**
-     * Subscriber id in Data Router.
-     */
-    @SerializedName("subscriber_id")
-    @Nullable String subscriberId();
+    private DmaapUtils() {
+    }
+
+    public static @Nullable AafCredentials extractAafCredentials(Gson gson, JsonObject input) {
+        final AafCredentials aafCredentials = gson.fromJson(input, ImmutableAafCredentials.class);
+        return EMPTY_CREDENTIALS.equals(aafCredentials) ? null : aafCredentials;
+    }
 }

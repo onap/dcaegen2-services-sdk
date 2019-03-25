@@ -17,30 +17,39 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.model.streams.dmaap;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka;
 
-import org.jetbrains.annotations.NotNull;
+import com.google.gson.annotations.SerializedName;
+import org.immutables.gson.Gson;
+import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSource;
+import org.onap.dcaegen2.services.sdk.model.streams.SinkStream;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since March 2019
+ * @since 1.1.4
  */
-class GsonKafkaSource extends GsonKafka implements KafkaSource {
+@Gson.TypeAdapters
+@Value.Immutable
+public interface DataRouterSink extends DataRouter, SinkStream {
 
-    GsonKafkaSource(
-            @NotNull String name,
-            @NotNull KafkaInfo kafkaInfo,
-            @Nullable AafCredentials aafCredentials) {
-        super(name, kafkaInfo, aafCredentials);
-    }
+    /**
+     * URL to which the publisher makes Data Router publish requests.
+     */
+    @SerializedName("publish_url")
+    String publishUrl();
 
-    @Override
-    public @Nullable String consumerGroupId() {
-        return kafkaInfo.consumerGroupId();
-    }
+    /**
+     * Publisher id in Data Router
+     */
+    @SerializedName("publisher_id")
+    @Nullable String publisherId();
+
+    /**
+     * URL from which log data for the feed can be obtained.
+     */
+    @SerializedName("log_url")
+    @Nullable String logUrl();
 
 }

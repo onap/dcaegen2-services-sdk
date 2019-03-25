@@ -17,18 +17,22 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.dmaap;
+
+package org.onap.dcaegen2.services.sdk.model.streams;
 
 import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.streams.SourceStream;
 
 /**
+ * Represents a raw/uninterpreted data stream.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
+ * @param <T> type of raw data, eg. JsonObject
  */
-@ExperimentalApi
 @Value.Immutable
-public interface MessageRouterSource extends MessageRouter, SourceStream {
-
+public interface RawDataStream<T> {
+    String name();
+    StreamType type();
+    DataStreamDirection direction();
+    T descriptor();
 }

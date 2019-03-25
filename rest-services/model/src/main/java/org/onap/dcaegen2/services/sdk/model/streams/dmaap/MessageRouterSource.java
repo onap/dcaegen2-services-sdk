@@ -17,30 +17,16 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
+package org.onap.dcaegen2.services.sdk.model.streams.dmaap;
 
-package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.kafka;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSource;
+import org.immutables.value.Value;
+import org.onap.dcaegen2.services.sdk.model.streams.SourceStream;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since March 2019
+ * @since 1.1.4
  */
-class GsonKafkaSource extends GsonKafka implements KafkaSource {
-
-    GsonKafkaSource(
-            @NotNull String name,
-            @NotNull KafkaInfo kafkaInfo,
-            @Nullable AafCredentials aafCredentials) {
-        super(name, kafkaInfo, aafCredentials);
-    }
-
-    @Override
-    public @Nullable String consumerGroupId() {
-        return kafkaInfo.consumerGroupId();
-    }
+@Value.Immutable
+public interface MessageRouterSource extends MessageRouter, SourceStream {
 
 }
