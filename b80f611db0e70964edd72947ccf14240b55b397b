@@ -22,6 +22,30 @@
       "revId": "b80f611db0e70964edd72947ccf14240b55b397b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0fcf2f4_107046e6",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/put/AaiHttpPutClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-25T09:42:24Z",
+      "side": 1,
+      "message": "Yes, we do plan on moving to the new API. The reason why we do not want to make the switch adhoc and still keep this aligned with the old API for now is because these changes had been introduced before the new API was introduced and old API became deprecated. Switching to new API would require changes on PRH side which we do not want to risk doing before having e2e impl finished. Also IMO switching to new API can and should be a bulk change.",
+      "parentUuid": "1df241ca_7cb57941",
+      "range": {
+        "startLine": 41,
+        "startChar": 117,
+        "endLine": 41,
+        "endChar": 132
+      },
+      "revId": "b80f611db0e70964edd72947ccf14240b55b397b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
