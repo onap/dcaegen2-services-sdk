@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1df241ca_7cb57941",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/put/AaiHttpPutClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-03-25T09:29:33Z",
+      "side": 1,
+      "message": "Deprecated API is used here. Are there any plans to switch to new API?",
+      "range": {
+        "startLine": 41,
+        "startChar": 117,
+        "endLine": 41,
+        "endChar": 132
+      },
+      "revId": "b80f611db0e70964edd72947ccf14240b55b397b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
