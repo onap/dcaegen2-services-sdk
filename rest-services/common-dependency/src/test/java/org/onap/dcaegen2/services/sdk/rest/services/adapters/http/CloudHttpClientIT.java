@@ -154,6 +154,38 @@ class CloudHttpClientIT {
         server.disposeNow();
     }
 
+    @Test
+    void successfulPutResponse() {
+        DisposableServer server = createValidServer();
+        RxHttpClient httpClient = createHttpClientForContextWithAddress(server);
+        CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
+
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
+        Mono<HttpClientResponse> content = cloudHttpClient
+            .put(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
+                jsonBodyBuilder, dmaapModel);
+        HttpClientResponse httpClientResponse = content.block();
+
+        assertEquals(HttpResponseStatus.OK, httpClientResponse.status());
+        server.disposeNow();
+    }
+
+    @Test
+    void errorPutRequest() {
+        DisposableServer server = createInvalidServer();
+        RxHttpClient httpClient = createHttpClientForContextWithAddress(server);
+        CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
+
+        when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
+        Mono<HttpClientResponse> content = cloudHttpClient
+            .put(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
+                jsonBodyBuilder, dmaapModel);
+        HttpClientResponse httpClientResponse = content.block();
+
+        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR, httpClientResponse.status());
+        server.disposeNow();
+    }
+
     private Map<String, String> createCustomHeaders() {
         Map<String, String> customHeaders = new HashMap<>();
         customHeaders.put("X_INVOCATION_ID", UUID.randomUUID().toString());

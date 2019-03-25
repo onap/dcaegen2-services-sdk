@@ -99,6 +99,14 @@ public class CloudHttpClient {
         return callForRawResponse(url, context, customHeaders, jsonBodyBuilder, clientModel, HttpMethod.PATCH);
     }
 
+    public Mono<HttpClientResponse> put(
+        String url,
+        RequestDiagnosticContext context,
+        Map<String, String> customHeaders,
+        JsonBodyBuilder jsonBodyBuilder,
+        ClientModel clientModel) {
+        return callForRawResponse(url, context, customHeaders, jsonBodyBuilder, clientModel, HttpMethod.PUT);
+    }
 
     private Mono<HttpClientResponse> callForRawResponse(
             String url,
