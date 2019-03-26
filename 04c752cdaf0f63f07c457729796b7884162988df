@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b23bc794_94144b03",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/streams/DataRouterSourcesIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-03-26T10:49:57Z",
+      "side": 1,
+      "message": "Is there any reason why its named ..Sources.. ? I see that both sinks and sources are checked.",
+      "revId": "04c752cdaf0f63f07c457729796b7884162988df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
