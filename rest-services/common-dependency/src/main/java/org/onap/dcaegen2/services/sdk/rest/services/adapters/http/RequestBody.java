@@ -23,9 +23,14 @@ package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 import com.google.gson.JsonElement;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import io.netty.buffer.Unpooled;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
 import org.reactivestreams.Publisher;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufFlux;
 
@@ -33,20 +38,39 @@ import reactor.netty.ByteBufFlux;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
  */
-public final class RequestBody {
+@Value.Immutable
+public interface RequestBody {
 
-    private RequestBody() {
+    Publisher<ByteBuf> contents();
+
+    @Nullable Integer length();
+
+    static RequestBody chunkedFromString(Publisher<String> contents) {
+        return chunkedFromString(contents, StandardCharsets.UTF_8);
     }
 
-    public static Publisher<ByteBuf> fromString(String contents) {
+    static RequestBody chunkedFromString(Publisher<String> contents, Charset charset) {
+        return ImmutableRequestBody.builder()
+                .length(null)
+                .contents(ByteBufFlux.fromString(contents, charset, ByteBufAllocator.DEFAULT))
+                .build();
+    }
+
+    static RequestBody fromString(String contents) {
         return fromString(contents, StandardCharsets.UTF_8);
     }
 
-    public static Publisher<ByteBuf> fromString(String contents, Charset charset) {
-        return ByteBufFlux.fromString(Mono.just(contents), charset, ByteBufAllocator.DEFAULT);
+    static RequestBody fromString(String contents, Charset charset) {
+        ByteBuf encodedContents = ByteBufAllocator.DEFAULT.buffer();
+        encodedContents.writeCharSequence(contents, charset);
+
+        return ImmutableRequestBody.builder()
+                .length(encodedContents.readableBytes())
+                .contents(Mono.just(encodedContents.retain()))
+                .build();
     }
 
-    public static Publisher<ByteBuf> fromJson(JsonElement contents) {
+    static RequestBody fromJson(JsonElement contents) {
         return fromString(contents.toString());
     }
 
