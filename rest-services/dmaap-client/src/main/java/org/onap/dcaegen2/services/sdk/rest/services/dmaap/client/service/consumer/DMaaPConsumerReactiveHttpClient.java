@@ -20,7 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.consumer;
 
-import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import java.net.URI;
 import java.util.Map;
 import java.util.Optional;
@@ -60,15 +60,16 @@ public class DMaaPConsumerReactiveHttpClient extends DMaaPAbstractReactiveHttpCl
      *
      * @return reactive response from DMaaP in string format
      */
-    public Mono<JsonArray> getDMaaPConsumerResponse(Optional<RequestDiagnosticContext> requestDiagnosticContextOptional) {
-        Map<String,String> headers = DMaaPClientServiceUtils.getHeaders(consumerConfiguration.dmaapContentType());
+    public Mono<JsonElement> getDMaaPConsumerResponse(
+        Optional<RequestDiagnosticContext> requestDiagnosticContextOptional) {
+        Map<String, String> headers = DMaaPClientServiceUtils.getHeaders(consumerConfiguration.dmaapContentType());
         if (requestDiagnosticContextOptional.isPresent()) {
             return cloudHttpClient
-                .get(getUri().toString(), requestDiagnosticContextOptional.get(), headers, JsonArray.class);
+                .get(getUri().toString(), requestDiagnosticContextOptional.get(), headers, JsonElement.class);
         }
         RequestDiagnosticContext requestDiagnosticContext = ImmutableRequestDiagnosticContext.builder()
             .invocationId(UUID.randomUUID()).requestId(UUID.randomUUID()).build();
-        return cloudHttpClient.get(getUri().toString(), requestDiagnosticContext, headers, JsonArray.class);
+        return cloudHttpClient.get(getUri().toString(), requestDiagnosticContext, headers, JsonElement.class);
     }
 
     URI getUri() {

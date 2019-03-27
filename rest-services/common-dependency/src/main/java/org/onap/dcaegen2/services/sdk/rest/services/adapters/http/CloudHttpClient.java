@@ -28,8 +28,9 @@ import java.util.Map;
 import org.onap.dcaegen2.services.sdk.rest.services.model.ClientModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientResponse;
 
 
@@ -40,6 +41,7 @@ import reactor.netty.http.client.HttpClientResponse;
 @Deprecated
 public class CloudHttpClient {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CloudHttpClient.class);
     private final Gson gson = new Gson();
     private final RxHttpClient httpClient;
 
@@ -64,38 +66,38 @@ public class CloudHttpClient {
     }
 
     public <T> Mono<T> get(
-            String url,
-            RequestDiagnosticContext context,
-            Map<String, String> customHeaders,
-            Class<T> bodyClass) {
+        String url,
+        RequestDiagnosticContext context,
+        Map<String, String> customHeaders,
+        Class<T> bodyClass) {
         return httpClient.call(
-                ImmutableHttpRequest.builder()
-                        .method(HttpMethod.GET)
-                        .url(url)
-                        .customHeaders(HashMap.ofAll(customHeaders))
-                        .diagnosticContext(context)
-                        .build())
-                .doOnNext(HttpResponse::throwIfUnsuccessful)
-                .map(HttpResponse::bodyAsString)
-                .map(body -> gson.fromJson(body, bodyClass));
+            ImmutableHttpRequest.builder()
+                .method(HttpMethod.GET)
+                .url(url)
+                .customHeaders(HashMap.ofAll(customHeaders))
+                .diagnosticContext(context)
+                .build())
+            .doOnNext(HttpResponse::throwIfUnsuccessful)
+            .map(HttpResponse::bodyAsString)
+            .map(body -> gson.fromJson(body, bodyClass));
     }
 
 
     public Mono<HttpClientResponse> post(
-            String url,
-            RequestDiagnosticContext context,
-            Map<String, String> customHeaders,
-            JsonBodyBuilder jsonBodyBuilder,
-            ClientModel clientModel) {
+        String url,
+        RequestDiagnosticContext context,
+        Map<String, String> customHeaders,
+        JsonBodyBuilder jsonBodyBuilder,
+        ClientModel clientModel) {
         return callForRawResponse(url, context, customHeaders, jsonBodyBuilder, clientModel, HttpMethod.POST);
     }
 
     public Mono<HttpClientResponse> patch(
-            String url,
-            RequestDiagnosticContext context,
-            Map<String, String> customHeaders,
-            JsonBodyBuilder jsonBodyBuilder,
-            ClientModel clientModel) {
+        String url,
+        RequestDiagnosticContext context,
+        Map<String, String> customHeaders,
+        JsonBodyBuilder jsonBodyBuilder,
+        ClientModel clientModel) {
         return callForRawResponse(url, context, customHeaders, jsonBodyBuilder, clientModel, HttpMethod.PATCH);
     }
 
@@ -109,22 +111,29 @@ public class CloudHttpClient {
     }
 
     private Mono<HttpClientResponse> callForRawResponse(
-            String url,
-            RequestDiagnosticContext context,
-            Map<String, String> customHeaders,
-            JsonBodyBuilder jsonBodyBuilder,
-            ClientModel clientModel,
-            HttpMethod method) {
+        String url,
+        RequestDiagnosticContext context,
+        Map<String, String> customHeaders,
+        JsonBodyBuilder jsonBodyBuilder,
+        ClientModel clientModel,
+        HttpMethod method) {
+
+        String jsonBody = jsonBodyBuilder.createJsonBody(clientModel);
+        LOGGER.debug("CloudHttpClient JSon body:: {}", jsonBody);
+        LOGGER.debug("CloudHttpClient url: {}", url);
+        LOGGER.debug("CloudHttpClient customHeaders: {}", customHeaders);
+
         return httpClient.prepareRequest(
-                ImmutableHttpRequest.builder()
-                        .url(url)
-                        .customHeaders(HashMap.ofAll(customHeaders))
-                        .diagnosticContext(context)
-                        .body(RequestBody.fromString(jsonBodyBuilder.createJsonBody(clientModel)))
-                        .method(method)
-                        .build())
-                .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse));
+            ImmutableHttpRequest.builder()
+                .url(url)
+                .customHeaders(HashMap.ofAll(customHeaders))
+                .diagnosticContext(context)
+                .body(RequestBody.fromString(jsonBody))
+                .method(method)
+                .build())
+            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse));
     }
+
 
 }
 

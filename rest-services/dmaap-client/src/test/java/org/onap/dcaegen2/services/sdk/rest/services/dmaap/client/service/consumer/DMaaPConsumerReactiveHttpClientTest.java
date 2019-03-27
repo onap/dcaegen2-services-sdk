@@ -23,7 +23,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.consum
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import java.net.URI;
 import java.util.Optional;
 import org.apache.http.entity.ContentType;
@@ -45,7 +45,7 @@ class DMaaPConsumerReactiveHttpClientTest {
     private static final String JSON_MESSAGE = "{ \"responseFromDmaap\": \"Success\"}";
     private DMaaPConsumerReactiveHttpClient dmaapConsumerReactiveHttpClient;
     private DmaapConsumerConfiguration consumerConfigurationMock = mock(DmaapConsumerConfiguration.class);
-    private Mono<JsonArray> expectedResult;
+    private Mono<JsonElement> expectedResult;
     private CloudHttpClient httpClient = mock(CloudHttpClient.class);
     private URI exampleTestUri = URI
         .create("https://54.45.33.2:1234/unauthenticated.SEC_OTHER_OUTPUT/OpenDCAE-c12/c12");
@@ -68,11 +68,12 @@ class DMaaPConsumerReactiveHttpClientTest {
     @Test
     void getHttpResponse_Success() {
         //given
-        expectedResult = Mono.just(mock(JsonArray.class));
-        when(httpClient.get(exampleTestUri.toString(), requestDiagnosticContext, DMaaPClientServiceUtils.getHeaders(ContentType.APPLICATION_JSON.getMimeType()), JsonArray.class))
+        expectedResult = Mono.just(mock(JsonElement.class));
+        when(httpClient.get(exampleTestUri.toString(), requestDiagnosticContext,
+            DMaaPClientServiceUtils.getHeaders(ContentType.APPLICATION_JSON.getMimeType()), JsonElement.class))
             .thenReturn(expectedResult);
         //when
-        Mono<JsonArray> response = dmaapConsumerReactiveHttpClient
+        Mono<JsonElement> response = dmaapConsumerReactiveHttpClient
             .getDMaaPConsumerResponse(Optional.of(requestDiagnosticContext));
         //then
         StepVerifier.create(response).expectSubscription()
