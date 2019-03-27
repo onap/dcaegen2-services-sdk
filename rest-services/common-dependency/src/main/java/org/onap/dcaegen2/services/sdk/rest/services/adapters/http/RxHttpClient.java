@@ -62,6 +62,7 @@ public class RxHttpClient {
 
     ResponseReceiver<?> prepareRequest(HttpRequest request) {
         return httpClient
+                .chunkedTransfer(request.chunkedTransferEncoding())
                 .doOnRequest((req, conn) -> logRequest(request.diagnosticContext(), req))
                 .doOnResponse((rsp, conn) -> logResponse(request.diagnosticContext(), rsp))
                 .headers(hdrs -> request.headers().forEach(hdr -> hdrs.set(hdr._1, hdr._2)))
