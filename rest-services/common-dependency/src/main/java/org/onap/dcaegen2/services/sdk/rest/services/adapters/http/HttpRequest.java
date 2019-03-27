@@ -20,17 +20,11 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
-import io.netty.buffer.ByteBuf;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
-import java.util.function.BiFunction;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
-import org.reactivestreams.Publisher;
-import reactor.core.publisher.Mono;
-import reactor.netty.NettyOutbound;
-import reactor.netty.http.client.HttpClientRequest;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -43,6 +37,8 @@ public interface HttpRequest {
 
     HttpMethod method();
 
+    @Nullable RequestBody body();
+
     @Value.Default
     default RequestDiagnosticContext diagnosticContext() {
         return RequestDiagnosticContext.create();
@@ -51,11 +47,6 @@ public interface HttpRequest {
     @Value.Default
     default Map<String, String> customHeaders() {
         return HashMap.empty();
-    }
-
-    @Value.Default
-    default Publisher<ByteBuf> body() {
-        return Mono.empty();
     }
 
     @Value.Derived

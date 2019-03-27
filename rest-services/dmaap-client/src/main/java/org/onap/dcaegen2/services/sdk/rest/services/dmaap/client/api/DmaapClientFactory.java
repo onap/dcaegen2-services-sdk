@@ -20,23 +20,34 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
+import com.google.gson.Gson;
+import io.vavr.Lazy;
+import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.MessageRouterClientImpl;
 
 /**
+ * <b>WARNING</b>: This is a proof-of-concept. It is untested. API may change or be removed.  Use at your own risk.
+ * You've been warned.
+ *
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
 @ExperimentalApi
 public final class DmaapClientFactory {
 
+    private static final Lazy<MessageRouterClientImpl> THE_CLIENT = Lazy.of(() ->
+            new MessageRouterClientImpl(RxHttpClient.create(), new Gson()));
+
     private DmaapClientFactory() {
     }
 
-    public static MessageRouterPublisher createMessageRouterPublisher() {
-        throw new UnsupportedOperationException("not implemented yet");
+    public static @NotNull MessageRouterPublisher createMessageRouterPublisher() {
+        return THE_CLIENT.get();
     }
 
-    public static MessageRouterSubscriber createMessageRouterSubscriber() {
-        throw new UnsupportedOperationException("not implemented yet");
+    public static @NotNull MessageRouterSubscriber createMessageRouterSubscriber() {
+        return THE_CLIENT.get();
     }
 }
