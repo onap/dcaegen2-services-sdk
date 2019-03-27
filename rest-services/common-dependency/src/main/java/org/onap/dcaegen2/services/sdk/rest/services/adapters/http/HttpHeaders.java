@@ -18,20 +18,17 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
-
-import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
+package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since April 2019
  */
-@ExperimentalApi
-public interface DmaapRequest {
-    @Value.Default
-    default RequestDiagnosticContext diagnosticContext() {
-        return RequestDiagnosticContext.create();
+public final class HttpHeaders {
+
+    private HttpHeaders() {
     }
+
+    public static final String CONTENT_TYPE = "Content-Type";
+    public static final String CONTENT_LENGTH = "Content-Length";
 }

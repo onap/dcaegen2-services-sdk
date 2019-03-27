@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
@@ -45,6 +46,8 @@ class RxHttpClientIT {
         httpServer = DummyHttpServer.start(routes ->
                 routes.get("/sample-get", (req, resp) -> sendString(resp, Mono.just("OK")))
                         .get("/sample-get-500", (req, resp) -> resp.status(HttpResponseStatus.INTERNAL_SERVER_ERROR).send())
+                        .post("/headers-post", (req, resp) -> resp
+                                .sendString(Mono.just(req.requestHeaders().toString())))
                         .post("/echo-post", (req, resp) -> resp.send(req.receive().retain()))
         );
     }
@@ -104,6 +107,54 @@ class RxHttpClientIT {
         // then
         StepVerifier.create(bodyAsString)
                 .expectNext(requestBody)
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void testChunkedEncoding() throws Exception {
+        // given
+        final String requestBody = "hello world";
+        final HttpRequest httpRequest = requestFor("/headers-post")
+                .method(HttpMethod.POST)
+                .body(RequestBody.chunkedFromString(Mono.just(requestBody)))
+                .build();
+
+        // when
+        final Mono<String> bodyAsString = cut.call(httpRequest)
+                .doOnNext(HttpResponse::throwIfUnsuccessful)
+                .map(HttpResponse::bodyAsString);
+
+        // then
+        StepVerifier.create(bodyAsString.map(String::toLowerCase))
+                .consumeNextWith(responseBody -> {
+                    assertThat(responseBody).contains("transfer-encoding: chunked");
+                    assertThat(responseBody).doesNotContain("content-length");
+                })
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void testUnchunkedEncoding() throws Exception {
+        // given
+        final String requestBody = "hello world";
+        final HttpRequest httpRequest = requestFor("/headers-post")
+                .method(HttpMethod.POST)
+                .body(RequestBody.fromString(requestBody))
+                .build();
+
+        // when
+        final Mono<String> bodyAsString = cut.call(httpRequest)
+                .doOnNext(HttpResponse::throwIfUnsuccessful)
+                .map(HttpResponse::bodyAsString);
+
+        // then
+        StepVerifier.create(bodyAsString.map(String::toLowerCase))
+                .consumeNextWith(responseBody -> {
+                    assertThat(responseBody).doesNotContain("transfer-encoding");
+                    assertThat(responseBody).contains("content-length");
+                })
                 .expectComplete()
                 .verify(TIMEOUT);
     }

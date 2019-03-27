@@ -61,14 +61,44 @@ public class RxHttpClient {
     }
 
     ResponseReceiver<?> prepareRequest(HttpRequest request) {
-        return httpClient
+        final HttpClient theClient = httpClient
                 .doOnRequest((req, conn) -> logRequest(request.diagnosticContext(), req))
                 .doOnResponse((rsp, conn) -> logResponse(request.diagnosticContext(), rsp))
-                .headers(hdrs -> request.headers().forEach(hdr -> hdrs.set(hdr._1, hdr._2)))
-                .request(request.method().asNetty())
-                .send(request.body())
-                .uri(request.url());
+                .headers(hdrs -> request.headers().forEach(hdr -> hdrs.set(hdr._1, hdr._2)));
 
+        return prepareBody(request, theClient);
+    }
+
+    private ResponseReceiver<?> prepareBody(HttpRequest request, HttpClient theClient) {
+        if (request.body() == null) {
+            return prepareBodyWithoutContents(request, theClient);
+        } else {
+            return request.body().length() == null
+                    ? prepareBodyChunked(request, theClient)
+                    : prepareBodyUnchunked(request, theClient);
+        }
+    }
+
+    private ResponseReceiver<?> prepareBodyChunked(HttpRequest request, HttpClient theClient) {
+        return theClient
+                .chunkedTransfer(true)
+                .request(request.method().asNetty())
+                .send(request.body().contents())
+                .uri(request.url());
+    }
+
+    private ResponseReceiver<?> prepareBodyUnchunked(HttpRequest request, HttpClient theClient) {
+        return theClient
+                .headers(hdrs -> hdrs.set(HttpHeaders.CONTENT_LENGTH, request.body().length().toString()))
+                .request(request.method().asNetty())
+                .send(request.body().contents())
+                .uri(request.url());
+    }
+
+    private ResponseReceiver<?> prepareBodyWithoutContents(HttpRequest request, HttpClient theClient) {
+        return theClient
+                .request(request.method().asNetty())
+                .uri(request.url());
     }
 
     private void logRequest(RequestDiagnosticContext context, HttpClientRequest httpClientRequest) {
