@@ -20,7 +20,9 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
 
+import io.netty.handler.codec.http.DefaultHttpContent;
 import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
@@ -34,4 +36,9 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnos
 public interface MessageRouterPublishRequest extends DmaapRequest {
 
     MessageRouterSink sinkDefinition();
+
+    @Value.Default
+    default String contentType() {
+        return "application/json";
+    }
 }
