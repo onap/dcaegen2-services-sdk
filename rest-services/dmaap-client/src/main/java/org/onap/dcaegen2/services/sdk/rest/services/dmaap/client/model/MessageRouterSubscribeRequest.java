@@ -17,14 +17,13 @@
  * limitations under the License.
  * ============LICENSE_END=====================================
  */
-
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
 
+import java.time.Duration;
 import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSource;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
-
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -35,4 +34,12 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnos
 public interface MessageRouterSubscribeRequest extends DmaapRequest {
 
     MessageRouterSource sourceDefinition();
+
+    String consumerGroup();
+
+    @Nullable Duration timeout();
+
+    default String consumerId() {
+        return Constants.CLASS_LOADER_SCOPED_UNIQUE_ID;
+    }
 }

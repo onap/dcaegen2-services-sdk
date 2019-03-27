@@ -21,6 +21,8 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
 
 import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 
@@ -34,5 +36,4 @@ public interface DmaapRequest {
     default RequestDiagnosticContext diagnosticContext() {
         return RequestDiagnosticContext.create();
     }
-
 }

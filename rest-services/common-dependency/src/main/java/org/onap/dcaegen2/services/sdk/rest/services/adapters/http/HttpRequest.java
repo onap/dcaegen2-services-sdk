@@ -44,6 +44,11 @@ public interface HttpRequest {
     HttpMethod method();
 
     @Value.Default
+    default boolean chunkedTransferEncoding() {
+        return false;
+    }
+
+    @Value.Default
     default RequestDiagnosticContext diagnosticContext() {
         return RequestDiagnosticContext.create();
     }

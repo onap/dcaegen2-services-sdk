@@ -20,25 +20,16 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
 
-import io.netty.handler.codec.http.DefaultHttpContent;
-import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
+import java.util.UUID;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since March 2019
  */
-@ExperimentalApi
-@Value.Immutable
-public interface MessageRouterPublishRequest extends DmaapRequest {
+final class Constants {
 
-    MessageRouterSink sinkDefinition();
-
-    @Value.Default
-    default String contentType() {
-        return "application/json";
+    private Constants() {
     }
+
+    static final String CLASS_LOADER_SCOPED_UNIQUE_ID = UUID.randomUUID().toString();
 }
