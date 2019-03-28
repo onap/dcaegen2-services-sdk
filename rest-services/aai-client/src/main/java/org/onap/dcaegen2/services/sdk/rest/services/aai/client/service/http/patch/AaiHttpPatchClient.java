@@ -20,18 +20,22 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.patch;
 
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.client.HttpClientResponse;
+
 
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
 
-public final class AaiHttpPatchClient implements AaiHttpClient<HttpClientResponse> {
+public final class AaiHttpPatchClient implements AaiHttpClient<AaiModel, HttpResponse> {
+    private final static Map<String, String> CONTENT_TYPE = HashMap.of("Content-Type", "application/merge-patch+json");
 
     private CloudHttpClient httpPatchClient;
     private final AaiClientConfiguration configuration;
@@ -44,9 +48,15 @@ public final class AaiHttpPatchClient implements AaiHttpClient<HttpClientRespons
         this.httpPatchClient = httpPatchClient;
     }
 
-    public Mono<HttpClientResponse> getAaiResponse(AaiModel aaiModel) {
-        return httpPatchClient
-                .patch(getUri(aaiModel.getCorrelationId()), createRequestDiagnosticContext(), configuration.aaiHeaders(), jsonBodyBuilder, aaiModel);
+    public Mono<HttpResponse> getAaiResponse(AaiModel aaiModel) {
+        final Map<String, String> headers = CONTENT_TYPE.merge(HashMap.ofAll(configuration.aaiHeaders()));
+
+        return httpPatchClient.patch(
+                getUri(aaiModel.getCorrelationId()),
+                createRequestDiagnosticContext(),
+                headers.toJavaMap(),
+                jsonBodyBuilder,
+                aaiModel);
     }
 
     private String getUri(String pnfName) {

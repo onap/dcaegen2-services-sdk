@@ -59,6 +59,9 @@ public abstract class AaiClientConfiguration implements Serializable {
     public abstract String aaiPnfPath();
 
     @Value.Parameter
+    public abstract String aaiServiceInstancePath();
+
+    @Value.Parameter
     public abstract Map<String, String> aaiHeaders();
 
     @Value.Parameter
