@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2018-2019 NOKIA Intellectual Property. All rights reserved.
+ * Copyright (C) 2018 NOKIA Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,38 +20,58 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.get;
 
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
+import org.apache.commons.text.StringSubstitutor;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
-import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.AaiServiceInstanceQueryModel;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import reactor.core.publisher.Mono;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
 
-public final class AaiHttpGetClient implements AaiHttpClient<AaiModel, HttpResponse> {
+public class AaiGetServiceInstanceClient implements
+        AaiHttpClient<AaiServiceInstanceQueryModel, HttpResponse> {
+
+    //variables for query "/business/customers/customer/${customer}/service-subscriptions/service-subscription/${serviceType}/service-instances/service-instance/${serviceInstanceId}"
+    public static final String CUSTOMER = "customer";
+    public static final String SERVICE_TYPE = "serviceType";
+    public static final String SERVICE_INSTANCE_ID = "serviceInstanceId";
 
     private CloudHttpClient httpGetClient;
     private final AaiClientConfiguration configuration;
 
-
-    public AaiHttpGetClient(AaiClientConfiguration configuration, CloudHttpClient httpGetClient) {
+    public AaiGetServiceInstanceClient(final AaiClientConfiguration configuration, final CloudHttpClient httpGetClient) {
         this.configuration = configuration;
         this.httpGetClient = httpGetClient;
     }
 
     @Override
-    public Mono<HttpResponse> getAaiResponse(AaiModel aaiModel) {
-        return httpGetClient.get(getUri(aaiModel.getCorrelationId()), createRequestDiagnosticContext(), configuration.aaiHeaders());
+    public Mono<HttpResponse> getAaiResponse(AaiServiceInstanceQueryModel aaiModel) {
+        final Map<String, String> mapping = HashMap.of(
+                CUSTOMER, aaiModel.customerId(),
+                SERVICE_TYPE, aaiModel.serviceType(),
+                SERVICE_INSTANCE_ID, aaiModel.serviceInstanceId());
+
+        final StringSubstitutor substitutor = new StringSubstitutor(mapping.toJavaMap());
+        final String replaced = substitutor.replace(configuration.aaiServiceInstancePath());
+
+        return httpGetClient.get(
+                getUri(replaced),
+                createRequestDiagnosticContext(),
+                configuration.aaiHeaders());
     }
 
-    private String getUri(String pnfName) {
+    private String getUri(final String endpoint) {
         return new URI.URIBuilder()
                 .scheme(configuration.aaiProtocol())
                 .host(configuration.aaiHost())
                 .port(configuration.aaiPort())
-                .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
+                .path(configuration.aaiBasePath() + "/" + endpoint)
+                .build()
+                .toString();
     }
-
 }

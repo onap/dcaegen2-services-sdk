@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2018-2019 NOKIA Intellectual Property. All rights reserved.
+ * Copyright (C) 2018 NOKIA Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,14 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http;
+package org.onap.dcaegen2.services.sdk.rest.services.model;
 
-import reactor.core.publisher.Mono;
+import org.immutables.value.Value;
 
-import java.util.function.Function;
-
-public interface AaiHttpClient<T, U> {
-    Mono<U> getAaiResponse(T aaiModel);
-
-    default <S> AaiHttpClient<T, S> map(final Function<U,S> fn) {
-        return aaiModel -> AaiHttpClient.this.getAaiResponse(aaiModel).map(fn);
-    }
+@Value.Style(stagedBuilder = true)
+@Value.Immutable
+public interface AaiServiceInstanceQueryModel extends ClientModel {
+    String customerId();
+    String serviceType();
+    String serviceInstanceId();
 }

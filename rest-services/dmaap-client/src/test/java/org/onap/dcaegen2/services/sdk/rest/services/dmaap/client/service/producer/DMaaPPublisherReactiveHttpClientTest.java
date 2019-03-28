@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.DMaaPClientServiceUtils;
 import org.onap.dcaegen2.services.sdk.rest.services.model.ClientModel;
@@ -77,7 +78,7 @@ class DMaaPPublisherReactiveHttpClientTest {
     @Test
     void getHttpResponse_Success() {
         //given
-        Mono<HttpClientResponse> expectedResult = Mono.just(mock(HttpClientResponse.class));
+        Mono<HttpResponse> expectedResult = Mono.just(mock(HttpResponse.class));
         //when
         when(
             cloudHttpClientMock
@@ -85,7 +86,7 @@ class DMaaPPublisherReactiveHttpClientTest {
                     DMaaPClientServiceUtils.getHeaders(ContentType.APPLICATION_JSON.getMimeType()),
                     jsonBodyBuilderMock,
                     mock(ClientModel.class)))
-            .thenReturn(Mono.just(mock(HttpClientResponse.class)));
+            .thenReturn(Mono.just(mock(HttpResponse.class)));
         //then
         StepVerifier.create(expectedResult).expectSubscription()
             .expectNextMatches(results -> {

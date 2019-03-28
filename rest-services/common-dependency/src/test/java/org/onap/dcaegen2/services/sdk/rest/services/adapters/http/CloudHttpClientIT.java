@@ -61,12 +61,12 @@ class CloudHttpClientIT {
         CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
 
         when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
-        Mono<HttpClientResponse> content = cloudHttpClient
+        Mono<HttpResponse> content = cloudHttpClient
                 .patch(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
                         jsonBodyBuilder, dmaapModel);
-        HttpClientResponse httpClientResponse = content.block();
+        HttpResponse httpClientResponse = content.block();
 
-        assertEquals(HttpResponseStatus.OK, httpClientResponse.status());
+        assertEquals(HttpResponseStatus.OK.code(), httpClientResponse.statusCode());
         server.disposeNow();
     }
 
@@ -77,12 +77,12 @@ class CloudHttpClientIT {
         CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
 
         when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
-        Mono<HttpClientResponse> content = cloudHttpClient
+        Mono<HttpResponse> content = cloudHttpClient
                 .patch(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
                         jsonBodyBuilder, dmaapModel);
-        HttpClientResponse httpClientResponse = content.block();
+        HttpResponse httpClientResponse = content.block();
 
-        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR, httpClientResponse.status());
+        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR.code(), httpClientResponse.statusCode());
         server.disposeNow();
     }
 
@@ -93,12 +93,12 @@ class CloudHttpClientIT {
         CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
 
         when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
-        Mono<HttpClientResponse> content = cloudHttpClient
+        Mono<HttpResponse> content = cloudHttpClient
                 .post(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
                         jsonBodyBuilder, dmaapModel);
-        HttpClientResponse httpClientResponse = content.block();
+        HttpResponse httpClientResponse = content.block();
 
-        assertEquals(HttpResponseStatus.OK, httpClientResponse.status());
+        assertEquals(HttpResponseStatus.OK.code(), httpClientResponse.statusCode());
         server.disposeNow();
     }
 
@@ -109,12 +109,12 @@ class CloudHttpClientIT {
         CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
 
         when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
-        Mono<HttpClientResponse> content = cloudHttpClient
+        Mono<HttpResponse> content = cloudHttpClient
                 .post(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
                         jsonBodyBuilder, dmaapModel);
-        HttpClientResponse httpClientResponse = content.block();
+        HttpResponse httpClientResponse = content.block();
 
-        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR, httpClientResponse.status());
+        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR.code(), httpClientResponse.statusCode());
         server.disposeNow();
     }
 
@@ -161,12 +161,12 @@ class CloudHttpClientIT {
         CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
 
         when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
-        Mono<HttpClientResponse> content = cloudHttpClient
+        Mono<HttpResponse> content = cloudHttpClient
             .put(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
                 jsonBodyBuilder, dmaapModel);
-        HttpClientResponse httpClientResponse = content.block();
+        HttpResponse httpClientResponse = content.block();
 
-        assertEquals(HttpResponseStatus.OK, httpClientResponse.status());
+        assertEquals(HttpResponseStatus.OK.code(), httpClientResponse.statusCode());
         server.disposeNow();
     }
 
@@ -177,12 +177,12 @@ class CloudHttpClientIT {
         CloudHttpClient cloudHttpClient = new CloudHttpClient(httpClient);
 
         when(jsonBodyBuilder.createJsonBody(dmaapModel)).thenReturn(JSON_BODY);
-        Mono<HttpClientResponse> content = cloudHttpClient
+        Mono<HttpResponse> content = cloudHttpClient
             .put(SAMPLE_URL, createRequestDiagnosticContext(), createCustomHeaders(),
                 jsonBodyBuilder, dmaapModel);
-        HttpClientResponse httpClientResponse = content.block();
+        HttpResponse httpClientResponse = content.block();
 
-        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR, httpClientResponse.status());
+        assertEquals(HttpResponseStatus.INTERNAL_SERVER_ERROR.code(), httpClientResponse.statusCode());
         server.disposeNow();
     }
 

@@ -37,6 +37,7 @@
     <mockito.version>2.23.4</mockito.version>
     <protobuf.version>3.6.1</protobuf.version>
     <vavr.version>0.10.0</vavr.version>
+    <commons-text.version>1.6</commons-text.version>
     <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
     <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
     <maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
@@ -178,6 +179,11 @@
         <groupId>io.vavr</groupId>
         <artifactId>vavr</artifactId>
         <version>${vavr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-text</artifactId>
+        <version>${commons-text.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
