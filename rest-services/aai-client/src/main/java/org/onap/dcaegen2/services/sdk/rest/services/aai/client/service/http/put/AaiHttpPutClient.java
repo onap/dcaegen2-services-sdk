@@ -21,6 +21,8 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.put;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
+
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
@@ -29,8 +31,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import reactor.core.publisher.Mono;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
-
 public class AaiHttpPutClient implements AaiHttpClient<AaiModel, HttpResponse> {
 
     private CloudHttpClient httpPutClient;
@@ -38,7 +38,8 @@ public class AaiHttpPutClient implements AaiHttpClient<AaiModel, HttpResponse> {
     private final JsonBodyBuilder jsonBodyBuilder;
     private final String uri;
 
-    public AaiHttpPutClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder, String uri, CloudHttpClient httpPutClient) {
+    public AaiHttpPutClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder, String uri,
+            CloudHttpClient httpPutClient) {
         this.configuration = configuration;
         this.jsonBodyBuilder = jsonBodyBuilder;
         this.uri = uri;

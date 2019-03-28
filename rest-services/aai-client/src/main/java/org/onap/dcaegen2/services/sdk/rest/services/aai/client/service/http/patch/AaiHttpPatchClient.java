@@ -20,6 +20,8 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.patch;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
+
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
@@ -31,10 +33,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import reactor.core.publisher.Mono;
 
-
-import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
-
 public final class AaiHttpPatchClient implements AaiHttpClient<AaiModel, HttpResponse> {
+
     private final static Map<String, String> CONTENT_TYPE = HashMap.of("Content-Type", "application/merge-patch+json");
 
     private CloudHttpClient httpPatchClient;
@@ -42,7 +42,8 @@ public final class AaiHttpPatchClient implements AaiHttpClient<AaiModel, HttpRes
     private final JsonBodyBuilder jsonBodyBuilder;
 
 
-    public AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder, CloudHttpClient httpPatchClient) {
+    public AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder,
+            CloudHttpClient httpPatchClient) {
         this.configuration = configuration;
         this.jsonBodyBuilder = jsonBodyBuilder;
         this.httpPatchClient = httpPatchClient;
@@ -66,5 +67,4 @@ public final class AaiHttpPatchClient implements AaiHttpClient<AaiModel, HttpRes
                 .port(configuration.aaiPort())
                 .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
     }
-
 }
