@@ -22,6 +22,9 @@ package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service;
 
 import io.netty.handler.ssl.SslContext;
 import io.vavr.control.Try;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.ImmutableRequestDiagnosticContext;
@@ -34,21 +37,20 @@ import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.UUID;
-
 public class AaiHttpClientFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AaiHttpClientFactory.class);
 
     private final AaiClientConfiguration configuration;
-    private final SslFactory sslFactory = new SslFactory();
-
+    private final SslFactory sslFactory;
 
     public AaiHttpClientFactory(AaiClientConfiguration configuration) {
+        this(configuration, new SslFactory());
+    }
+
+    public AaiHttpClientFactory(AaiClientConfiguration configuration, SslFactory sslFactory) {
         this.configuration = configuration;
+        this.sslFactory = sslFactory;
     }
 
     public CloudHttpClient build() {
