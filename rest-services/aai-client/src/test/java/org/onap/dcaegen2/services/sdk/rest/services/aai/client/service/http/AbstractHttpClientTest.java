@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2018-2019 NOKIA Intellectual Property. All rights reserved.
+ * Copyright (C) 2019 NOKIA Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,41 +17,26 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-
-package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.get;
-
-import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
+package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http;
 
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
-import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
+import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
-import reactor.core.publisher.Mono;
 
-public final class AaiHttpGetClient implements AaiHttpClient<AaiModel, HttpResponse> {
+public class AbstractHttpClientTest {
 
-    private final CloudHttpClient httpGetClient;
-    private final AaiClientConfiguration configuration;
+    protected CloudHttpClient httpClient;
+    protected JsonBodyBuilder bodyBuilder;
+    protected HttpResponse response;
 
-
-    public AaiHttpGetClient(AaiClientConfiguration configuration, CloudHttpClient httpGetClient) {
-        this.configuration = configuration;
-        this.httpGetClient = httpGetClient;
-    }
-
-    @Override
-    public Mono<HttpResponse> getAaiResponse(AaiModel aaiModel) {
-        return httpGetClient
-                .get(getUri(aaiModel.getCorrelationId()), createRequestDiagnosticContext(), configuration.aaiHeaders());
-    }
-
-    private String getUri(String pnfName) {
+    protected String constructAaiUri(AaiClientConfiguration configuration, String pnfName) {
         return new URI.URIBuilder()
                 .scheme(configuration.aaiProtocol())
                 .host(configuration.aaiHost())
                 .port(configuration.aaiPort())
-                .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
+                .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName)
+                .build().toString();
     }
 }

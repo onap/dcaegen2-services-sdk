@@ -20,6 +20,8 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.get;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
+
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import org.apache.commons.text.StringSubstitutor;
@@ -31,20 +33,19 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.AaiServiceInstanceQuer
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import reactor.core.publisher.Mono;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
-
 public class AaiGetServiceInstanceClient implements
         AaiHttpClient<AaiServiceInstanceQueryModel, HttpResponse> {
 
     //variables for query "/business/customers/customer/${customer}/service-subscriptions/service-subscription/${serviceType}/service-instances/service-instance/${serviceInstanceId}"
-    public static final String CUSTOMER = "customer";
-    public static final String SERVICE_TYPE = "serviceType";
-    public static final String SERVICE_INSTANCE_ID = "serviceInstanceId";
+    private static final String CUSTOMER = "customer";
+    private static final String SERVICE_TYPE = "serviceType";
+    private static final String SERVICE_INSTANCE_ID = "serviceInstanceId";
 
-    private CloudHttpClient httpGetClient;
+    private final CloudHttpClient httpGetClient;
     private final AaiClientConfiguration configuration;
 
-    public AaiGetServiceInstanceClient(final AaiClientConfiguration configuration, final CloudHttpClient httpGetClient) {
+    public AaiGetServiceInstanceClient(final AaiClientConfiguration configuration,
+            final CloudHttpClient httpGetClient) {
         this.configuration = configuration;
         this.httpGetClient = httpGetClient;
     }
