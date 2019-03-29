@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "0e4da688_3b1f8e84",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-29T14:36:48Z",
+      "side": 1,
+      "message": "It is 2019 :) From what I have noticed this applies to headers in other files too :)",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02b172d9_d0e0c695",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-29T14:36:48Z",
+      "side": 1,
+      "message": "Two main issues:\n- this class does not have unit tests\n- this implementation is very specific to one type of endpoint. SDK is meant to be a general purpose shared library. Having endpoints hardcoded on this level means each client will have this very specific part of functionality as a dependency. I\u0027d strongly suggest moving this class to PRH. \nOf course I do realize that this problem has already existed, i.e. use case specific interfaces (with correlation itd etc), but this will be refactored so let\u0027s keep the future changes to a minimum:)",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1a3b544_27b2cdf5",
         "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
         "patchSetId": 2
@@ -30,6 +64,23 @@
       "writtenOn": "2019-03-29T13:33:48Z",
       "side": 1,
       "message": "this should be private",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb5466e7_370a6cab",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-29T14:36:48Z",
+      "side": 1,
+      "message": "I would suggest avoiding the \u0027final\u0027 keyword for every parameter declared in a method or constructor.\n- this does not solve immutability issues in java since this is not built into the language by default \n- you introduce inconsistencies in the code by having partial definitions and having changed only a small fragment of code\n- Basically having to manually add final only introduces noise to the code and is cumbersome because you can\u0027t enforce others to be consistent with this approach\n- adding final in this manner signals extreme defensive approach to the code you write. This should not be the case - unit tests that check all possible outcomes should suffice for and would implicitly detect any change in references :)",
       "revId": "318c2405310ad369983c169e3b7b4443b2049253",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -59,6 +110,23 @@
     },
     {
       "key": {
+        "uuid": "b480a35a_fcd9e724",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-29T14:36:48Z",
+      "side": 1,
+      "message": "Actually I do not think adding a whole library just for string templating is justified. Remember that if SDK is meant to be a shared library, then other will have to rely on this. Although this class is a candidate to be moved to PRH, I\u0027d still abandon relying on apache commons and use String.format for a template approach especially if you do not need named parameters.",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b18b593a_80faf170",
         "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiHttpGetClient.java",
         "patchSetId": 2
@@ -76,6 +144,40 @@
     },
     {
       "key": {
+        "uuid": "9ed157b8_f3eed5e2",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/patch/AaiHttpPatchClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-29T14:36:48Z",
+      "side": 1,
+      "message": "Isn\u0027t this Content-Type header already taken from the file prh_endpoints.json and set in AaiClientConfiguration?\nSeems at may be set twice.",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3967db6_7882dc96",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/patch/AaiHttpPatchClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-29T14:36:48Z",
+      "side": 1,
+      "message": "As to my other comment, please remove the final keyword.",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44b8323c_a6846d61",
         "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/CloudHttpClient.java",
         "patchSetId": 2
@@ -87,6 +189,23 @@
       "writtenOn": "2019-03-29T13:45:36Z",
       "side": 1,
       "message": "This class is already deprecated. Do you have any plans to use new RxHttpClient in your code?",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9947d62_0fab3ccb",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/model/AaiServiceInstanceQueryModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2815
+      },
+      "writtenOn": "2019-03-29T14:36:48Z",
+      "side": 1,
+      "message": "it\u0027s already 2019 :)",
       "revId": "318c2405310ad369983c169e3b7b4443b2049253",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
