@@ -21,17 +21,17 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.put;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
-
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.client.HttpClientResponse;
 
-public class AaiHttpPutClient implements AaiHttpClient<HttpClientResponse> {
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
+
+public class AaiHttpPutClient implements AaiHttpClient<AaiModel, HttpResponse> {
 
     private CloudHttpClient httpPutClient;
     private final AaiClientConfiguration configuration;
@@ -46,8 +46,8 @@ public class AaiHttpPutClient implements AaiHttpClient<HttpClientResponse> {
     }
 
     @Override
-    public Mono<HttpClientResponse> getAaiResponse(AaiModel aaiModel) {
+    public Mono<HttpResponse> getAaiResponse(AaiModel aaiModel) {
         return httpPutClient
-            .put(uri, createRequestDiagnosticContext(), configuration.aaiHeaders(), jsonBodyBuilder, aaiModel);
+                .put(uri, createRequestDiagnosticContext(), configuration.aaiHeaders(), jsonBodyBuilder, aaiModel);
     }
 }

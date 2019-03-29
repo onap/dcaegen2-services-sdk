@@ -31,8 +31,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnos
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.client.HttpClientResponse;
-
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/15/18
@@ -65,25 +63,32 @@ public class CloudHttpClient {
         return get(url, context, Collections.emptyMap(), bodyClass);
     }
 
-    public <T> Mono<T> get(
-        String url,
-        RequestDiagnosticContext context,
-        Map<String, String> customHeaders,
-        Class<T> bodyClass) {
+    public Mono<HttpResponse> get(
+            String url,
+            RequestDiagnosticContext context,
+            Map<String, String> customHeaders) {
         return httpClient.call(
-            ImmutableHttpRequest.builder()
-                .method(HttpMethod.GET)
-                .url(url)
-                .customHeaders(HashMap.ofAll(customHeaders))
-                .diagnosticContext(context)
-                .build())
-            .doOnNext(HttpResponse::throwIfUnsuccessful)
-            .map(HttpResponse::bodyAsString)
-            .map(body -> gson.fromJson(body, bodyClass));
+                ImmutableHttpRequest.builder()
+                        .method(HttpMethod.GET)
+                        .url(url)
+                        .customHeaders(HashMap.ofAll(customHeaders))
+                        .diagnosticContext(context)
+                        .build());
+    }
+
+    public <T> Mono<T> get(
+            String url,
+            RequestDiagnosticContext context,
+            Map<String, String> customHeaders,
+            Class<T> bodyClass) {
+        return get(url, context, customHeaders)
+                .doOnNext(HttpResponse::throwIfUnsuccessful)
+                .map(HttpResponse::bodyAsString)
+                .map(body -> gson.fromJson(body, bodyClass));
     }
 
 
-    public Mono<HttpClientResponse> post(
+    public Mono<HttpResponse> post(
         String url,
         RequestDiagnosticContext context,
         Map<String, String> customHeaders,
@@ -92,7 +97,7 @@ public class CloudHttpClient {
         return callForRawResponse(url, context, customHeaders, jsonBodyBuilder, clientModel, HttpMethod.POST);
     }
 
-    public Mono<HttpClientResponse> patch(
+    public Mono<HttpResponse> patch(
         String url,
         RequestDiagnosticContext context,
         Map<String, String> customHeaders,
@@ -101,7 +106,7 @@ public class CloudHttpClient {
         return callForRawResponse(url, context, customHeaders, jsonBodyBuilder, clientModel, HttpMethod.PATCH);
     }
 
-    public Mono<HttpClientResponse> put(
+    public Mono<HttpResponse> put(
         String url,
         RequestDiagnosticContext context,
         Map<String, String> customHeaders,
@@ -110,7 +115,7 @@ public class CloudHttpClient {
         return callForRawResponse(url, context, customHeaders, jsonBodyBuilder, clientModel, HttpMethod.PUT);
     }
 
-    private Mono<HttpClientResponse> callForRawResponse(
+    private Mono<HttpResponse> callForRawResponse(
         String url,
         RequestDiagnosticContext context,
         Map<String, String> customHeaders,
@@ -123,17 +128,14 @@ public class CloudHttpClient {
         LOGGER.debug("CloudHttpClient url: {}", url);
         LOGGER.debug("CloudHttpClient customHeaders: {}", customHeaders);
 
-        return httpClient.prepareRequest(
+        return httpClient.call(
             ImmutableHttpRequest.builder()
                 .url(url)
                 .customHeaders(HashMap.ofAll(customHeaders))
                 .diagnosticContext(context)
                 .body(RequestBody.fromString(jsonBody))
                 .method(method)
-                .build())
-            .responseSingle((httpClientResponse, byteBufMono) -> Mono.just(httpClientResponse));
+                .build());
     }
-
-
 }
 

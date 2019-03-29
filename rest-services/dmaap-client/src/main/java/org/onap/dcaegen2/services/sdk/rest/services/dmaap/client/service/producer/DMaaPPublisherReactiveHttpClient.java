@@ -21,10 +21,8 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.producer;
 
 
-import java.net.URI;
-import java.util.Map;
-import java.util.Optional;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.DMaaPAbstractReactiveHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.DMaaPClientServiceUtils;
@@ -33,7 +31,10 @@ import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI.URIBuilder;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.client.HttpClientResponse;
+
+import java.net.URI;
+import java.util.Map;
+import java.util.Optional;
 
 
 /**
@@ -49,10 +50,10 @@ public class DMaaPPublisherReactiveHttpClient extends DMaaPAbstractReactiveHttpC
      * Constructor DMaaPPublisherReactiveHttpClient.
      *
      * @param dmaapPublisherConfiguration - DMaaP producer configuration object
-     * @param cloudHttpClient - cloudHttpClient sending http requests
+     * @param cloudHttpClient             - cloudHttpClient sending http requests
      */
     DMaaPPublisherReactiveHttpClient(DmaapPublisherConfiguration dmaapPublisherConfiguration,
-        CloudHttpClient cloudHttpClient, JsonBodyBuilder jsonBodyBuilder) {
+                                     CloudHttpClient cloudHttpClient, JsonBodyBuilder jsonBodyBuilder) {
         this.dmaapPublisherConfiguration = dmaapPublisherConfiguration;
         this.cloudHttpClient = cloudHttpClient;
         this.jsonBodyBuilder = jsonBodyBuilder;
@@ -65,27 +66,28 @@ public class DMaaPPublisherReactiveHttpClient extends DMaaPAbstractReactiveHttpC
      * @return status code of operation
      */
 
-    public Mono<HttpClientResponse> getDMaaPProducerResponse(DmaapModel dmaapModel,
-        Optional<RequestDiagnosticContext> requestDiagnosticContextOptional) {
+    public Mono<HttpResponse> getDMaaPProducerResponse(
+            DmaapModel dmaapModel,
+            Optional<RequestDiagnosticContext> requestDiagnosticContextOptional) {
         return Mono.defer(() -> {
             Map<String, String> headers = DMaaPClientServiceUtils.getHeaders(dmaapPublisherConfiguration.dmaapContentType());
             if (requestDiagnosticContextOptional.isPresent()) {
                 cloudHttpClient
-                    .post(getUri().toString(), requestDiagnosticContextOptional.get(), headers, jsonBodyBuilder,
-                        dmaapModel);
+                        .post(getUri().toString(), requestDiagnosticContextOptional.get(), headers, jsonBodyBuilder,
+                                dmaapModel);
             }
             return cloudHttpClient
-                .post(getUri().toString(), getRequestDiagnosticContext(), headers, jsonBodyBuilder, dmaapModel);
+                    .post(getUri().toString(), getRequestDiagnosticContext(), headers, jsonBodyBuilder, dmaapModel);
         });
     }
 
 
     URI getUri() {
         return URI.create(
-            new URIBuilder().scheme(dmaapPublisherConfiguration.dmaapProtocol())
-                .host(dmaapPublisherConfiguration.dmaapHostName()).port(dmaapPublisherConfiguration.dmaapPortNumber())
-                .path(createRequestPath())
-                .build().toString());
+                new URIBuilder().scheme(dmaapPublisherConfiguration.dmaapProtocol())
+                        .host(dmaapPublisherConfiguration.dmaapHostName()).port(dmaapPublisherConfiguration.dmaapPortNumber())
+                        .path(createRequestPath())
+                        .build().toString());
     }
 
     private String createRequestPath() {
