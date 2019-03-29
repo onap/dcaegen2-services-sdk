@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1a3b544_27b2cdf5",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-03-29T13:33:48Z",
+      "side": 1,
+      "message": "this should be private",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
