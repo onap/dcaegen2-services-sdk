@@ -110,6 +110,30 @@
     },
     {
       "key": {
+        "uuid": "76afb39a_1eb28dcd",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-03-29T15:42:54Z",
+      "side": 1,
+      "message": "I suppose that it would be enough to use:\n\nreturn mapping.foldLeft(\n    configuration.aaiServiceInstancePath(), \n    (acc, entry) -\u003e acc.replaceAll(String.format(\"\\\\$\\\\{%s\\\\}\",  entry._1), entry._2));\n\nPlease, let me know if you are fine with that.",
+      "parentUuid": "1142ba34_d2c6f3d7",
+      "range": {
+        "startLine": 59,
+        "startChar": 14,
+        "endLine": 59,
+        "endChar": 31
+      },
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b480a35a_fcd9e724",
         "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
         "patchSetId": 2
@@ -144,6 +168,24 @@
     },
     {
       "key": {
+        "uuid": "4ecf466b_109ea9bc",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiHttpGetClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-03-29T15:42:54Z",
+      "side": 1,
+      "message": "I see your point. However, I have doubts about other AaiHttp*Client classes. Should they return HttpResponse (previously they used HttpClientResponse from Netty) or for instance just response status?",
+      "parentUuid": "b18b593a_80faf170",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ed157b8_f3eed5e2",
         "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/patch/AaiHttpPatchClient.java",
         "patchSetId": 2
@@ -155,6 +197,24 @@
       "writtenOn": "2019-03-29T14:36:48Z",
       "side": 1,
       "message": "Isn\u0027t this Content-Type header already taken from the file prh_endpoints.json and set in AaiClientConfiguration?\nSeems at may be set twice.",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed3ad585_678280fb",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/patch/AaiHttpPatchClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-03-29T15:42:54Z",
+      "side": 1,
+      "message": "I have removed this header from prh_endpoints because it would be used in every AaiHttp*Client. This header seems to be related to this specific request.",
+      "parentUuid": "9ed157b8_f3eed5e2",
       "revId": "318c2405310ad369983c169e3b7b4443b2049253",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -189,6 +249,24 @@
       "writtenOn": "2019-03-29T13:45:36Z",
       "side": 1,
       "message": "This class is already deprecated. Do you have any plans to use new RxHttpClient in your code?",
+      "revId": "318c2405310ad369983c169e3b7b4443b2049253",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1ebf209_87b07859",
+        "filename": "rest-services/common-dependency/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/CloudHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-03-29T15:42:54Z",
+      "side": 1,
+      "message": "I have used the old client because I wanted to be consistent with other AaiHttp*Client classes. I will gladly refactor the code in order to use RxHttpClient.",
+      "parentUuid": "44b8323c_a6846d61",
       "revId": "318c2405310ad369983c169e3b7b4443b2049253",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
