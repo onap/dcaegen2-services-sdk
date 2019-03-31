@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "057dc642_c021c6b1",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/put/AaiHttpPutClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-03-31T20:36:17Z",
+      "side": 1,
+      "message": "Move it to setup() as you have duplicates",
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
