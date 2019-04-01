@@ -2,6 +2,80 @@
   "comments": [
     {
       "key": {
+        "uuid": "29fcd470_fdaed046",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-04-01T05:56:50Z",
+      "side": 1,
+      "message": "Make sure it\u0027s not used in any existing clients (PRH/DFC).",
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6652768e_94c01b7c",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-04-01T05:56:50Z",
+      "side": 1,
+      "message": "Let\u0027s initialize these mocks in parent class. There is no need for BeforeEach method because new class instance is created for each test by default.",
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "178dd268_e99ee522",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-04-01T05:56:50Z",
+      "side": 1,
+      "message": "Consider using BDDMockito.given which plays nicely with given/when/then test template (when() method calls in given section look strange).",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 12
+      },
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19ab2b84_17a6c257",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiHttpGetClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-04-01T05:56:50Z",
+      "side": 1,
+      "message": "It\u0027s ok here, but usually you should learn mock with most generic calls (anyString, any headers, etc.) and then verify the proper call was used. Consider how the test will behave now when class under test would use different headers... Would the fail reason be obvious?",
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "057dc642_c021c6b1",
         "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/put/AaiHttpPutClientTest.java",
         "patchSetId": 3
