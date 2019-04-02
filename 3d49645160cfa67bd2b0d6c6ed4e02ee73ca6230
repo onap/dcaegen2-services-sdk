@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "2dd226e3_3e18d74f",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-04-02T12:16:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6652768e_94c01b7c",
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "178dd268_e99ee522",
         "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClientTest.java",
         "patchSetId": 3
@@ -47,6 +65,30 @@
       "writtenOn": "2019-04-01T05:56:50Z",
       "side": 1,
       "message": "Consider using BDDMockito.given which plays nicely with given/when/then test template (when() method calls in given section look strange).",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 12
+      },
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c372a83_b87f8583",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-04-02T12:16:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "178dd268_e99ee522",
       "range": {
         "startLine": 56,
         "startChar": 8,
@@ -76,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "de58ba26_954ebb3a",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiHttpGetClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-04-02T12:16:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19ab2b84_17a6c257",
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "057dc642_c021c6b1",
         "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/put/AaiHttpPutClientTest.java",
         "patchSetId": 3
@@ -87,6 +147,24 @@
       "writtenOn": "2019-03-31T20:36:17Z",
       "side": 1,
       "message": "Move it to setup() as you have duplicates",
+      "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f379839_4024915d",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/put/AaiHttpPutClientTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3081
+      },
+      "writtenOn": "2019-04-02T12:16:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "057dc642_c021c6b1",
       "revId": "3d49645160cfa67bd2b0d6c6ed4e02ee73ca6230",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
