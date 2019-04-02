@@ -70,4 +70,13 @@ abstract class GsonMessageRouter implements MessageRouter {
     public @Nullable AafCredentials aafCredentials() {
         return aafCredentials;
     }
+
+    @Override
+    public String toString() {
+        return "GsonMessageRouter{" +
+                "name='" + name + '\'' +
+                ", dmaapInfo=" + dmaapInfo +
+                ", aafCredentials=" + aafCredentials +
+                '}';
+    }
 }

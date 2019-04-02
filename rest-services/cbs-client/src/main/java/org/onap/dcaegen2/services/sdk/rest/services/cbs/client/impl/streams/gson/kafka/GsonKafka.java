@@ -80,6 +80,15 @@ abstract class GsonKafka implements Kafka {
     }
 
     @Override
+    public String toString() {
+        return "GsonKafka{" +
+                "name='" + name + '\'' +
+                ", kafkaInfo=" + kafkaInfo +
+                ", aafCredentials=" + aafCredentials +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
