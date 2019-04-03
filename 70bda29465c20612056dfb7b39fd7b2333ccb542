@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "978d4a3f_c77ab8a0",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/providers/ReactiveCloudConfigurationProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-04-03T08:43:38Z",
+      "side": 1,
+      "message": "for example\n\nfinal JsonObject json \u003d GsonUtils.readObjectFromResource(\"/streams/integration_message_router.json\");",
+      "parentUuid": "b186a978_41e5a704",
+      "revId": "70bda29465c20612056dfb7b39fd7b2333ccb542",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7857acf5_a9849ad6",
         "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/providers/ReactiveCloudConfigurationProviderTest.java",
         "patchSetId": 1
