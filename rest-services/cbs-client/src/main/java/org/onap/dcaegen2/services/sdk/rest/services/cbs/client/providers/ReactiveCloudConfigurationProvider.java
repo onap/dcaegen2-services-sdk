@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2018 NOKIA Intellectual Property. All rights reserved.
+ * Copyright (C) 2018-2019 NOKIA Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,10 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import org.slf4j.Logger;
@@ -38,15 +41,14 @@ public final class ReactiveCloudConfigurationProvider implements CloudConfigurat
     private static final Logger LOGGER = LoggerFactory.getLogger(ReactiveCloudConfigurationProvider.class);
     private static final String EXCEPTION_MESSAGE = "Unsupported method call: ";
 
-    private final CloudHttpClient cloudHttpClient;
+    private final RxHttpClient rxHttpClient;
 
     public ReactiveCloudConfigurationProvider() {
-        this(new CloudHttpClient());
+        this(RxHttpClient.create());
     }
 
-    ReactiveCloudConfigurationProvider(
-        CloudHttpClient cloudHttpClient) {
-        this.cloudHttpClient = cloudHttpClient;
+    ReactiveCloudConfigurationProvider(RxHttpClient rxHttpClient) {
+        this.rxHttpClient = rxHttpClient;
     }
 
     @Override
@@ -73,8 +75,17 @@ public final class ReactiveCloudConfigurationProvider implements CloudConfigurat
 
     private Mono<String> callConsulForConfigBindingServiceEndpoint(EnvProperties envProperties) {
         LOGGER.info("Retrieving Config Binding Service endpoint from Consul");
-        return cloudHttpClient.get(getConsulUrl(envProperties), JsonArray.class)
-            .flatMap(jsonArray -> this.createConfigBindingServiceUrl(jsonArray, envProperties.appName()));
+
+        HttpRequest httpRequest = ImmutableHttpRequest.builder()
+                .url(getConsulUrl(envProperties)).method(HttpMethod.GET).build();
+
+        return rxHttpClient.call(httpRequest)
+                .map(resp -> resp.bodyAsJson(JsonArray.class))
+                .flatMap(jsonArray ->
+                        this.createConfigBindingServiceUrl(
+                                jsonArray,
+                                envProperties.appName())
+                );
     }
 
     private String getConsulUrl(EnvProperties envProperties) {
@@ -84,7 +95,11 @@ public final class ReactiveCloudConfigurationProvider implements CloudConfigurat
 
     private Mono<JsonObject> callConfigBindingServiceForConfiguration(String configBindingServiceUri) {
         LOGGER.info("Retrieving configuration");
-        return cloudHttpClient.get(configBindingServiceUri, JsonObject.class);
+        HttpRequest httpRequest = ImmutableHttpRequest.builder()
+                .url(configBindingServiceUri).method(HttpMethod.GET).build();
+
+        return rxHttpClient.call(httpRequest)
+                .map(httpResponse -> httpResponse.bodyAsJson(JsonObject.class));
     }
 
 

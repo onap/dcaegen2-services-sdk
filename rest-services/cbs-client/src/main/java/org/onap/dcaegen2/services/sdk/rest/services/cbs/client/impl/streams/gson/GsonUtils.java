@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gso
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -84,6 +85,10 @@ public final class GsonUtils {
 
     public  static JsonObject readObjectFromResource(String resource) throws IOException {
         return readFromResource(resource).getAsJsonObject();
+    }
+
+    public static JsonArray readObjectArrayFromResource(String resource) throws IOException{
+        return readFromResource(resource).getAsJsonArray();
     }
 
     public static JsonElement readFromResource(String resource) throws IOException {

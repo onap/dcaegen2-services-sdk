@@ -1,0 +1,44 @@
+[
+  {
+    "ID": "9c8dd674-34ce-7049-d318-e98d93a64303",
+    "Node": "dcae-bootstrap",
+    "Address": "10.42.52.82",
+    "Datacenter": "dc1",
+    "TaggedAddresses": {
+      "lan": "10.42.52.82",
+      "wan": "10.42.52.82"
+    },
+    "NodeMeta": {
+      "consul-network-segment": ""
+    },
+    "ServiceID": "dcae-cbs1",
+    "ServiceName": "config-binding-service",
+    "ServiceTags": [],
+    "ServiceAddress": "config-binding-service",
+    "ServicePort": 10000,
+    "ServiceEnableTagOverride": false,
+    "CreateIndex": 14352,
+    "ModifyIndex": 14352
+  },
+  {
+    "ID": "35c6f540-a29c-1a92-23b0-1305bd8c81f5",
+    "Node": "dev-consul-server-1",
+    "Address": "10.42.165.51",
+    "Datacenter": "dc1",
+    "TaggedAddresses": {
+      "lan": "10.42.165.51",
+      "wan": "10.42.165.51"
+    },
+    "NodeMeta": {
+      "consul-network-segment": ""
+    },
+    "ServiceID": "dcae-cbs1",
+    "ServiceName": "config-binding-service",
+    "ServiceTags": [],
+    "ServiceAddress": "config-binding-service",
+    "ServicePort": 10000,
+    "ServiceEnableTagOverride": false,
+    "CreateIndex": 803,
+    "ModifyIndex": 803
+  }
+]
