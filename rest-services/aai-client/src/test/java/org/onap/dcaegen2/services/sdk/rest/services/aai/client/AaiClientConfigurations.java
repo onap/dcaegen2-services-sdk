@@ -43,6 +43,7 @@ public final class AaiClientConfigurations {
 
     private static AaiClientConfiguration validConfiguration(Map<String, String> headers, boolean secure) {
         return new ImmutableAaiClientConfiguration.Builder()
+                .pnfUrl("some-url")
                 .aaiHost("sample-host")
                 .aaiUserName("sample-username")
                 .aaiUserPassword("sample-password")

@@ -35,11 +35,22 @@ public abstract class AaiClientConfiguration implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Value.Parameter
+    public abstract String pnfUrl();
+
+    /**
+        Due to changes in the aai client configuration json old parameters:
+        aaiHost, aaiProtocol, aaiPort, aaiBasePath, aaiPnfPath
+        will be replaced by pnfUrl
+    */
+    @Deprecated
+    @Value.Parameter
     public abstract String aaiHost();
 
+    @Deprecated
     @Value.Parameter
     public abstract Integer aaiPort();
 
+    @Deprecated
     @Value.Parameter
     public abstract String aaiProtocol();
 
@@ -52,9 +63,11 @@ public abstract class AaiClientConfiguration implements Serializable {
     @Value.Parameter
     public abstract Boolean aaiIgnoreSslCertificateErrors();
 
+    @Deprecated
     @Value.Parameter
     public abstract String aaiBasePath();
 
+    @Deprecated
     @Value.Parameter
     public abstract String aaiPnfPath();
 
