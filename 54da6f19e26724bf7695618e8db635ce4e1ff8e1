@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Michal Dziedzic <michal.1.dziedzic@nokia.com>
+Code-Review+1: Marcin Migdal <marcin.migdal@nokia.com>
+Code-Review+2: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Submitted-by: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Submitted-at: Fri, 05 Apr 2019 09:06:46 +0000
+Reviewed-on: https://gerrit.onap.org/r/84313
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
