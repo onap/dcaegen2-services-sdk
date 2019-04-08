@@ -33,7 +33,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 @Value.Immutable
 public interface MessageRouterSubscribeResponse extends DmaapResponse {
 
-    JsonArray items();
+    @Value.Default
+    default JsonArray items() { return new JsonArray(); }
 
     @Value.Derived
     default boolean hasElements() {

@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
 import com.google.gson.JsonElement;
+import java.time.Duration;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
@@ -47,7 +48,7 @@ public interface MessageRouterSubscriber {
                 .flatMapMany(response -> Flux.fromIterable(response.items()));
     }
 
-    default Flux<JsonElement> subscribeForElements(MessageRouterSubscribeRequest request) {
-        return getElements(request).repeat();
+    default Flux<JsonElement> subscribeForElements(MessageRouterSubscribeRequest request, Duration period) {
+        return Flux.interval(period).concatMap(i->getElements(request));
     }
 }
