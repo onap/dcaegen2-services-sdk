@@ -21,11 +21,11 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.onap.dcaegen2.services.sdk.model.streams.StreamType.KAFKA;
+import static org.onap.dcaegen2.services.sdk.model.streams.StreamType.MESSAGE_ROUTER;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendResource;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamPredicates.streamOfType;
-import static org.onap.dcaegen2.services.sdk.model.streams.StreamType.KAFKA;
-import static org.onap.dcaegen2.services.sdk.model.streams.StreamType.MESSAGE_ROUTER;
 
 import com.google.gson.JsonObject;
 import io.vavr.collection.Stream;
@@ -33,6 +33,11 @@ import java.time.Duration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.model.streams.RawDataStream;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSink;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSource;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.HttpException;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientFactory;
@@ -44,10 +49,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.Strea
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
-import org.onap.dcaegen2.services.sdk.model.streams.RawDataStream;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSink;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSource;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -269,6 +270,22 @@ class CbsClientImplIT {
                     assertThat(json.get("key").getAsString()).isEqualTo("value");
                 })
                 .expectComplete()
+                .verify(Duration.ofSeconds(5));
+    }
+
+    @Test
+    void testCbsClientWhenTheConfigurationWasNotFound() {
+        // given
+        final EnvProperties unknownAppEnv = ImmutableEnvProperties.copyOf(sampleEnvironment).withAppName("unknown_app");
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(unknownAppEnv);
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
+
+        // when
+        final Mono<JsonObject> result = sut.flatMap(cbsClient -> cbsClient.get(request));
+
+        // then
+        StepVerifier.create(result)
+                .expectError(HttpException.class)
                 .verify(Duration.ofSeconds(5));
     }
 
