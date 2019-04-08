@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
@@ -56,6 +57,7 @@ public class CbsClientImpl implements CbsClient {
                         .diagnosticContext(request.diagnosticContext())
                         .build())
                 .flatMap(httpClient::call)
+                .doOnNext(HttpResponse::throwIfUnsuccessful)
                 .map(resp -> resp.bodyAsJson(JsonObject.class))
                 .doOnNext(this::logCbsResponse);
     }
