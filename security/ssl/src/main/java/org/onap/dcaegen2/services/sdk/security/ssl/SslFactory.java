@@ -63,16 +63,27 @@ public class SslFactory {
     }
 
     /**
-     * Creates Netty SSL <em>server</em> context using provided security keys.
+     * Creates Netty SSL <em>server</em> context using provided security keys. Will require client authentication.
      *
-     * @param keys - Security keys to be used
+     * @param keys - security keys to be used
      * @return configured SSL context
      */
     public SslContext createSecureServerContext(final SecurityKeys keys) {
+        return createSecureServerContext(keys, ClientAuth.REQUIRE);
+    }
+
+    /**
+     * Creates Netty SSL <em>server</em> context using provided security keys.
+     *
+     * @param keys - security keys to be used
+     * @param clientAuth - how to authenticate client
+     * @return configured SSL context
+     */
+    public SslContext createSecureServerContext(final SecurityKeys keys, final ClientAuth clientAuth) {
         try {
             return SslContextBuilder.forServer(keyManagerFactory(keys))
                     .trustManager(trustManagerFactory(keys))
-                    .clientAuth(ClientAuth.REQUIRE)
+                    .clientAuth(clientAuth)
                     .build();
         } catch (SSLException e) {
             throw new SecurityConfigurationException(EXCEPTION_MESSAGE, e);
@@ -111,7 +122,8 @@ public class SslFactory {
                 kmf.init(loadKeyStoreFromFile(store, passwordChars), passwordChars);
                 return kmf;
             } catch (GeneralSecurityException | IOException ex) {
-                throw new ReadingSecurityKeysStoreException("Could not read private keys from store", ex);
+                throw new ReadingSecurityKeysStoreException(
+                        "Could not read private keys from store: " + ex.getMessage(), ex);
             }
         });
     }
@@ -123,7 +135,8 @@ public class SslFactory {
                 tmf.init(loadKeyStoreFromFile(store, passwordChars));
                 return tmf;
             } catch (GeneralSecurityException | IOException ex) {
-                throw new ReadingSecurityKeysStoreException("Could not read trusted keys from store", ex);
+                throw new ReadingSecurityKeysStoreException(
+                        "Could not read trusted keys from store: " + ex.getMessage(), ex);
             }
         });
     }
@@ -133,6 +146,5 @@ public class SslFactory {
         KeyStore ks = KeyStore.getInstance(store.type());
         ks.load(Files.newInputStream(store.path(), StandardOpenOption.READ), keyStorePassword);
         return ks;
-
     }
 }
