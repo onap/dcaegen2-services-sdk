@@ -30,12 +30,13 @@ public class ConsumerReactiveHttpClientFactory {
 
     private final DMaaPReactiveWebClientFactory reactiveWebClientFactory;
 
-    public ConsumerReactiveHttpClientFactory(DMaaPReactiveWebClientFactory reactiveWebClientFactory) {
+    public ConsumerReactiveHttpClientFactory(
+            DMaaPReactiveWebClientFactory reactiveWebClientFactory) {
         this.reactiveWebClientFactory = reactiveWebClientFactory;
     }
 
-    public DMaaPConsumerReactiveHttpClient create(DmaapConsumerConfiguration consumerConfiguration)
-            throws SSLException {
+    public DMaaPConsumerReactiveHttpClient create(
+            DmaapConsumerConfiguration consumerConfiguration) {
         return new DMaaPConsumerReactiveHttpClient(consumerConfiguration,
                 reactiveWebClientFactory.build(consumerConfiguration));
     }
