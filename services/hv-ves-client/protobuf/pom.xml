@@ -26,7 +26,7 @@
     <parent>
         <artifactId>dcaegen2-services-sdk-services-hvvesclient</artifactId>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
-        <version>1.1.4-SNAPSHOT</version>
+        <version>1.1.5-SNAPSHOT</version>
     </parent>
 
     <name>High Volume VES Collector Client :: Protobuf</name>
