@@ -20,17 +20,26 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.consumer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.netty.handler.ssl.SslContext;
-import javax.net.ssl.SSLException;
-import org.junit.jupiter.api.Assertions;
+import io.vavr.control.Try;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapConsumerConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
+import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 
 
 /**
@@ -38,16 +47,18 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClien
  */
 class DMaaPReactiveWebClientFactoryTest {
 
-    private static final String KEY_STORE = "keyStore";
-    private static final String KEY_STORE_PASS = "keyStorePass";
-    private static final String TRUST_STORE = "trustStore";
-    private static final String TRUST_STORE_PASS = "trustStorePass";
+    private static final String KEY_STORE_RESOURCE_PATH = "/org.onap.dcae.jks";
+    private static final String KEY_STORE_PASS_RESOURCE_PATH = "/keystore.password";
+    private static final String TRUST_STORE_RESOURCE_PATH = "/org.onap.dcae.trust.jks";
+    private static final String TRUST_STORE_PASS_RESOURCE_PATH = "/truststore.password";
     private SslFactory sslFactory = mock(SslFactory.class);
     private SslContext dummySslContext = mock(SslContext.class);
     private DMaaPReactiveWebClientFactory webClientFactory = new DMaaPReactiveWebClientFactory(sslFactory);
+    private ArgumentCaptor<SecurityKeys> securityKeysArgumentCaptor = ArgumentCaptor
+            .forClass(SecurityKeys.class);
 
     @Test
-    void builder_shouldBuildDMaaPReactiveWebClientwithInsecureSslContext() throws Exception {
+    void builder_shouldBuildDMaaPReactiveWebClientwithInsecureSslContext(){
         //given
         DmaapConsumerConfiguration dmaapConsumerConfiguration = givenDmaapConfigurationWithSslDisabled();
 
@@ -55,39 +66,64 @@ class DMaaPReactiveWebClientFactoryTest {
         CloudHttpClient dmaapReactiveWebClient = webClientFactory.build(dmaapConsumerConfiguration);
 
         //then
-        Assertions.assertNotNull(dmaapReactiveWebClient);
-        verify(sslFactory).createInsecureContext();
+        assertNotNull(dmaapReactiveWebClient);
+        verify(sslFactory).createInsecureClientContext();
     }
 
     @Test
-    void builder_shouldBuildDMaaPReactiveWebClientwithSecureSslContext() throws Exception {
+    void builder_shouldBuildDMaaPReactiveWebClientwithSecureSslContext(){
         //given
         DmaapConsumerConfiguration dmaapConsumerConfiguration = givenDmaapConfigurationWithSslEnabled();
+        SecurityKeys givenKeys = givenSecurityKeys();
 
         //when
         CloudHttpClient dmaapReactiveWebClient = webClientFactory.build(dmaapConsumerConfiguration);
 
         //then
-        Assertions.assertNotNull(dmaapReactiveWebClient);
-        verify(sslFactory).createSecureContext(KEY_STORE, KEY_STORE_PASS, TRUST_STORE, TRUST_STORE_PASS);
+        assertNotNull(dmaapReactiveWebClient);
+
+        verify(sslFactory).createSecureClientContext(securityKeysArgumentCaptor.capture());
+
+        SecurityKeys capturedKeys = securityKeysArgumentCaptor.getValue();
+
+        assertEquals(capturedKeys.keyStore().path(), givenKeys.keyStore().path());
+        assertEquals(capturedKeys.keyStorePassword().toString(), givenKeys.keyStorePassword().toString());
+        assertEquals(capturedKeys.trustStore().path(), givenKeys.trustStore().path());
+        assertEquals(capturedKeys.trustStorePassword().toString(), givenKeys.trustStorePassword().toString());
     }
 
-    private DmaapConsumerConfiguration givenDmaapConfigurationWithSslDisabled() throws SSLException {
+    private DmaapConsumerConfiguration givenDmaapConfigurationWithSslDisabled(){
         DmaapConsumerConfiguration dmaapConsumerConfiguration = mock(DmaapConsumerConfiguration.class);
         when(dmaapConsumerConfiguration.enableDmaapCertAuth()).thenReturn(false);
-        when(sslFactory.createInsecureContext()).thenReturn(dummySslContext);
+        when(sslFactory.createInsecureClientContext()).thenReturn(dummySslContext);
         return dmaapConsumerConfiguration;
     }
 
-    private DmaapConsumerConfiguration givenDmaapConfigurationWithSslEnabled() throws SSLException {
+    private DmaapConsumerConfiguration givenDmaapConfigurationWithSslEnabled(){
         DmaapConsumerConfiguration dmaapConsumerConfiguration = mock(DmaapConsumerConfiguration.class);
+
         when(dmaapConsumerConfiguration.enableDmaapCertAuth()).thenReturn(true);
-        when(dmaapConsumerConfiguration.keyStorePath()).thenReturn(KEY_STORE);
-        when(dmaapConsumerConfiguration.keyStorePasswordPath()).thenReturn(KEY_STORE_PASS);
-        when(dmaapConsumerConfiguration.trustStorePath()).thenReturn(TRUST_STORE);
-        when(dmaapConsumerConfiguration.trustStorePasswordPath()).thenReturn(TRUST_STORE_PASS);
-        when(sslFactory.createSecureContext(KEY_STORE, KEY_STORE_PASS, TRUST_STORE, TRUST_STORE_PASS))
-                .thenReturn(dummySslContext);
+        when(dmaapConsumerConfiguration.keyStorePath()).thenReturn(KEY_STORE_RESOURCE_PATH);
+        when(dmaapConsumerConfiguration.keyStorePasswordPath()).thenReturn(KEY_STORE_PASS_RESOURCE_PATH);
+        when(dmaapConsumerConfiguration.trustStorePath()).thenReturn(TRUST_STORE_RESOURCE_PATH);
+        when(dmaapConsumerConfiguration.trustStorePasswordPath()).thenReturn(TRUST_STORE_PASS_RESOURCE_PATH);
+
+        when(sslFactory.createSecureClientContext(any(SecurityKeys.class))).thenReturn(dummySslContext);
+
         return dmaapConsumerConfiguration;
     }
+
+    private Try<Path> resource(String resource) {
+        return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()));
+    }
+
+    private SecurityKeys givenSecurityKeys(){
+        return ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(resource(KEY_STORE_RESOURCE_PATH).get()))
+                .keyStorePassword(Passwords.fromResource(KEY_STORE_PASS_RESOURCE_PATH))
+                .trustStore(ImmutableSecurityKeysStore.of(resource(TRUST_STORE_RESOURCE_PATH).get()))
+                .trustStorePassword(Passwords.fromResource(TRUST_STORE_PASS_RESOURCE_PATH))
+                .build();
+    }
+
 }
