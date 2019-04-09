@@ -50,7 +50,7 @@ class AaiHttpClientFactoryTest {
     }
 
     @Test
-    void build_onSecureConfigurationProvided_shouldReturnSecureClient() throws SSLException {
+    void build_onSecureConfigurationProvided_shouldReturnSecureClient() throws SSLException{
         when(sslFactory.createSecureClientContext(any())).thenReturn(SslContext.newClientContext());
         AaiHttpClientFactory cut = new AaiHttpClientFactory(secureConfiguration(), sslFactory);
 
