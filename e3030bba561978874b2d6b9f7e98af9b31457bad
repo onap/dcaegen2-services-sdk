@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71b52b55_4e200de8",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/utlis/SecurityKeysUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-04-09T09:41:09Z",
+      "side": 1,
+      "message": "final",
+      "revId": "e3030bba561978874b2d6b9f7e98af9b31457bad",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "412ce18c_0951b66d",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/utlis/SecurityKeysUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-04-09T09:41:09Z",
+      "side": 1,
+      "message": "missing private constructor",
+      "revId": "e3030bba561978874b2d6b9f7e98af9b31457bad",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
