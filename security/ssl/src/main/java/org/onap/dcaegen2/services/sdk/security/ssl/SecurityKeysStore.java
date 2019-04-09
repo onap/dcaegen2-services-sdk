@@ -52,4 +52,8 @@ public interface SecurityKeysStore {
         return KeyStoreTypes.inferTypeFromExtension(path())
                 .getOrElseThrow(() -> new SecurityConfigurationException("Could not determine key store type by file name"));
     }
+
+    static SecurityKeysStore fromPath(Path path) {
+        return ImmutableSecurityKeysStore.of(path);
+    }
 }
