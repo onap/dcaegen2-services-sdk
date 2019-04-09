@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2018 NOKIA Intellectual Property. All rights reserved.
+ * Copyright (C) 2018-2019 NOKIA Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,11 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.consumer;
 
 import io.netty.handler.ssl.SslContext;
-import javax.net.ssl.SSLException;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapConsumerConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.ssl.SslFactory;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.utlis.SecurityKeysUtil;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 7/4/18
@@ -47,18 +48,16 @@ public class DMaaPReactiveWebClientFactory {
      * @return CloudHttpClient
      */
 
-    public CloudHttpClient build(DmaapConsumerConfiguration consumerConfiguration) throws SSLException {
+    public CloudHttpClient build(DmaapConsumerConfiguration consumerConfiguration){
         SslContext sslContext = createSslContext(consumerConfiguration);
         return new CloudHttpClient(sslContext);
     }
 
-    private SslContext createSslContext(DmaapConsumerConfiguration consumerConfiguration) throws SSLException {
+    private SslContext createSslContext(DmaapConsumerConfiguration consumerConfiguration){
         if (consumerConfiguration.enableDmaapCertAuth()) {
-            return sslFactory.createSecureContext(
-                consumerConfiguration.keyStorePath(), consumerConfiguration.keyStorePasswordPath(),
-                consumerConfiguration.trustStorePath(), consumerConfiguration.trustStorePasswordPath()
-            );
+            final SecurityKeys securityKeys = SecurityKeysUtil.fromDmappCustomConfig(consumerConfiguration);
+            return sslFactory.createSecureClientContext(securityKeys);
         }
-        return sslFactory.createInsecureContext();
+        return sslFactory.createInsecureClientContext();
     }
 }
