@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3ec5eb9_96322bf4",
+        "filename": "rest-services/dmaap-client/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-04-09T07:38:55Z",
+      "side": 1,
+      "message": "When adding dependencies it\u0027s nice to have them grouped, so this one should be around other sdk\u0027s deps (move this two dependencies up).\n\nMost common convention is to have dependencies in order (sometimes for better reading you can split each section with empty line) :\n1. same groupId\n2. related groupId\n3. external deps\n4. test dependencies in similar fashion as in 1-3.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 17
+      },
+      "revId": "8b0fb75b27b507debe9a600bc2808d2ccd2084e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a73982e_a27c04b5",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/DMaaPReactiveWebClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-04-09T07:38:55Z",
+      "side": 1,
+      "message": "There are \"unthrowable\" exceptions in  ConsumerReactiveHttpClientFactory and PublisherReactiveHttpClientFactory after removing them from here - please follow usage path and check if there are more of them",
+      "range": {
+        "startLine": 62,
+        "startChar": 54,
+        "endLine": 62,
+        "endChar": 58
+      },
+      "revId": "8b0fb75b27b507debe9a600bc2808d2ccd2084e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba224869_f9bfddcd",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/DMaaPReactiveWebClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-04-09T07:38:55Z",
+      "side": 1,
+      "message": "This can be reused in both DMaaPReactiveWebClientFactory and DmaaPRestTemplateFactory.\n\nI do not have idea where to put it exactly, maybe @pjaszczyk could help, for now you can create package \"org.onap...dmaap.client.utils\" and put it in here (note interface usage as parameter):\n\n```\n@NotNull\n    SecurityKeys getSecurityKeys(DmaapCustomConfig configuration) {\n        return ImmutableSecurityKeys.builder()\n                .keyStore(ImmutableSecurityKeysStore.of(Paths.get(configuration.keyStorePath())))\n                .keyStorePassword(Passwords.fromResource(configuration.keyStorePasswordPath()))\n                .trustStore(ImmutableSecurityKeysStore.of(Paths.get(configuration.trustStorePath())))\n                .trustStorePassword(Passwords.fromResource(configuration.trustStorePasswordPath()))\n                .build();\n    }\n```",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 29
+      },
+      "revId": "8b0fb75b27b507debe9a600bc2808d2ccd2084e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4bc7939_e7eea5e5",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/service/consumer/DMaaPReactiveWebClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-04-09T07:38:55Z",
+      "side": 1,
+      "message": "I believe `return Try.of(() -\u003e Paths.get(resource));` does the same?\n\nAlso I don\u0027t see benefit in using Try and immediately calling `.get()` on it as it will throw unhandled exeception in both cases.",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 86
+      },
+      "revId": "8b0fb75b27b507debe9a600bc2808d2ccd2084e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
