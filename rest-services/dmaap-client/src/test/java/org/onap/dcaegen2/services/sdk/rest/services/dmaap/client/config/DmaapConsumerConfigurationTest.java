@@ -49,6 +49,8 @@ class DmaapConsumerConfigurationTest {
         String keyStorePath = "keyStorePath";
         String keyStorePasswordPath = "keyStorePasswordPath";
         Boolean enableDmaapCertAuth = true;
+        String endpointUrl = "http://dmaap-mr:8080/events/topic";
+
 
         // When
         configuration = new ImmutableDmaapConsumerConfiguration.Builder()
@@ -68,6 +70,7 @@ class DmaapConsumerConfigurationTest {
                 .keyStorePath(keyStorePath)
                 .keyStorePasswordPath(keyStorePasswordPath)
                 .enableDmaapCertAuth(enableDmaapCertAuth)
+                .endpointUrl(endpointUrl)
                 .build();
 
         // Then
@@ -76,7 +79,8 @@ class DmaapConsumerConfigurationTest {
                 + "dmaapPortNumber=2222, dmaapTopicName=temp, dmaapProtocol=http, dmaapUserName=admin, "
                 + "dmaapUserPassword=admin, dmaapContentType=application/json, "
                 + "trustStorePath=trustStorePath, trustStorePasswordPath=trustStorePasswordPath, "
-                + "keyStorePath=keyStorePath, keyStorePasswordPath=keyStorePasswordPath, enableDmaapCertAuth=true}",
+                + "keyStorePath=keyStorePath, keyStorePasswordPath=keyStorePasswordPath, enableDmaapCertAuth=true, "
+                + "endpointUrl=http://dmaap-mr:8080/events/topic}",
                 configuration.toString());
 
     }

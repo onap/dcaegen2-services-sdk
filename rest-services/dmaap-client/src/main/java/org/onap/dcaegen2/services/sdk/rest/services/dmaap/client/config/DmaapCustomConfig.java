@@ -28,15 +28,19 @@ import org.immutables.value.Value;
  */
 public interface DmaapCustomConfig extends Serializable {
 
+    @Deprecated
     @Value.Parameter
     String dmaapHostName();
 
+    @Deprecated
     @Value.Parameter
     Integer dmaapPortNumber();
 
+    @Deprecated
     @Value.Parameter
     String dmaapTopicName();
 
+    @Deprecated
     @Value.Parameter
     String dmaapProtocol();
 
@@ -64,6 +68,9 @@ public interface DmaapCustomConfig extends Serializable {
     @Value.Parameter
     Boolean enableDmaapCertAuth();
 
+    @Value.Parameter
+    String endpointUrl();
+
     interface Builder<T extends DmaapCustomConfig, B extends Builder<T, B>> {
 
         B dmaapHostName(String dmaapHostName);
@@ -89,6 +96,8 @@ public interface DmaapCustomConfig extends Serializable {
         B keyStorePasswordPath(String keyStorePass);
 
         B enableDmaapCertAuth(Boolean enableDmaapCertAuth);
+
+        B endpointUrl(String endpointUrl);
 
         T build();
     }
