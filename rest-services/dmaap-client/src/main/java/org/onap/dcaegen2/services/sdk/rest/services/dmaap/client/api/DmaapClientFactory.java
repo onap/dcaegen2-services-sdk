@@ -21,11 +21,15 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
 import com.google.gson.Gson;
+import io.netty.handler.ssl.SslContext;
 import io.vavr.Lazy;
+import java.time.Duration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.MessageRouterClientImpl;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.MessageRouterPublisherImpl;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.MessageRouterSubscriberImpl;
 
 /**
  * <b>WARNING</b>: This is a proof-of-concept. It is untested. API may change or be removed.  Use at your own risk.
@@ -37,17 +41,33 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.MessageRou
 @ExperimentalApi
 public final class DmaapClientFactory {
 
-    private static final Lazy<MessageRouterClientImpl> THE_CLIENT = Lazy.of(() ->
-            new MessageRouterClientImpl(RxHttpClient.create(), new Gson()));
+    private static final Duration DEFAULT_MAX_BATCH_DURATION = Duration.ofSeconds(1);
+    private static final int DEFAULT_MAX_BATCH_SIZE = 512;
 
     private DmaapClientFactory() {
     }
 
     public static @NotNull MessageRouterPublisher createMessageRouterPublisher() {
-        return THE_CLIENT.get();
+        return new MessageRouterPublisherImpl(
+                RxHttpClient.create(),
+                DEFAULT_MAX_BATCH_SIZE,
+                DEFAULT_MAX_BATCH_DURATION);
+    }
+
+    public static @NotNull MessageRouterPublisher createMessageRouterPublisher(@NotNull SslContext sslContext) {
+        return new MessageRouterPublisherImpl(
+                RxHttpClient.create(sslContext),
+                DEFAULT_MAX_BATCH_SIZE,
+                DEFAULT_MAX_BATCH_DURATION);
     }
 
     public static @NotNull MessageRouterSubscriber createMessageRouterSubscriber() {
-        return THE_CLIENT.get();
+        return new MessageRouterSubscriberImpl(RxHttpClient.create(), new Gson());
+    }
+
+    public static @NotNull MessageRouterSubscriber createMessageRouterSubscriber(@NotNull SslContext sslContext) {
+        return new MessageRouterSubscriberImpl(
+                RxHttpClient.create(sslContext),
+                new Gson());
     }
 }

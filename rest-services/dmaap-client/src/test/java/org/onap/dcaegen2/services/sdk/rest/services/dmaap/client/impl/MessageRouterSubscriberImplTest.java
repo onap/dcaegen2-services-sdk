@@ -18,40 +18,50 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
 import static org.mockito.Mockito.mock;
 
 import com.google.gson.JsonPrimitive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSource;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterSubscriber;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.DmaapResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
 import reactor.core.publisher.Flux;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
  */
+// TODO: Write proper unit tests
 @Disabled
-class MessageRouterPublisherTest {
+class MessageRouterSubscriberImplTest {
 
-    private final MessageRouterPublisher cut = mock(MessageRouterPublisher.class);
-    private final MessageRouterSink sinkDefinition = mock(MessageRouterSink.class);
-    private final MessageRouterPublishRequest request = ImmutableMessageRouterPublishRequest.builder()
-            .sinkDefinition(sinkDefinition).build();
+    private final MessageRouterSubscriber cut = mock(MessageRouterSubscriber.class);
+    private final MessageRouterSource sinkDefinition = mock(MessageRouterSource.class);
+    private final MessageRouterSubscribeRequest request = ImmutableMessageRouterSubscribeRequest.builder()
+            .sourceDefinition(sinkDefinition)
+            .build();
 
     @Test
-    void apiShouldBeUsableWithTransform() {
-        Flux.just(1, 2, 3)
-                .map(JsonPrimitive::new)
-                .transform(input -> cut.put(request, input));
+    void getShouldBeUsable() {
+        cut.get(request)
+                .filter(DmaapResponse::successful)
+                .map(MessageRouterSubscribeResponse::items)
+                .subscribe(System.out::println);
     }
 
     @Test
-    void apiShouldBeUsableWithSingleCall() {
-        final Flux<JsonPrimitive> input = Flux.just(1, 2, 3).map(JsonPrimitive::new);
-        cut.put(request, input);
+    void getElementsShouldBeUsable() {
+        cut.getElements(request)
+                .collectList()
+                .subscribe(System.out::println);
     }
 }

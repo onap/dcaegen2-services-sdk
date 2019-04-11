@@ -18,24 +18,21 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
-
-import com.google.gson.JsonElement;
-import io.vavr.collection.List;
-import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since April 2019
  */
-@ExperimentalApi
-@Value.Immutable
-public interface MessageRouterPublishResponse extends DmaapResponse {
+final class Commons {
 
-    @Value.Default
-    default List<JsonElement> items() {
-        return List.empty();
+    private Commons() {
+    }
+
+    static String extractFailReason(HttpResponse httpResponse) {
+        return String.format("%d %s%n%s", httpResponse.statusCode(), httpResponse.statusReason(),
+                httpResponse.bodyAsString());
     }
 }
