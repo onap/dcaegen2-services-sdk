@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51b268c4_e1f10bf7",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-04-23T13:08:21Z",
+      "side": 1,
+      "message": "Consider adding a link to main SDK wiki page: https://wiki.onap.org/display/DW/DCAE+SDK",
+      "revId": "4ddbd6d544eafd16aeda6a412729f4d77ec581df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
