@@ -45,12 +45,22 @@ Most of SDK APIs are using Project Reactor, which is one of available implementa
 </dependencies>
 ```
 
-## Changelog 
-Below link is a reference to an internet site which contains information about the changelog.
+## DCAE Common Libraries (ONAP WIKI) 
+Describes SDK basic features in general.
+[DCAE_Common_Libraries](https://wiki.onap.org/pages/viewpage.action?pageId=45300259)
+
+#### DCAE SDK 
+Contains some general notes about the project and libs which were used in it.
+[DCAE_SDK](https://wiki.onap.org/display/DW/DCAE+SDK)
+
+#### Changelog
+Provides information about SDK releases and features which are related to them.
 [DCAE_SDK_Changelog](https://wiki.onap.org/display/DW/DCAE+SDK+Changelog)
 
+#### FAQ
+DCAE SDK Frequently Asked Questions 
+[FAQ](https://wiki.onap.org/display/DW/DCAE+SDK+Frequently+Asked+Questions)
 
 ## License
-
 Copyright (C) 2018-2019 NOKIA Intellectual Property. All rights reserved.
 [License](http://www.apache.org/licenses/LICENSE-2.0)
