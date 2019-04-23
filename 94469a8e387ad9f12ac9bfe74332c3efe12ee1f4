@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79d6b06b_4019ad08",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-04-23T10:37:30Z",
+      "side": 1,
+      "message": "code blocks are usually marked using 3, not 4 back-ticks",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 4
+      },
+      "revId": "94469a8e387ad9f12ac9bfe74332c3efe12ee1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04510088_d9d3d844",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-04-23T10:37:30Z",
+      "side": 1,
+      "message": "some little trash",
+      "range": {
+        "startLine": 14,
+        "startChar": 13,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "94469a8e387ad9f12ac9bfe74332c3efe12ee1f4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
