@@ -33,12 +33,15 @@ import org.jetbrains.annotations.Nullable;
  * @since 1.1.4
  */
 @Value.Immutable
+@Value.Style(redactedMask = "***")
 @Gson.TypeAdapters
 public interface AafCredentials {
 
+    @Value.Redacted
     @SerializedName(value = "username", alternate = "aaf_username")
     @Nullable String username();
 
+    @Value.Redacted
     @SerializedName(value = "password", alternate = "aaf_password")
     @Nullable String password();
 }
