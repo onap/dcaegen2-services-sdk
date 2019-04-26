@@ -21,12 +21,14 @@ package org.onap.dcaegen2.services.sdk.model.streams.dmaap;
 
 
 import com.google.gson.annotations.SerializedName;
+import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
+
 public interface DataRouter {
 
     /**
@@ -42,6 +44,7 @@ public interface DataRouter {
      * <li>the publisher uses to authenticate to Data Router.</li>
      * </ul>
      */
+    @Value.Redacted
     @SerializedName("username")
     @Nullable String username();
 
@@ -52,6 +55,7 @@ public interface DataRouter {
      * <li>the publisher uses to authenticate to Data Router.</li>
      * </ul>
      */
+    @Value.Redacted
     @SerializedName("password")
     @Nullable String password();
 }
