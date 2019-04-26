@@ -30,6 +30,7 @@ import org.onap.dcaegen2.services.sdk.model.streams.SinkStream;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
+@Value.Style(redactedMask = "***")
 @Gson.TypeAdapters
 @Value.Immutable
 public interface DataRouterSink extends DataRouter, SinkStream {

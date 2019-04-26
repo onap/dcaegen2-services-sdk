@@ -30,6 +30,7 @@ import org.onap.dcaegen2.services.sdk.model.streams.SourceStream;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
+@Value.Style(redactedMask = "***")
 @Gson.TypeAdapters
 @Value.Immutable
 public interface DataRouterSource extends DataRouter, SourceStream {
