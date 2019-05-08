@@ -37,7 +37,9 @@ import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 6/26/18
+ * @deprecated Use new API {@link org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DmaapClientFactory}
  */
+@Deprecated
 public class DMaaPConsumerReactiveHttpClient extends DMaaPAbstractReactiveHttpClient {
 
     private final DmaapConsumerConfiguration consumerConfiguration;

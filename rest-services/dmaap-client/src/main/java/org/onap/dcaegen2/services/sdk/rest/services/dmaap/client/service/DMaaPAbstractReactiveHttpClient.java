@@ -24,6 +24,11 @@ import java.util.UUID;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.ImmutableRequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 
+/**
+ *
+ * @deprecated Use new API {@link org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DmaapClientFactory}
+ */
+@Deprecated
 public abstract class DMaaPAbstractReactiveHttpClient {
 
     protected final static String SLASH = "/";

@@ -47,7 +47,6 @@ import reactor.core.publisher.Mono;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
  */
-// TODO: This is a PoC. It's untested.
 public class MessageRouterPublisherImpl implements MessageRouterPublisher {
     private final RxHttpClient httpClient;
     private final int maxBatchSize;

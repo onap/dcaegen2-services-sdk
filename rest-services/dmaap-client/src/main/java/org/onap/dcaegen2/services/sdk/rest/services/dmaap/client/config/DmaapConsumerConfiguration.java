@@ -25,10 +25,12 @@ import org.immutables.value.Value;
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 3/23/18
+ * @deprecated Use new API {@link org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DmaapClientFactory}
  */
 @Value.Immutable(prehash = true)
 @Value.Style(builder = "new")
 @Gson.TypeAdapters
+@Deprecated
 public abstract class DmaapConsumerConfiguration implements DmaapCustomConfig {
 
     private static final long serialVersionUID = 1L;

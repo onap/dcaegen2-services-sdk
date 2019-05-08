@@ -18,30 +18,20 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config;
 
-
-import com.google.gson.JsonArray;
 import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
+import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since May 2019
  */
-@Value.Immutable
-public interface MessageRouterSubscribeResponse extends DmaapResponse {
-
+public interface DmaapClientConfiguration {
     @Value.Default
-    default JsonArray items() { return new JsonArray(); }
-
-    @Value.Derived
-    default boolean hasElements() {
-        return items().size() > 0;
+    default @Nullable SecurityKeys securityKeys() {
+        return null;
     }
 
-    @Value.Derived
-    default boolean isEmpty() {
-        return !hasElements();
-    }
 }

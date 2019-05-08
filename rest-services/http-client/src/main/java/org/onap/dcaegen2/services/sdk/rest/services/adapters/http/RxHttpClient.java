@@ -19,10 +19,8 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
-import io.netty.handler.ssl.SslContext;
 import io.vavr.collection.Stream;
 import java.util.stream.Collectors;
-import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,16 +37,6 @@ public class RxHttpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RxHttpClient.class);
     private final HttpClient httpClient;
-
-    public static RxHttpClient create() {
-        return new RxHttpClient(HttpClient.create());
-    }
-
-    // TODO: hide netty from public api (io.netty.handler.ssl.SslContext)
-    public static RxHttpClient create(@NotNull
-            SslContext sslContext) {
-        return new RxHttpClient(HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext)));
-    }
 
     RxHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
