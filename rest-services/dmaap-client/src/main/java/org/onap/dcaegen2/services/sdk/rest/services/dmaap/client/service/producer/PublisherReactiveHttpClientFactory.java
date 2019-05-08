@@ -23,6 +23,10 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.service.produc
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 
+/**
+ * @deprecated Use new API {@link org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DmaapClientFactory}
+ */
+@Deprecated
 public class PublisherReactiveHttpClientFactory {
 
     private final DmaaPRestTemplateFactory restTemplateFactory;

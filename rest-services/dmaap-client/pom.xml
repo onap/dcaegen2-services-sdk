@@ -20,7 +20,7 @@
   <dependencies>
     <dependency>
       <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
-      <artifactId>common-dependency</artifactId>
+      <artifactId>http-client</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -41,6 +41,10 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
     </dependency>
 
     <dependency>

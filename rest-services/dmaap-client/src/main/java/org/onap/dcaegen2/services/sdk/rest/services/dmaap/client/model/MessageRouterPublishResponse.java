@@ -30,7 +30,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
 @Value.Immutable
 public interface MessageRouterPublishResponse extends DmaapResponse {
 

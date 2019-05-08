@@ -24,6 +24,7 @@ import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import java.util.UUID;
 import org.immutables.value.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.MDC;
 
@@ -89,6 +90,11 @@ public interface RequestDiagnosticContext {
                 }
             }
         }
+    }
+
+    default @NotNull RequestDiagnosticContext withNewInvocationId() {
+        return ImmutableRequestDiagnosticContext.copyOf(this)
+                .withInvocationId(UUID.randomUUID());
     }
 
     static ImmutableRequestDiagnosticContext create() {

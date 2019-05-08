@@ -27,6 +27,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import org.slf4j.Logger;
@@ -44,7 +45,7 @@ public final class ReactiveCloudConfigurationProvider implements CloudConfigurat
     private final RxHttpClient rxHttpClient;
 
     public ReactiveCloudConfigurationProvider() {
-        this(RxHttpClient.create());
+        this(RxHttpClientFactory.create());
     }
 
     ReactiveCloudConfigurationProvider(RxHttpClient rxHttpClient) {

@@ -20,9 +20,9 @@
   <modules>
     <module>model</module>
     <module>common-dependency</module>
+    <module>http-client</module>
     <module>aai-client</module>
     <module>cbs-client</module>
     <module>dmaap-client</module>
-
   </modules>
 </project>

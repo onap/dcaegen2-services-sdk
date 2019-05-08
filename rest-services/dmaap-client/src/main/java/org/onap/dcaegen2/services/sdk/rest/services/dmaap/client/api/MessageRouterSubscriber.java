@@ -32,7 +32,6 @@ import reactor.core.publisher.Mono;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
 public interface MessageRouterSubscriber {
 
     Mono<MessageRouterSubscribeResponse> get(MessageRouterSubscribeRequest request);

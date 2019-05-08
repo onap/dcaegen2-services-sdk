@@ -48,11 +48,11 @@ public class CloudHttpClient {
     }
 
     public CloudHttpClient() {
-        this(RxHttpClient.create());
+        this(RxHttpClientFactory.create());
     }
 
     public CloudHttpClient(SslContext sslContext) {
-        this(RxHttpClient.create(sslContext));
+        this(RxHttpClientFactory.create(sslContext));
     }
 
     public <T> Mono<T> get(String url, Class<T> bodyClass) {

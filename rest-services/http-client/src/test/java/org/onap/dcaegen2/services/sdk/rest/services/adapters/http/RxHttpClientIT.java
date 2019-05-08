@@ -38,7 +38,7 @@ import reactor.test.StepVerifier;
 class RxHttpClientIT {
 
     private static final Duration TIMEOUT = Duration.ofHours(5);
-    private final RxHttpClient cut = RxHttpClient.create();
+    private final RxHttpClient cut = RxHttpClientFactory.create();
     private static DummyHttpServer httpServer;
 
     @BeforeAll
