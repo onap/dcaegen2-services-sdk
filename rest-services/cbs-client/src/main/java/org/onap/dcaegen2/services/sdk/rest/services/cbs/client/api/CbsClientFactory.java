@@ -21,6 +21,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientImpl;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
@@ -53,7 +54,7 @@ public class CbsClientFactory {
      */
     public static @NotNull Mono<CbsClient> createCbsClient(EnvProperties env) {
         return Mono.defer(() -> {
-            final RxHttpClient httpClient = RxHttpClient.create();
+            final RxHttpClient httpClient = RxHttpClientFactory.create();
             final CbsLookup lookup = new CbsLookup(httpClient);
             return lookup.lookup(env)
                     .map(addr -> new CbsClientImpl(httpClient, env.appName(), addr));

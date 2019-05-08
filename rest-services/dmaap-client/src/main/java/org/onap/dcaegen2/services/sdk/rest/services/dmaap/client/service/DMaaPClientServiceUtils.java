@@ -25,7 +25,9 @@ import java.util.Map;
 
 /**
  * @author <a href="mailto:marcin.wmigdal@nokia.com">Marcin Migdal</a> on 3/8/2019
+ * @deprecated Use new API {@link org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DmaapClientFactory}
  */
+@Deprecated
 public final class DMaaPClientServiceUtils {
 
     public final static String CONTENT_TYPE = "Content-Type";

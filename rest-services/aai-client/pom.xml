@@ -20,7 +20,7 @@
   <dependencies>
     <dependency>
       <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
-      <artifactId>common-dependency</artifactId>
+      <artifactId>http-client</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

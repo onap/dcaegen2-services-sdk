@@ -18,30 +18,29 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config;
 
-
-import com.google.gson.JsonArray;
+import java.time.Duration;
 import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
+ * @since 1.2.0
  */
 @Value.Immutable
-public interface MessageRouterSubscribeResponse extends DmaapResponse {
+public interface MessageRouterPublisherConfig extends DmaapClientConfiguration {
 
     @Value.Default
-    default JsonArray items() { return new JsonArray(); }
-
-    @Value.Derived
-    default boolean hasElements() {
-        return items().size() > 0;
+    default Duration maxBatchDuration() {
+        return Duration.ofSeconds(1);
     }
 
-    @Value.Derived
-    default boolean isEmpty() {
-        return !hasElements();
+    @Value.Default
+    default int maxBatchSize() {
+        return 512;
+    }
+
+    static MessageRouterPublisherConfig createDefault() {
+        return ImmutableMessageRouterPublisherConfig.builder().build();
     }
 }
