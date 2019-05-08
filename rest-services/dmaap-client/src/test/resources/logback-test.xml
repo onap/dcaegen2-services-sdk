@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ ===============================LICENSE_START======================================
-  ~    Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+  ~ ============LICENSE_START=======================================================
+  ~ dcaegen2-collectors-veshv
   ~ ================================================================================
-  ~  Licensed under the Apache License, Version 2.0 (the "License");
-  ~  you may not use this file except in compliance with the License.
-  ~   You may obtain a copy of the License at
+  ~ Copyright (C) 2019 NOKIA
+  ~ ================================================================================
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
   ~
-  ~          http://www.apache.org/licenses/LICENSE-2.0
+  ~      http://www.apache.org/licenses/LICENSE-2.0
   ~
-  ~  Unless required by applicable law or agreed to in writing, software
-  ~  distributed under the License is distributed on an "AS IS" BASIS,
-  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~  See the License for the specific language governing permissions and
-  ~  limitations under the License.
-  ~  ============================LICENSE_END===========================================
-  -->
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~ ============LICENSE_END=========================================================
+-->
 <configuration>
-  <root level="OFF"/>
+  <property name="p_log" value="%logger"/>
+  <property name="p_lor" value="%50.50logger"/>
+  <property name="p_tim" value="%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX,UTC}"/>
+  <property name="p_lvl" value="%level"/>
+  <property name="p_msg" value="%replace(%replace(%msg){'\t', '\\\\t'}){'\n','\\\\n'}"/>
+  <property name="p_mdc" value="%replace(%replace(%mdc){'\t', '\\\\t'}){'\n', '\\\\n'}"/>
+  <property name="p_exc" value="%replace(%replace(%rootException){'\t', '\\\\t'}){'\n','\\\\n'}"/>
+  <property name="p_mak" value="%replace(%replace(%marker){'\t', '\\\\t'}){'\n','\\\\n'}"/>
+  <property name="p_thr" value="%thread"/>
+
+  <property name="READABLE_LOG_PATTERN" value="
+%nopexception
+| ${p_tim}\t
+| ${p_lor}\t
+| ${p_lvl}\t
+| %msg\t
+| ${p_mak}\t
+| %rootException\t
+| ${p_mdc}\t
+| ${p_thr}%n"/>
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${READABLE_LOG_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.onap.dcaegen2.services.sdk" level="TRACE"/>
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+  </root>
 </configuration>

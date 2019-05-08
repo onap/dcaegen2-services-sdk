@@ -29,7 +29,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since 1.1.4
  */
-@ExperimentalApi
 @Value.Immutable
 public interface MessageRouterSubscribeRequest extends DmaapRequest {
 
@@ -39,6 +38,7 @@ public interface MessageRouterSubscribeRequest extends DmaapRequest {
 
     @Nullable Duration timeout();
 
+    @Value.Default
     default String consumerId() {
         return Constants.CLASS_LOADER_SCOPED_UNIQUE_ID;
     }

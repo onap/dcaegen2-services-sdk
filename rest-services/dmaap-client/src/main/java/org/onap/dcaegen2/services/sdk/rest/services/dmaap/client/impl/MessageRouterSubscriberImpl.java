@@ -35,16 +35,18 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRout
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterSubscribeResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
  */
-// TODO: This is a PoC. It's untested.
 public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
     private final RxHttpClient httpClient;
     private final Gson gson;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageRouterSubscriberImpl.class);
 
     public MessageRouterSubscriberImpl(RxHttpClient httpClient, Gson gson) {
         this.httpClient = httpClient;
@@ -53,6 +55,7 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
 
     @Override
     public Mono<MessageRouterSubscribeResponse> get(MessageRouterSubscribeRequest request) {
+        LOGGER.debug("Requesting new items from DMaaP MR: {}", request);
         return httpClient.call(buildGetHttpRequest(request)).map(this::buildGetResponse);
     }
 
@@ -70,7 +73,7 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
         return ImmutableHttpRequest.builder()
                 .method(HttpMethod.GET)
                 .url(buildSubscribeUrl(request))
-                .diagnosticContext(request.diagnosticContext())
+                .diagnosticContext(request.diagnosticContext().withNewInvocationId())
                 .build();
     }
 

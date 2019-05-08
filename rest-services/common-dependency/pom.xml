@@ -20,6 +20,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk.security</groupId>
+            <artifactId>ssl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>io.projectreactor.netty</groupId>
             <artifactId>reactor-netty</artifactId>
         </dependency>

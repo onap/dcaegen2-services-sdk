@@ -24,8 +24,11 @@ import io.vavr.CheckedFunction0;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import org.reactivestreams.Publisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 import reactor.netty.DisposableServer;
 import reactor.netty.http.server.HttpServer;
@@ -38,6 +41,7 @@ import reactor.netty.http.server.HttpServerRoutes;
  */
 public class DummyHttpServer {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DummyHttpServer.class);
     private final DisposableServer server;
 
     private DummyHttpServer(DisposableServer server) {
@@ -45,11 +49,18 @@ public class DummyHttpServer {
     }
 
     public static DummyHttpServer start(Consumer<HttpServerRoutes> routes) {
-        return new DummyHttpServer(HttpServer.create()
+        LOGGER.info("Starting dummy server");
+        final DisposableServer server = HttpServer.create()
                 .host("127.0.0.1")
                 .route(routes)
                 .bind()
-                .block());
+                .block();
+        LOGGER.info("Server started");
+        return new DummyHttpServer(server);
+    }
+
+    public static Publisher<Void> sendInOrder(AtomicInteger state, Publisher<Void>... responses) {
+        return responses[state.getAndIncrement()];
     }
 
     public static Publisher<Void> sendResource(HttpServerResponse httpServerResponse, String resourcePath) {

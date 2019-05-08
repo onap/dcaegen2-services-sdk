@@ -23,6 +23,7 @@
     <module>aai-client</module>
     <module>cbs-client</module>
     <module>dmaap-client</module>
+    <module>http-client</module>
 
   </modules>
 </project>

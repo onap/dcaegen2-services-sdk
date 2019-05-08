@@ -27,6 +27,11 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.utlis.SecurityK
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 
+/**
+ *
+ * @deprecated Use new API {@link org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DmaapClientFactory}
+ */
+@Deprecated
 public class DmaaPRestTemplateFactory {
 
     private SslFactory sslFactory;

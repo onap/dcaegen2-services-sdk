@@ -39,7 +39,9 @@ import java.util.Optional;
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 7/4/18
+ * @deprecated Use new API {@link org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DmaapClientFactory}
  */
+@Deprecated
 public class DMaaPPublisherReactiveHttpClient extends DMaaPAbstractReactiveHttpClient {
 
     private final DmaapPublisherConfiguration dmaapPublisherConfiguration;

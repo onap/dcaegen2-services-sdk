@@ -49,9 +49,6 @@ public interface CbsRequest {
      * Return a view on this CbsRequest with updated InvocationID.
      */
     default CbsRequest withNewInvocationId() {
-        final RequestDiagnosticContext newDiagnosticCtx = ImmutableRequestDiagnosticContext
-                .copyOf(diagnosticContext())
-                .withInvocationId(UUID.randomUUID());
-        return ImmutableCbsRequest.copyOf(this).withDiagnosticContext(newDiagnosticCtx);
+        return ImmutableCbsRequest.copyOf(this).withDiagnosticContext(diagnosticContext().withNewInvocationId());
     }
 }

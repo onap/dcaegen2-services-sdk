@@ -30,14 +30,17 @@ import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
 import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 
+/**
+ * @deprecated Use new API {@link org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DmaapClientFactory}
+ */
+@Deprecated
 public final class SecurityKeysUtil {
 
     private SecurityKeysUtil(){
 
     }
 
-    @NotNull
-    public static SecurityKeys fromDmappCustomConfig(DmaapCustomConfig configuration){
+    public static @NotNull SecurityKeys fromDmappCustomConfig(DmaapCustomConfig configuration){
         return ImmutableSecurityKeys.builder()
                 .keyStore(ImmutableSecurityKeysStore.of(resource(configuration.keyStorePath()).get()))
                 .keyStorePassword(Passwords.fromResource(configuration.keyStorePasswordPath()))
