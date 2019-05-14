@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "208a1ada_ce71accf",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-05-14T12:06:57Z",
+      "side": 1,
+      "message": "I think setUp here is too huge. Maybe its worth to provide this as a private function call.\nIt will make this method much shorter.",
+      "revId": "7b3d60ca0687ba262b75f6753691f8a167186e95",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee7dfd62_0380a6a3",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-05-14T12:06:57Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "7b3d60ca0687ba262b75f6753691f8a167186e95",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
