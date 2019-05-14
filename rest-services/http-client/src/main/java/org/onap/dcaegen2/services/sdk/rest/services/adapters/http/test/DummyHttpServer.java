@@ -67,6 +67,10 @@ public class DummyHttpServer {
         return sendString(httpServerResponse, Mono.fromCallable(() -> readResource(resourcePath)));
     }
 
+    public static Publisher<Void> sendError(HttpServerResponse httpServerResponse, int statusCode, String message){
+        return sendString(httpServerResponse.status(statusCode), Mono.just(message));
+    }
+
     public static Publisher<Void> sendString(HttpServerResponse httpServerResponse, Publisher<String> content) {
         return httpServerResponse.sendString(content);
     }
