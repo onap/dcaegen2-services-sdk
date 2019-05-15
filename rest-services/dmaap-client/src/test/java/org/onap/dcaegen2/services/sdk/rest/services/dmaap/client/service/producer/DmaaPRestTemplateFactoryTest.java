@@ -26,13 +26,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapPublisherConfiguration;
 
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+
 
 class DmaaPRestTemplateFactoryTest {
 
-    private static final String KEY_STORE_RESOURCE_PATH = "/org.onap.dcae.jks";
-    private static final String KEYSTORE_PASSWORD_RESOURCE_PATH = "/keystore.password";
-    private static final String TRUSTSTORE_PASSWORD_RESOURCE_PATH = "/truststore.password";
-    private static final String TRUST_STORE_RESOURCE_PATH = "/org.onap.dcae.trust.jks";
+    private static final String KEY_STORE_FILE_PATH = testResourceToPath("/org.onap.dcae.jks");
+    private static final String KEYSTORE_PASSWORD_FILE_PATH = testResourceToPath("/keystore.password");
+    private static final String TRUSTSTORE_PASSWORD_FILE_PATH = testResourceToPath("/truststore.password");
+    private static final String TRUST_STORE_FILE_PATH = testResourceToPath("/org.onap.dcae.trust.jks");
     private DmaapPublisherConfiguration publisherConfiguration = mock(DmaapPublisherConfiguration.class);
     private DmaaPRestTemplateFactory factory = new DmaaPRestTemplateFactory();
 
@@ -46,13 +49,21 @@ class DmaaPRestTemplateFactoryTest {
     @Test
     void build_shouldCreateRestTemplateWithSslConfiguration() {
         when(publisherConfiguration.enableDmaapCertAuth()).thenReturn(true);
-        when(publisherConfiguration.keyStorePath()).thenReturn(KEY_STORE_RESOURCE_PATH);
+        when(publisherConfiguration.keyStorePath()).thenReturn(KEY_STORE_FILE_PATH);
         when(publisherConfiguration.keyStorePasswordPath()).thenReturn(
-                KEYSTORE_PASSWORD_RESOURCE_PATH);
-        when(publisherConfiguration.trustStorePath()).thenReturn(TRUST_STORE_RESOURCE_PATH);
+                KEYSTORE_PASSWORD_FILE_PATH);
+        when(publisherConfiguration.trustStorePath()).thenReturn(TRUST_STORE_FILE_PATH);
         when(publisherConfiguration.trustStorePasswordPath()).thenReturn(
-                TRUSTSTORE_PASSWORD_RESOURCE_PATH);
+                TRUSTSTORE_PASSWORD_FILE_PATH);
 
         Assertions.assertNotNull(factory.build(publisherConfiguration));
+    }
+
+    private static String testResourceToPath(String resource) {
+        try {
+            return Paths.get(DmaaPRestTemplateFactoryTest.class.getResource(resource).toURI()).toString();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed resolving test resource path", e);
+        }
     }
 }

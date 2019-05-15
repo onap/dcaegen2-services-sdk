@@ -19,6 +19,8 @@
  */
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client;
 
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
@@ -48,10 +50,10 @@ public final class AaiClientConfigurations {
                 .aaiUserName("sample-username")
                 .aaiUserPassword("sample-password")
                 .aaiIgnoreSslCertificateErrors(false)
-                .trustStorePath("/trust.pkcs12")
-                .trustStorePasswordPath("/trust.pass")
-                .keyStorePath("/server.pkcs12")
-                .keyStorePasswordPath("/server.pass")
+                .trustStorePath(testResourceToPath("/trust.pkcs12"))
+                .trustStorePasswordPath(testResourceToPath("/trust.pass"))
+                .keyStorePath(testResourceToPath("/server.pkcs12"))
+                .keyStorePasswordPath(testResourceToPath("/server.pass"))
                 .enableAaiCertAuth(secure)
                 .aaiHeaders(headers)
                 .aaiProtocol("sample-protocol")
@@ -60,5 +62,13 @@ public final class AaiClientConfigurations {
                 .aaiPnfPath("sample-pnf-path")
                 .aaiServiceInstancePath("sample-instance-path")
                 .build();
+    }
+
+    private static String testResourceToPath(String resource) {
+        try {
+            return Paths.get(AaiClientConfigurations.class.getResource(resource).toURI()).toString();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed resolving test resource path", e);
+        }
     }
 }

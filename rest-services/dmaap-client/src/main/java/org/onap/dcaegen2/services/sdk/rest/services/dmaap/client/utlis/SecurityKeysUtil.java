@@ -20,8 +20,6 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.utlis;
 
-import io.vavr.control.Try;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.config.DmaapCustomConfig;
@@ -32,20 +30,17 @@ import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 
 public final class SecurityKeysUtil {
 
-    private SecurityKeysUtil(){
+    private SecurityKeysUtil() {
 
     }
 
     @NotNull
-    public static SecurityKeys fromDmappCustomConfig(DmaapCustomConfig configuration){
+    public static SecurityKeys fromDmappCustomConfig(DmaapCustomConfig configuration) {
         return ImmutableSecurityKeys.builder()
-                .keyStore(ImmutableSecurityKeysStore.of(resource(configuration.keyStorePath()).get()))
-                .keyStorePassword(Passwords.fromResource(configuration.keyStorePasswordPath()))
-                .trustStore(ImmutableSecurityKeysStore.of(resource(configuration.trustStorePath()).get()))
-                .trustStorePassword(Passwords.fromResource(configuration.trustStorePasswordPath()))
+                .keyStore(ImmutableSecurityKeysStore.of(Paths.get(configuration.keyStorePath())))
+                .keyStorePassword(Passwords.fromPath(Paths.get(configuration.keyStorePasswordPath())))
+                .trustStore(ImmutableSecurityKeysStore.of(Paths.get(configuration.trustStorePath())))
+                .trustStorePassword(Passwords.fromPath(Paths.get(configuration.trustStorePasswordPath())))
                 .build();
     }
-
-    private static Try<Path> resource(String resource) {
-        return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()));
-    }}
+}
