@@ -36,16 +36,19 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.utlis.SecurityK
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 7/5/18
  */
 class DMaaPReactiveWebClientFactoryTest {
 
-    private static final String KEY_STORE_RESOURCE_PATH = "/org.onap.dcae.jks";
-    private static final String KEY_STORE_PASS_RESOURCE_PATH = "/keystore.password";
-    private static final String TRUST_STORE_RESOURCE_PATH = "/org.onap.dcae.trust.jks";
-    private static final String TRUST_STORE_PASS_RESOURCE_PATH = "/truststore.password";
+    private static final String KEY_STORE_FILE_PATH = testResourceToPath("/org.onap.dcae.jks");
+    private static final String KEY_STORE_PASS_FILE_PATH = testResourceToPath("/keystore.password");
+    private static final String TRUST_STORE_FILE_PATH = testResourceToPath("/org.onap.dcae.trust.jks");
+    private static final String TRUST_STORE_PASS_FILE_PATH = testResourceToPath("/truststore.password");
     private SslFactory sslFactory = mock(SslFactory.class);
     private SslContext dummySslContext = mock(SslContext.class);
     private DMaaPReactiveWebClientFactory webClientFactory = new DMaaPReactiveWebClientFactory(sslFactory);
@@ -98,13 +101,21 @@ class DMaaPReactiveWebClientFactoryTest {
         DmaapConsumerConfiguration dmaapConsumerConfiguration = mock(DmaapConsumerConfiguration.class);
 
         when(dmaapConsumerConfiguration.enableDmaapCertAuth()).thenReturn(true);
-        when(dmaapConsumerConfiguration.keyStorePath()).thenReturn(KEY_STORE_RESOURCE_PATH);
-        when(dmaapConsumerConfiguration.keyStorePasswordPath()).thenReturn(KEY_STORE_PASS_RESOURCE_PATH);
-        when(dmaapConsumerConfiguration.trustStorePath()).thenReturn(TRUST_STORE_RESOURCE_PATH);
-        when(dmaapConsumerConfiguration.trustStorePasswordPath()).thenReturn(TRUST_STORE_PASS_RESOURCE_PATH);
+        when(dmaapConsumerConfiguration.keyStorePath()).thenReturn(KEY_STORE_FILE_PATH);
+        when(dmaapConsumerConfiguration.keyStorePasswordPath()).thenReturn(KEY_STORE_PASS_FILE_PATH);
+        when(dmaapConsumerConfiguration.trustStorePath()).thenReturn(TRUST_STORE_FILE_PATH);
+        when(dmaapConsumerConfiguration.trustStorePasswordPath()).thenReturn(TRUST_STORE_PASS_FILE_PATH);
 
         when(sslFactory.createSecureClientContext(any(SecurityKeys.class))).thenReturn(dummySslContext);
 
         return dmaapConsumerConfiguration;
+    }
+
+    private static String testResourceToPath(String resource) {
+        try {
+            return Paths.get(DMaaPReactiveWebClientFactoryTest.class.getResource(resource).toURI()).toString();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed resolving test resource path", e);
+        }
     }
 }

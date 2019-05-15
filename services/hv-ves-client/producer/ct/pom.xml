@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
         <artifactId>hvvesclient-producer</artifactId>
-        <version>1.1.5-SNAPSHOT</version>
+        <version>1.1.6-SNAPSHOT</version>
     </parent>
 
     <artifactId>hvvesclient-producer-ct</artifactId>
