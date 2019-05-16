@@ -60,6 +60,14 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
     }
 
 
+    private @NotNull HttpRequest buildGetHttpRequest(MessageRouterSubscribeRequest request) {
+        return ImmutableHttpRequest.builder()
+                .method(HttpMethod.GET)
+                .url(buildSubscribeUrl(request))
+                .diagnosticContext(request.diagnosticContext().withNewInvocationId())
+                .build();
+    }
+
     private @NotNull MessageRouterSubscribeResponse buildGetResponse(HttpResponse httpResponse) {
         final ImmutableMessageRouterSubscribeResponse.Builder builder =
                 ImmutableMessageRouterSubscribeResponse.builder();
@@ -68,14 +76,6 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
                 : builder.failReason(extractFailReason(httpResponse)).build();
     }
 
-
-    private @NotNull HttpRequest buildGetHttpRequest(MessageRouterSubscribeRequest request) {
-        return ImmutableHttpRequest.builder()
-                .method(HttpMethod.GET)
-                .url(buildSubscribeUrl(request))
-                .diagnosticContext(request.diagnosticContext().withNewInvocationId())
-                .build();
-    }
 
     private String buildSubscribeUrl(MessageRouterSubscribeRequest request) {
         return String.format("%s/%s/%s", request.sourceDefinition().topicUrl(), request.consumerGroup(),

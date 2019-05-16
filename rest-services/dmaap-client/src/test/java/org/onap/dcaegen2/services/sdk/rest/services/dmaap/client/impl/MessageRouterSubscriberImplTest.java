@@ -20,48 +20,113 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-import com.google.gson.JsonPrimitive;
-import org.junit.jupiter.api.Disabled;
+import com.google.gson.JsonSyntaxException;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
+import org.mockito.ArgumentCaptor;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSource;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSource;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.*;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterSubscriber;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.DmaapResponse;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterSubscribeRequest;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
-import reactor.core.publisher.Flux;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterSubscriberConfig;
+import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since March 2019
+ * @since May 2019
  */
-// TODO: Write proper unit tests
-@Disabled
 class MessageRouterSubscriberImplTest {
 
-    private final MessageRouterSubscriber cut = mock(MessageRouterSubscriber.class);
-    private final MessageRouterSource sinkDefinition = mock(MessageRouterSource.class);
-    private final MessageRouterSubscribeRequest request = ImmutableMessageRouterSubscribeRequest.builder()
-            .sourceDefinition(sinkDefinition)
+    private final RxHttpClient httpClient = mock(RxHttpClient.class);
+    private final MessageRouterSubscriberConfig clientConfig = MessageRouterSubscriberConfig.createDefault();
+    private final MessageRouterSubscriber cut = new MessageRouterSubscriberImpl(httpClient, clientConfig.gsonInstance());
+
+    private final ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
+    private final MessageRouterSource sourceDefinition = ImmutableMessageRouterSource.builder()
+            .name("sample topic")
+            .topicUrl("https://dmaap-mr/TOPIC")
+            .build();
+    private final MessageRouterSubscribeRequest mrRequest = ImmutableMessageRouterSubscribeRequest.builder()
+            .consumerGroup("SAMPLE-GROUP")
+            .sourceDefinition(sourceDefinition)
+            .build();
+    private final HttpResponse httpResponse = ImmutableHttpResponse.builder()
+            .statusCode(200)
+            .statusReason("OK")
+            .url(sourceDefinition.topicUrl())
+            .rawBody("[]".getBytes())
+            .build();
+    private final HttpResponse httpResponseWithWrongStatusCode = ImmutableHttpResponse.builder()
+            .statusCode(301)
+            .statusReason("Something braked")
+            .url(sourceDefinition.topicUrl())
+            .rawBody("[]".getBytes())
+            .build();
+    private final HttpResponse httpResponseWithIncorrectJson = ImmutableHttpResponse.builder()
+            .statusCode(200)
+            .statusReason("OK")
+            .url(sourceDefinition.topicUrl())
+            .rawBody("{}".getBytes())
             .build();
 
     @Test
-    void getShouldBeUsable() {
-        cut.get(request)
-                .filter(DmaapResponse::successful)
-                .map(MessageRouterSubscribeResponse::items)
-                .subscribe(System.out::println);
+    void getWithProperRequest_shouldReturnCorrectResponse() {
+        // given
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponse));
+
+        // when
+        final Mono<MessageRouterSubscribeResponse> responses = cut
+                .get(mrRequest);
+        final MessageRouterSubscribeResponse response = responses.block();
+
+        // then
+        assertThat(response.successful()).isTrue();
+        assertThat(response.failReason()).isNull();
+        assertThat(response.hasElements()).isFalse();
+
+
+        verify(httpClient).call(httpRequestArgumentCaptor.capture());
+        final HttpRequest httpRequest = httpRequestArgumentCaptor.getValue();
+        assertThat(httpRequest.method()).isEqualTo(HttpMethod.GET);
+        assertThat(httpRequest.url()).isEqualTo(String.format("%s/%s/%s", sourceDefinition.topicUrl(),
+                mrRequest.consumerGroup(), mrRequest.consumerId()));
+        assertThat(httpRequest.body()).isNull();
     }
 
     @Test
-    void getElementsShouldBeUsable() {
-        cut.getElements(request)
-                .collectList()
-                .subscribe(System.out::println);
+    void getWithProperRequestButNotSuccessfulHttpRequest_shouldReturnMonoWithFailReason() {
+        // given
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponseWithWrongStatusCode));
+
+        // when
+        final Mono<MessageRouterSubscribeResponse> responses = cut
+                .get(mrRequest);
+        final MessageRouterSubscribeResponse response = responses.block();
+
+        // then
+        assertThat(response.failed()).isTrue();
+        assertThat(response.failReason()).
+                isEqualTo(String.format("%d %s%n%s", httpResponseWithWrongStatusCode.statusCode(),
+                        httpResponseWithWrongStatusCode.statusReason(),
+                        httpResponseWithWrongStatusCode.bodyAsString()));
+    }
+
+    @Test
+    void getWithImproperRawBody_shouldThrowNPE() {
+        // given
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponseWithIncorrectJson));
+
+        // when
+        // then
+        assertThatExceptionOfType(JsonSyntaxException.class).isThrownBy(() -> cut.get(mrRequest).block());
     }
 }

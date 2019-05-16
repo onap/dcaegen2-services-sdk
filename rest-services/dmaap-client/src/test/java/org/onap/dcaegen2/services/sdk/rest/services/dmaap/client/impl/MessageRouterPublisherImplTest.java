@@ -77,7 +77,7 @@ class MessageRouterPublisherImplTest {
             .statusCode(200)
             .statusReason("OK")
             .url(sinkDefinition.topicUrl())
-            .rawBody("{}".getBytes())
+            .rawBody("[]".getBytes())
             .build();
 
     @Test
