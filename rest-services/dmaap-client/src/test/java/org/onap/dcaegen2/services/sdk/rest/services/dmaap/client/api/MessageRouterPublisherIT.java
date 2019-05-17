@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendError;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
 
 import com.google.gson.JsonElement;
@@ -45,34 +46,163 @@ import reactor.test.StepVerifier;
  * @since May 2019
  */
 class MessageRouterPublisherIT {
-    private MessageRouterPublisher sut = DmaapClientFactory.createMessageRouterPublisher(MessageRouterPublisherConfig.createDefault());
+
+    private static final String ERROR_MESSAGE = "Something went wrong";
+    private static final String TEXT_PLAIN_CONTENT_TYPE = "text/plain";
+    private static final String JSON_CONTENT_TYPE = "application/json";
+    private static final String SUCCESS_RESP_TOPIC_PATH = "/events/TOPIC";
+    private static final String FAILING_WITH_400_RESP_PATH = "/events/TOPIC400";
+    private static final String FAILING_WITH_401_RESP_PATH = "/events/TOPIC401";
+    private static final String FAILING_WITH_403_RESP_PATH = "/events/TOPIC403";
+    private static final String FAILING_WITH_404_RESP_PATH = "/events/TOPIC404";
+    private static final String FAILING_WITH_500_TOPIC_PATH = "/events/TOPIC500";
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+
     private static DummyHttpServer server;
-    private static MessageRouterSink sinkDefinition;
+
+    private MessageRouterPublisher sut = DmaapClientFactory
+            .createMessageRouterPublisher(MessageRouterPublisherConfig.createDefault());
+
 
     @BeforeAll
     static void setUp() {
         server = DummyHttpServer.start(routes ->
-                routes.post("/events/TOPIC", (req, resp) -> sendString(resp, Mono.just("TODO")))
+                routes.post(SUCCESS_RESP_TOPIC_PATH, (req, resp) -> sendString(resp, Mono.just("TODO")))
+                        .post(FAILING_WITH_400_RESP_PATH, (req, resp) ->
+                                sendError(resp, 400, ERROR_MESSAGE))
+                        .post(FAILING_WITH_401_RESP_PATH, (req, resp) ->
+                                sendError(resp, 401, ERROR_MESSAGE))
+                        .post(FAILING_WITH_403_RESP_PATH, (req, resp) ->
+                                sendError(resp, 403, ERROR_MESSAGE))
+                        .post(FAILING_WITH_404_RESP_PATH, (req, resp) ->
+                                sendError(resp, 404, ERROR_MESSAGE))
+                        .post(FAILING_WITH_500_TOPIC_PATH, (req, resp) ->
+                                sendError(resp, 500, ERROR_MESSAGE))
         );
-        sinkDefinition = ImmutableMessageRouterSink.builder()
-                .name("the topic")
-                .topicUrl(String.format("http://%s:%d/events/TOPIC", server.host(), server.port()))
-                .build();
     }
 
     @Test
-    void testStub() {
-        final MessageRouterPublishRequest mrRequest = ImmutableMessageRouterPublishRequest.builder()
-                .sinkDefinition(sinkDefinition)
-                .build();
+    void publisher_shouldMakeSuccessfulPutRequest() {
+       final MessageRouterPublishRequest mrRequest = createMRRequest(SUCCESS_RESP_TOPIC_PATH,
+               TEXT_PLAIN_CONTENT_TYPE);
+
+       final Flux<MessageRouterPublishResponse> result = sut
+                .put(mrRequest, Flux.just("ala", "ma", "kota").map(JsonPrimitive::new));
+
+       final List<JsonElement> expectedItems = List.of("ala", "ma", "kota").map(JsonPrimitive::new);
+
+       StepVerifier.create(result)
+                .expectNext(ImmutableMessageRouterPublishResponse.builder().items(expectedItems).build())
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void publisher_shouldHandleBadRequestError(){
+        final MessageRouterPublishRequest mrRequest = createMRRequest(FAILING_WITH_400_RESP_PATH,
+                JSON_CONTENT_TYPE);
 
         final Flux<MessageRouterPublishResponse> result = sut
                 .put(mrRequest, Flux.just("ala", "ma", "kota").map(JsonPrimitive::new));
 
-        final List<JsonElement> expectedItems = List.of("ala", "ma", "kota").map(JsonPrimitive::new);
+        MessageRouterPublishResponse expectedResponse = createErrorResponse(
+                String.format("400 Bad Request\n%s", ERROR_MESSAGE));
+
         StepVerifier.create(result)
-                .expectNext(ImmutableMessageRouterPublishResponse.builder().items(expectedItems).build())
+                .expectNext(expectedResponse)
                 .expectComplete()
-                .verify(Duration.ofSeconds(10));
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void publisher_shouldHandleUnauthorizedError(){
+        final MessageRouterPublishRequest mrRequest = createMRRequest(FAILING_WITH_401_RESP_PATH,
+                TEXT_PLAIN_CONTENT_TYPE);
+
+        final Flux<MessageRouterPublishResponse> result = sut
+                .put(mrRequest, Flux.just("ala", "ma", "kota").map(JsonPrimitive::new));
+
+        MessageRouterPublishResponse expectedResponse = createErrorResponse(
+                String.format("401 Unauthorized\n%s", ERROR_MESSAGE));
+
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void publisher_shouldHandleForbiddenError(){
+        final MessageRouterPublishRequest mrRequest = createMRRequest(FAILING_WITH_403_RESP_PATH,
+                TEXT_PLAIN_CONTENT_TYPE);
+
+        final Flux<MessageRouterPublishResponse> result = sut
+                .put(mrRequest, Flux.just("ala", "ma", "kota").map(JsonPrimitive::new));
+
+        MessageRouterPublishResponse expectedResponse = createErrorResponse(
+                String.format("403 Forbidden\n%s", ERROR_MESSAGE));
+
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void publisher_shouldHandleNotFoundError(){
+        final MessageRouterPublishRequest mrRequest = createMRRequest(FAILING_WITH_404_RESP_PATH,
+                TEXT_PLAIN_CONTENT_TYPE);
+
+        final Flux<MessageRouterPublishResponse> result = sut
+                .put(mrRequest, Flux.just("ala", "ma", "kota").map(JsonPrimitive::new));
+
+        MessageRouterPublishResponse expectedResponse = createErrorResponse(
+                String.format("404 Not Found\n%s", ERROR_MESSAGE));
+
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void publisher_shouldHandleInternalServerError(){
+        final MessageRouterPublishRequest mrRequest = createMRRequest(FAILING_WITH_500_TOPIC_PATH,
+                TEXT_PLAIN_CONTENT_TYPE);
+
+        final Flux<MessageRouterPublishResponse> result = sut
+                .put(mrRequest, Flux.just("ala", "ma", "kota").map(JsonPrimitive::new));
+
+        MessageRouterPublishResponse expectedResponse = createErrorResponse(
+                String.format("500 Internal Server Error\n%s", ERROR_MESSAGE));
+
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+
+    private MessageRouterPublishRequest createMRRequest(String topicPath, String contentType){
+        final MessageRouterSink sinkDefinition = ImmutableMessageRouterSink.builder()
+                .name("the topic")
+                .topicUrl(String.format("http://%s:%d%s",
+                        server.host(),
+                        server.port(),
+                        topicPath)
+                )
+                .build();
+
+        return ImmutableMessageRouterPublishRequest.builder()
+                .sinkDefinition(sinkDefinition)
+                .contentType(contentType)
+                .build();
+    }
+
+    private MessageRouterPublishResponse createErrorResponse(String failReason){
+        return ImmutableMessageRouterPublishResponse
+                .builder()
+                .failReason(failReason)
+                .build();
     }
 }
