@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a05778f0_9c291621",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-20T12:18:54Z",
+      "side": 1,
+      "message": "Maybe `messageBatchItems` would be less out of thin air",
+      "range": {
+        "startLine": 90,
+        "startChar": 47,
+        "endLine": 90,
+        "endChar": 77
+      },
+      "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "519d5031_ba648388",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-20T12:18:54Z",
+      "side": 1,
+      "message": "Correct me if I\u0027m wrong, however it seems that we are always invoking method called `asJsonBody` on message batch passed to MRPublisher (I know we are using content type from request, but we are sending JSON).\nSo JSON_CONTENT_TYPE is actually correct request type and TEXT_PLAIN_CONTENT_TYPE (used in all other testcasses) is wrong one? \n\nIf so, consider changing this to emphasize that this is testcase in which we are actually making bad request.",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 33
+      },
+      "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bcdf1c4_c0458206",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-20T12:18:54Z",
+      "side": 1,
+      "message": "Let\u0027s move `String.format` inside `createErrorResponse`, so the call would be \n```\ncreateErrorResponse(\"format string %s %s\", formatArg2, formatArg2)\n```",
+      "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
