@@ -52,6 +52,23 @@
       "revId": "bbd7077644ae3df5007a44d13c262cb675f1b1c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb0893c8_c8c71bae",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-05-20T11:07:49Z",
+      "side": 1,
+      "message": "I would propose given, when, then test srtucture",
+      "revId": "bbd7077644ae3df5007a44d13c262cb675f1b1c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
