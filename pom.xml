@@ -13,7 +13,7 @@
   <version>1.2.0-SNAPSHOT</version>
 
   <name>dcaegen2-services-sdk</name>
-  <description>Common SDK repo for all DCAE Services (R4)</description>
+  <description>Common SDK repo for all DCAE Services</description>
   <packaging>pom</packaging>
 
   <licenses>
@@ -39,7 +39,6 @@
     <commons-text.version>1.6</commons-text.version>
     <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
     <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
-    <maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
   </properties>
 
   <modules>
@@ -50,6 +49,37 @@
   </modules>
 
   <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <!-- minimize console output messages -->
+          <quiet>true</quiet>
+          <verbose>false</verbose>
+          <useStandardDocletOptions>false</useStandardDocletOptions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>aggregate</id>
+            <phase>site</phase>
+            <goals>
+              <goal>aggregate</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>attach-javadoc</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- configuration taken intact from oparent -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -102,45 +132,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <!-- minimize console output messages -->
-          <quiet>true</quiet>
-          <verbose>false</verbose>
-          <useStandardDocletOptions>false</useStandardDocletOptions>
-        </configuration>
-        <executions>
-          <execution>
-            <id>aggregate</id>
-            <phase>site</phase>
-            <goals>
-              <goal>aggregate</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>attach-javadoc</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${maven-failsafe-plugin.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
   <reporting>
     <plugins>
@@ -235,6 +226,18 @@
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
         <version>${assertj-core.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers</artifactId>
+        <version>1.11.2</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>1.11.2</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
