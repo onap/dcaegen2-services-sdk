@@ -73,8 +73,7 @@ class MessageRouterSubscriberIT {
 
     private static MessageRouterSubscribeRequest mrSuccessRequest;
     private static MessageRouterSubscribeRequest mrFailingRequest;
-    private MessageRouterSubscriber sut = DmaapClientFactory
-            .createMessageRouterSubscriber(MessageRouterSubscriberConfig.createDefault());
+    private MessageRouterSubscriber sut = DmaapClientFactory.createMessageRouterSubscriber(MessageRouterSubscriberConfig.createDefault());
     private static MessageRouterSource sourceDefinition;
 
 
@@ -91,8 +90,7 @@ class MessageRouterSubscriberIT {
 
     @Test
     void subscriber_shouldGetCorrectResponse(){
-        Mono<MessageRouterSubscribeResponse> response = sut
-                .get(mrSuccessRequest);
+        Mono<MessageRouterSubscribeResponse> response = sut.get(mrSuccessRequest);
 
         JsonArray expectedItems = new JsonArray();
         expectedItems.add("I");

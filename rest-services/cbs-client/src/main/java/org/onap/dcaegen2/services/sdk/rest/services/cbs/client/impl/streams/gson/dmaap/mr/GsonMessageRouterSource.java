@@ -28,8 +28,8 @@ import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSource;
  * @author <a href="mailto:kornel.janiak@nokia.com">Kornel Janiak</a>
  */
 
-public class GsonMessageRouterSource extends GsonMessageRouter implements MessageRouterSource {
-    GsonMessageRouterSource(
+public final class GsonMessageRouterSource extends GsonMessageRouter implements MessageRouterSource {
+    public GsonMessageRouterSource(
             String name,
             @NotNull MessageRouterDmaapInfo dmaapInfo,
             @Nullable AafCredentials aafCredentials) {
