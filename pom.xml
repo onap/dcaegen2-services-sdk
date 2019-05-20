@@ -40,6 +40,7 @@
     <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
     <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
     <micrometer.version>1.1.4</micrometer.version>
+    <testcontainers.version>1.11.2</testcontainers.version>
   </properties>
 
   <modules>
@@ -240,6 +241,18 @@
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
         <version>${assertj-core.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers</artifactId>
+        <version>${testcontainers.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${testcontainers.version}</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
