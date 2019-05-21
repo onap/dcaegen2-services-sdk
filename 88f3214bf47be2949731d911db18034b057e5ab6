@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bfd20131_ce6ea16e",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-21T05:51:11Z",
+      "side": 1,
+      "message": "Sorry for not being clear - I meant to extract `List.of(\"ala\", \"ma\", \"kota\")` to `psf List\u003c\u003e messageBatchItems \u003d L(ala,ma,kota)`, as you these constants are meaningless in the context of this test.\n\n`Flux\u003c\u003e messageBatch` was actually well-named :)",
+      "parentUuid": "96249c55_6921b02c",
+      "range": {
+        "startLine": 90,
+        "startChar": 47,
+        "endLine": 90,
+        "endChar": 77
+      },
+      "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "519d5031_ba648388",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
         "patchSetId": 5
