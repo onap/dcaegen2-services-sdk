@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "231bbea2_64dfd3f4",
+        "filename": "pom.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-21T10:11:26Z",
+      "side": 1,
+      "message": "extract version to maven-property and reuse here and below",
+      "range": {
+        "startLine": 236,
+        "startChar": 17,
+        "endLine": 236,
+        "endChar": 24
+      },
+      "revId": "659ade9d02ce76bc8141bc68a1bbeb18a7883031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10c8bc47_61b26fb4",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-21T10:11:26Z",
+      "side": 1,
+      "message": "can be replaced with import",
+      "range": {
+        "startLine": 51,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 48
+      },
+      "revId": "659ade9d02ce76bc8141bc68a1bbeb18a7883031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73c8e1c5_204481e2",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-21T10:11:26Z",
+      "side": 1,
+      "message": "I don\u0027t know about conventions, but adding this \"TestContainers\" stem is making it quite long, maybe \"TCIT\" or even \"CIT\" suffix would be sufficient, what you think?",
+      "range": {
+        "startLine": 52,
+        "startChar": 29,
+        "endLine": 52,
+        "endChar": 43
+      },
+      "revId": "659ade9d02ce76bc8141bc68a1bbeb18a7883031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93baea41_3af0c730",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-21T10:11:26Z",
+      "side": 1,
+      "message": "MessageRouterSubscriberTestContainersIT",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 37
+      },
+      "revId": "659ade9d02ce76bc8141bc68a1bbeb18a7883031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "faea0373_a460006e",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-21T10:11:26Z",
+      "side": 1,
+      "message": "Extracting this to something along\n```\nprivate static final String DMAAP_ERROR_RESPONSE_FORMAT \u003d \"%s\\n\" +\n            \"{\" +\n            \"\\\"mrstatus\\\":3001,\" +\n            \"\\\"helpURL\\\":\\\"http://onap.readthedocs.io\\\",\" +\n            \"\\\"message\\\":\\\"No such topic exists.-[%s]\\\",\" +\n            \"\\\"status\\\":404\" +\n            \"}\";\n```\n\nwill improve readability.",
+      "range": {
+        "startLine": 100,
+        "startChar": 16,
+        "endLine": 100,
+        "endChar": 153
+      },
+      "revId": "659ade9d02ce76bc8141bc68a1bbeb18a7883031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c841f58_5370017f",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-21T10:11:26Z",
+      "side": 1,
+      "message": "To avoid getting this array from nowhere, you could \n```\n    private static final List\u003cString\u003e messageBatchItems \u003d Arrays.asList(\"I\", \"like\", \"pizza\");\n    private static final Flux\u003cJsonPrimitive\u003e messageBatch \u003d Flux.fromIterable(messageBatchItems)\n            .map(JsonPrimitive::new);\n\n... (subscriber_shouldGetCorrectResponse)\n        final JsonArray expectedItems \u003d getAsJsonArray(messageBatchItems);\n\n... (new method, Gson probably should be extracted as constant)\n    private JsonArray getAsJsonArray(List\u003cString\u003e list) {\n        String listsJsonString \u003d new Gson().toJson(list);\n        return new JsonParser().parse(listsJsonString).getAsJsonArray();\n    }\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 35
+      },
+      "revId": "659ade9d02ce76bc8141bc68a1bbeb18a7883031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
