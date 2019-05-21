@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "96249c55_6921b02c",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-21T05:25:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a05778f0_9c291621",
+      "range": {
+        "startLine": 90,
+        "startChar": 47,
+        "endLine": 90,
+        "endChar": 77
+      },
+      "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "519d5031_ba648388",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
         "patchSetId": 5
@@ -83,6 +107,24 @@
       "writtenOn": "2019-05-20T12:18:54Z",
       "side": 1,
       "message": "Let\u0027s move `String.format` inside `createErrorResponse`, so the call would be \n```\ncreateErrorResponse(\"format string %s %s\", formatArg2, formatArg2)\n```",
+      "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f2d5533_1a042c03",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-21T05:25:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bcdf1c4_c0458206",
       "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
