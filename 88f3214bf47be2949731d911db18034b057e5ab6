@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "34841b71_b4cf446e",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-21T06:06:25Z",
+      "side": 1,
+      "message": "just to be sure:\n`psf List\u003cString\u003e messageBatchItems \u003d List.of(\"ala\", \"ma\", \"kota\");` \nand in the test function:\n`StepVerifier.create(result)\n                .expectNext(ImmutableMessageRouterPublishResponse\n                        .builder()\n                        .items(messageBatchItems.map(JsonPrimitive::new))\n                        .build()\n                )\n                .expectComplete()\n                .verify(TIMEOUT);`\n? ;)",
+      "parentUuid": "bfd20131_ce6ea16e",
+      "range": {
+        "startLine": 90,
+        "startChar": 47,
+        "endLine": 90,
+        "endChar": 77
+      },
+      "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "519d5031_ba648388",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
         "patchSetId": 5
