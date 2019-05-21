@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "f6c7d6f5_9d051789",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-21T06:11:08Z",
+      "side": 1,
+      "message": "Or event extract `ImmutableMessageRouterPublishResponse.builder()...`",
+      "parentUuid": "34841b71_b4cf446e",
+      "range": {
+        "startLine": 90,
+        "startChar": 47,
+        "endLine": 90,
+        "endChar": 77
+      },
+      "revId": "88f3214bf47be2949731d911db18034b057e5ab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "519d5031_ba648388",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
         "patchSetId": 5
