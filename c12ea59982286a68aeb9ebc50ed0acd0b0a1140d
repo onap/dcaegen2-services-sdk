@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Izabela Zawadzka <izabela.zawadzka@nokia.com>
+Code-Review+1: Jakub Dudycz <jakub.dudycz@nokia.com>
+Code-Review+2: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Submitted-by: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Submitted-at: Wed, 22 May 2019 12:31:18 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/88145
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
