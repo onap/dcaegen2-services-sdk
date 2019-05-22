@@ -141,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "91e9a0ed_5ddd4a0b",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-22T05:29:13Z",
+      "side": 1,
+      "message": "You are absolutely right :)",
+      "parentUuid": "866060a7_096e0c4b",
+      "range": {
+        "startLine": 100,
+        "startChar": 16,
+        "endLine": 100,
+        "endChar": 153
+      },
+      "revId": "659ade9d02ce76bc8141bc68a1bbeb18a7883031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c841f58_5370017f",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
         "patchSetId": 7
