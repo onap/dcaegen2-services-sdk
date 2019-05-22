@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "866060a7_096e0c4b",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-22T04:48:47Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be named `DMAAP_404_ERROR_RESPONSE_FORMAT\u0027? And instead of \"%s\\n\" maybe stick with \"404 Not Found\\n\"? I suppose that error message \n`{\\\"mrstatus\\\":3001,\\\"helpURL\\\":\\\"http://onap.readthedocs.io\\\",\\\"message\\\":\\\"No such topic exists.-[%s]\\\",\\\"status\\\":404}`\nlooks like that only for this error type",
+      "parentUuid": "faea0373_a460006e",
+      "range": {
+        "startLine": 100,
+        "startChar": 16,
+        "endLine": 100,
+        "endChar": 153
+      },
+      "revId": "659ade9d02ce76bc8141bc68a1bbeb18a7883031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c841f58_5370017f",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberTestContainersIT.java",
         "patchSetId": 7
