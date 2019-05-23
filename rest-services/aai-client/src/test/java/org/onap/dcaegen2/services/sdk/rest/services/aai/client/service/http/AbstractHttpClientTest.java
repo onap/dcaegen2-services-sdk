@@ -22,8 +22,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http;
 import static org.mockito.Mockito.mock;
 
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
@@ -31,7 +31,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 public class AbstractHttpClientTest {
 
     protected final AaiModel aaiModel = () -> "test-id";
-    protected final CloudHttpClient httpClient = mock(CloudHttpClient.class);
+    protected final RxHttpClient httpClient = mock(RxHttpClient.class);
     protected final JsonBodyBuilder bodyBuilder = mock(JsonBodyBuilder.class);
     protected final HttpResponse response = mock(HttpResponse.class);
 

@@ -20,20 +20,19 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service;
 
-import io.netty.handler.ssl.SslContext;
 import io.vavr.control.Try;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.ImmutableRequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
 import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
-import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,33 +41,28 @@ public class AaiHttpClientFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(AaiHttpClientFactory.class);
 
     private final AaiClientConfiguration configuration;
-    private final SslFactory sslFactory;
 
     public AaiHttpClientFactory(AaiClientConfiguration configuration) {
-        this(configuration, new SslFactory());
-    }
-
-    public AaiHttpClientFactory(AaiClientConfiguration configuration, SslFactory sslFactory) {
         this.configuration = configuration;
-        this.sslFactory = sslFactory;
     }
 
-    public CloudHttpClient build() {
+    public RxHttpClient build() {
         LOGGER.debug("Setting ssl context");
-        return new CloudHttpClient(createSslContext());
+
+        if (configuration.enableAaiCertAuth()) {
+            return RxHttpClientFactory.create(createSslKeys());
+        } else {
+            return RxHttpClientFactory.createInsecure();
+        }
     }
 
-    private SslContext createSslContext() {
-        if (configuration.enableAaiCertAuth()) {
-            final SecurityKeys collectorSecurityKeys = ImmutableSecurityKeys.builder()
-                    .keyStore(ImmutableSecurityKeysStore.of(resource(configuration.keyStorePath()).get()))
-                    .keyStorePassword(Passwords.fromResource(configuration.keyStorePasswordPath()))
-                    .trustStore(ImmutableSecurityKeysStore.of(resource(configuration.trustStorePath()).get()))
-                    .trustStorePassword(Passwords.fromResource(configuration.trustStorePasswordPath()))
-                    .build();
-            return sslFactory.createSecureClientContext(collectorSecurityKeys);
-        }
-        return sslFactory.createInsecureClientContext();
+    private SecurityKeys createSslKeys() {
+        return ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(resource(configuration.keyStorePath()).get()))
+                .keyStorePassword(Passwords.fromResource(configuration.keyStorePasswordPath()))
+                .trustStore(ImmutableSecurityKeysStore.of(resource(configuration.trustStorePath()).get()))
+                .trustStorePassword(Passwords.fromResource(configuration.trustStorePasswordPath()))
+                .build();
     }
 
     private Try<Path> resource(String resource) {

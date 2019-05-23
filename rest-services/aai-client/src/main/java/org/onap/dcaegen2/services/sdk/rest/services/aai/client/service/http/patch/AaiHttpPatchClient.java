@@ -20,14 +20,16 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.patch;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiRequests.createAaiPatchRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
 
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
@@ -37,27 +39,29 @@ public final class AaiHttpPatchClient implements AaiHttpClient<AaiModel, HttpRes
 
     private final static Map<String, String> CONTENT_TYPE = HashMap.of("Content-Type", "application/merge-patch+json");
 
-    private CloudHttpClient httpPatchClient;
+    private RxHttpClient httpClient;
     private final AaiClientConfiguration configuration;
     private final JsonBodyBuilder jsonBodyBuilder;
 
 
     public AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder,
-            CloudHttpClient httpPatchClient) {
+            RxHttpClient httpClient) {
         this.configuration = configuration;
         this.jsonBodyBuilder = jsonBodyBuilder;
-        this.httpPatchClient = httpPatchClient;
+        this.httpClient = httpClient;
     }
 
     public Mono<HttpResponse> getAaiResponse(AaiModel aaiModel) {
         final Map<String, String> headers = CONTENT_TYPE.merge(HashMap.ofAll(configuration.aaiHeaders()));
 
-        return httpPatchClient.patch(
+        final HttpRequest aaiPatchRequest = createAaiPatchRequest(
                 getUri(aaiModel.getCorrelationId()),
                 createRequestDiagnosticContext(),
                 headers.toJavaMap(),
                 jsonBodyBuilder,
                 aaiModel);
+
+        return httpClient.call(aaiPatchRequest);
     }
 
     private String getUri(String pnfName) {
