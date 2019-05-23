@@ -21,34 +21,37 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.put;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiRequests.createAaiPutRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
 
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import reactor.core.publisher.Mono;
 
 public class AaiHttpPutClient implements AaiHttpClient<AaiModel, HttpResponse> {
 
-    private CloudHttpClient httpPutClient;
+    private RxHttpClient httpClient;
     private final AaiClientConfiguration configuration;
     private final JsonBodyBuilder jsonBodyBuilder;
     private final String uri;
 
     public AaiHttpPutClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder, String uri,
-            CloudHttpClient httpPutClient) {
+            RxHttpClient httpClient) {
         this.configuration = configuration;
         this.jsonBodyBuilder = jsonBodyBuilder;
         this.uri = uri;
-        this.httpPutClient = httpPutClient;
+        this.httpClient = httpClient;
     }
 
     @Override
     public Mono<HttpResponse> getAaiResponse(AaiModel aaiModel) {
-        return httpPutClient
-                .put(uri, createRequestDiagnosticContext(), configuration.aaiHeaders(), jsonBodyBuilder, aaiModel);
+        final HttpRequest aaiPutRequest = createAaiPutRequest(uri, createRequestDiagnosticContext(),
+                configuration.aaiHeaders(), jsonBodyBuilder, aaiModel);
+        return httpClient.call(aaiPutRequest);
     }
 }

@@ -20,32 +20,37 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.get;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiRequests.createAaiGetRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.AaiHttpClientFactory.createRequestDiagnosticContext;
 
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AaiHttpClient;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.CloudHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import reactor.core.publisher.Mono;
 
 public final class AaiHttpGetClient implements AaiHttpClient<AaiModel, HttpResponse> {
 
-    private final CloudHttpClient httpGetClient;
+    private final RxHttpClient httpClient;
     private final AaiClientConfiguration configuration;
 
 
-    public AaiHttpGetClient(AaiClientConfiguration configuration, CloudHttpClient httpGetClient) {
+    public AaiHttpGetClient(AaiClientConfiguration configuration, RxHttpClient httpClient) {
         this.configuration = configuration;
-        this.httpGetClient = httpGetClient;
+        this.httpClient = httpClient;
     }
 
     @Override
     public Mono<HttpResponse> getAaiResponse(AaiModel aaiModel) {
-        return httpGetClient
-                .get(getUri(aaiModel.getCorrelationId()), createRequestDiagnosticContext(), configuration.aaiHeaders());
+        final HttpRequest getRequest = createAaiGetRequest(getUri(aaiModel.getCorrelationId()),
+                createRequestDiagnosticContext(), configuration.aaiHeaders());
+
+        return httpClient.call(getRequest);
     }
+
 
     private String getUri(String pnfName) {
         return new URI.URIBuilder()
