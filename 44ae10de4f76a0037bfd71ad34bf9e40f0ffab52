@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0403bd75_c9746560",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/AaiHttpClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-23T13:15:01Z",
+      "side": 1,
+      "message": "Are we really want to use keys from the JAR instead of files on the disk? This looks a little bit like recent bug in SDK.",
+      "range": {
+        "startLine": 62,
+        "startChar": 33,
+        "endLine": 62,
+        "endChar": 93
+      },
+      "revId": "44ae10de4f76a0037bfd71ad34bf9e40f0ffab52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
