@@ -58,15 +58,11 @@ public class AaiHttpClientFactory {
 
     private SecurityKeys createSslKeys() {
         return ImmutableSecurityKeys.builder()
-                .keyStore(ImmutableSecurityKeysStore.of(resource(configuration.keyStorePath()).get()))
-                .keyStorePassword(Passwords.fromResource(configuration.keyStorePasswordPath()))
-                .trustStore(ImmutableSecurityKeysStore.of(resource(configuration.trustStorePath()).get()))
-                .trustStorePassword(Passwords.fromResource(configuration.trustStorePasswordPath()))
+                .keyStore(ImmutableSecurityKeysStore.of(Paths.get(configuration.keyStorePath())))
+                .keyStorePassword(Passwords.fromPath(Paths.get(configuration.keyStorePasswordPath())))
+                .trustStore(ImmutableSecurityKeysStore.of(Paths.get(configuration.trustStorePath())))
+                .trustStorePassword(Passwords.fromPath(Paths.get(configuration.trustStorePasswordPath())))
                 .build();
-    }
-
-    private Try<Path> resource(String resource) {
-        return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()));
     }
 
     public static RequestDiagnosticContext createRequestDiagnosticContext() {
