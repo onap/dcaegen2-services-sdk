@@ -20,20 +20,17 @@
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.put;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyMap;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.AaiClientConfigurations.secureConfiguration;
 
-import java.util.HashMap;
-import java.util.Map;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AbstractHttpClientTest;
-import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
-import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -41,29 +38,23 @@ class AaiHttpPutClientTest extends AbstractHttpClientTest {
 
     @Test
     void getAaiResponse_shouldCallPutMethod_withGivenAaiHeaders() {
-        Map<String, String> headers = new HashMap<>();
-        AaiHttpPutClient cut = new AaiHttpPutClient(secureConfiguration(headers), bodyBuilder, "", httpClient);
+        Map<String, String> headers = HashMap.of("sample-key", "sample-value");
+        AaiHttpPutClient cut = new AaiHttpPutClient(secureConfiguration(headers.toJavaMap()), bodyBuilder, "",
+                httpClient);
 
-        given(httpClient.put(
-                anyString(),
-                any(RequestDiagnosticContext.class),
-                anyMap(),
-                any(JsonBodyBuilder.class),
-                any(AaiModel.class)
-        )).willReturn(Mono.just(response));
+        given(bodyBuilder.createJsonBody(eq(aaiModel)))
+                .willReturn("test-body");
+
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.just(response));
 
         StepVerifier
                 .create(cut.getAaiResponse(aaiModel))
                 .expectNext(response)
                 .verifyComplete();
 
-        verify(httpClient).put(
-                anyString(),
-                any(RequestDiagnosticContext.class),
-                eq(headers),
-                eq(bodyBuilder),
-                eq(aaiModel)
-        );
+        verify(httpClient)
+                .call(argThat(httpRequest -> httpRequest.customHeaders().equals(headers)));
     }
 
     @Test
@@ -71,25 +62,19 @@ class AaiHttpPutClientTest extends AbstractHttpClientTest {
         String uri = "test-uri";
         AaiHttpPutClient cut = new AaiHttpPutClient(secureConfiguration(), bodyBuilder, uri, httpClient);
 
-        given(httpClient.put(
-                anyString(),
-                any(RequestDiagnosticContext.class),
-                anyMap(),
-                any(JsonBodyBuilder.class),
-                any(AaiModel.class)
-        )).willReturn(Mono.just(response));
+        given(bodyBuilder.createJsonBody(eq(aaiModel)))
+                .willReturn("test-body");
+
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.just(response));
 
         StepVerifier
                 .create(cut.getAaiResponse(aaiModel))
                 .expectNext(response)
                 .verifyComplete();
 
-        verify(httpClient).put(
-                eq(uri),
-                any(RequestDiagnosticContext.class),
-                anyMap(),
-                eq(bodyBuilder),
-                eq(aaiModel)
-        );
+        verify(httpClient)
+                .call(argThat(httpRequest -> httpRequest.url().equals(uri)));
+
     }
 }

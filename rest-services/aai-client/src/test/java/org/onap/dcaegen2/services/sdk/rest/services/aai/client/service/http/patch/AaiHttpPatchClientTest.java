@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.pat
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -32,6 +33,7 @@ import io.vavr.collection.Map;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AbstractHttpClientTest;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiModel;
 import org.onap.dcaegen2.services.sdk.rest.services.model.JsonBodyBuilder;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
@@ -46,58 +48,52 @@ class AaiHttpPatchClientTest extends AbstractHttpClientTest {
     @Test
     void getAaiResponse_shouldCallPatchMethod_withGivenHeaders_combinedWithContentType() {
 
+        // given
         Map<String, String> headers = HashMap.of("sample-key", "sample-value");
         Map<String, String> expectedHeaders = DEFAULT_PATCH_HEADERS.merge(headers);
+
         AaiHttpPatchClient cut =
                 new AaiHttpPatchClient(secureConfiguration(headers.toJavaMap()), bodyBuilder, httpClient);
 
-        given(httpClient.patch(
-                anyString(),
-                any(RequestDiagnosticContext.class),
-                anyMap(),
-                any(JsonBodyBuilder.class),
-                any(AaiModel.class)
-        )).willReturn(Mono.just(response));
+        given(bodyBuilder.createJsonBody(eq(aaiModel)))
+                .willReturn("test-body");
 
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.just(response));
+
+        // when
         StepVerifier
                 .create(cut.getAaiResponse(aaiModel))
                 .expectNext(response)
                 .verifyComplete();
 
-        verify(httpClient).patch(
-                anyString(),
-                any(RequestDiagnosticContext.class),
-                eq(expectedHeaders.toJavaMap()),
-                eq(bodyBuilder),
-                eq(aaiModel)
-        );
+        // then
+        verify(httpClient)
+                .call(argThat(httpRequest -> httpRequest.customHeaders().equals(expectedHeaders)));
     }
 
     @Test
     void getAaiResponse_shouldCallPatchMethod_withProperUri() {
+
+        // given
         AaiClientConfiguration configuration = secureConfiguration();
-        String expectedUri = constructAaiUri(configuration, aaiModel.getCorrelationId());
+        String uri = constructAaiUri(configuration, aaiModel.getCorrelationId());
         AaiHttpPatchClient cut = new AaiHttpPatchClient(configuration, bodyBuilder, httpClient);
 
-        given(httpClient.patch(
-                anyString(),
-                any(RequestDiagnosticContext.class),
-                anyMap(),
-                any(JsonBodyBuilder.class),
-                any(AaiModel.class)
-        )).willReturn(Mono.just(response));
+        given(bodyBuilder.createJsonBody(eq(aaiModel)))
+                .willReturn("test-body");
 
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.just(response));
+
+        // when
         StepVerifier
                 .create(cut.getAaiResponse(aaiModel))
                 .expectNext(response)
                 .verifyComplete();
 
-        verify(httpClient).patch(
-                eq(expectedUri),
-                any(RequestDiagnosticContext.class),
-                anyMap(),
-                eq(bodyBuilder),
-                eq(aaiModel)
-        );
+        // then
+        verify(httpClient)
+                .call(argThat(httpRequest -> httpRequest.url().equals(uri)));
     }
 }

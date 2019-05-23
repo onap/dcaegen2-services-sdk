@@ -20,20 +20,18 @@
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.get;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyMap;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.onap.dcaegen2.services.sdk.rest.services.aai.client.AaiClientConfigurations.secureConfiguration;
 
-import java.util.HashMap;
-import java.util.Map;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.service.http.AbstractHttpClientTest;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.model.AaiServiceInstanceQueryModel;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -41,19 +39,24 @@ class AaiGetServiceInstanceClientTest extends AbstractHttpClientTest {
 
     @Test
     void getAaiResponse_shouldCallGetMethod_withGivenAaiHeaders() {
-        AaiServiceInstanceQueryModel model = mock(AaiServiceInstanceQueryModel.class);
-        Map<String, String> headers = new HashMap<>();
-        AaiGetServiceInstanceClient cut = new AaiGetServiceInstanceClient(secureConfiguration(headers), httpClient);
 
-        given(httpClient.get(anyString(), any(RequestDiagnosticContext.class), anyMap()))
+        // given
+        AaiServiceInstanceQueryModel model = mock(AaiServiceInstanceQueryModel.class);
+        Map<String, String> headers = HashMap.of("sample-key", "sample-value");
+        AaiGetServiceInstanceClient cut = new AaiGetServiceInstanceClient(secureConfiguration(headers.toJavaMap()),
+                httpClient);
+
+        given(httpClient.call(any(HttpRequest.class)))
                 .willReturn(Mono.just(response));
 
+        // when
         StepVerifier
                 .create(cut.getAaiResponse(model))
                 .expectNext(response)
                 .verifyComplete();
 
+        //then
         verify(httpClient)
-                .get(anyString(), any(RequestDiagnosticContext.class), eq(headers));
+                .call(argThat(httpRequest -> httpRequest.customHeaders().equals(headers)));
     }
 }
