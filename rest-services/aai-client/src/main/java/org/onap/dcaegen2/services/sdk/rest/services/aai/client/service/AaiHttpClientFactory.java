@@ -20,8 +20,6 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.service;
 
-import io.vavr.control.Try;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 import org.onap.dcaegen2.services.sdk.rest.services.aai.client.config.AaiClientConfiguration;

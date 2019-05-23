@@ -52,8 +52,7 @@ public final class RxHttpClientFactory {
         return create(context);
     }
 
-    // TODO: make it private after removing CloudHttpClient
-    static RxHttpClient create(@NotNull SslContext sslContext) {
+    private static RxHttpClient create(@NotNull SslContext sslContext) {
         return new RxHttpClient(HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext)));
     }
 }
