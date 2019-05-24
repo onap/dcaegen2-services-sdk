@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "71a0c1e2_e21a0d79",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-24T06:33:30Z",
+      "side": 1,
+      "message": "IntelliJ suggested that, so I thought it was a good idea ;).\nIf both solutions throw NPE, should I handle it in different way or omit `Objects.requireNonNull()` to simplify and let it throw that exception?",
+      "parentUuid": "62a61b65_4ca19f0b",
+      "range": {
+        "startLine": 65,
+        "startChar": 61,
+        "endLine": 65,
+        "endChar": 84
+      },
+      "revId": "eec44e76faf2771dc10fd75e764d4d59f1e3720b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9dc4c379_90c49e8d",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
         "patchSetId": 13
@@ -53,6 +77,30 @@
       "writtenOn": "2019-05-22T12:44:58Z",
       "side": 1,
       "message": "Is there a way of using just URL/resource and NOT using java.io.File?",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "eec44e76faf2771dc10fd75e764d4d59f1e3720b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8a4c311_3a05ec74",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-24T06:33:30Z",
+      "side": 1,
+      "message": "I haven\u0027t found that option neither in the official documentation nor in examples.",
+      "parentUuid": "9dc4c379_90c49e8d",
       "range": {
         "startLine": 78,
         "startChar": 12,
