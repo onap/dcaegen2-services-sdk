@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "c76f437a_8ed49aa9",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-24T10:19:31Z",
+      "side": 1,
+      "message": "As it\u0027s a test I think we can live with NPE here. However it might be beneficial to exract static method which will throw a more meaningful exception/message.",
+      "parentUuid": "71a0c1e2_e21a0d79",
+      "range": {
+        "startLine": 65,
+        "startChar": 61,
+        "endLine": 65,
+        "endChar": 84
+      },
+      "revId": "eec44e76faf2771dc10fd75e764d4d59f1e3720b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9dc4c379_90c49e8d",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
         "patchSetId": 13
@@ -101,6 +125,30 @@
       "side": 1,
       "message": "I haven\u0027t found that option neither in the official documentation nor in examples.",
       "parentUuid": "9dc4c379_90c49e8d",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "eec44e76faf2771dc10fd75e764d4d59f1e3720b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a40c077_650fc6e0",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-24T10:19:31Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "d8a4c311_3a05ec74",
       "range": {
         "startLine": 78,
         "startChar": 12,
