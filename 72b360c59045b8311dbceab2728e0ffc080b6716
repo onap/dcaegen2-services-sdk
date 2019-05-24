@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "212cdfc5_b4728fd9",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-24T13:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2756c60_8f4d3588",
+      "range": {
+        "startLine": 143,
+        "startChar": 29,
+        "endLine": 143,
+        "endChar": 75
+      },
+      "revId": "72b360c59045b8311dbceab2728e0ffc080b6716",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cddcecc4_9e40e12a",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-24T12:44:59Z",
       "side": 1,
       "message": "Usually instead of throwing and catching NPE we can just check if the result is null with simple if statement. One of the reasons is performance (stack trace collection).",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 38
+      },
+      "revId": "72b360c59045b8311dbceab2728e0ffc080b6716",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11b069e9_ab38d3e9",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-24T13:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cddcecc4_9e40e12a",
       "range": {
         "startLine": 147,
         "startChar": 16,
