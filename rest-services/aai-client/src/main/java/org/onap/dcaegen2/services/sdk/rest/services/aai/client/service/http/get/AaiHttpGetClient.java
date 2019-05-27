@@ -38,7 +38,7 @@ public final class AaiHttpGetClient implements AaiHttpClient<AaiModel, HttpRespo
     private final AaiClientConfiguration configuration;
 
 
-    AaiHttpGetClient(AaiClientConfiguration configuration, RxHttpClient httpClient) {
+    public AaiHttpGetClient(AaiClientConfiguration configuration, RxHttpClient httpClient) {
         this.configuration = configuration;
         this.httpClient = httpClient;
     }

@@ -46,7 +46,7 @@ public class AaiGetServiceInstanceClient implements
     private final RxHttpClient httpClient;
     private final AaiClientConfiguration configuration;
 
-    AaiGetServiceInstanceClient(final AaiClientConfiguration configuration,
+    public AaiGetServiceInstanceClient(final AaiClientConfiguration configuration,
             final RxHttpClient httpClient) {
         this.configuration = configuration;
         this.httpClient = httpClient;

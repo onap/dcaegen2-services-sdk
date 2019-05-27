@@ -44,7 +44,7 @@ public final class AaiHttpPatchClient implements AaiHttpClient<AaiModel, HttpRes
     private final JsonBodyBuilder jsonBodyBuilder;
 
 
-    AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder,
+    public AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder,
             RxHttpClient httpClient) {
         this.configuration = configuration;
         this.jsonBodyBuilder = jsonBodyBuilder;
