@@ -44,7 +44,6 @@ public final class AaiClientConfigurations {
     private static AaiClientConfiguration validConfiguration(Map<String, String> headers, boolean secure) {
         return new ImmutableAaiClientConfiguration.Builder()
                 .pnfUrl("some-url")
-                .aaiHost("sample-host")
                 .aaiUserName("sample-username")
                 .aaiUserPassword("sample-password")
                 .aaiIgnoreSslCertificateErrors(false)
@@ -54,10 +53,6 @@ public final class AaiClientConfigurations {
                 .keyStorePasswordPath("/server.pass")
                 .enableAaiCertAuth(secure)
                 .aaiHeaders(headers)
-                .aaiProtocol("sample-protocol")
-                .aaiPort(8080)
-                .aaiBasePath("sample-base-path")
-                .aaiPnfPath("sample-pnf-path")
                 .aaiServiceInstancePath("sample-instance-path")
                 .build();
     }
