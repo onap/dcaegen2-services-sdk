@@ -44,7 +44,7 @@ public final class AaiHttpPatchClient implements AaiHttpClient<AaiModel, HttpRes
     private final JsonBodyBuilder jsonBodyBuilder;
 
 
-    public AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder,
+    AaiHttpPatchClient(final AaiClientConfiguration configuration, JsonBodyBuilder jsonBodyBuilder,
             RxHttpClient httpClient) {
         this.configuration = configuration;
         this.jsonBodyBuilder = jsonBodyBuilder;
@@ -66,9 +66,6 @@ public final class AaiHttpPatchClient implements AaiHttpClient<AaiModel, HttpRes
 
     private String getUri(String pnfName) {
         return new URI.URIBuilder()
-                .scheme(configuration.aaiProtocol())
-                .host(configuration.aaiHost())
-                .port(configuration.aaiPort())
-                .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
+                .path(configuration.pnfUrl() + "/" + pnfName).build().toString();
     }
 }

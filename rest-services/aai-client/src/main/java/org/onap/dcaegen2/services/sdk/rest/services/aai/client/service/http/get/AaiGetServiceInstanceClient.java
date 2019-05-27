@@ -46,7 +46,7 @@ public class AaiGetServiceInstanceClient implements
     private final RxHttpClient httpClient;
     private final AaiClientConfiguration configuration;
 
-    public AaiGetServiceInstanceClient(final AaiClientConfiguration configuration,
+    AaiGetServiceInstanceClient(final AaiClientConfiguration configuration,
             final RxHttpClient httpClient) {
         this.configuration = configuration;
         this.httpClient = httpClient;
@@ -69,12 +69,6 @@ public class AaiGetServiceInstanceClient implements
     }
 
     private String getUri(final String endpoint) {
-        return new URI.URIBuilder()
-                .scheme(configuration.aaiProtocol())
-                .host(configuration.aaiHost())
-                .port(configuration.aaiPort())
-                .path(configuration.aaiBasePath() + "/" + endpoint)
-                .build()
-                .toString();
+        return new URI.URIBuilder().path(configuration.pnfUrl() + "/" + endpoint).build().toString();
     }
 }

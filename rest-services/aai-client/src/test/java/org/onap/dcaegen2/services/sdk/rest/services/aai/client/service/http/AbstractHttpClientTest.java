@@ -37,11 +37,6 @@ public class AbstractHttpClientTest {
 
 
     protected String constructAaiUri(AaiClientConfiguration configuration, String pnfName) {
-        return new URI.URIBuilder()
-                .scheme(configuration.aaiProtocol())
-                .host(configuration.aaiHost())
-                .port(configuration.aaiPort())
-                .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName)
-                .build().toString();
+        return new URI.URIBuilder().path(configuration.pnfUrl() + "/" + pnfName).build().toString();
     }
 }
