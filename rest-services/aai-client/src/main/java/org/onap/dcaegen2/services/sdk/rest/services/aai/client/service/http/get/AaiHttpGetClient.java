@@ -38,7 +38,7 @@ public final class AaiHttpGetClient implements AaiHttpClient<AaiModel, HttpRespo
     private final AaiClientConfiguration configuration;
 
 
-    public AaiHttpGetClient(AaiClientConfiguration configuration, RxHttpClient httpClient) {
+    AaiHttpGetClient(AaiClientConfiguration configuration, RxHttpClient httpClient) {
         this.configuration = configuration;
         this.httpClient = httpClient;
     }
@@ -53,10 +53,6 @@ public final class AaiHttpGetClient implements AaiHttpClient<AaiModel, HttpRespo
 
 
     private String getUri(String pnfName) {
-        return new URI.URIBuilder()
-                .scheme(configuration.aaiProtocol())
-                .host(configuration.aaiHost())
-                .port(configuration.aaiPort())
-                .path(configuration.aaiBasePath() + configuration.aaiPnfPath() + "/" + pnfName).build().toString();
+        return new URI.URIBuilder().path(configuration.pnfUrl() + "/" + pnfName).build().toString();
     }
 }
