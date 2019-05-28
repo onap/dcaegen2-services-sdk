@@ -27,21 +27,24 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import io.netty.buffer.ByteBuf;
+import com.google.gson.JsonParser;
+import com.google.gson.Gson;
 import io.netty.buffer.ByteBufAllocator;
-import io.netty.buffer.CompositeByteBuf;
+import io.netty.handler.codec.http.HttpHeaderValues;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.verification.VerificationMode;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSink;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpHeaders;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
@@ -60,34 +63,29 @@ import reactor.test.StepVerifier;
  * @since April 2019
  */
 class MessageRouterPublisherImplTest {
-
     private static final Duration TIMEOUT = Duration.ofSeconds(5);
-    private final RxHttpClient httpClient = mock(RxHttpClient.class);
-    private final MessageRouterPublisher cut = new MessageRouterPublisherImpl(httpClient, 3, Duration.ofMinutes(1));
-
-    private final ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
-    private final MessageRouterSink sinkDefinition = ImmutableMessageRouterSink.builder()
+    private static final JsonParser parser = new JsonParser();
+    private static final MessageRouterSink sinkDefinition = ImmutableMessageRouterSink.builder()
             .name("the topic")
             .topicUrl("https://dmaap-mr/TOPIC")
             .build();
-    private final MessageRouterPublishRequest mrRequest = ImmutableMessageRouterPublishRequest.builder()
-            .sinkDefinition(sinkDefinition)
-            .build();
-    private final HttpResponse httpResponse = ImmutableHttpResponse.builder()
-            .statusCode(200)
-            .statusReason("OK")
-            .url(sinkDefinition.topicUrl())
-            .rawBody("[]".getBytes())
-            .build();
+    private final RxHttpClient httpClient = mock(RxHttpClient.class);
+    private final MessageRouterPublisher cut = new MessageRouterPublisherImpl(httpClient, 3, Duration.ofMinutes(1));
+    private final ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
+    private final MessageRouterPublishRequest mrRequestTextPlain = createMRRPublishRequest();
+    private final MessageRouterPublishRequest mrRequestJson = createMRRPublishRequest();
+    private final HttpResponse successHttpResponse = createHttpResponse("OK", 200);
 
     @Test
     void puttingElementsShouldYieldNonChunkedHttpRequest() {
         // given
-        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponse));
+        final List<String> threeJsonMessages = getAsMRJsonMessages(Arrays.asList("I", "like", "cookies"));
+        final Flux<JsonObject> singleJsonMessageBatch = jsonBatch(threeJsonMessages);
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(successHttpResponse));
 
         // when
         final Flux<MessageRouterPublishResponse> responses = cut
-                .put(mrRequest, Flux.just("I", "like", "cookies").map(JsonPrimitive::new));
+                .put(mrRequestTextPlain, singleJsonMessageBatch);
         responses.then().block();
 
         // then
@@ -102,55 +100,81 @@ class MessageRouterPublisherImplTest {
     @Test
     void puttingLowNumberOfElementsShouldYieldSingleHttpRequest() {
         // given
-        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponse));
+        final List<String> threeJsonMessages = getAsMRJsonMessages(Arrays.asList("I", "like", "cookies"));
+        final Flux<JsonObject> singleJsonMessageBatch = jsonBatch(threeJsonMessages);
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(successHttpResponse));
 
         // when
         final Flux<MessageRouterPublishResponse> responses = cut
-                .put(mrRequest, Flux.just("I", "like", "cookies").map(JsonPrimitive::new));
+                .put(mrRequestJson, singleJsonMessageBatch);
         responses.then().block();
 
         // then
         verify(httpClient).call(httpRequestArgumentCaptor.capture());
         final HttpRequest httpRequest = httpRequestArgumentCaptor.getValue();
-        final JsonArray elementsInRequest = extractNonEmptyRequestBody(httpRequest);
+        final JsonArray elementsInRequest = extractNonEmptyJsonRequestBody(httpRequest);
         assertThat(elementsInRequest.size()).isEqualTo(3);
-        assertThat(elementsInRequest.get(0).getAsString()).isEqualTo("I");
-        assertThat(elementsInRequest.get(1).getAsString()).isEqualTo("like");
-        assertThat(elementsInRequest.get(2).getAsString()).isEqualTo("cookies");
+        assertThat(elementsInRequest.get(0).toString()).isEqualTo(threeJsonMessages.get(0));
+        assertThat(elementsInRequest.get(1).toString()).isEqualTo(threeJsonMessages.get(1));
+        assertThat(elementsInRequest.get(2).toString()).isEqualTo(threeJsonMessages.get(2));
+    }
+
+    @Test
+    void puttingElementsWithoutContentTypeSetShouldUseApplicationJson(){
+        // given
+        final List<String> threeJsonMessages = getAsMRJsonMessages(Arrays.asList("I", "like", "cookies"));
+        final Flux<JsonObject> singleJsonMessageBatch = jsonBatch(threeJsonMessages);
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(successHttpResponse));
+
+        // when
+        final Flux<MessageRouterPublishResponse> responses = cut
+                .put(mrRequestJson, singleJsonMessageBatch);
+        responses.then().block();
+
+        // then
+        verify(httpClient).call(httpRequestArgumentCaptor.capture());
+        final HttpRequest httpRequest = httpRequestArgumentCaptor.getValue();
+        assertThat(httpRequest.headers().getOrElse(HttpHeaders.CONTENT_TYPE, ""))
+                .isEqualTo(HttpHeaderValues.APPLICATION_JSON.toString());
     }
 
     @Test
     void puttingLowNumberOfElementsShouldReturnSingleResponse() {
         // given
-        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponse));
+        final List<String> threeJsonMessages = getAsMRJsonMessages(Arrays.asList("I", "like", "cookies"));
+        final Flux<JsonObject> singleJsonMessageBatch = jsonBatch(threeJsonMessages);
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(successHttpResponse));
 
         // when
         final Flux<MessageRouterPublishResponse> responses = cut
-                .put(mrRequest, Flux.just("I", "like", "cookies").map(JsonPrimitive::new));
+                .put(mrRequestJson, singleJsonMessageBatch);
 
         // then
         StepVerifier.create(responses)
                 .consumeNextWith(response -> {
                     assertThat(response.successful()).describedAs("successful").isTrue();
                     assertThat(response.items()).containsExactly(
-                            new JsonPrimitive("I"),
-                            new JsonPrimitive("like"),
-                            new JsonPrimitive("cookies"));
+                            getAsJsonObject(threeJsonMessages.get(0)),
+                            getAsJsonObject(threeJsonMessages.get(1)),
+                            getAsJsonObject(threeJsonMessages.get(2)));
                 })
                 .expectComplete()
                 .verify(TIMEOUT);
     }
 
-
     @Test
     void puttingHighNumberOfElementsShouldYieldMultipleHttpRequests() {
         // given
-        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponse));
+        final List<String> threeJsonMessages = getAsMRJsonMessages(Arrays.asList("I", "like", "cookies"));
+        final List<String> twoJsonMessages = getAsMRJsonMessages(Arrays.asList("and", "pierogi"));
+        final Flux<JsonObject> doubleJsonMessageBatch = jsonBatch(concat(
+                threeJsonMessages, twoJsonMessages));
+
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(successHttpResponse));
 
         // when
         final Flux<MessageRouterPublishResponse> responses = cut
-                .put(mrRequest, Flux.just("I", "like", "cookies", "and", "pierogi").map(JsonPrimitive::new));
-
+                .put(mrRequestJson, doubleJsonMessageBatch);
         // then
         responses.then().block();
 
@@ -158,53 +182,97 @@ class MessageRouterPublisherImplTest {
         final List<HttpRequest> httpRequests = httpRequestArgumentCaptor.getAllValues();
         assertThat(httpRequests.size()).describedAs("number of requests").isEqualTo(2);
 
-        final JsonArray firstRequest = extractNonEmptyRequestBody(httpRequests.get(0));
+        final JsonArray firstRequest = extractNonEmptyJsonRequestBody(httpRequests.get(0));
         assertThat(firstRequest.size()).isEqualTo(3);
-        assertThat(firstRequest.get(0).getAsString()).isEqualTo("I");
-        assertThat(firstRequest.get(1).getAsString()).isEqualTo("like");
-        assertThat(firstRequest.get(2).getAsString()).isEqualTo("cookies");
+        assertThat(firstRequest.get(0).toString()).isEqualTo(threeJsonMessages.get(0));
+        assertThat(firstRequest.get(1).toString()).isEqualTo(threeJsonMessages.get(1));
+        assertThat(firstRequest.get(2).toString()).isEqualTo(threeJsonMessages.get(2));
 
-        final JsonArray secondRequest = extractNonEmptyRequestBody(httpRequests.get(1));
+        final JsonArray secondRequest = extractNonEmptyJsonRequestBody(httpRequests.get(1));
         assertThat(secondRequest.size()).isEqualTo(2);
-        assertThat(secondRequest.get(0).getAsString()).isEqualTo("and");
-        assertThat(secondRequest.get(1).getAsString()).isEqualTo("pierogi");
+        assertThat(secondRequest.get(0).toString()).isEqualTo(twoJsonMessages.get(0));
+        assertThat(secondRequest.get(1).toString()).isEqualTo(twoJsonMessages.get(1));
     }
 
     @Test
     void puttingHighNumberOfElementsShouldReturnMoreResponses() {
         // given
-        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponse));
+        final List<String> threeJsonMessages = getAsMRJsonMessages(Arrays.asList("I", "like", "cookies"));
+        final List<String> twoJsonMessages = getAsMRJsonMessages(Arrays.asList("and", "pierogi"));
+        final Flux<JsonObject> doubleJsonMessageBatch = jsonBatch(concat(
+                threeJsonMessages, twoJsonMessages));
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(successHttpResponse));
 
         // when
         final Flux<MessageRouterPublishResponse> responses = cut
-                .put(mrRequest, Flux.just("I", "like", "cookies", "and", "pierogi").map(JsonPrimitive::new));
+                .put(mrRequestJson, doubleJsonMessageBatch);
 
         // then
         StepVerifier.create(responses)
                 .consumeNextWith(response -> {
                     assertThat(response.successful()).describedAs("successful").isTrue();
                     assertThat(response.items()).containsExactly(
-                            new JsonPrimitive("I"),
-                            new JsonPrimitive("like"),
-                            new JsonPrimitive("cookies"));
+                            getAsJsonObject(threeJsonMessages.get(0)),
+                            getAsJsonObject(threeJsonMessages.get(1)),
+                            getAsJsonObject(threeJsonMessages.get(2)));
                 })
                 .consumeNextWith(response -> {
                     assertThat(response.successful()).describedAs("successful").isTrue();
                     assertThat(response.items()).containsExactly(
-                            new JsonPrimitive("and"),
-                            new JsonPrimitive("pierogi"));
+                            getAsJsonObject(twoJsonMessages.get(0)),
+                            getAsJsonObject(twoJsonMessages.get(1)));
                 })
                 .expectComplete()
                 .verify(TIMEOUT);
     }
 
-    private JsonArray extractNonEmptyRequestBody(HttpRequest httpRequest) {
+    private static List<String> getAsMRJsonMessages(List<String> plainTextMessages){
+        return plainTextMessages.stream()
+                .map(message -> String.format("{\"message\":\"%s\"}", message))
+                .collect(Collectors.toList());
+    }
+
+
+    private static Flux<JsonObject> jsonBatch(List<String> messages){
+        return Flux.fromIterable(messages).map(parser::parse).map(JsonElement::getAsJsonObject);
+    }
+
+    private static List<String> concat(List<String> firstList, List<String> secondList){
+        return Stream.concat(firstList.stream(), secondList.stream()).collect(Collectors.toList());
+    }
+
+    private static HttpResponse createHttpResponse(String statusReason, int statusCode){
+        return ImmutableHttpResponse.builder()
+                .statusCode(statusCode)
+                .url(sinkDefinition.topicUrl())
+                .statusReason(statusReason)
+                .rawBody("[]".getBytes())
+                .build();
+    }
+
+    private static MessageRouterPublishRequest createMRRPublishRequest(){
+        return ImmutableMessageRouterPublishRequest
+                .builder()
+                .sinkDefinition(sinkDefinition)
+                .build();
+    }
+
+    private String collectNonEmptyRequestBody(HttpRequest httpRequest){
         final String body = Flux.from(httpRequest.body().contents())
                 .collect(ByteBufAllocator.DEFAULT::compositeBuffer,
                         (byteBufs, buffer) -> byteBufs.addComponent(true, buffer))
                 .map(byteBufs -> byteBufs.toString(StandardCharsets.UTF_8))
                 .block();
         assertThat(body).describedAs("request body").isNotBlank();
-        return new Gson().fromJson(body, JsonArray.class);
+
+        return body;
+    }
+
+    private JsonArray extractNonEmptyJsonRequestBody(HttpRequest httpRequest){
+        return new Gson().fromJson(collectNonEmptyRequestBody(httpRequest), JsonArray.class);
+    }
+
+    private JsonObject getAsJsonObject(String item){
+        return new Gson().fromJson(item, JsonObject.class);
     }
 }
