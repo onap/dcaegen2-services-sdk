@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7783bfe_27eb5b7c",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-28T10:17:39Z",
+      "side": 1,
+      "message": "Using `replaceAll()` doesn\u0027t look nice, but I don\u0027t have any other ideas how to deal with quotes escaping which are the result of `JsonElement::toString`.\nI could use `JsonElement:: getAsString` instead, but then I would have to handle somehow situations, when one passes something that is not String.",
+      "revId": "ffca921319b9dcb6de467dbad5c685f56cf21e2f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
