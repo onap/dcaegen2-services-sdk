@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model;
 
 import org.immutables.value.Value;
+import reactor.util.annotation.Nullable;
 
 /**
  * Immutable object which helps with construction of cloudRequestObject for specified Client. For usage take a look in
@@ -36,28 +37,64 @@ public interface EnvProperties {
 
     /**
      * Name of environment variable containing Consul host name.
+     *
+     * @deprecated CBS lookup in Consul service should not be needed,
+     * instead {@link #ENV_CBS_HOSTNAME} should be used directly.
      */
+    @Deprecated
     String ENV_CONSUL_HOST = "CONSUL_HOST";
 
     /**
      * Name of environment variable containing Config Binding Service <em>service name</em> as registered in Consul
      * services API.
+     *
+     * @deprecated CBS lookup in Consul service should not be needed,
+     * instead {@link #ENV_CBS_HOSTNAME} should be used directly.
      */
+    @Deprecated
     String ENV_CBS_NAME = "CONFIG_BINDING_SERVICE";
+
+
+    /**
+     * Name of environment variable containing Config Binding Service network hostname.
+     */
+    String ENV_CBS_HOSTNAME = "CBS_ADDRESS";
+
+    /**
+     * Name of environment variable containing Config Binding Service network port.
+     */
+    String ENV_CBS_PORT = "CBS_PORT";
 
     /**
      * Name of environment variable containing current application name.
      */
     String ENV_APP_NAME = "HOSTNAME";
 
-    @Value.Parameter
-    String consulHost();
+    @Value.Default
+    @Deprecated
+    default String consulHost() {
+        return "consul-server";
+    }
+
+    @Value.Default
+    @Deprecated
+    default Integer consulPort() {
+        return 8500;
+    }
+
+    @Value.Default
+    @Deprecated
+    default String cbsName() {
+        return "config-binding-service";
+    }
 
     @Value.Parameter
-    Integer consulPort();
+    @Nullable
+    String cbsHostname();
 
     @Value.Parameter
-    String cbsName();
+    @Nullable
+    Integer cbsPort();
 
     @Value.Parameter
     String appName();
@@ -71,8 +108,8 @@ public interface EnvProperties {
     static EnvProperties fromEnvironment() {
         return ImmutableEnvProperties.builder()
                 .consulHost(System.getenv(ENV_CONSUL_HOST))
-                .consulPort(8500)
-                .cbsName(System.getenv(ENV_CBS_NAME))
+                .cbsHostname(System.getenv(ENV_CBS_HOSTNAME))
+                .cbsPort(Integer.valueOf(System.getenv(ENV_CBS_PORT)))
                 .appName(System.getenv(ENV_APP_NAME))
                 .build();
     }

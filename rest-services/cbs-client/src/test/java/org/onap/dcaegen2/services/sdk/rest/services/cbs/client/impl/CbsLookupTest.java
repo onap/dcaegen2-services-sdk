@@ -20,30 +20,13 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpResponse;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.ServiceLookupException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
-import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
+
+import java.net.InetSocketAddress;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -51,70 +34,21 @@ import reactor.test.StepVerifier;
  */
 class CbsLookupTest {
 
+    private static final String cbsAddress = "cbs-service";
+    private static final int cbsPort = 10000;
     private final EnvProperties env = ImmutableEnvProperties.builder()
-            .cbsName("cbs-service")
-            .consulHost("consul.local")
-            .consulPort(8050)
+            .cbsHostname(cbsAddress)
+            .cbsPort(cbsPort)
             .appName("whatever").build();
-    private final RxHttpClient httpClient = mock(RxHttpClient.class);
-    private final CbsLookup cut = new CbsLookup(httpClient);
+    private final CbsLookup cut = new CbsLookup();
 
     @Test
-    void lookupShouldReturnValidConfiguration() {
-        // given
-        givenConsulResponse(parseResource("/consul_cbs_service.json").getAsJsonArray());
-
+    void lookupShouldReturnValidSocketAddressFromEnvironment() {
         // when
         final InetSocketAddress result = cut.lookup(env).block();
 
         // then
-        assertThat(result.getHostString()).isEqualTo("config-binding-service");
-        assertThat(result.getPort()).isEqualTo(10000);
-
-        final String url = "http://"
-                + env.consulHost()
-                + ":"
-                + env.consulPort()
-                + "/v1/catalog/service/"
-                + env.cbsName();
-        verifyHttpGetHasBeenCalled(url);
+        assertThat(result.getHostString()).isEqualTo(cbsAddress);
+        assertThat(result.getPort()).isEqualTo(cbsPort);
     }
-
-    @Test
-    void lookupShouldEmitErrorWhenServiceArrayIsEmpty() {
-        // given
-        givenConsulResponse(new JsonArray());
-
-        // when
-        final Mono<InetSocketAddress> result = cut.lookup(env);
-
-        // then
-        StepVerifier.create(result).verifyError(ServiceLookupException.class);
-    }
-
-    private JsonElement parseResource(String resource) {
-        return new JsonParser().parse(new InputStreamReader(CbsLookupTest.class.getResourceAsStream(resource)));
-    }
-
-    private void givenConsulResponse(JsonArray jsonArray) {
-        given(httpClient.call(any(HttpRequest.class)))
-                .willReturn(Mono.just(ImmutableHttpResponse.builder()
-                        .url("http://xxx")
-                        .statusCode(200)
-                        .rawBody(jsonArray.toString().getBytes())
-                        .build()));
-    }
-
-    private void verifyHttpGetHasBeenCalled(String url) {
-        final ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
-        verify(httpClient).call(httpRequestArgumentCaptor.capture());
-        assertThat(httpRequestArgumentCaptor.getValue().url())
-                .describedAs("HTTP request URL")
-                .isEqualTo(url);
-        assertThat(httpRequestArgumentCaptor.getValue().method())
-                .describedAs("HTTP request method")
-                .isEqualTo(HttpMethod.GET);
-    }
-
-
 }

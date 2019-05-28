@@ -55,7 +55,7 @@ public class CbsClientFactory {
     public static @NotNull Mono<CbsClient> createCbsClient(EnvProperties env) {
         return Mono.defer(() -> {
             final RxHttpClient httpClient = RxHttpClientFactory.create();
-            final CbsLookup lookup = new CbsLookup(httpClient);
+            final CbsLookup lookup = new CbsLookup();
             return lookup.lookup(env)
                     .map(addr -> new CbsClientImpl(httpClient, env.appName(), addr));
         });

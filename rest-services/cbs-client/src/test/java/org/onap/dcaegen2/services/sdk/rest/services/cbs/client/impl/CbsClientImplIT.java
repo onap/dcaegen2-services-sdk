@@ -24,12 +24,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.onap.dcaegen2.services.sdk.model.streams.StreamType.KAFKA;
 import static org.onap.dcaegen2.services.sdk.model.streams.StreamType.MESSAGE_ROUTER;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendResource;
-import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamPredicates.streamOfType;
 
 import com.google.gson.JsonObject;
 import io.vavr.collection.Stream;
+
 import java.time.Duration;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -60,13 +61,6 @@ import reactor.test.StepVerifier;
  */
 class CbsClientImplIT {
 
-    private static final String CONSUL_RESPONSE = "[\n"
-            + "    {\n"
-            + "        \"ServiceAddress\": \"HOST\",\n"
-            + "        \"ServiceName\": \"the_cbs\",\n"
-            + "        \"ServicePort\": PORT\n"
-            + "    }\n"
-            + "]\n";
     private static final String SAMPLE_CONFIG = "/sample_service_config.json";
     private static final String SAMPLE_ALL = "/sample_all.json";
     private static final String SAMPLE_KEY = "/sample_key.json";
@@ -78,16 +72,14 @@ class CbsClientImplIT {
     @BeforeAll
     static void setUp() {
         server = DummyHttpServer.start(routes ->
-                routes.get("/v1/catalog/service/the_cbs", (req, resp) -> sendString(resp, lazyConsulResponse()))
-                        .get("/service_component/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_CONFIG))
+                routes.get("/service_component/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_CONFIG))
                         .get("/service_component_all/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_ALL))
                         .get("/sampleKey/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_KEY))
         );
         sampleEnvironment = ImmutableEnvProperties.builder()
                 .appName("dcae-component")
-                .cbsName("the_cbs")
-                .consulHost(server.host())
-                .consulPort(server.port())
+                .cbsHostname(server.host())
+                .cbsPort(server.port())
                 .build();
     }
 
@@ -293,13 +285,4 @@ class CbsClientImplIT {
         return obj.get(SAMPLE_CONFIG_KEY).getAsString();
     }
 
-    private static Mono<String> lazyConsulResponse() {
-        return Mono.just(CONSUL_RESPONSE)
-                .map(CbsClientImplIT::processConsulResponseTemplate);
-    }
-
-    private static String processConsulResponseTemplate(String resp) {
-        return resp.replaceAll("HOST", server.host())
-                .replaceAll("PORT", Integer.toString(server.port()));
-    }
 }
