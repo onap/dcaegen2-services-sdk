@@ -38,8 +38,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.streams.gson.GsonUtils;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableCbsClientConfiguration;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -56,7 +56,7 @@ class ReactiveCloudConfigurationProviderTest {
     private final RxHttpClient httpClient = mock(RxHttpClient.class);
     private final JsonArray configBindingService = GsonUtils.readObjectArrayFromResource("/sample_config_binding_service.json");
 
-    private EnvProperties envProperties = ImmutableEnvProperties.builder()
+    private CbsClientConfiguration cbsClientConfiguration = ImmutableCbsClientConfiguration.builder()
             .appName("dcae-prh")
             .cbsName("config-binding-service")
             .consulHost("consul")
@@ -85,7 +85,7 @@ class ReactiveCloudConfigurationProviderTest {
 
 
         //then
-        StepVerifier.create(provider.callForServiceConfigurationReactive(envProperties))
+        StepVerifier.create(provider.callForServiceConfigurationReactive(cbsClientConfiguration))
                 .expectSubscription()
                 .expectNext(CONFIGURATION_JSON_MOCK).verifyComplete();
     }
@@ -103,7 +103,7 @@ class ReactiveCloudConfigurationProviderTest {
 
 
         //then
-        StepVerifier.create(provider.callForServiceConfigurationReactive(envProperties))
+        StepVerifier.create(provider.callForServiceConfigurationReactive(cbsClientConfiguration))
                 .expectSubscription()
                 .expectNext(CONFIGURATION_JSON_MOCK).verifyComplete();
 
@@ -128,7 +128,7 @@ class ReactiveCloudConfigurationProviderTest {
 
 
         //then
-        StepVerifier.create(provider.callForServiceConfigurationReactive(envProperties))
+        StepVerifier.create(provider.callForServiceConfigurationReactive(cbsClientConfiguration))
                 .expectSubscription()
                 .expectError(IllegalStateException.class).verify();
     }

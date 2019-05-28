@@ -28,7 +28,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFactory;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.uri.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +53,8 @@ public final class ReactiveCloudConfigurationProvider implements CloudConfigurat
     }
 
     @Override
-    public Mono<JsonObject> callForServiceConfigurationReactive(EnvProperties envProperties) {
-        return callConsulForConfigBindingServiceEndpoint(envProperties)
+    public Mono<JsonObject> callForServiceConfigurationReactive(CbsClientConfiguration configuration) {
+        return callConsulForConfigBindingServiceEndpoint(configuration)
             .flatMap(this::callConfigBindingServiceForConfiguration);
     }
 
@@ -70,28 +70,28 @@ public final class ReactiveCloudConfigurationProvider implements CloudConfigurat
     }
 
     @Override
-    public JsonObject callForServiceConfiguration(EnvProperties envProperties) {
+    public JsonObject callForServiceConfiguration(CbsClientConfiguration configuration) {
         throw new UnsupportedOperationException(EXCEPTION_MESSAGE + this);
     }
 
-    private Mono<String> callConsulForConfigBindingServiceEndpoint(EnvProperties envProperties) {
+    private Mono<String> callConsulForConfigBindingServiceEndpoint(CbsClientConfiguration configuration) {
         LOGGER.info("Retrieving Config Binding Service endpoint from Consul");
 
         HttpRequest httpRequest = ImmutableHttpRequest.builder()
-                .url(getConsulUrl(envProperties)).method(HttpMethod.GET).build();
+                .url(getConsulUrl(configuration)).method(HttpMethod.GET).build();
 
         return rxHttpClient.call(httpRequest)
                 .map(resp -> resp.bodyAsJson(JsonArray.class))
                 .flatMap(jsonArray ->
                         this.createConfigBindingServiceUrl(
                                 jsonArray,
-                                envProperties.appName())
+                                configuration.appName())
                 );
     }
 
-    private String getConsulUrl(EnvProperties envProperties) {
-        return getUri(envProperties.consulHost(), envProperties.consulPort(), "/v1/catalog/service",
-            envProperties.cbsName());
+    private String getConsulUrl(CbsClientConfiguration configuration) {
+        return getUri(configuration.consulHost(), configuration.consulPort(), "/v1/catalog/service",
+            configuration.cbsName());
     }
 
     private Mono<JsonObject> callConfigBindingServiceForConfiguration(String configBindingServiceUri) {

@@ -22,7 +22,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
 
 import com.google.gson.JsonObject;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import reactor.core.publisher.Mono;
 
 /**
@@ -42,12 +42,12 @@ public interface CloudConfigurationProvider {
     /**
      * Getting configuration for appName from ConfigBindingService.
      *
-     * @param envProperties - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
+     * @param cbsClientConfiguration - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
      * been defined in dcaegen2 cloud environment.
      * @return Single reactive response which @Mono which holds inside them JsonObject with configuration for specified
      * application Name
      */
-    Mono<JsonObject> callForServiceConfigurationReactive(EnvProperties envProperties);
+    Mono<JsonObject> callForServiceConfigurationReactive(CbsClientConfiguration cbsClientConfiguration);
 
     /* callForServiceConfigurationReactive */
 
@@ -82,9 +82,9 @@ public interface CloudConfigurationProvider {
     /**
      * Getting configuration for appName from ConfigBindingService.
      *
-     * @param envProperties - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
+     * @param cbsClientConfiguration - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
      * @return configuration for specified application in dcaegen2 cloud infrastructure.
      */
-    JsonObject callForServiceConfiguration(EnvProperties envProperties);
+    JsonObject callForServiceConfiguration(CbsClientConfiguration cbsClientConfiguration);
 
 }
