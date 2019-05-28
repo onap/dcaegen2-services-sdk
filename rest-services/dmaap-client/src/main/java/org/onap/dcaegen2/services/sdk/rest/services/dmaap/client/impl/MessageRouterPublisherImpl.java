@@ -27,6 +27,7 @@ import com.google.gson.JsonElement;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import java.time.Duration;
+import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpHeaders;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
@@ -74,14 +75,23 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
             List<JsonElement> batch) {
         LOGGER.debug("Sending a batch of {} items to DMaaP MR", batch.size());
         LOGGER.trace("The items to be sent: {}", batch);
-        return httpClient.call(buildHttpRequest(request, asJsonBody(batch)))
+        return httpClient.call(buildHttpRequest(request, createRequestBody(batch, request.contentType())))
                 .map(httpResponse -> buildResponse(httpResponse, batch));
     }
 
-    private @NotNull RequestBody asJsonBody(List<? extends JsonElement> subItems) {
-        final JsonArray elements = new JsonArray(subItems.size());
-        subItems.forEach(elements::add);
-        return RequestBody.fromJson(elements);
+    private @NotNull RequestBody createRequestBody(List<? extends JsonElement> subItems, String contentType) {
+        if(contentType.equals(ContentType.APPLICATION_JSON.toString())) {
+            final JsonArray elements = new JsonArray(subItems.size());
+            subItems.forEach(elements::add);
+            return RequestBody.fromJson(elements);
+        }else {
+            String messages = subItems.map(JsonElement::toString).collect(Collectors.joining("\n"));
+            return RequestBody.fromString(removeQuotes(messages));
+        }
+    }
+
+    private String removeQuotes(String messages){
+        return messages.replaceAll("\"", "");
     }
 
     private @NotNull HttpRequest buildHttpRequest(MessageRouterPublishRequest request, RequestBody body) {

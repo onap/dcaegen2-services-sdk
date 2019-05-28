@@ -22,6 +22,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import java.io.File;
@@ -30,7 +32,6 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSink;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSource;
@@ -43,6 +44,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterPublisherConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterSubscriberConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.ContentType;
 import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -50,21 +52,26 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-@Disabled("Disabled until fix messages formatting in MessageRouterPublisher::put ")
 @Testcontainers
 class MessageRouterSubscriberCIT {
     private static final Gson gson = new Gson();
+    private static final JsonParser parser = new JsonParser();
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
     private static final int DMAAP_SERVICE_EXPOSED_PORT = 3904;
-    private static final List<String> messageBatchItems = Arrays.asList("I", "like", "pizza");
-    private static final Flux<JsonPrimitive> messageBatch = Flux.fromIterable(messageBatchItems)
-            .map(JsonPrimitive::new);
+    private static final List<String> jsonMessageBatchItems = Arrays.asList("{\"message\":\"message1\"}",
+            "{\"differentMessage\":\"message2\"}");
+    private static final Flux<JsonObject> jsonMessageBatch = Flux.fromIterable(jsonMessageBatchItems)
+            .map(parser::parse).map(JsonElement::getAsJsonObject);
+    private static final List<String> textPlainMessageBatchItems = Arrays.asList("I", "like", "pizza");
+    private static final Flux<JsonPrimitive> textPlainMessageBatch = Flux
+            .fromIterable(textPlainMessageBatchItems).map(JsonPrimitive::new);
     private static final String CONSUMER_GROUP = "group1";
     private static final String CONSUMER_ID = "consumer200";
     private static final String DMAAP_SERVICE_NAME = "dmaap";
     private static final String MR_COMPOSE_RESOURCE_NAME = "dmaap-msg-router/message-router-compose.yml";
     private static final String DOCKER_COMPOSE_FILE_PATH = getDockerComposeFilePath(
             MR_COMPOSE_RESOURCE_NAME);
+
     private static final String DMAAP_404_ERROR_RESPONSE_FORMAT = "404 Not Found\n" +
             "{" +
             "\"mrstatus\":3001," +
@@ -116,12 +123,13 @@ class MessageRouterSubscriberCIT {
     }
 
     @Test
-    void subscriber_shouldGetCorrectResponse() {
+    void subscriber_shouldHandleJsonResponse() {
         //given
         final String topic = "TOPIC";
-        final MessageRouterPublishRequest publishRequest = createMRPublishRequest(topic, "text/plain");
+        final MessageRouterPublishRequest publishRequest = createMRPublishRequest(topic,
+                ContentType.APPLICATION_JSON);
         final MessageRouterSubscribeRequest subscribeRequest = createMRSubscribeRequest(topic);
-        final JsonArray expectedItems = getAsJsonArray(messageBatchItems);
+        final JsonArray expectedItems = getAsJsonArray(jsonMessageBatchItems);
         final ImmutableMessageRouterSubscribeResponse expectedResponse = ImmutableMessageRouterSubscribeResponse
                 .builder()
                 .items(expectedItems)
@@ -130,7 +138,33 @@ class MessageRouterSubscriberCIT {
         //when
         registerTopic(publishRequest, subscribeRequest);
         Mono<MessageRouterSubscribeResponse> response = publisher
-                .put(publishRequest, messageBatch)
+                .put(publishRequest, jsonMessageBatch)
+                .then(sut.get(subscribeRequest));
+
+        //then
+        StepVerifier.create(response)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+    }
+
+    @Test
+    void subscriber_shouldHandleTextPlainResponse() {
+        //given
+        final String topic = "textplainTOPIC";
+        final MessageRouterPublishRequest publishRequest = createMRPublishRequest(topic,
+                ContentType.TEXT_PLAIN);
+        final MessageRouterSubscribeRequest subscribeRequest = createMRSubscribeRequest(topic);
+        final JsonArray expectedItems = getAsJsonArray(textPlainMessageBatchItems);
+        final ImmutableMessageRouterSubscribeResponse expectedResponse = ImmutableMessageRouterSubscribeResponse
+                .builder()
+                .items(expectedItems)
+                .build();
+
+        //when
+        registerTopic(publishRequest, subscribeRequest);
+        Mono<MessageRouterSubscribeResponse> response = publisher
+                .put(publishRequest, textPlainMessageBatch)
                 .then(sut.get(subscribeRequest));
 
         //then
@@ -150,7 +184,7 @@ class MessageRouterSubscriberCIT {
     }
 
     private static MessageRouterPublishRequest createMRPublishRequest(String topic,
-            String contentType) {
+            ContentType contentType){
         MessageRouterSink sinkDefinition = ImmutableMessageRouterSink.builder()
                 .name("the topic")
                 .topicUrl(String.format("%s/%s", EVENTS_PATH, topic))
@@ -158,7 +192,7 @@ class MessageRouterSubscriberCIT {
 
         return ImmutableMessageRouterPublishRequest.builder()
                 .sinkDefinition(sinkDefinition)
-                .contentType(contentType)
+                .contentType(contentType.toString())
                 .build();
     }
 
@@ -178,9 +212,7 @@ class MessageRouterSubscriberCIT {
 
     private void registerTopic(MessageRouterPublishRequest publishRequest,
             MessageRouterSubscribeRequest subscribeRequest) {
-        Flux<JsonPrimitive> sampleMessage = Flux.just("sample message").map(JsonPrimitive::new);
-
-        publisher.put(publishRequest, sampleMessage).blockLast();
+        publisher.put(publishRequest, jsonMessageBatch).blockLast();
         sut.get(subscribeRequest).block();
     }
 
