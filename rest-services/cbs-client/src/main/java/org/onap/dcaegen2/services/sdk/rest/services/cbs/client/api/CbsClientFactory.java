@@ -24,7 +24,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientImpl;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import reactor.core.publisher.Mono;
 
 /**
@@ -40,24 +40,24 @@ public class CbsClientFactory {
      * <p>Creates Mono which will emit instance of {@link CbsClient} when service discovery is complete.</p>
      *
      * <p>
-     * This method will do a lookup of Config Binding Service using Consul as service discovery mechanism and create
-     * client configured with found address. Created client will be published in returned Mono instance.
+     * This method will do a lookup of Config Binding Service and create client configured with found address.
+     * Created client will be published in returned Mono instance.
      * </p>
      * <p>
      * In case of failure during CBS resolution, returned Mono will emit error signal with possible cause.
      * User is expected to handle this signal and possibly retry subscription to returned Mono.
      * </p>
      *
-     * @param env required environment properties
+     * @param configuration required CBS configuration as viewed by client application
      * @return non-null {@link Mono} of {@link CbsClient} instance
      * @since 1.1.2
      */
-    public static @NotNull Mono<CbsClient> createCbsClient(EnvProperties env) {
+    public static @NotNull Mono<CbsClient> createCbsClient(CbsClientConfiguration configuration) {
         return Mono.defer(() -> {
             final RxHttpClient httpClient = RxHttpClientFactory.create();
-            final CbsLookup lookup = new CbsLookup(httpClient);
-            return lookup.lookup(env)
-                    .map(addr -> new CbsClientImpl(httpClient, env.appName(), addr));
+            final CbsLookup lookup = new CbsLookup();
+            return lookup.lookup(configuration)
+                    .map(addr -> new CbsClientImpl(httpClient, configuration.appName(), addr));
         });
     }
 }

@@ -24,12 +24,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.onap.dcaegen2.services.sdk.model.streams.StreamType.KAFKA;
 import static org.onap.dcaegen2.services.sdk.model.streams.StreamType.MESSAGE_ROUTER;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendResource;
-import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
 import static org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamPredicates.streamOfType;
 
 import com.google.gson.JsonObject;
 import io.vavr.collection.Stream;
+
 import java.time.Duration;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -47,8 +48,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.DataS
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParsers;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsRequest;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableCbsClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -60,34 +61,25 @@ import reactor.test.StepVerifier;
  */
 class CbsClientImplIT {
 
-    private static final String CONSUL_RESPONSE = "[\n"
-            + "    {\n"
-            + "        \"ServiceAddress\": \"HOST\",\n"
-            + "        \"ServiceName\": \"the_cbs\",\n"
-            + "        \"ServicePort\": PORT\n"
-            + "    }\n"
-            + "]\n";
     private static final String SAMPLE_CONFIG = "/sample_service_config.json";
     private static final String SAMPLE_ALL = "/sample_all.json";
     private static final String SAMPLE_KEY = "/sample_key.json";
     private static final String SAMPLE_CONFIG_KEY = "keystore.path";
     private static final String EXPECTED_CONFIG_VALUE = "/var/run/security/keystore.p12";
-    private static EnvProperties sampleEnvironment;
+    private static CbsClientConfiguration sampleConfiguration;
     private static DummyHttpServer server;
 
     @BeforeAll
     static void setUp() {
         server = DummyHttpServer.start(routes ->
-                routes.get("/v1/catalog/service/the_cbs", (req, resp) -> sendString(resp, lazyConsulResponse()))
-                        .get("/service_component/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_CONFIG))
+                routes.get("/service_component/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_CONFIG))
                         .get("/service_component_all/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_ALL))
                         .get("/sampleKey/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_KEY))
         );
-        sampleEnvironment = ImmutableEnvProperties.builder()
+        sampleConfiguration = ImmutableCbsClientConfiguration.builder()
                 .appName("dcae-component")
-                .cbsName("the_cbs")
-                .consulHost(server.host())
-                .consulPort(server.port())
+                .hostname(server.host())
+                .port(server.port())
                 .build();
     }
 
@@ -99,7 +91,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithSingleCall() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
         // when
@@ -115,7 +107,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithPeriodicCall() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
         // when
@@ -133,7 +125,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithUpdatesCall() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
         final Duration period = Duration.ofMillis(10);
 
@@ -152,7 +144,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsing() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
         final StreamFromGsonParser<KafkaSink> kafkaSinkParser = StreamFromGsonParsers.kafkaSinkParser();
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -176,7 +168,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsingUsingSwitch() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
         // TODO: Use these parsers below
         final StreamFromGsonParser<KafkaSink> kafkaSinkParser = StreamFromGsonParsers.kafkaSinkParser();
@@ -212,7 +204,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsingWhenUsingInvalidParser() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
         final StreamFromGsonParser<KafkaSource> kafkaSourceParser = StreamFromGsonParsers.kafkaSourceParser();
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -236,7 +228,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithSingleAllRequest() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
         final CbsRequest request = CbsRequests.getAll(RequestDiagnosticContext.create());
 
         // when
@@ -257,7 +249,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithSingleKeyRequest() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleEnvironment);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
         final CbsRequest request = CbsRequests.getByKey(RequestDiagnosticContext.create(), "sampleKey");
 
         // when
@@ -276,7 +268,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWhenTheConfigurationWasNotFound() {
         // given
-        final EnvProperties unknownAppEnv = ImmutableEnvProperties.copyOf(sampleEnvironment).withAppName("unknown_app");
+        final CbsClientConfiguration unknownAppEnv = ImmutableCbsClientConfiguration.copyOf(sampleConfiguration).withAppName("unknown_app");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(unknownAppEnv);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -293,13 +285,4 @@ class CbsClientImplIT {
         return obj.get(SAMPLE_CONFIG_KEY).getAsString();
     }
 
-    private static Mono<String> lazyConsulResponse() {
-        return Mono.just(CONSUL_RESPONSE)
-                .map(CbsClientImplIT::processConsulResponseTemplate);
-    }
-
-    private static String processConsulResponseTemplate(String resp) {
-        return resp.replaceAll("HOST", server.host())
-                .replaceAll("PORT", Integer.toString(server.port()));
-    }
 }

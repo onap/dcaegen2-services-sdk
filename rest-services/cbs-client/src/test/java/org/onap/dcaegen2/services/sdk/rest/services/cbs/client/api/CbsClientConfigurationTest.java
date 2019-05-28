@@ -24,15 +24,15 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since February 2019
  */
-class EnvPropertiesTest {
+class CbsClientConfigurationTest {
     @Test
     void fromEnvironmentShouldFailWhenEnvVariablesAreMissing() {
-        assertThatExceptionOfType(NullPointerException.class).isThrownBy(EnvProperties::fromEnvironment);
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(CbsClientConfiguration::fromEnvironment);
     }
 }

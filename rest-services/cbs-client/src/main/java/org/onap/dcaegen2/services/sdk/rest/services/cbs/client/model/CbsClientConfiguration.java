@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model;
 
 import org.immutables.value.Value;
+import reactor.util.annotation.Nullable;
 
 /**
  * Immutable object which helps with construction of cloudRequestObject for specified Client. For usage take a look in
@@ -32,47 +33,82 @@ import org.immutables.value.Value;
  * @since 1.0.0
  */
 @Value.Immutable(prehash = true)
-public interface EnvProperties {
+public interface CbsClientConfiguration {
 
     /**
-     * Name of environment variable containing Consul host name.
+     * Name of environment variable containing Config Binding Service network hostname.
      */
-    String ENV_CONSUL_HOST = "CONSUL_HOST";
+    String ENV_CBS_HOSTNAME = "CONFIG_BINDING_SERVICE";
 
     /**
-     * Name of environment variable containing Config Binding Service <em>service name</em> as registered in Consul
-     * services API.
+     * Name of environment variable containing Config Binding Service network port.
      */
-    String ENV_CBS_NAME = "CONFIG_BINDING_SERVICE";
+    String ENV_CBS_PORT = "CONFIG_BINDING_SERVICE_SERVICE_PORT";
 
     /**
      * Name of environment variable containing current application name.
      */
     String ENV_APP_NAME = "HOSTNAME";
 
-    @Value.Parameter
-    String consulHost();
+    /**
+     * Name of environment variable containing Consul host name.
+     *
+     * @deprecated CBS lookup in Consul service should not be needed,
+     * instead {@link #ENV_CBS_HOSTNAME} should be used directly.
+     */
+    @Deprecated
+    String ENV_CONSUL_HOST = "CONSUL_HOST";
+
+    /**
+     * Name of environment variable containing Config Binding Service <em>service name</em> as registered in Consul
+     * services API.
+     *
+     * @deprecated CBS lookup in Consul service should not be needed,
+     * instead {@link #ENV_CBS_HOSTNAME} should be used directly.
+     */
+    @Deprecated
+    String ENV_CBS_NAME = "CONFIG_BINDING_SERVICE";
 
     @Value.Parameter
-    Integer consulPort();
+    @Nullable
+    String hostname();
 
     @Value.Parameter
-    String cbsName();
+    @Nullable
+    Integer port();
 
     @Value.Parameter
     String appName();
 
+    @Value.Default
+    @Deprecated
+    default String consulHost() {
+        return "consul-server";
+    }
+
+    @Value.Default
+    @Deprecated
+    default Integer consulPort() {
+        return 8500;
+    }
+
+    @Value.Default
+    @Deprecated
+    default String cbsName() {
+        return "config-binding-service";
+    }
+
     /**
-     * Creates EnvProperties from system environment variables.
+     * Creates CbsClientConfiguration from system environment variables.
      *
-     * @return an instance of EnvProperties
+     * @return an instance of CbsClientConfiguration
      * @throws NullPointerException when at least one of required parameters is missing
      */
-    static EnvProperties fromEnvironment() {
-        return ImmutableEnvProperties.builder()
+    static CbsClientConfiguration fromEnvironment() {
+        return ImmutableCbsClientConfiguration.builder()
                 .consulHost(System.getenv(ENV_CONSUL_HOST))
-                .consulPort(8500)
-                .cbsName(System.getenv(ENV_CBS_NAME))
+                .hostname(System.getenv(ENV_CBS_HOSTNAME))
+                .port(Integer.valueOf(System.getenv(ENV_CBS_PORT)))
                 .appName(System.getenv(ENV_APP_NAME))
                 .build();
     }

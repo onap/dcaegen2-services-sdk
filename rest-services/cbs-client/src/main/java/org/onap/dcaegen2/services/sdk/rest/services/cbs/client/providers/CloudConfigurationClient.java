@@ -22,8 +22,8 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
 
 import com.google.gson.JsonObject;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.EnvProperties;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableEnvProperties;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableCbsClientConfiguration;
 import reactor.core.publisher.Mono;
 
 /**
@@ -70,7 +70,7 @@ public final class CloudConfigurationClient implements CloudConfigurationProvide
     public Mono<JsonObject> callForServiceConfigurationReactive(String consulHost, int consulPort, String cbsName,
         String appName) {
         return cloudConfigurationProvider.callForServiceConfigurationReactive(
-            ImmutableEnvProperties.builder().consulHost(consulHost)
+            ImmutableCbsClientConfiguration.builder().consulHost(consulHost)
                 .consulPort(consulPort).cbsName(cbsName)
                 .appName(appName).build());
     }
@@ -78,12 +78,12 @@ public final class CloudConfigurationClient implements CloudConfigurationProvide
     /**
      * Documentation in {@link org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers.CloudConfigurationProvider}.
      *
-     * @param envProperties - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
+     * @param cbsClientConfiguration - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
      * been defined in dcaegen2 cloud environment.
      */
     @Override
-    public Mono<JsonObject> callForServiceConfigurationReactive(EnvProperties envProperties) {
-        return cloudConfigurationProvider.callForServiceConfigurationReactive(envProperties);
+    public Mono<JsonObject> callForServiceConfigurationReactive(CbsClientConfiguration cbsClientConfiguration) {
+        return cloudConfigurationProvider.callForServiceConfigurationReactive(cbsClientConfiguration);
     }
 
     /**
@@ -97,7 +97,7 @@ public final class CloudConfigurationClient implements CloudConfigurationProvide
     @Override
     public JsonObject callForServiceConfiguration(String consulHost, int consulPort, String cbsName, String appName) {
         return cloudConfigurationProvider.callForServiceConfigurationReactive(
-            ImmutableEnvProperties.builder().consulHost(consulHost)
+                ImmutableCbsClientConfiguration.builder().consulHost(consulHost)
                 .consulPort(consulPort).cbsName(cbsName)
                 .appName(appName).build()).block();
     }
@@ -105,10 +105,10 @@ public final class CloudConfigurationClient implements CloudConfigurationProvide
     /**
      * Documentation in {@link org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers.CloudConfigurationProvider}.
      *
-     * @param envProperties - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
+     * @param cbsClientConfiguration - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
      */
     @Override
-    public JsonObject callForServiceConfiguration(EnvProperties envProperties) {
-        return cloudConfigurationProvider.callForServiceConfigurationReactive(envProperties).block();
+    public JsonObject callForServiceConfiguration(CbsClientConfiguration cbsClientConfiguration) {
+        return cloudConfigurationProvider.callForServiceConfigurationReactive(cbsClientConfiguration).block();
     }
 }
