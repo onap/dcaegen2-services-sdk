@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef903815_4c7ccd9e",
+        "filename": "standardization/moher-api/metrics/src/main/java/org/onap/dcaegen2/services/sdk/standardization/moher/metrics/impl/MetricsImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T10:27:19Z",
+      "side": 1,
+      "message": "Is this method safe to be called multiple times? If not, then maybe we should create a static factory method for creating MetricsImpl instance with these default metrics already bound?",
+      "revId": "0346a46ac8fa92ecaa16a1814b298f1ad8c9ead7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
