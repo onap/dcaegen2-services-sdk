@@ -21,6 +21,11 @@
 package org.onap.dcaegen2.services.sdk.standardization.moher.metrics.impl;
 
 
+import io.micrometer.core.instrument.binder.jvm.ClassLoaderMetrics;
+import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics;
+import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
+import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics;
+import io.micrometer.core.instrument.binder.system.ProcessorMetrics;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import org.onap.dcaegen2.services.sdk.standardization.moher.metrics.api.Metrics;
 import reactor.core.publisher.Flux;
@@ -44,5 +49,13 @@ public class MetricsImpl implements Metrics {
     public Flux<String> collect(Duration interval) {
         return Flux.interval(interval)
                 .map((l) -> registry.scrape());
+    }
+
+    public void configureDefaultMetrics(){
+        new ClassLoaderMetrics().bindTo(registry);
+        new JvmThreadMetrics().bindTo(registry);
+        new JvmMemoryMetrics().bindTo(registry);
+        new JvmGcMetrics().bindTo(registry);
+        new ProcessorMetrics().bindTo(registry);
     }
 }

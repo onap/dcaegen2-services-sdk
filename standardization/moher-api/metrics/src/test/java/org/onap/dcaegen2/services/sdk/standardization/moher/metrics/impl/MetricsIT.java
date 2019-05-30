@@ -84,4 +84,17 @@ class MetricsIT {
                         collectedMetrics.contains(COUNTER_NAME + "_total 1.0"))
                 .verifyComplete();
     }
+
+    @Test
+    void metrics_shouldIncludeSomeDefaultMetrics() {
+        StepVerifier.create(cut.collect())
+                .expectNextMatches((collectedMetrics) ->
+                        collectedMetrics.contains("jvm_threads") &&
+                        collectedMetrics.contains("jvm_memory") &&
+                        collectedMetrics.contains("jvm_classes") &&
+                        collectedMetrics.contains("jvm_gc") &&
+                        collectedMetrics.contains("system_cpu")
+                )
+                .verifyComplete();
+    }
 }
