@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "bed57369_541de2ad",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-30T11:23:45Z",
+      "side": 1,
+      "message": "Yes, that Json would be incorrect. \nFirstly I thought that this is what MessageRouter does - removes quotes from Json if it\u0027s send with `text/plain`. I thought that, because:\n\n\ncurl --header \"Content-type: text/plain\" --request POST --data \"{\"message\":\"jakisMessage\"}\" http://localhost:3904/events/pnfReady\n\n\nif I make get request now, the result is:\n\n[\"{message:jakisMessage}\"]\n\n\n\n\nBut I\u0027ve just formatted curl differently:\n\ncurl --header \"Content-type: text/plain\" --request POST --data \u0027{\"message\":\"jakisMessage\"}\u0027 http://localhost:3904/events/pnfReady\n\n(used apostrophe instead of quotes)\nand when making get request:\n\n[\"{\\\"message\\\":\\\"jakisMessage\\\"}\"]\n\n\n\nSo, I understand that in that situation I should send correct json? ;)",
+      "parentUuid": "3bdd6bf7_c205bfbe",
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46330442_e740753d",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
         "patchSetId": 5
