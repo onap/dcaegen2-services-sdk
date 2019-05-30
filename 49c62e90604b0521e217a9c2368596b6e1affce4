@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1484e57c_7e131d10",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T10:31:24Z",
+      "side": 1,
+      "message": "I miss you, org.jetbrains.annotations.Nullable ;)",
+      "revId": "49c62e90604b0521e217a9c2368596b6e1affce4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
