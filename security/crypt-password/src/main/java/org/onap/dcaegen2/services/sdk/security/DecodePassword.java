@@ -21,14 +21,14 @@ package org.onap.dcaegen2.services.sdk.security;
 
 class DecodePassword {
 
-  private static CryptPassword cryptPassword = new CryptPassword();
+    private static CryptPassword cryptPassword = new CryptPassword();
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
 
-    try {
-      System.out.println(cryptPassword.decode(args[0]));
-    }catch(Exception e){
-      System.out.println("Param to crypt is required !");
+        try {
+            System.out.println(cryptPassword.encode(args[0]));
+        } catch (Exception e) {
+            System.out.println("Param to crypt is required !");
+        }
     }
-  }
 }

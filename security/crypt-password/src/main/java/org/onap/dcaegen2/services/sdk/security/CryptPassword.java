@@ -23,13 +23,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class CryptPassword {
 
-  private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-  public String decode(String arg) {
-    return encoder.encode(arg);
-  }
+    public String encode(CharSequence rawPassword) {
+        return encoder.encode(rawPassword);
+    }
 
-  public boolean matches(String rawPassword, String encodedPassword){
-    return encoder.matches(rawPassword,encodedPassword);
-  }
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return encoder.matches(rawPassword, encodedPassword);
+    }
 }
