@@ -16,6 +16,24 @@
       "revId": "0346a46ac8fa92ecaa16a1814b298f1ad8c9ead7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce326417_64a36ff3",
+        "filename": "standardization/moher-api/metrics/src/main/java/org/onap/dcaegen2/services/sdk/standardization/moher/metrics/impl/MetricsImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-05-30T10:37:15Z",
+      "side": 1,
+      "message": "It should be safe - I checked few mteric types and in their `.registry()` methods we can read:\n```\nAdd the gauge to a single registry, or return an existing gauge in that registry. The returned gauge will be unique for each registry, but each registry is guaranteed to only create one gauge for the same combination of name and tags\n```\n\n-1 drom my side though, I forgot about adding tests before pushing :)",
+      "parentUuid": "ef903815_4c7ccd9e",
+      "revId": "0346a46ac8fa92ecaa16a1814b298f1ad8c9ead7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
