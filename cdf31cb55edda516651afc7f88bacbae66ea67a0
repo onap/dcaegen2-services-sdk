@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d9ccd05_8ecabaa5",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T10:17:17Z",
+      "side": 1,
+      "message": "What if content type is \"application/json; charset\u003dutf-8\"? Maybe we shall move ContentType enum to the model and use it directly in our public API so we force clients to use predefined content types?\n\nDoes DMaaP MR support different content types? If the behavior is special only for Json then maybe we should define abstract class ContentType with subclass JsonContentType (singleton) and let\u0027s say OtherContentType(type: String). In Kotlin it would be easier:\n\nsealed class ContentType(val mime: String)\nobject JsonContentType : ContentType(\"application/json\")\nclass OtherContentType(mime: String): ContentType(mime)",
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0eacd243_3e909e82",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T10:17:17Z",
+      "side": 1,
+      "message": "Is this really what we want? Shouldn\u0027t we replace `\\\"` with `\"` ?",
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46330442_e740753d",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T10:17:17Z",
+      "side": 1,
+      "message": "Maybe rename it to subscriber. Here System Under Test is both publisher and subscriber.",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "100392d9_334bf4f0",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T10:17:17Z",
+      "side": 1,
+      "message": "Please move these variables into corresponding methods. Flux can be a single shot instances (after completion re-subscription may not be possible).\n\nAlso consider moving the lists above also int test methods. Keeping them closer to the test may improve readability. On the other hand you\u0027ve named it well so it shouldn\u0027t be a problem.",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 78,
+        "endChar": 66
+      },
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
