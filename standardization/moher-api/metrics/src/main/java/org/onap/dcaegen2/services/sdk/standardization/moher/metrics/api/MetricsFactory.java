@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.standardization.moher.metrics.api;
 
+import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import org.onap.dcaegen2.services.sdk.standardization.moher.metrics.impl.MetricsImpl;
@@ -42,6 +43,14 @@ public class MetricsFactory {
 
     /**
      * Method for creating default Prometheus registry.
+     * <p>
+     * Client is expected to populate registry with custom metrics.
+     * Exact procedure can be found at Micrometer project site.
+     * </p>
+     * <p>
+     * It is recommended to search through available implementations of {@link MeterBinder}
+     * as there exists a plenty of them for most common use cases.
+     * </p>
      *
      * @since 1.2.0
      */
@@ -51,11 +60,16 @@ public class MetricsFactory {
 
     /**
      * Method for creating {@link Metrics} with configured Prometheus registry.
+     * <p>
+     * Returned object will add to registry few default JVM (memory and threads usage, garbage collection)
+     * and system metrics (CPU usage). For exact list of metrics added, please refer to implementation.
      *
      * @param registry Prometheus registry to be used
      * @since 1.2.0
      */
     public static Metrics createMetrics(PrometheusMeterRegistry registry) {
-        return new MetricsImpl(registry);
+        MetricsImpl metrics = new MetricsImpl(registry);
+        metrics.configureDefaultMetrics();
+        return metrics;
     }
 }

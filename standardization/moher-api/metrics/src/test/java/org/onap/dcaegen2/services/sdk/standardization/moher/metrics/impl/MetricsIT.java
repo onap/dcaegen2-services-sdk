@@ -30,7 +30,7 @@ import reactor.test.StepVerifier;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MetricsIT {
 
@@ -76,12 +76,31 @@ class MetricsIT {
                 cut.collect(INTERVAL).take(2)
         )
                 .consumeNextWith((collectedMetrics) -> {
-                    assertTrue(collectedMetrics.contains(COUNTER_NAME));
+                    assertMetricsContain(collectedMetrics, COUNTER_NAME);
                     counter.increment();
                 })
                 .thenAwait(INTERVAL)
                 .expectNextMatches((collectedMetrics) ->
                         collectedMetrics.contains(COUNTER_NAME + "_total 1.0"))
                 .verifyComplete();
+    }
+
+    @Test
+    void metrics_shouldIncludeSomeDefaultMetrics() {
+        StepVerifier.create(cut.collect())
+                .consumeNextWith((collectedMetrics) -> {
+                    assertMetricsContain(collectedMetrics, "jvm_threads");
+                    assertMetricsContain(collectedMetrics, "jvm_memory");
+                    assertMetricsContain(collectedMetrics, "jvm_classes");
+                    assertMetricsContain(collectedMetrics, "jvm_gc");
+                    assertMetricsContain(collectedMetrics, "system_cpu");
+                })
+                .verifyComplete();
+    }
+
+    private void assertMetricsContain(final String collectedMetrics, final String metricName) {
+        assertThat(collectedMetrics.contains(metricName))
+                .describedAs(String.format("Expected metric: %s", metricName))
+                .isTrue();
     }
 }
