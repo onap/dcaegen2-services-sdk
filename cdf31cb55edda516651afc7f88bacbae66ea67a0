@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a133b280_6d6e2218",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-30T10:46:37Z",
+      "side": 1,
+      "message": "Filip suggested using ContentType enum in public API, but also said that maybe it would be better to make that change in new MR. \nBut, of course, I can do it here.\n\nAs far as I know (I was checking `readthedocks` and instructions), MR support exactly 2 content types: \u0027application/json\u0027 and \u0027text.plain\u0027",
+      "parentUuid": "8d9ccd05_8ecabaa5",
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eacd243_3e909e82",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2019-05-30T10:17:17Z",
       "side": 1,
       "message": "Is this really what we want? Shouldn\u0027t we replace `\\\"` with `\"` ?",
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "450bc116_5fda029d",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-05-30T10:46:37Z",
+      "side": 1,
+      "message": "If we want to send multiple messages with `text/plain`, content should look like\n\"message1\nmessage2\nmessage3\"\n\nMessageRouter figures out that we are sending multiple messages only if we split them with new line. So we should send one multi-line String (as far as I understand)",
+      "parentUuid": "0eacd243_3e909e82",
       "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
