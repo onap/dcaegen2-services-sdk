@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57439944_f94405ca",
+        "filename": "security/crypt-password/src/test/java/org/onap/dcaegen2/services/sdk/security/CryptPasswordTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 4025
+      },
+      "writtenOn": "2019-05-30T13:33:18Z",
+      "side": 1,
+      "message": "check also without dots becasue this is suggested format",
+      "revId": "117fd2a4b152077324ebbb4e315dca03d4888d39",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
