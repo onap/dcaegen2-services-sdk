@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "83f91866_9466ec22",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T11:02:35Z",
+      "side": 1,
+      "message": "OK. We may do it in separate MR. But please create a task on the board so we\u0027ll have this deal written down ;)",
+      "parentUuid": "a133b280_6d6e2218",
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eacd243_3e909e82",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
         "patchSetId": 5
@@ -90,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "3bdd6bf7_c205bfbe",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T11:02:35Z",
+      "side": 1,
+      "message": "Ok. I understand this interleave-with-endl stuff. But what about quotes?\n\nMy understanding (I use kotlin \"\"\" syntax to avoid ambiguity):\n\nInput List\u003cJsonElement\u003e:\nList[JsonElem{\"name\":\"Wiesio\"}, JsonElem{\"name\":\"Czesio\"}]\n\nAfter mapping over JsonElement::toString (is this correct?):\nList[\"\"\"{\"name\":\"Wiesio\"}\"\"\", \"\"\"{\"name\":\"Czesio\"}\"\"\"]\n\nThen we collect with interleaving:\n\"\"\"{\"name\":\"Wiesio\"}\n{\"name\":\"Czesio\"}\"\"\"\n\nAfter replaceAll:\n\"\"\"{name:Wiesio}\n{name:Czesio}\"\"\"\n\nwhich is not a correct Json, isn\u0027t it?",
+      "parentUuid": "450bc116_5fda029d",
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46330442_e740753d",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
         "patchSetId": 5
@@ -124,6 +160,30 @@
       "writtenOn": "2019-05-30T10:17:17Z",
       "side": 1,
       "message": "Please move these variables into corresponding methods. Flux can be a single shot instances (after completion re-subscription may not be possible).\n\nAlso consider moving the lists above also int test methods. Keeping them closer to the test may improve readability. On the other hand you\u0027ve named it well so it shouldn\u0027t be a problem.",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 78,
+        "endChar": 66
+      },
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c534481_0af3c9ad",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-05-30T11:02:35Z",
+      "side": 1,
+      "message": "One comment here: It will work (and is working of course :) ), but maybe we should keep these sample data closer to the methods. Just thinking.",
+      "parentUuid": "100392d9_334bf4f0",
       "range": {
         "startLine": 74,
         "startChar": 3,
