@@ -35,7 +35,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring</module>
+        <module>spring-webflux</module>
         <module>reactor-netty</module>
     </modules>
 </project>
