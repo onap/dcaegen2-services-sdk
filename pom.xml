@@ -39,8 +39,8 @@
     <commons-text.version>1.6</commons-text.version>
     <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
     <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
-    <micrometer.version>1.1.4</micrometer.version>
     <testcontainers.version>1.11.2</testcontainers.version>
+    <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
   </properties>
 
   <modules>
@@ -164,6 +164,7 @@
         <groupId>org.immutables</groupId>
         <artifactId>value</artifactId>
         <version>${immutables.version}</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.immutables</groupId>
@@ -196,6 +197,13 @@
         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>org.jetbrains</groupId>
         <artifactId>annotations</artifactId>
         <version>${jetbrains-annotations.version}</version>
@@ -212,11 +220,6 @@
         <artifactId>logback-classic</artifactId>
         <version>${logback.version}</version>
         <scope>runtime</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.micrometer</groupId>
-        <artifactId>micrometer-registry-prometheus</artifactId>
-        <version>${micrometer.version}</version>
       </dependency>
 
       <dependency>
