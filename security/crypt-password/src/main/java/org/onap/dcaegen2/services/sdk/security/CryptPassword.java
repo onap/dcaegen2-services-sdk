@@ -21,15 +21,32 @@ package org.onap.dcaegen2.services.sdk.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class CryptPassword {
+/**
+ * Class for encoding passwords using BCrypt algorithm.
+ */
+public final class CryptPassword {
 
-  private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-  public String decode(String arg) {
-    return encoder.encode(arg);
-  }
+    /**
+     * Encode the raw password.
+     *
+     * @param rawPassword raw password to be encoded
+     * @return encoded password
+     */
+    public String encode(CharSequence rawPassword) {
+        return encoder.encode(rawPassword);
+    }
 
-  public boolean matches(String rawPassword, String encodedPassword){
-    return encoder.matches(rawPassword,encodedPassword);
-  }
+    /**
+     * Verify the encoded password matches the submitted raw password. Returns true if the passwords match, false if
+     * they do not.
+     *
+     * @param rawPassword the raw password to encode and match
+     * @param encodedPassword the encoded password to compare with
+     * @return true if the raw password, after encoding, matches the encoded password
+     */
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return encoder.matches(rawPassword, encodedPassword);
+    }
 }
