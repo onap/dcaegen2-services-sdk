@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c84f3e98_0ec86800",
+        "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/CharsFromStreamReader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-03T13:51:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa68b70a_671c244b",
+      "revId": "bcb336f3592e717d8332393fed3b88ade55fcc96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a11d6c81_a447af72",
         "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/CharsFromStreamReader.java",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2019-06-03T13:39:23Z",
       "side": 1,
       "message": "Consider replacement of this by the constant whose name will reflect a bigger context.",
+      "range": {
+        "startLine": 54,
+        "startChar": 28,
+        "endLine": 54,
+        "endChar": 30
+      },
+      "revId": "bcb336f3592e717d8332393fed3b88ade55fcc96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89dbf613_ca6bde08",
+        "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/CharsFromStreamReader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-03T13:51:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a11d6c81_a447af72",
       "range": {
         "startLine": 54,
         "startChar": 28,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "8264f324_92ce58f0",
+        "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/CryptPassword.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-03T13:51:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d53a123b_c2d67a9c",
+      "revId": "bcb336f3592e717d8332393fed3b88ade55fcc96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bc1ad8d_57f7ecc2",
         "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/EncodePassword.java",
         "patchSetId": 6
@@ -70,6 +130,30 @@
       "writtenOn": "2019-06-03T13:39:23Z",
       "side": 1,
       "message": "Create a constant which explains a meaning of this int",
+      "range": {
+        "startLine": 38,
+        "startChar": 30,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "bcb336f3592e717d8332393fed3b88ade55fcc96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87854756_ee81687f",
+        "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/EncodePassword.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-03T13:51:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bc1ad8d_57f7ecc2",
       "range": {
         "startLine": 38,
         "startChar": 30,
@@ -122,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "510cf500_9fe2570a",
+        "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/EncodePassword.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-03T13:51:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "683ce319_1d2547a4",
+      "range": {
+        "startLine": 44,
+        "startChar": 30,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "bcb336f3592e717d8332393fed3b88ade55fcc96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42249eee_b471552b",
         "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/EncodePassword.java",
         "patchSetId": 6
@@ -133,6 +241,30 @@
       "writtenOn": "2019-06-03T13:39:23Z",
       "side": 1,
       "message": "Create a constant which explains a meaning of this int",
+      "range": {
+        "startLine": 58,
+        "startChar": 30,
+        "endLine": 58,
+        "endChar": 31
+      },
+      "revId": "bcb336f3592e717d8332393fed3b88ade55fcc96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d498a5f_bb70f32d",
+        "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/EncodePassword.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-03T13:51:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42249eee_b471552b",
       "range": {
         "startLine": 58,
         "startChar": 30,
