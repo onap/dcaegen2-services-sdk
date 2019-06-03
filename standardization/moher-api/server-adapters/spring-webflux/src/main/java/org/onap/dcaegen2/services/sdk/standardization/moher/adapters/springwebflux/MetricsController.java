@@ -18,29 +18,26 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.standardization.moher.adapters.springwebflux;
 
+import org.onap.dcaegen2.services.sdk.standardization.moher.metrics.api.Metrics;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
-import com.google.gson.JsonArray;
-import org.immutables.value.Value;
+@RestController
+@RequestMapping(value = "/metrics", produces = MediaType.TEXT_PLAIN_VALUE)
+public class MetricsController {
+    private final Metrics metrics;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
-@Value.Immutable
-public interface MessageRouterSubscribeResponse extends DmaapResponse {
-
-    @Value.Default
-    default JsonArray items() { return new JsonArray(); }
-
-    @Value.Derived
-    default boolean hasElements() {
-        return items().size() > 0;
+    public MetricsController(Metrics metrics) {
+        this.metrics = metrics;
     }
 
-    @Value.Derived
-    default boolean isEmpty() {
-        return !hasElements();
+    @GetMapping
+    public Mono<String> prometheusMetrics() {
+        return metrics.collect();
     }
 }

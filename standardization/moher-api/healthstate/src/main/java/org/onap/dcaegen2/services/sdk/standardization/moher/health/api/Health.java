@@ -18,29 +18,34 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.standardization.moher.health.api;
 
-
-import com.google.gson.JsonArray;
+import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
 @Value.Immutable
-public interface MessageRouterSubscribeResponse extends DmaapResponse {
+@Gson.TypeAdapters
+public interface Health {
 
     @Value.Default
-    default JsonArray items() { return new JsonArray(); }
-
-    @Value.Derived
-    default boolean hasElements() {
-        return items().size() > 0;
+    default boolean healthy() {
+        return true;
     }
 
-    @Value.Derived
-    default boolean isEmpty() {
-        return !hasElements();
+    @Value.Default
+    default String description() {
+        return "Service is working correctly";
+    }
+
+    static Health createHealthy() {
+        return ImmutableHealth.builder().build();
+    }
+
+    static Health createHealthy(String description) {
+        return ImmutableHealth.builder().description(description).build();
+    }
+
+    static Health createUnhealthy(String description) {
+        return ImmutableHealth.builder().healthy(false).description(description).build();
     }
 }

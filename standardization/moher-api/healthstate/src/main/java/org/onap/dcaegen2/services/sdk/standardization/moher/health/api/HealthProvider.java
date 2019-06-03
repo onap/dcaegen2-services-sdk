@@ -18,29 +18,21 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.standardization.moher.health.api;
 
+import io.vavr.Function0;
+import java.util.function.Supplier;
+import reactor.core.publisher.Mono;
 
-import com.google.gson.JsonArray;
-import org.immutables.value.Value;
+@FunctionalInterface
+public interface HealthProvider {
+    Mono<Health> currentHealth();
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
-@Value.Immutable
-public interface MessageRouterSubscribeResponse extends DmaapResponse {
-
-    @Value.Default
-    default JsonArray items() { return new JsonArray(); }
-
-    @Value.Derived
-    default boolean hasElements() {
-        return items().size() > 0;
+    static HealthProvider fromFunction(Function0<Health> function) {
+        return () -> Mono.fromCallable(function::apply);
     }
 
-    @Value.Derived
-    default boolean isEmpty() {
-        return !hasElements();
+    static HealthProvider fromSupplier(Supplier<Health> function) {
+        return () -> Mono.fromCallable(function::get);
     }
 }

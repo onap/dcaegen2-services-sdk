@@ -18,29 +18,12 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.standardization.moher.health.api;
 
+public final class AliveMessage {
 
-import com.google.gson.JsonArray;
-import org.immutables.value.Value;
+    public static final String ALIVE_MESSAGE_JSON = "{\"alive\":true}";
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
-@Value.Immutable
-public interface MessageRouterSubscribeResponse extends DmaapResponse {
-
-    @Value.Default
-    default JsonArray items() { return new JsonArray(); }
-
-    @Value.Derived
-    default boolean hasElements() {
-        return items().size() > 0;
-    }
-
-    @Value.Derived
-    default boolean isEmpty() {
-        return !hasElements();
+    private AliveMessage() {
     }
 }
