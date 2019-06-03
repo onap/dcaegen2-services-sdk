@@ -28,14 +28,23 @@
         <version>1.2.0-SNAPSHOT</version>
     </parent>
 
-    <name>Monitoring and Healthcheck :: Server Adapters :: Reactor Netty</name>
-    <description>MoHeR Project Reactor's Netty server adapter</description>
-    <artifactId>dcae-sdk-moher-reactor-netty</artifactId>
+    <name>Monitoring and Healthcheck :: Server Adapters :: Spring Webflux</name>
+    <description>MoHeR Spring server adapter</description>
+    <artifactId>dcae-sdk-moher-spring-webflux</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
-            <groupId>io.projectreactor.netty</groupId>
-            <artifactId>reactor-netty</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
         </dependency>
         <dependency>
             <groupId>org.onap.dcaegen2.services.sdk</groupId>
@@ -46,6 +55,27 @@
             <groupId>org.onap.dcaegen2.services.sdk</groupId>
             <artifactId>dcaegen2-sdk-moher-healthstate</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
