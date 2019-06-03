@@ -24,7 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import io.vavr.collection.Array;
-import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.PasswordEvictedException;
