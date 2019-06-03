@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa68b70a_671c244b",
+        "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/CharsFromStreamReader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-06-03T13:09:17Z",
+      "side": 1,
+      "message": "Make class final",
+      "revId": "bcb336f3592e717d8332393fed3b88ade55fcc96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d53a123b_c2d67a9c",
+        "filename": "security/crypt-password/src/main/java/org/onap/dcaegen2/services/sdk/security/CryptPassword.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-06-03T13:09:17Z",
+      "side": 1,
+      "message": "final",
+      "revId": "bcb336f3592e717d8332393fed3b88ade55fcc96",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
