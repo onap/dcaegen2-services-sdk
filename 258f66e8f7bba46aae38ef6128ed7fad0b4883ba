@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b00aa168_086872bd",
+        "filename": "standardization/moher-api/metrics/src/test/java/org/onap/dcaegen2/services/sdk/standardization/moher/metrics/impl/MetricsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-03T07:43:02Z",
+      "side": 1,
+      "message": "I\u0027d rather use the version with separate assertj verifiers so it\u0027s obvious which metric is absent. I\u0027m aware that here it\u0027s not the most important thing but for the sake of consistency let\u0027s do it that way.",
+      "range": {
+        "startLine": 91,
+        "startChar": 17,
+        "endLine": 91,
+        "endChar": 34
+      },
+      "revId": "258f66e8f7bba46aae38ef6128ed7fad0b4883ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
