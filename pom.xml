@@ -41,6 +41,7 @@
     <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
     <micrometer.version>1.1.4</micrometer.version>
     <testcontainers.version>1.11.2</testcontainers.version>
+    <spring.version>5.1.7.RELEASE</spring.version>
   </properties>
 
   <modules>
@@ -164,6 +165,7 @@
         <groupId>org.immutables</groupId>
         <artifactId>value</artifactId>
         <version>${immutables.version}</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.immutables</groupId>
@@ -194,6 +196,11 @@
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webflux</artifactId>
+        <version>${spring.version}</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains</groupId>

@@ -32,4 +32,20 @@
     <description>MoHeR Project Reactor's Netty server adapter</description>
     <artifactId>dcae-sdk-moher-reactor-netty</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <artifactId>dcaegen2-sdk-moher-metrics</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <artifactId>dcaegen2-sdk-moher-healthstate</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

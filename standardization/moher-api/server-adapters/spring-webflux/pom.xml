@@ -30,6 +30,22 @@
 
     <name>Monitoring and Healthcheck :: Server Adapters :: Spring</name>
     <description>MoHeR Spring server adapter</description>
-    <artifactId>dcae-sdk-moher-spring</artifactId>
+    <artifactId>dcae-sdk-moher-spring-webflux</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <artifactId>dcaegen2-sdk-moher-metrics</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <artifactId>dcaegen2-sdk-moher-healthstate</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
