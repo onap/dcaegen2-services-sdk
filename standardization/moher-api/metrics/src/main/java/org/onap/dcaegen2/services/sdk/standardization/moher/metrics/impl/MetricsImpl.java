@@ -51,6 +51,7 @@ public class MetricsImpl implements Metrics {
                 .map((l) -> registry.scrape());
     }
 
+    @SuppressWarnings("squid:S2095")
     public void configureDefaultMetrics(){
         new ClassLoaderMetrics().bindTo(registry);
         new JvmThreadMetrics().bindTo(registry);
