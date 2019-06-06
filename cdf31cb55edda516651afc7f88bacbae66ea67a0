@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c97e8b0f_e454febb",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-06T07:12:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83f91866_9466ec22",
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eacd243_3e909e82",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
         "patchSetId": 5
@@ -167,6 +185,30 @@
     },
     {
       "key": {
+        "uuid": "05bfdbec_56ad461e",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberCIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-06T07:12:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46330442_e740753d",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "100392d9_334bf4f0",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
         "patchSetId": 5
@@ -202,6 +244,30 @@
       "side": 1,
       "message": "One comment here: It will work (and is working of course :) ), but maybe we should keep these sample data closer to the methods. Just thinking.",
       "parentUuid": "100392d9_334bf4f0",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 78,
+        "endChar": 66
+      },
+      "revId": "cdf31cb55edda516651afc7f88bacbae66ea67a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf3fffd3_3edb2904",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-06T07:12:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c534481_0af3c9ad",
       "range": {
         "startLine": 74,
         "startChar": 3,
