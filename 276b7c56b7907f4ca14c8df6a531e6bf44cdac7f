@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f3660d4_2438a4a8",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpResponse.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-07T08:12:16Z",
+      "side": 1,
+      "message": "This logic is rather DMaaP-specific. I believe we should getBodyAsJson(JsonArray.class) and then reparse strings into JsonElements in dmaap module",
+      "revId": "276b7c56b7907f4ca14c8df6a531e6bf44cdac7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
