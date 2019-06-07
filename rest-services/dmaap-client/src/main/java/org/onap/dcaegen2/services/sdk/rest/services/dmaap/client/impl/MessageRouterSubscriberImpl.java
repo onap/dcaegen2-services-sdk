@@ -23,7 +23,6 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.extractFailReason;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import java.nio.charset.StandardCharsets;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
@@ -72,7 +71,7 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
         final ImmutableMessageRouterSubscribeResponse.Builder builder =
                 ImmutableMessageRouterSubscribeResponse.builder();
         return httpResponse.successful()
-                ? builder.items(httpResponse.bodyAsJson(StandardCharsets.UTF_8, gson, JsonArray.class)).build()
+                ? builder.items(httpResponse.bodyAsJsonElements(StandardCharsets.UTF_8, gson)).build()
                 : builder.failReason(extractFailReason(httpResponse)).build();
     }
 

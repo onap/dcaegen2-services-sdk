@@ -27,6 +27,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import io.vavr.collection.List;
 import java.time.Duration;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSink;
@@ -45,6 +46,8 @@ import reactor.test.StepVerifier;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since May 2019
  */
+
+@Ignore
 class MessageRouterPublisherIT {
 
     private static final String ERROR_MESSAGE = "Something went wrong";
