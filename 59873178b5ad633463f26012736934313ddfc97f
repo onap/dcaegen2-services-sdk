@@ -46,6 +46,30 @@
       "revId": "59873178b5ad633463f26012736934313ddfc97f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96f7dd30_854fa1a4",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/HttpResponse.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-07T10:10:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59add24a_08b5e888",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "59873178b5ad633463f26012736934313ddfc97f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
