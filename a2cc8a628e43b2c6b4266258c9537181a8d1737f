@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5ad96c99_700c3190",
+        "filename": "standardization/moher-api/server-adapters/reactor-netty/src/main/java/org/onap/dcaegen2/services/sdk/standardization/moher/adapters/ractornetty/HealthRoutes.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-07T08:53:17Z",
+      "side": 1,
+      "message": "No - sendString returns a NettyOutbound \u003d Publisher\u003cVoid\u003e. We have to have flat result, ie. NOT Publisher\u003cPublisher\u003cVoid\u003e\u003e",
+      "parentUuid": "d19fb169_0ad7029a",
+      "range": {
+        "startLine": 64,
+        "startChar": 17,
+        "endLine": 64,
+        "endChar": 28
+      },
+      "revId": "a2cc8a628e43b2c6b4266258c9537181a8d1737f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6051381e_a62d2cad",
         "filename": "standardization/moher-api/server-adapters/spring-webflux/src/main/java/org/onap/dcaegen2/services/sdk/standardization/moher/adapters/springwebflux/HealthController.java",
         "patchSetId": 7
