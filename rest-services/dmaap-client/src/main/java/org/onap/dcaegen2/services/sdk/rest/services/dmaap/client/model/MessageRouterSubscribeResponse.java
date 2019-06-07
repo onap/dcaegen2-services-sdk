@@ -21,9 +21,9 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
 
 
-import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import io.vavr.collection.List;
 import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -33,11 +33,11 @@ import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 public interface MessageRouterSubscribeResponse extends DmaapResponse {
 
     @Value.Default
-    default JsonArray items() { return new JsonArray(); }
+    default List<JsonElement> items() { return List.empty();}
 
     @Value.Derived
     default boolean hasElements() {
-        return items().size() > 0;
+        return !items().isEmpty();
     }
 
     @Value.Derived

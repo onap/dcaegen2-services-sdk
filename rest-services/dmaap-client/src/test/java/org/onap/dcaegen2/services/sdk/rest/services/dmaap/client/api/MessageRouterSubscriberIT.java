@@ -23,8 +23,9 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendError;
 import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendResource;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import io.vavr.collection.List;
 import java.time.Duration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -94,14 +95,11 @@ class MessageRouterSubscriberIT {
         Mono<MessageRouterSubscribeResponse> response = sut
                 .get(mrSuccessRequest);
 
-        JsonArray expectedItems = new JsonArray();
-        expectedItems.add("I");
-        expectedItems.add("like");
-        expectedItems.add("pizza");
+        List<String> expectedItems = List.of("I", "like", "pizza");
 
         MessageRouterSubscribeResponse expectedResponse = ImmutableMessageRouterSubscribeResponse
                 .builder()
-                .items(expectedItems)
+                .items(expectedItems.map(JsonPrimitive::new))
                 .build();
 
         StepVerifier.create(response)

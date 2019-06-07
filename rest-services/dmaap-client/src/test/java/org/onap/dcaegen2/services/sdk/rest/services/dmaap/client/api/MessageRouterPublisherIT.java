@@ -45,6 +45,7 @@ import reactor.test.StepVerifier;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since May 2019
  */
+
 class MessageRouterPublisherIT {
 
     private static final String ERROR_MESSAGE = "Something went wrong";
