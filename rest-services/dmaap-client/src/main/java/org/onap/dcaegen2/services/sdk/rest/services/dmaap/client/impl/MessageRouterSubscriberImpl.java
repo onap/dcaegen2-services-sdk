@@ -24,7 +24,11 @@ import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Com
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
@@ -72,10 +76,21 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
         final ImmutableMessageRouterSubscribeResponse.Builder builder =
                 ImmutableMessageRouterSubscribeResponse.builder();
         return httpResponse.successful()
-                ? builder.items(httpResponse.bodyAsJson(StandardCharsets.UTF_8, gson, JsonArray.class)).build()
+                ? builder.items(getAsJsonElements(httpResponse)).build()
                 : builder.failReason(extractFailReason(httpResponse)).build();
     }
 
+    private List<JsonElement> getAsJsonElements(HttpResponse httpResponse){
+        JsonParser parser = new JsonParser();
+        List<JsonElement> jsonElements = new ArrayList<>();
+
+        JsonArray bodyAsJsonArray = httpResponse
+                .bodyAsJson(StandardCharsets.UTF_8, gson, JsonArray.class);
+
+        bodyAsJsonArray.forEach(arrayElement -> jsonElements.add(parser.parse(arrayElement.getAsString())));
+
+        return jsonElements;
+    }
 
     private String buildSubscribeUrl(MessageRouterSubscribeRequest request) {
         return String.format("%s/%s/%s", request.sourceDefinition().topicUrl(), request.consumerGroup(),

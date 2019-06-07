@@ -21,8 +21,14 @@
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.immutables.value.Value;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.HttpException;
 
