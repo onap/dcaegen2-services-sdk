@@ -21,8 +21,14 @@
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.immutables.value.Value;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.HttpException;
 
@@ -67,6 +73,18 @@ public interface HttpResponse {
     @Value.Derived
     default <T> T bodyAsJson(Charset charset, Gson gson, Class<T> clazz) {
         return gson.fromJson(bodyAsString(charset), clazz);
+    }
+
+    @Value.Derived
+    default List<JsonElement> bodyAsJsonElements(Charset charset, Gson gson){
+        JsonParser parser = new JsonParser();
+
+        JsonArray bodyAsJsonArray = bodyAsJson(charset, gson, JsonArray.class);
+        List<JsonElement> jsonElements = new ArrayList<>();
+
+        bodyAsJsonArray.forEach(arrayElement -> jsonElements.add(parser.parse(arrayElement.getAsString())));
+
+        return jsonElements;
     }
 
     default void throwIfUnsuccessful() {

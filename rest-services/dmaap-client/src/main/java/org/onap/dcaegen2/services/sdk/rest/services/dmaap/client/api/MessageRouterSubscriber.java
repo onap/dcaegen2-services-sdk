@@ -44,7 +44,8 @@ public interface MessageRouterSubscriber {
                     }
                 })
                 .filter(MessageRouterSubscribeResponse::hasElements)
-                .flatMapMany(response -> Flux.fromIterable(response.items()));
+                .flatMapMany(response -> Flux.fromIterable(response.items()))
+                .map(JsonElement::getAsJsonObject);
     }
 
     default Flux<JsonElement> subscribeForElements(MessageRouterSubscribeRequest request, Duration period) {
