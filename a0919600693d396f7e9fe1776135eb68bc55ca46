@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "315868f6_bf1cd85d",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterSubscriberImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-10T07:54:14Z",
+      "side": 1,
+      "message": "Can be rewritten using map + collect",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 28
+      },
+      "revId": "a0919600693d396f7e9fe1776135eb68bc55ca46",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7cd7f66_c5182165",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/model/MessageRouterSubscribeResponse.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-10T07:54:14Z",
+      "side": 1,
+      "message": "this can be now rewritten by means of Collections::isEmpty",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "a0919600693d396f7e9fe1776135eb68bc55ca46",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
