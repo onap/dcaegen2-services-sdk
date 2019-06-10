@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "622eae95_71ca88b2",
+        "filename": "rest-services/aai-client/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-06-10T11:56:26Z",
+      "side": 1,
+      "message": "Move version to parent pom",
+      "revId": "4fe03fd5ecddadb0b6afae9549fe5e39b47a6472",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
