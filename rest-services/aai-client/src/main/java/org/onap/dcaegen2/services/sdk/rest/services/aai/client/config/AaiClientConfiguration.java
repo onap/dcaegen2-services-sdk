@@ -20,22 +20,32 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.aai.client.config;
 
-import org.immutables.gson.Gson;
-import org.immutables.value.Value;
-
 import java.io.Serializable;
 import java.util.Map;
-
+import org.immutables.gson.Gson;
+import org.immutables.value.Value;
 
 @Value.Immutable(prehash = true)
 @Value.Style(builder = "new")
 @Gson.TypeAdapters
 public abstract class AaiClientConfiguration implements Serializable {
 
+    private static final String PNF_PATH = "/network/pnfs/pnf";
+    private static final String SERVICE_INSTANCE_PATH = "/business/customers/customer/${customer}/service-subscriptions/service-subscription/${serviceType}/service-instances/service-instance/${serviceInstanceId}";
+
     private static final long serialVersionUID = 1L;
 
     @Value.Parameter
-    public abstract String pnfUrl();
+    public abstract String baseUrl();
+
+    /**
+     * Please use baseUrl() instead
+     */
+    @Deprecated
+    @Value.Default
+    public String pnfUrl() {
+        return baseUrl() + PNF_PATH;
+    }
 
     @Value.Parameter
     public abstract String aaiUserName();
@@ -46,8 +56,14 @@ public abstract class AaiClientConfiguration implements Serializable {
     @Value.Parameter
     public abstract Boolean aaiIgnoreSslCertificateErrors();
 
-    @Value.Parameter
-    public abstract String aaiServiceInstancePath();
+    /**
+     * Please use baseUrl() instead
+     */
+    @Deprecated
+    @Value.Default
+    public String aaiServiceInstancePath() {
+        return SERVICE_INSTANCE_PATH;
+    }
 
     @Value.Parameter
     public abstract Map<String, String> aaiHeaders();
@@ -66,5 +82,4 @@ public abstract class AaiClientConfiguration implements Serializable {
 
     @Value.Parameter
     public abstract Boolean enableAaiCertAuth();
-
 }
