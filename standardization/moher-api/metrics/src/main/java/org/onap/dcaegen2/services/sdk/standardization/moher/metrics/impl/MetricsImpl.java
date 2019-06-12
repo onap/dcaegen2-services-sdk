@@ -42,13 +42,13 @@ public class MetricsImpl implements Metrics {
 
     @Override
     public Mono<String> collect() {
-        return Mono.just(registry.scrape());
+        return Mono.fromCallable(registry::scrape);
     }
 
     @Override
     public Flux<String> collect(Duration interval) {
         return Flux.interval(interval)
-                .map((l) -> registry.scrape());
+                .map(l -> registry.scrape());
     }
 
     @SuppressWarnings("squid:S2095")
