@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d90352e9_5ea77a04",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-13T12:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea47ba23_6a400580",
+      "range": {
+        "startLine": 82,
+        "startChar": 71,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "54850a5983dae16d40e469fbb5000e9a1414b190",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb5ff3db_600192b8",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e091e029_36a67a14",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-13T12:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb5ff3db_600192b8",
+      "range": {
+        "startLine": 138,
+        "startChar": 63,
+        "endLine": 139,
+        "endChar": 41
+      },
+      "revId": "54850a5983dae16d40e469fbb5000e9a1414b190",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0da6860_94b488a9",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "54850a5983dae16d40e469fbb5000e9a1414b190",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06cc9400_c49ed6c1",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-13T12:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0da6860_94b488a9",
+      "range": {
+        "startLine": 146,
+        "startChar": 73,
+        "endLine": 149,
+        "endChar": 25
+      },
+      "revId": "54850a5983dae16d40e469fbb5000e9a1414b190",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
