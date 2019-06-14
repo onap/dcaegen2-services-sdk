@@ -18,24 +18,23 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client;
 
-import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.ContentType;
+import io.netty.handler.codec.http.HttpHeaderValues;
+import io.netty.util.AsciiString;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
-@Value.Immutable
-public interface MessageRouterPublishRequest extends DmaapRequest {
+public enum ContentType {
+    APPLICATION_JSON(HttpHeaderValues.APPLICATION_JSON),
+    TEXT_PLAIN(HttpHeaderValues.TEXT_PLAIN);
 
-    MessageRouterSink sinkDefinition();
+    private AsciiString contentType;
 
-    @Value.Default
-    default ContentType contentType() {
-        return ContentType.APPLICATION_JSON;
+    ContentType(AsciiString contentType) {
+        this.contentType = contentType;
+    }
+
+    @Override
+    public String toString(){
+        return contentType.toString();
     }
 }
