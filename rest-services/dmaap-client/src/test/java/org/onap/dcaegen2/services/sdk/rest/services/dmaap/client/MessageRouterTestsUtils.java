@@ -18,7 +18,7 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -29,6 +29,8 @@ import io.vavr.collection.List;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSink;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSource;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterPublisher;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterSubscriber;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterSubscribeRequest;
@@ -39,11 +41,16 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
 import reactor.core.publisher.Flux;
 
-final class MessageRouterTestsUtils {
+
+public final class MessageRouterTestsUtils {
     private static final JsonParser parser = new JsonParser();
     private MessageRouterTestsUtils() {}
 
-    static MessageRouterPublishRequest createPublishRequest(String topicUrl){
+    public static MessageRouterPublishRequest createPublishRequest(String topicUrl){
+        return createPublishRequest(topicUrl, ContentType.APPLICATION_JSON);
+    }
+
+    public static MessageRouterPublishRequest createPublishRequest(String topicUrl, ContentType contentType){
         MessageRouterSink sinkDefinition = ImmutableMessageRouterSink.builder()
                 .name("the topic")
                 .topicUrl(topicUrl)
@@ -51,10 +58,11 @@ final class MessageRouterTestsUtils {
 
         return ImmutableMessageRouterPublishRequest.builder()
                 .sinkDefinition(sinkDefinition)
+                .contentType(contentType)
                 .build();
     }
 
-    static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
+    public static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
             String consumerGroup, String consumerId) {
         ImmutableMessageRouterSource sourceDefinition = ImmutableMessageRouterSource.builder()
                 .name("the topic")
@@ -69,51 +77,59 @@ final class MessageRouterTestsUtils {
                 .build();
     }
 
-    static List<JsonElement> getAsJsonElements(List<String> messages){
+    public static List<JsonElement> getAsJsonElements(List<String> messages){
         return messages.map(parser::parse);
     }
 
-    static JsonObject getAsJsonObject(String item){
+    public static List<JsonObject> getAsJsonObjects(List<String> messages){
+        return getAsJsonElements(messages).map(JsonElement::getAsJsonObject);
+    }
+
+    public static List<JsonPrimitive> getAsJsonPrimitives(List<String> messages){
+        return getAsJsonElements(messages).map(JsonElement::getAsJsonPrimitive);
+    }
+
+    public static JsonObject getAsJsonObject(String item){
         return new Gson().fromJson(item, JsonObject.class);
     }
 
-    static Flux<JsonObject> jsonBatch(List<String> messages){
-        return Flux.fromIterable(messages).map(parser::parse).map(JsonElement::getAsJsonObject);
+    public static Flux<JsonElement> plainBatch(List<String> messages){
+        return Flux.fromIterable(getAsJsonElements(messages));
     }
 
-    static Flux<JsonPrimitive> plainBatch(List<String> messages){
-        return Flux.fromIterable(messages).map(JsonPrimitive::new);
+    public static Flux<JsonObject> jsonBatch(List<String> messages){
+        return Flux.fromIterable(getAsJsonObjects(messages));
     }
 
-    static MessageRouterSubscribeResponse errorSubscribeResponse(String failReasonFormat, Object... formatArgs){
+    public static MessageRouterSubscribeResponse errorSubscribeResponse(String failReasonFormat, Object... formatArgs){
         return ImmutableMessageRouterSubscribeResponse
                 .builder()
                 .failReason(String.format(failReasonFormat, formatArgs))
                 .build();
     }
 
-    static MessageRouterSubscribeResponse successSubscribeResponse(List<JsonElement> items){
+    public static MessageRouterSubscribeResponse successSubscribeResponse(List<JsonElement> items){
         return ImmutableMessageRouterSubscribeResponse
                 .builder()
                 .items(items)
                 .build();
     }
 
-    static MessageRouterPublishResponse errorPublishResponse(String failReasonFormat, Object... formatArgs){
+    public static MessageRouterPublishResponse errorPublishResponse(String failReasonFormat, Object... formatArgs){
         return ImmutableMessageRouterPublishResponse
                 .builder()
                 .failReason(String.format(failReasonFormat, formatArgs))
                 .build();
     }
 
-    static MessageRouterPublishResponse successPublishResponse(List<JsonElement> items){
+    public static MessageRouterPublishResponse successPublishResponse(List<JsonElement> items){
         return ImmutableMessageRouterPublishResponse
                 .builder()
                 .items(items)
                 .build();
     }
 
-    static void registerTopic(MessageRouterPublisher publisher, MessageRouterPublishRequest publishRequest,
+    public static void registerTopic(MessageRouterPublisher publisher, MessageRouterPublishRequest publishRequest,
             MessageRouterSubscriber subscriber, MessageRouterSubscribeRequest subscribeRequest) {
         final List<String> sampleJsonMessages = List.of("{\"message\":\"message1\"}",
                 "{\"differentMessage\":\"message2\"}");
