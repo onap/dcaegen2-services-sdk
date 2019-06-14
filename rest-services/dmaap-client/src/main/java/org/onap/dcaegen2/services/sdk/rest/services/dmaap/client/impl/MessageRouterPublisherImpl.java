@@ -27,6 +27,7 @@ import com.google.gson.JsonElement;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import java.time.Duration;
+import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpHeaders;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
@@ -35,6 +36,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RequestBody;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.ContentType;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterPublisher;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
@@ -74,14 +76,20 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
             List<JsonElement> batch) {
         LOGGER.debug("Sending a batch of {} items to DMaaP MR", batch.size());
         LOGGER.trace("The items to be sent: {}", batch);
-        return httpClient.call(buildHttpRequest(request, asJsonBody(batch)))
+        return httpClient.call(buildHttpRequest(request, createBody(batch, request)))
                 .map(httpResponse -> buildResponse(httpResponse, batch));
     }
 
-    private @NotNull RequestBody asJsonBody(List<? extends JsonElement> subItems) {
-        final JsonArray elements = new JsonArray(subItems.size());
-        subItems.forEach(elements::add);
-        return RequestBody.fromJson(elements);
+    private @NotNull RequestBody createBody(List<? extends JsonElement> subItems, MessageRouterPublishRequest request) {
+        if(request.contentType() == ContentType.APPLICATION_JSON) {
+            final JsonArray elements = new JsonArray(subItems.size());
+            subItems.forEach(elements::add);
+            return RequestBody.fromJson(elements);
+        }else{
+            String messages = subItems.map(JsonElement::toString)
+                    .collect(Collectors.joining("\n"));
+            return RequestBody.fromString(messages);
+        }
     }
 
     private @NotNull HttpRequest buildHttpRequest(MessageRouterPublishRequest request, RequestBody body) {
@@ -89,7 +97,7 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
                 .method(HttpMethod.POST)
                 .url(request.sinkDefinition().topicUrl())
                 .diagnosticContext(request.diagnosticContext().withNewInvocationId())
-                .customHeaders(HashMap.of(HttpHeaders.CONTENT_TYPE, request.contentType()))
+                .customHeaders(HashMap.of(HttpHeaders.CONTENT_TYPE, request.contentType().toString()))
                 .body(body)
                 .build();
     }
@@ -98,6 +106,7 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
             HttpResponse httpResponse, List<JsonElement> batch) {
         final ImmutableMessageRouterPublishResponse.Builder builder =
                 ImmutableMessageRouterPublishResponse.builder();
+
         return httpResponse.successful()
                 ? builder.items(batch).build()
                 : builder.failReason(extractFailReason(httpResponse)).build();
