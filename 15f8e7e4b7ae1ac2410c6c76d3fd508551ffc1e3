@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c17c7a21_a5570ee4",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/DMaapContainer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-14T11:01:22Z",
+      "side": 1,
+      "message": "as its only constructor is private, make a class final so it\u0027s explicit we cannot extend it",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "15f8e7e4b7ae1ac2410c6c76d3fd508551ffc1e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61dea62b_028e39f3",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterTestsUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-14T11:01:22Z",
+      "side": 1,
+      "message": "as a utility class with static-only access, let\u0027s make it final and define private default constructor.",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 29
+      },
+      "revId": "15f8e7e4b7ae1ac2410c6c76d3fd508551ffc1e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
