@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a56f53a7_d237fa7f",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/MessageRouterTestsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-18T12:32:58Z",
+      "side": 1,
+      "message": "Right, I added `jsonBatch` and `plainBatch` functions long before `getAsJsonObjects`  and have forgotten to refactor that class ;)",
+      "parentUuid": "265371fa_ca9ae835",
+      "range": {
+        "startLine": 101,
+        "startChar": 15,
+        "endLine": 101,
+        "endChar": 70
+      },
+      "revId": "04b4ff36bc58bbcb27e59a1a8712d15cc16ca4da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "daa2e90e_a4eaefeb",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
         "patchSetId": 2
