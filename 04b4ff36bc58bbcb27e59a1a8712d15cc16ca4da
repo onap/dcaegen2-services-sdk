@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "fb72ad97_6454828c",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-18T12:26:39Z",
+      "side": 1,
+      "message": "You\u0027re right, it would be more readable. \nSingle http request is being send when messages.size() \u003c\u003d maxBatchSize, so I should name that function  \n\"onPut_givenJsonMessages_whenTheirAmountIsNotAboveMaxBatchSize_shouldSendSingleHttpRequest\" or something similar ;).\n\nJust to be clear, you suggest extracting that list of messages from test functions? \nIn previous commits those messages where defined as `psf`, but Jaszczur suggested defining it in every single test function to increase readability.",
+      "parentUuid": "872bb2d4_68da8b80",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 93,
+        "endChar": 31
+      },
+      "revId": "04b4ff36bc58bbcb27e59a1a8712d15cc16ca4da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec7a1f3b_b21021fd",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
         "patchSetId": 2
