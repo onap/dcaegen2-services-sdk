@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d0388521_91a0c0c4",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-06-18T12:34:26Z",
+      "side": 1,
+      "message": "I guess it\u0027s matter of preference. \n\nMy reasoning in keeping it as \"psf\" it that for this particular testcase we do not care about content of messages and only about their amount, \nso it\u0027s more readable to keep the implementation detail (exact string) hidden and provide some arbitrary getter (e.g. `messagesListOfSize(X)`).\n\nYou can keep it as is, up to you :)\n\nP.S. name it \"..._whenTheirAmountIs BELOW MaxMatchSize...\", or similar :)",
+      "parentUuid": "fb72ad97_6454828c",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 93,
+        "endChar": 31
+      },
+      "revId": "04b4ff36bc58bbcb27e59a1a8712d15cc16ca4da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec7a1f3b_b21021fd",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
         "patchSetId": 2
