@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f8bb746_483ac024",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2019-06-18T13:25:15Z",
+      "side": 1,
+      "message": "`get(0)` ? ;)",
+      "range": {
+        "startLine": 448,
+        "startChar": 41,
+        "endLine": 448,
+        "endChar": 45
+      },
+      "revId": "b6e9b77493f79863b7a9c01cb5073c2a03c7f49a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
