@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfd28776_7cd1ea19",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-06-19T14:22:02Z",
+      "side": 1,
+      "message": "Rewrite it to following signature:\n```\nprivate @NotNull RequestBody createBody(List\u003c? extends JsonElement\u003e subItems, ContentType contentType)\n```",
+      "revId": "68f52ec3fd4641d8c5094cde285922e077fadecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aea39737_c41d18f4",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/MessageRouterTestsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-06-19T14:22:02Z",
+      "side": 1,
+      "message": "It does what it says?\nMaybe it could be createPublishRequestWithJsonContent?",
+      "revId": "68f52ec3fd4641d8c5094cde285922e077fadecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
