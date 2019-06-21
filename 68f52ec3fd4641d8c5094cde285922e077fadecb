@@ -33,6 +33,24 @@
       "revId": "68f52ec3fd4641d8c5094cde285922e077fadecb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6775e50b_c84ea7b1",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/MessageRouterTestsUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3789
+      },
+      "writtenOn": "2019-06-21T05:10:47Z",
+      "side": 1,
+      "message": "`Application/json` is a default value for MR Publisher and that function could look like:\n\n`MessageRouterSink sinkDefinition \u003d ImmutableMessageRouterSink.builder()\n                .name(\"the topic\")\n                .topicUrl(topicUrl)\n                .build();\n\n        return ImmutableMessageRouterPublishRequest.builder()\n                .sinkDefinition(sinkDefinition)\n                .build();\n` - almost the same code as in the function below, but without setting content type. \nBut I didn\u0027t want to rewrite the code. \nAs \"application/json\" is default value, is it necessary to put it in the function name?",
+      "parentUuid": "aea39737_c41d18f4",
+      "revId": "68f52ec3fd4641d8c5094cde285922e077fadecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
