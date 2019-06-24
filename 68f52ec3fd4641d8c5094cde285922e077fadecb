@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "42476e2b_b3ec69e5",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-06-24T06:20:24Z",
+      "side": 1,
+      "message": "For now it makes sense to have simple if-else here. But in the future someone may add a new enum value and this logic might be wrong. Maybe write it with if-elseif-else where else throws a RuntimeException (ie. IllegalArgumentException(\"Unsupported content type: \" + req.contentType())).",
+      "revId": "68f52ec3fd4641d8c5094cde285922e077fadecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aea39737_c41d18f4",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/MessageRouterTestsUtils.java",
         "patchSetId": 5
