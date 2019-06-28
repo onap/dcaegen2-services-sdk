@@ -40,7 +40,7 @@
         <commons-text.version>1.6</commons-text.version>
         <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
         <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
-        <testcontainers.version>1.11.2</testcontainers.version>
+        <testcontainers.version>1.11.3</testcontainers.version>
         <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
     </properties>
 
