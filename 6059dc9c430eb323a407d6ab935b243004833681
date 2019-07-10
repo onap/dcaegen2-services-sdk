@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Gerard Hickey <gerard.hickey@ericsson.com>
+Code-Review+2: Jack Lucas <jflucas@research.att.com>
+Submitted-by: Jack Lucas <jflucas@research.att.com>
+Submitted-at: Wed, 10 Jul 2019 20:04:51 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/91112
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
