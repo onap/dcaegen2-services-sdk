@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7aeb03e_8a29fe33",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/model/utils/RelationParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-07-12T11:24:41Z",
+      "side": 1,
+      "message": "pls remove system outs from production code",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cda29c2_8160db3f",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiHttpAbstractActionFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-07-12T11:24:41Z",
+      "side": 1,
+      "message": "pls remove unused code",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7cb2d4d_672aa8ac",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-07-12T11:24:41Z",
+      "side": 1,
+      "message": "wrong order of markers. it should be static final, not final static.",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1567b15e_3116b5e6",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-07-12T11:24:41Z",
+      "side": 1,
+      "message": "it will be more readable if you will extract prepareRequest to separate line/variable",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30110ba6_3c81e63b",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-07-12T11:24:41Z",
+      "side": 1,
+      "message": "pls fix code indentation",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "041c561b_67eb912d",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-07-12T11:24:41Z",
+      "side": 1,
+      "message": "it will be more readable if you extract long lambda functions to separate methods with readable name",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82ca07e1_adda4e03",
+        "filename": "rest-services/aai-client/client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/DirectTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-07-12T11:24:41Z",
+      "side": 1,
+      "message": "something is wrong with this test ;)",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67191bdb_90859196",
+        "filename": "rest-services/aai-client/client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AbstractAaiPnfTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2019-07-12T11:24:41Z",
+      "side": 1,
+      "message": "something wrong is with this file",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
