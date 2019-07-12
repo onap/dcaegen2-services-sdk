@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.onap.dcaegen2.services.sdk</groupId>
     <artifactId>dcaegen2-services-sdk-rest-services</artifactId>
-    <version>1.3.0-SNAPSHOT</version>
+    <version>1.3.1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
@@ -67,12 +67,6 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
-      <artifactId>aai-client</artifactId>
-      <version>${project.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
