@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "11697d2b_288497f0",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/model/utils/RelationParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-07-15T10:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7aeb03e_8a29fe33",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cda29c2_8160db3f",
         "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiHttpAbstractActionFactory.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "715512d9_716673cf",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiHttpAbstractActionFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-07-15T10:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cda29c2_8160db3f",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a31ad9b5_2b22755f",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-07-15T10:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7cb2d4d_672aa8ac",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1567b15e_3116b5e6",
         "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaed7bc3_fbfc6579",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-07-15T10:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1567b15e_3116b5e6",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9498f45f_c196e6ed",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-07-15T10:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30110ba6_3c81e63b",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "041c561b_67eb912d",
         "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea4112c1_51f3a675",
+        "filename": "rest-services/aai-client/client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/AaiRequestsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 4851
+      },
+      "writtenOn": "2019-07-15T10:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "041c561b_67eb912d",
+      "revId": "4dc5b268e3fda2077be425ae71a0dbeab0ff0f07",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
