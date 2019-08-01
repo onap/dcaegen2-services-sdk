@@ -38,7 +38,6 @@ import reactor.core.publisher.Mono;
 public class AaiGetServiceInstanceClient implements
         AaiHttpClient<AaiServiceInstanceQueryModel, HttpResponse> {
 
-    //variables for query "/business/customers/customer/${customer}/service-subscriptions/service-subscription/${serviceType}/service-instances/service-instance/${serviceInstanceId}"
     private static final String CUSTOMER = "customer";
     private static final String SERVICE_TYPE = "serviceType";
     private static final String SERVICE_INSTANCE_ID = "serviceInstanceId";
@@ -69,6 +68,6 @@ public class AaiGetServiceInstanceClient implements
     }
 
     private String getUri(final String endpoint) {
-        return new URI.URIBuilder().path(configuration.pnfUrl() + endpoint).build().toString();
+        return new URI.URIBuilder().path(configuration.baseUrl() + endpoint).build().toString();
     }
 }

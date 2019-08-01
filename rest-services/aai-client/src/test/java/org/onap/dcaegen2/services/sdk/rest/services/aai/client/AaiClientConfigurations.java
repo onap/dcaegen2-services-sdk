@@ -53,7 +53,7 @@ public final class AaiClientConfigurations {
                 .keyStorePasswordPath("/server.pass")
                 .enableAaiCertAuth(secure)
                 .aaiHeaders(headers)
-                .aaiServiceInstancePath("sample-instance-path")
+                .aaiServiceInstancePath("/business/customers/customer/${customer}/service-subscriptions/service-subscription/${serviceType}/service-instances/service-instance/${serviceInstanceId}")
                 .build();
     }
 }
