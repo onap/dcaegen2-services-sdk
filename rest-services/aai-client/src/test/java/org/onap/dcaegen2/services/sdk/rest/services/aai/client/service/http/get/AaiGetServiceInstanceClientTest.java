@@ -37,6 +37,8 @@ import reactor.test.StepVerifier;
 
 class AaiGetServiceInstanceClientTest extends AbstractHttpClientTest {
 
+    public static final String SERVICE_INSTANCE_PATH = "https://aai.onap.svc.cluster.local:8443/aai/v12/sample-instance-path";
+
     @Test
     void getAaiResponse_shouldCallGetMethod_withGivenAaiHeaders() {
 
@@ -57,6 +59,7 @@ class AaiGetServiceInstanceClientTest extends AbstractHttpClientTest {
 
         //then
         verify(httpClient)
-                .call(argThat(httpRequest -> httpRequest.customHeaders().equals(headers)));
+                .call(argThat(httpRequest -> httpRequest.customHeaders().equals(headers) &&
+                    httpRequest.url().equals(SERVICE_INSTANCE_PATH)));
     }
 }
