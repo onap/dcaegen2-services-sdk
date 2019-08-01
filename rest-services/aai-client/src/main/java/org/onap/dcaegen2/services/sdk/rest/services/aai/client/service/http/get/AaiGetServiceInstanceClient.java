@@ -69,6 +69,6 @@ public class AaiGetServiceInstanceClient implements
     }
 
     private String getUri(final String endpoint) {
-        return new URI.URIBuilder().path(configuration.pnfUrl() + endpoint).build().toString();
+        return new URI.URIBuilder().path(configuration.baseUrl() + endpoint).build().toString();
     }
 }
