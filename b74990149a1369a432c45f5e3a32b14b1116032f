@@ -1,0 +1,9 @@
+Code-Review+1: Krzysztof Kurczewski <krzysztof.kurczewski@nokia.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Michal Kabaj <michal.kabaj@nokia.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Thu, 01 Aug 2019 15:53:00 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/92434
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
