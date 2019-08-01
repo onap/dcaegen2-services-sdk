@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9da5793_ab19f728",
+        "filename": "rest-services/aai-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-08-01T08:01:08Z",
+      "side": 1,
+      "message": "Remove this comment, it would be better if tests will document it instead.",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 6
+      },
+      "revId": "acd1ecd1ee50c8443cee17fbbf58a38096f7f1da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96fdb16c_28ef1161",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/AaiClientConfigurations.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-08-01T08:01:08Z",
+      "side": 1,
+      "message": "Replace with correct url (with placeholders)",
+      "range": {
+        "startLine": 56,
+        "startChar": 42,
+        "endLine": 56,
+        "endChar": 62
+      },
+      "revId": "acd1ecd1ee50c8443cee17fbbf58a38096f7f1da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "505fb769_ed5afd0e",
+        "filename": "rest-services/aai-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/aai/client/service/http/get/AaiGetServiceInstanceClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2731
+      },
+      "writtenOn": "2019-08-01T08:01:08Z",
+      "side": 1,
+      "message": "Replace with real path",
+      "range": {
+        "startLine": 40,
+        "startChar": 104,
+        "endLine": 40,
+        "endChar": 124
+      },
+      "revId": "acd1ecd1ee50c8443cee17fbbf58a38096f7f1da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
