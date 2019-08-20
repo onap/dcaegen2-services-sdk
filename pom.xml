@@ -70,12 +70,14 @@
         <logback.version>1.2.3</logback.version>
         <mockito.version>2.28.2</mockito.version>
         <protobuf.version>3.6.1</protobuf.version>
-        <vavr.version>0.10.0</vavr.version>
+        <vavr.version>0.10.2</vavr.version>
         <commons-text.version>1.6</commons-text.version>
         <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
         <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
         <testcontainers.version>1.12.0</testcontainers.version>
         <spring.boot.version>2.2.1.RELEASE</spring.boot.version>
+        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <system.rules.version>1.17.2</system.rules.version>
     </properties>
 
     <modules>
@@ -263,6 +265,12 @@
                 <scope>runtime</scope>
             </dependency>
 
+            <dependency>
+                <groupId>com.github.stefanbirkner</groupId>
+                <artifactId>system-rules</artifactId>
+                <version>${system.rules.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
