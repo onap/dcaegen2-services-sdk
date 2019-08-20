@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model;
 
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 
 /**
  * Immutable object which helps with construction of cloudRequestObject for specified Client. For usage take a look in
@@ -79,6 +80,12 @@ public interface CbsClientConfiguration {
 
     @Value.Parameter
     String appName();
+
+    @Value.Default
+    default @Nullable SecurityKeys securityKeys() {
+        return null;
+    }
+
 
     @Value.Default
     @Deprecated
