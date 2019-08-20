@@ -36,7 +36,8 @@ final class DMaapContainer {
     static DockerComposeContainer createContainerInstance(){
         return new DockerComposeContainer(
                 new File(DOCKER_COMPOSE_FILE_PATH))
-                .withExposedService(DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT);
+                .withExposedService(DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT)
+                .withLocalCompose(true);
     }
 
     private static String getDockerComposeFilePath(String resourceName){
