@@ -21,10 +21,10 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
+
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
