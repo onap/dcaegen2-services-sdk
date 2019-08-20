@@ -20,25 +20,21 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
+import com.google.gson.JsonObject;
+import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.*;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
+import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
+import reactor.core.publisher.Mono;
+
+import java.net.InetSocketAddress;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-
-import com.google.gson.JsonObject;
-import java.net.InetSocketAddress;
-import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpResponse;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
-import reactor.core.publisher.Mono;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -52,7 +48,7 @@ class CbsClientImplTest {
         // given
         InetSocketAddress cbsAddress = InetSocketAddress.createUnresolved("cbshost", 6969);
         String serviceName = "dcaegen2-ves-collector";
-        final CbsClient cut = new CbsClientImpl(httpClient, serviceName, cbsAddress);
+        final CbsClient cut = new CbsClientImpl(httpClient, serviceName, cbsAddress, "http");
         final HttpResponse httpResponse = ImmutableHttpResponse.builder()
                 .url("http://xxx")
                 .statusCode(200)
