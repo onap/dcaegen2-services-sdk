@@ -37,6 +37,11 @@ class CbsLookupTest {
     private static final String cbsHostname = "cbs-service";
     private static final int cbsPort = 10000;
     private final CbsClientConfiguration configuration = ImmutableCbsClientConfiguration.builder()
+            .trustStorePath("/trust.pkcs12")
+            .trustStorePasswordPath("/trust.pass")
+            .keyStorePath("/server.pkcs12")
+            .keyStorePasswordPath("/server.pass")
+            .enableCbsCertAuth(true)
             .hostname(cbsHostname)
             .port(cbsPort)
             .appName("whatever").build();

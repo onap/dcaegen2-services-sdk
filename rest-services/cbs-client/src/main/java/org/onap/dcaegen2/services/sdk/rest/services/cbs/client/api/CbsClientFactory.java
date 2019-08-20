@@ -25,7 +25,15 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFa
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientImpl;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
+import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
+
+import java.nio.file.Paths;
 
 /**
  * <p>
@@ -35,6 +43,14 @@ import reactor.core.publisher.Mono;
  * @since 1.1.2
  */
 public class CbsClientFactory {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientFactory.class);
+
+    private final CbsClientConfiguration configuration;
+
+    public CbsClientFactory(CbsClientConfiguration configuration) {
+        this.configuration = configuration;
+    }
 
     /**
      * <p>Creates Mono which will emit instance of {@link CbsClient} when service discovery is complete.</p>
@@ -48,16 +64,27 @@ public class CbsClientFactory {
      * User is expected to handle this signal and possibly retry subscription to returned Mono.
      * </p>
      *
-     * @param configuration required CBS configuration as viewed by client application
      * @return non-null {@link Mono} of {@link CbsClient} instance
      * @since 1.1.2
      */
-    public static @NotNull Mono<CbsClient> createCbsClient(CbsClientConfiguration configuration) {
+    public @NotNull Mono<CbsClient> createCbsClient() {
         return Mono.defer(() -> {
-            final RxHttpClient httpClient = RxHttpClientFactory.create();
             final CbsLookup lookup = new CbsLookup();
             return lookup.lookup(configuration)
-                    .map(addr -> new CbsClientImpl(httpClient, configuration.appName(), addr));
+                    .map(addr -> new CbsClientImpl(buildHttpClient(), configuration.appName(), addr));
         });
+    }
+
+    public RxHttpClient buildHttpClient() {
+        return configuration.enableCbsCertAuth() ? RxHttpClientFactory.create(createSslKeys()) : RxHttpClientFactory.create();
+    }
+
+    private SecurityKeys createSslKeys() {
+        return ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(Paths.get(configuration.keyStorePath())))
+                .keyStorePassword(Passwords.fromPath(Paths.get(configuration.keyStorePasswordPath())))
+                .trustStore(ImmutableSecurityKeysStore.of(Paths.get(configuration.trustStorePath())))
+                .trustStorePassword(Passwords.fromPath(Paths.get(configuration.trustStorePasswordPath())))
+                .build();
     }
 }

@@ -20,17 +20,9 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.providers;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import java.io.IOException;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -42,6 +34,13 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientCo
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.ImmutableCbsClientConfiguration;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+
+import java.io.IOException;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * @author <a href="mailto:przemyslaw.wasala@nokia.com">Przemysław Wąsala</a> on 11/15/18
@@ -57,6 +56,11 @@ class ReactiveCloudConfigurationProviderTest {
     private final JsonArray configBindingService = GsonUtils.readObjectArrayFromResource("/sample_config_binding_service.json");
 
     private CbsClientConfiguration cbsClientConfiguration = ImmutableCbsClientConfiguration.builder()
+            .trustStorePath("/trust.pkcs12")
+            .trustStorePasswordPath("/trust.pass")
+            .keyStorePath("/server.pkcs12")
+            .keyStorePasswordPath("/server.pass")
+            .enableCbsCertAuth(true)
             .appName("dcae-prh")
             .cbsName("config-binding-service")
             .consulHost("consul")
