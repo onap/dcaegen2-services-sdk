@@ -23,13 +23,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.handler.ssl.SslContext;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Try;
-
-import java.net.InetSocketAddress;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Duration;
-import java.util.Optional;
-
 import org.onap.dcaegen2.services.sdk.security.ssl.*;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducer;
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.HvVesProducerFactory;
@@ -39,6 +32,12 @@ import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options
 import org.onap.dcaegen2.services.sdk.services.hvves.client.producer.api.options.WireFrameVersion;
 import org.onap.ves.VesEventOuterClass.VesEvent;
 import reactor.core.publisher.Flux;
+
+import java.net.InetSocketAddress;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -119,5 +118,4 @@ public class SystemUnderTestWrapper {
     private Try<Path> resource(String resource) {
         return Try.of(() -> Paths.get(Passwords.class.getResource(resource).toURI()));
     }
-
 }
