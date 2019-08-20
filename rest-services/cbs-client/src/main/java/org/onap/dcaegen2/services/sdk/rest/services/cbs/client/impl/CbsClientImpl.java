@@ -20,9 +20,6 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import com.google.gson.JsonObject;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
@@ -33,6 +30,9 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class CbsClientImpl implements CbsClient {
 
@@ -40,16 +40,18 @@ public class CbsClientImpl implements CbsClient {
     private final RxHttpClient httpClient;
     private final String serviceName;
     private final InetSocketAddress cbsAddress;
+    private final String protocol;
 
-    public CbsClientImpl(RxHttpClient httpClient, String serviceName, InetSocketAddress cbsAddress) {
+    public CbsClientImpl(RxHttpClient httpClient, String serviceName, InetSocketAddress cbsAddress, String protocol) {
         this.httpClient = httpClient;
         this.serviceName = serviceName;
         this.cbsAddress = cbsAddress;
+        this.protocol = protocol;
     }
 
     @Override
     public @NotNull Mono<JsonObject> get(CbsRequest request) {
-        return Mono.fromCallable(() -> constructUrl(request).toString())
+        return Mono.fromCallable(() -> constructUrl(request, protocol).toString())
                 .doOnNext(this::logRequestUrl)
                 .map(url -> ImmutableHttpRequest.builder()
                         .method(HttpMethod.GET)
@@ -63,10 +65,10 @@ public class CbsClientImpl implements CbsClient {
     }
 
 
-    private URL constructUrl(CbsRequest request) {
+    private URL constructUrl(CbsRequest request, String protocol) {
         try {
             return new URL(
-                    "http",
+                    protocol,
                     cbsAddress.getHostString(),
                     cbsAddress.getPort(),
                     request.requestPath().getForService(serviceName));

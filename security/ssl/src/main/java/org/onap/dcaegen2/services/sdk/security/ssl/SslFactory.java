@@ -24,6 +24,12 @@ import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingSecurityKeysStoreException;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.SecurityConfigurationException;
+
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.TrustManagerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -32,11 +38,6 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLException;
-import javax.net.ssl.TrustManagerFactory;
-import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingSecurityKeysStoreException;
-import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.SecurityConfigurationException;
 
 /**
  * @since 1.1.1
@@ -55,6 +56,22 @@ public class SslFactory {
         try {
             return SslContextBuilder.forClient()
                     .keyManager(keyManagerFactory(keys))
+                    .trustManager(trustManagerFactory(keys))
+                    .build();
+        } catch (SSLException e) {
+            throw new SecurityConfigurationException(EXCEPTION_MESSAGE, e);
+        }
+    }
+
+    /**
+     * Creates Netty SSL <em>client</em> context using provided security keys.
+     *
+     * @param keys - Security keys to be used
+     * @return configured SSL context
+     */
+    public SslContext createSecureClientContext(final TrustStoreKeys keys) {
+        try {
+            return SslContextBuilder.forClient()
                     .trustManager(trustManagerFactory(keys))
                     .build();
         } catch (SSLException e) {
@@ -111,9 +128,14 @@ public class SslFactory {
         return trustManagerFactory(keys.trustStore(), keys.trustStorePassword());
     }
 
+    private TrustManagerFactory trustManagerFactory(TrustStoreKeys keys) {
+        return trustManagerFactory(keys.trustStore(), keys.trustStorePassword());
+    }
+
     private KeyManagerFactory keyManagerFactory(SecurityKeys keys) {
         return keyManagerFactory(keys.keyStore(), keys.keyStorePassword());
     }
+
 
     private KeyManagerFactory keyManagerFactory(SecurityKeysStore store, Password password) {
         return password.use(passwordChars -> {
