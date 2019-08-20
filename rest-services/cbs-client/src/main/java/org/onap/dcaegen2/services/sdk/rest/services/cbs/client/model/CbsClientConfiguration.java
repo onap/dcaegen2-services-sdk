@@ -22,6 +22,12 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model;
 
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
+import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
+
+import java.nio.file.Paths;
 
 /**
  * Immutable object which helps with construction of cloudRequestObject for specified Client. For usage take a look in
@@ -34,6 +40,8 @@ import org.jetbrains.annotations.Nullable;
  */
 @Value.Immutable(prehash = true)
 public interface CbsClientConfiguration {
+
+    String HTTPS_ENABLED = "1";
 
     /**
      * Name of environment variable containing Config Binding Service network hostname.
@@ -51,6 +59,31 @@ public interface CbsClientConfiguration {
     String ENV_APP_NAME = "HOSTNAME";
 
     /**
+     * Name of environment variable indicating usage of the https protocol. ("1" - https enabled, other - not enabled)
+     */
+    String ENV_USE_HTTPS = "USE_HTTPS";
+
+    /**
+     * Name of environment variable containing path to the TLS private key.
+     */
+    String ENV_HTTPS_KEY_PATH = "HTTPS_KEY_PATH";
+
+    /**
+     * Name of environment variable containing path to the TLS private key password.
+     */
+    String ENV_HTTPS_KEY_PASS_PATH = "HTTPS_KEY_PASS_PATH";
+
+    /**
+     * Name of environment variable containing path to the TLS certificate.
+     */
+    String ENV_HTTPS_CERT_PATH = "HTTPS_CERT_PATH";
+
+    /**
+     * Name of environment variable containing path to the TLS certificate password.
+     */
+    String ENV_HTTPS_CERT_PASS_PATH = "HTTPS_CERT_PASS_PATH";
+
+    /**
      * Name of environment variable containing Consul host name.
      *
      * @deprecated CBS lookup in Consul service should not be needed,
@@ -58,7 +91,6 @@ public interface CbsClientConfiguration {
      */
     @Deprecated
     String ENV_CONSUL_HOST = "CONSUL_HOST";
-
     /**
      * Name of environment variable containing Config Binding Service <em>service name</em> as registered in Consul
      * services API.
@@ -81,17 +113,20 @@ public interface CbsClientConfiguration {
     String appName();
 
     @Value.Default
+    default @Nullable SecurityKeys securityKeys() {
+        return null;
+    }
+
+    @Value.Default
     @Deprecated
     default String consulHost() {
         return "consul-server";
     }
-
     @Value.Default
     @Deprecated
     default Integer consulPort() {
         return 8500;
     }
-
     @Value.Default
     @Deprecated
     default String cbsName() {
@@ -105,11 +140,28 @@ public interface CbsClientConfiguration {
      * @throws NullPointerException when at least one of required parameters is missing
      */
     static CbsClientConfiguration fromEnvironment() {
-        return ImmutableCbsClientConfiguration.builder()
-                .consulHost(System.getenv(ENV_CONSUL_HOST))
+
+        ImmutableCbsClientConfiguration configuration = ImmutableCbsClientConfiguration.builder()
                 .hostname(System.getenv(ENV_CBS_HOSTNAME))
                 .port(Integer.valueOf(System.getenv(ENV_CBS_PORT)))
                 .appName(System.getenv(ENV_APP_NAME))
+                .build();
+
+        if (System.getenv(ENV_CONSUL_HOST) != null) {
+            configuration.withConsulHost(System.getenv(ENV_CONSUL_HOST));
+        }
+
+        return !HTTPS_ENABLED.equals(System.getenv(ENV_USE_HTTPS))
+                ? configuration
+                : configuration.withSecurityKeys(crateSecurityKeysFromEnvironment() );
+    }
+
+    static SecurityKeys crateSecurityKeysFromEnvironment() {
+        return ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(Paths.get(System.getenv(ENV_HTTPS_KEY_PATH))))
+                .keyStorePassword(Passwords.fromPath(Paths.get(System.getenv(ENV_HTTPS_KEY_PASS_PATH))))
+                .trustStore(ImmutableSecurityKeysStore.of(Paths.get(System.getenv(ENV_HTTPS_CERT_PATH))))
+                .trustStorePassword(Passwords.fromPath(Paths.get(System.getenv(ENV_HTTPS_CERT_PASS_PATH))))
                 .build();
     }
 }
