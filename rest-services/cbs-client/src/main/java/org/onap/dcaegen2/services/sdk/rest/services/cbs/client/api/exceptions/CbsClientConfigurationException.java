@@ -18,17 +18,12 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
+package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions;
 
-import com.google.gson.JsonElement;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
-import reactor.core.publisher.Flux;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
-public interface MessageRouterPublisher {
-    Flux<MessageRouterPublishResponse> put(MessageRouterPublishRequest request, Flux<? extends JsonElement> items);
+public class CbsClientConfigurationException extends RuntimeException {
+    public CbsClientConfigurationException(final @NotNull String message) {
+        super(message);
+    }
 }
