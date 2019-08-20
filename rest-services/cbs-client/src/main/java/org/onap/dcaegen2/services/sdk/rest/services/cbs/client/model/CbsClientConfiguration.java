@@ -22,6 +22,13 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model;
 
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
+import org.onap.dcaegen2.services.sdk.security.ssl.Passwords;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Immutable object which helps with construction of cloudRequestObject for specified Client. For usage take a look in
@@ -35,6 +42,16 @@ import org.jetbrains.annotations.Nullable;
 @Value.Immutable(prehash = true)
 public interface CbsClientConfiguration {
 
+    String CERT_JKS = "cert.jks";
+    String CERT_PASS = "jks.pass";
+    String TRUST_JKS = "trust.jks";
+    String TRUST_PASS = "trust.pass";
+
+    /**
+     * Name of environment variable containing path to the cacert.pem file.
+    */
+    String DCAE_CA_CERT_PATH = "DCAE_CA_CERTPATH";
+
     /**
      * Name of environment variable containing Config Binding Service network hostname.
      */
@@ -44,6 +61,11 @@ public interface CbsClientConfiguration {
      * Name of environment variable containing Config Binding Service network port.
      */
     String ENV_CBS_PORT = "CONFIG_BINDING_SERVICE_SERVICE_PORT";
+
+    /**
+     * Name of environment variable containing Config Binding Service secure network port.
+     */
+    String ENV_CBS_PORT_SECURE = "CONFIG_BINDING_SERVICE_PORT_10443_TCP_PORT";
 
     /**
      * Name of environment variable containing current application name.
@@ -80,18 +102,25 @@ public interface CbsClientConfiguration {
     @Value.Parameter
     String appName();
 
+    @Value.Parameter
+    @Nullable
+    String protocol();
+
+    @Value.Default
+    default @Nullable SecurityKeys securityKeys() {
+        return null;
+    }
+
     @Value.Default
     @Deprecated
     default String consulHost() {
         return "consul-server";
     }
-
     @Value.Default
     @Deprecated
     default Integer consulPort() {
         return 8500;
     }
-
     @Value.Default
     @Deprecated
     default String cbsName() {
@@ -105,11 +134,46 @@ public interface CbsClientConfiguration {
      * @throws NullPointerException when at least one of required parameters is missing
      */
     static CbsClientConfiguration fromEnvironment() {
-        return ImmutableCbsClientConfiguration.builder()
-                .consulHost(System.getenv(ENV_CONSUL_HOST))
+        String pathToCaCertPemFile = System.getenv(DCAE_CA_CERT_PATH);
+
+        ImmutableCbsClientConfiguration configuration = ImmutableCbsClientConfiguration.builder()
                 .hostname(System.getenv(ENV_CBS_HOSTNAME))
-                .port(Integer.valueOf(System.getenv(ENV_CBS_PORT)))
                 .appName(System.getenv(ENV_APP_NAME))
                 .build();
+
+        return checkIfCertPathIsSet(pathToCaCertPemFile) && checkIfAllJksFilesExist(pathToCaCertPemFile)
+                ? configuration
+                    .withSecurityKeys(crateSecurityKeysFromEnvironment(createPathToJksFile(pathToCaCertPemFile)))
+                .withProtocol("https")
+                    .withPort(Integer.valueOf(System.getenv(ENV_CBS_PORT_SECURE)))
+                : configuration
+                .withProtocol("http")
+                    .withPort(Integer.valueOf(System.getenv(ENV_CBS_PORT)));
+    }
+
+    static SecurityKeys crateSecurityKeysFromEnvironment(String pathToCerts) {
+        return ImmutableSecurityKeys.builder()
+                .keyStore(ImmutableSecurityKeysStore.of(Paths.get(System.getenv(pathToCerts + "/" + CERT_JKS))))
+                .keyStorePassword(Passwords.fromPath(Paths.get(System.getenv(pathToCerts + "/" + CERT_PASS))))
+                .trustStore(ImmutableSecurityKeysStore.of(Paths.get(System.getenv(pathToCerts + "/" + TRUST_JKS))))
+                .trustStorePassword(Passwords.fromPath(Paths.get(System.getenv(pathToCerts + "/" + TRUST_PASS))))
+                .build();
+    }
+
+    static Boolean checkIfCertPathIsSet(String pathToCaCertPemFile) {
+        return pathToCaCertPemFile != null && !pathToCaCertPemFile.isEmpty();
+    }
+
+    static String createPathToJksFile(String pathToCaCertPemFile) {
+        return pathToCaCertPemFile.substring(0,pathToCaCertPemFile.lastIndexOf("/"));
+    }
+
+    static Boolean checkIfAllJksFilesExist(String pathToCaCertPemFile) {
+        String pathToJksFile = createPathToJksFile(pathToCaCertPemFile);
+
+        return  Files.exists(Paths.get(pathToJksFile + "/" + CERT_JKS)) &&
+                Files.exists(Paths.get(pathToJksFile + "/" + CERT_PASS)) &&
+                Files.exists(Paths.get(pathToJksFile + "/" + TRUST_JKS)) &&
+                Files.exists(Paths.get(pathToJksFile + "/" + TRUST_PASS));
     }
 }
