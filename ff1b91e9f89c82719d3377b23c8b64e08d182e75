@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f64b2dfe_5705f375",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-08-22T06:58:35Z",
+      "side": 1,
+      "message": "the name seems too generic (as one of maany env variables passed to client container how would you know that this is related only to communication with CBS, and not other services?)\nI\u0027d try keeping the convention and start the name with \u0027CONFIG_BINDING_something\u0027",
+      "range": {
+        "startLine": 64,
+        "startChar": 28,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41569b2c_10df2217",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-08-22T06:58:35Z",
+      "side": 1,
+      "message": "this is not strictly related to the scope of your change, but you could consider replacing that with\n\n        if (System.getenv(ENV_CONSUL_HOST) !\u003d null) {\n            configuration.withConsulHost(System.getenv(ENV_CONSUL_HOST));\n        }\n\nto prevent NPE if client has not set that env variable (which seems to be deprecated and not used by sdk code)",
+      "range": {
+        "startLine": 145,
+        "startChar": 17,
+        "endLine": 145,
+        "endChar": 59
+      },
+      "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e32c7d4e_ec643089",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-08-22T06:58:35Z",
+      "side": 1,
+      "message": "Null Pointer when the system property is not defined",
+      "range": {
+        "startLine": 150,
+        "startChar": 17,
+        "endLine": 150,
+        "endChar": 66
+      },
+      "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be7bb0c3_f310c8fb",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-08-22T06:58:35Z",
+      "side": 1,
+      "message": "consider extracting that to separate \u0027createSecurityKeys()\u0027 method",
+      "range": {
+        "startLine": 151,
+        "startChar": 47,
+        "endLine": 156,
+        "endChar": 34
+      },
+      "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
