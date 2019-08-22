@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc50fc2b_c018aa93",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-08-22T12:13:26Z",
+      "side": 1,
+      "message": "The USE_HTTPS name was proposed by https://wiki.onap.org/display/DW/TLS+support+for+CBS+-+Migration+Plan\n\n\"CBS Enhancement  (DCAEGEN2-1549)\n\n    Support HTTPS enablement via environment variable\n        USE_HTTPS: set to “1” to use HTTPS, anything else is HTTP\n        HTTPS_KEY_PATH: path to the TLS private key\n        HTTPS_CERT_PATH: path to the TLS certificate\n    Use port 10443 if USE_HTTPS is set to “1”, otherwise  port 10000\"\n\nSo I\u0027m not quite sure if I can rename it.",
+      "parentUuid": "f64b2dfe_5705f375",
+      "range": {
+        "startLine": 64,
+        "startChar": 28,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41569b2c_10df2217",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ac22545_2565a234",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-08-22T12:13:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41569b2c_10df2217",
+      "range": {
+        "startLine": 145,
+        "startChar": 17,
+        "endLine": 145,
+        "endChar": 59
+      },
+      "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "32cd54c2_424bbc2c",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-08-22T12:13:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e32c7d4e_ec643089",
+      "range": {
+        "startLine": 150,
+        "startChar": 17,
+        "endLine": 150,
+        "endChar": 66
+      },
+      "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be7bb0c3_f310c8fb",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68fb854d_f1a7d10c",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-08-22T12:13:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be7bb0c3_f310c8fb",
+      "range": {
+        "startLine": 151,
+        "startChar": 47,
+        "endLine": 156,
+        "endChar": 34
+      },
+      "revId": "ff1b91e9f89c82719d3377b23c8b64e08d182e75",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
