@@ -37,7 +37,7 @@ services:
     - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.14
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.16
     ports:
       - "3904:3904"
       - "3905:3905"
