@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a916b354_a06c59c7",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-09-03T22:51:46Z",
+      "side": 1,
+      "message": "This change is not consistent to variable identified under https://wiki.onap.org/display/DW/TLS+support+for+CBS+-+Migration+Plan#TLSsupportforCBS-MigrationPlan-LibraryEnhancement(CBSjavasdk-DCAEGEN2-1552,CBSpythonutil-DCAEGEN2-1551)\n\nThe USE_HTTPS, HTTPS_KEY_PATH and HTTPS_CERT_PATH were intended for CBS component only. The CBS SDK library was expected to use DCAE_CA_CERTPATH to determine if TLS connection should be established and use CA certificate file (this is not encrypted or password protected)",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 1
+      },
+      "revId": "cc62cdd23c3b1948454b62d4843435674f195ed1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
