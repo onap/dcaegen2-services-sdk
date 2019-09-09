@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "8d0d8c40_7e9b2c12",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-09T12:09:13Z",
+      "side": 1,
+      "message": "This code assumes that this path is always set. What if this path is not set e.g. case of use_tls: false",
+      "revId": "cf4dd73c08e939929dbda2c76d4a975df7d39b1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28a51add_617acd6a",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 3
@@ -59,6 +76,30 @@
       "writtenOn": "2019-09-09T10:22:37Z",
       "side": 1,
       "message": "Do we really need it?",
+      "range": {
+        "startLine": 142,
+        "startChar": 11,
+        "endLine": 142,
+        "endChar": 73
+      },
+      "revId": "cf4dd73c08e939929dbda2c76d4a975df7d39b1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bed4612b_f9de413e",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-09T12:09:13Z",
+      "side": 1,
+      "message": "I mean Consul Host.",
+      "parentUuid": "28a51add_617acd6a",
       "range": {
         "startLine": 142,
         "startChar": 11,
