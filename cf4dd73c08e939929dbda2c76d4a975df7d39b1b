@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9436946d_6004af7b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-09T10:22:37Z",
+      "side": 1,
+      "message": "Rename it to cbsLookup.",
+      "range": {
+        "startLine": 57,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 34
+      },
+      "revId": "cf4dd73c08e939929dbda2c76d4a975df7d39b1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e71c49f2_7ea02773",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-09T10:22:37Z",
+      "side": 1,
+      "message": "Pass here just SecurityKeys object. No need for whole CbsCLientConfiguration object.",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 78
+      },
+      "revId": "cf4dd73c08e939929dbda2c76d4a975df7d39b1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28a51add_617acd6a",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-09T10:22:37Z",
+      "side": 1,
+      "message": "Do we really need it?",
+      "range": {
+        "startLine": 142,
+        "startChar": 11,
+        "endLine": 142,
+        "endChar": 73
+      },
+      "revId": "cf4dd73c08e939929dbda2c76d4a975df7d39b1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
