@@ -23,8 +23,16 @@ package org.onap.dcaegen2.services.sdk.security.ssl;
 import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.SslProvider;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingSecurityKeysStoreException;
+import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.SecurityConfigurationException;
+
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.TrustManagerFactory;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.security.GeneralSecurityException;
@@ -32,11 +40,8 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLException;
-import javax.net.ssl.TrustManagerFactory;
-import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingSecurityKeysStoreException;
-import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.SecurityConfigurationException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 
 /**
  * @since 1.1.1
@@ -58,6 +63,17 @@ public class SslFactory {
                     .trustManager(trustManagerFactory(keys))
                     .build();
         } catch (SSLException e) {
+            throw new SecurityConfigurationException(EXCEPTION_MESSAGE, e);
+        }
+    }
+
+    public SslContext createSecureClientContext(final SecurityKeysStore store) {
+        try {
+            return SslContextBuilder.forClient()
+                    .sslProvider(SslProvider.JDK)
+                    .trustManager(loadX509FromFile(store))
+                    .build();
+        } catch (CertificateException | IOException e) {
             throw new SecurityConfigurationException(EXCEPTION_MESSAGE, e);
         }
     }
@@ -146,5 +162,11 @@ public class SslFactory {
         KeyStore ks = KeyStore.getInstance(store.type());
         ks.load(Files.newInputStream(store.path(), StandardOpenOption.READ), keyStorePassword);
         return ks;
+    }
+
+    private X509Certificate loadX509FromFile(SecurityKeysStore store) throws CertificateException, IOException {
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        InputStream in = Files.newInputStream(store.path(), StandardOpenOption.READ);
+        return (X509Certificate) cf.generateCertificate(in);
     }
 }

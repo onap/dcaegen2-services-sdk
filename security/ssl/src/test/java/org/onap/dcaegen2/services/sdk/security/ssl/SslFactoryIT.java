@@ -19,17 +19,17 @@
  */
 package org.onap.dcaegen2.services.sdk.security.ssl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.onap.dcaegen2.services.sdk.security.ssl.Passwords.fromResource;
-
 import io.netty.handler.ssl.SslContext;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import org.assertj.core.api.Assertions;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingSecurityKeysStoreException;
+
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.onap.dcaegen2.services.sdk.security.ssl.Passwords.fromResource;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -38,6 +38,18 @@ import org.onap.dcaegen2.services.sdk.security.ssl.exceptions.ReadingSecurityKey
 class SslFactoryIT {
 
     private SslFactory sut = new SslFactory();
+
+    @Test
+    void createSecureClientContext_shouldReturnSuccess() throws URISyntaxException {
+        // given
+        SecurityKeysStore securityKeysStore = keyStoreFromResource("/sample/cacert.pem");
+
+        // when
+        final SslContext ctx = sut.createSecureClientContext(securityKeysStore);
+
+        // then
+        assertThat(ctx.isClient()).describedAs("is server ssl context").isTrue();
+    }
 
     @Test
     void testSuccessCase() throws Exception {
@@ -89,7 +101,6 @@ class SslFactoryIT {
     }
 
     private @NotNull SecurityKeysStore keyStoreFromResource(String resource) throws URISyntaxException {
-        return SecurityKeysStore.fromPath(
-                Paths.get(Passwords.class.getResource(resource).toURI()));
+        return SecurityKeysStore.fromPath(Paths.get(Passwords.class.getResource(resource).toURI()));
     }
 }

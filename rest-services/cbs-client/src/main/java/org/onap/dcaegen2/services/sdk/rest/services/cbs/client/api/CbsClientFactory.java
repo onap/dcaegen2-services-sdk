@@ -25,6 +25,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFa
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientImpl;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeysStore;
 import reactor.core.publisher.Mono;
 
 /**
@@ -55,9 +56,17 @@ public class CbsClientFactory {
     public static @NotNull Mono<CbsClient> createCbsClient(CbsClientConfiguration configuration) {
         return Mono.defer(() -> {
             final RxHttpClient httpClient = RxHttpClientFactory.create();
-            final CbsLookup lookup = new CbsLookup();
-            return lookup.lookup(configuration)
-                    .map(addr -> new CbsClientImpl(httpClient, configuration.appName(), addr));
+            final CbsLookup cbsLookup = new CbsLookup();
+            return cbsLookup.lookup(configuration)
+                    .map(addr -> new CbsClientImpl(buildHttpClient(configuration.cacert()), configuration.appName(), addr));
+
+
         });
+    }
+
+    private static RxHttpClient buildHttpClient(SecurityKeysStore store) {
+        return store != null
+                ? RxHttpClientFactory.create(store)
+                : RxHttpClientFactory.create();
     }
 }

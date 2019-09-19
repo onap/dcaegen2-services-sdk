@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 import io.netty.handler.ssl.SslContext;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeysStore;
 import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import reactor.netty.http.client.HttpClient;
 
@@ -41,6 +42,10 @@ public final class RxHttpClientFactory {
         return new RxHttpClient(HttpClient.create());
     }
 
+    public static RxHttpClient create(SecurityKeysStore securityKeysStore) {
+        final SslContext context = SSL_FACTORY.createSecureClientContext(securityKeysStore);
+        return create(context);
+    }
 
     public static RxHttpClient create(SecurityKeys securityKeys) {
         final SslContext context = SSL_FACTORY.createSecureClientContext(securityKeys);

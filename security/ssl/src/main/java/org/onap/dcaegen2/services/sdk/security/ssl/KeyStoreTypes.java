@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.security.ssl;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import io.vavr.control.Option;
+
 import java.nio.file.Path;
 
 /**
@@ -32,8 +33,10 @@ import java.nio.file.Path;
 final class KeyStoreTypes {
     static final String TYPE_JKS = "jks";
     static final String TYPE_PKCS12 = "pkcs12";
+    static final String TYPE_PEM = "pem";
     private static final Set<String> JKS_EXTENSIONS = HashSet.of(TYPE_JKS);
     private static final Set<String> PKCS12_EXTENSIONS = HashSet.of(TYPE_PKCS12, "p12");
+    private static final Set<String> PEM_EXTENSIONS = HashSet.of(TYPE_PEM);
 
     private KeyStoreTypes() {}
 
@@ -54,6 +57,8 @@ final class KeyStoreTypes {
             return Option.of(TYPE_JKS);
         } else if (PKCS12_EXTENSIONS.contains(extension)) {
             return Option.of(TYPE_PKCS12);
+        } else if (PEM_EXTENSIONS.contains(extension)) {
+            return Option.of(TYPE_PEM);
         } else {
             return Option.none();
         }

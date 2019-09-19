@@ -22,6 +22,11 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model;
 
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.security.ssl.ImmutableSecurityKeysStore;
+import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeysStore;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Immutable object which helps with construction of cloudRequestObject for specified Client. For usage take a look in
@@ -34,6 +39,13 @@ import org.jetbrains.annotations.Nullable;
  */
 @Value.Immutable(prehash = true)
 public interface CbsClientConfiguration {
+
+    /**
+     * Name of environment variable containing path to the cacert.pem.
+     */
+    String ENV_DCAE_CA_CERT_PATH = "DCAE_CA_CERTPATH";
+
+    Integer TLS_PORT = 10443;
 
     /**
      * Name of environment variable containing Config Binding Service network hostname.
@@ -71,6 +83,10 @@ public interface CbsClientConfiguration {
 
     @Value.Parameter
     @Nullable
+    SecurityKeysStore cacert();
+
+    @Value.Parameter
+    @Nullable
     String hostname();
 
     @Value.Parameter
@@ -105,11 +121,23 @@ public interface CbsClientConfiguration {
      * @throws NullPointerException when at least one of required parameters is missing
      */
     static CbsClientConfiguration fromEnvironment() {
-        return ImmutableCbsClientConfiguration.builder()
+        String pathToCaCertPemFile = System.getenv(ENV_DCAE_CA_CERT_PATH);
+
+        ImmutableCbsClientConfiguration configuration = ImmutableCbsClientConfiguration.builder()
                 .consulHost(System.getenv(ENV_CONSUL_HOST))
                 .hostname(System.getenv(ENV_CBS_HOSTNAME))
-                .port(Integer.valueOf(System.getenv(ENV_CBS_PORT)))
                 .appName(System.getenv(ENV_APP_NAME))
                 .build();
+
+        return checkIfCertPathIsSet(pathToCaCertPemFile) && Files.exists(Paths.get(pathToCaCertPemFile))
+                ? configuration
+                .withPort(TLS_PORT)
+                .withCacert(ImmutableSecurityKeysStore.of(Paths.get(pathToCaCertPemFile)))
+                : configuration
+                .withPort(Integer.valueOf(System.getenv(ENV_CBS_PORT)));
+    }
+
+    static Boolean checkIfCertPathIsSet(String pathToCaCertPemFile) {
+        return pathToCaCertPemFile != null && !pathToCaCertPemFile.isEmpty();
     }
 }
