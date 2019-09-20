@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "464f6a6e_bba3867e",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-20T13:04:55Z",
+      "side": 1,
+      "message": "I would mark it with CBS, like: CBS_TLS...",
+      "revId": "9f654fe1706e1cac78a03c6934e546a8faa9ab3d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c29d86_b78a5807",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-20T13:04:55Z",
+      "side": 1,
+      "message": "Add java doc here",
+      "revId": "9f654fe1706e1cac78a03c6934e546a8faa9ab3d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be12db64_0a4b0b13",
+        "filename": "security/ssl/src/test/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactoryIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-20T13:04:55Z",
+      "side": 1,
+      "message": "I would mark that this tests one way TL",
+      "revId": "9f654fe1706e1cac78a03c6934e546a8faa9ab3d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e06077e_cc32fb03",
+        "filename": "security/ssl/src/test/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactoryIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-09-20T13:04:55Z",
+      "side": 1,
+      "message": "I would mark here similar like your case applying above comment",
+      "revId": "9f654fe1706e1cac78a03c6934e546a8faa9ab3d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
