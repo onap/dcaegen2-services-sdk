@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e94cbb75_f54caa54",
+        "filename": "rest-services/cbs-client/pom.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-02T18:04:44Z",
+      "side": 1,
+      "message": "needed?",
+      "revId": "3840b1f54abbef392ac5e7b179096940acd566af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62451328_42376f8e",
+        "filename": "rest-services/cbs-client/src/test/resources/certsForUnitTests/cert.jks",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-02T18:04:44Z",
+      "side": 1,
+      "message": "I would rename folder name from camel case to e.g. test-certs",
+      "revId": "3840b1f54abbef392ac5e7b179096940acd566af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d17d50a_9244233a",
+        "filename": "security/ssl/src/test/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactoryIT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-02T18:04:44Z",
+      "side": 1,
+      "message": "To be removed?",
+      "revId": "3840b1f54abbef392ac5e7b179096940acd566af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
