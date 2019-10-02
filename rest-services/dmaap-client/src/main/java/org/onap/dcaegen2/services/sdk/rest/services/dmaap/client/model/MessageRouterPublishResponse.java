@@ -24,7 +24,6 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
 import com.google.gson.JsonElement;
 import io.vavr.collection.List;
 import org.immutables.value.Value;
-import org.onap.dcaegen2.services.sdk.rest.services.annotations.ExperimentalApi;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
