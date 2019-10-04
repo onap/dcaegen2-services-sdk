@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "14da85aa_b47b50a6",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-10-04T10:20:26Z",
+      "side": 1,
+      "message": "unused",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 73
+      },
+      "revId": "9f654fe1706e1cac78a03c6934e546a8faa9ab3d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "464f6a6e_bba3867e",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 1
@@ -50,6 +73,29 @@
       "revId": "9f654fe1706e1cac78a03c6934e546a8faa9ab3d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f492e320_f79a0baa",
+        "filename": "security/ssl/src/test/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactoryIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-10-04T10:20:26Z",
+      "side": 1,
+      "message": "description does not match assertion",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 70
+      },
+      "revId": "9f654fe1706e1cac78a03c6934e546a8faa9ab3d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     },
     {
       "key": {
