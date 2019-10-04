@@ -112,6 +112,52 @@
     },
     {
       "key": {
+        "uuid": "25e1a959_8e5035a0",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-10-04T14:05:13Z",
+      "side": 1,
+      "message": "is that needed? (full URL is logged later on)\nif that shall stay, could that be on \u0027debug\u0027 level?",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 60
+      },
+      "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5088528b_20727900",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-10-04T14:05:13Z",
+      "side": 1,
+      "message": "CONFIG_BINDING_SERVICE_SECURE_PORT",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 76
+      },
+      "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07893449_a4dc8ad6",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 10
@@ -144,6 +190,29 @@
       "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f666941_de2c14bf",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientConfigurationTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5337
+      },
+      "writtenOn": "2019-10-04T14:05:13Z",
+      "side": 1,
+      "message": "NumberFormatException is not acceptable exception type for situation when there app configuration is incomplete -\u003e you will not be able to guess how to fix the confg unless you compare the stacktrace with the actual source code\n\nPlease consider throwing some exception with a more precise message\nfor exaple a RuntimeException(\"CONFIG_BINDING_SERVICE_SERVICE_PORT environment variable is missing or invalid\") or something like that.",
+      "range": {
+        "startLine": 83,
+        "startChar": 34,
+        "endLine": 83,
+        "endChar": 55
+      },
+      "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
