@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "bd86e9d4_336c7beb",
+        "filename": "rest-services/cbs-client/pom.xml",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-10-04T13:23:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3296e23d_6df37a9b",
+      "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb735ab3_26f3c137",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
         "patchSetId": 10
@@ -76,6 +94,24 @@
     },
     {
       "key": {
+        "uuid": "a31e18bd_ed34a9a2",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-10-04T13:23:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26a1050a_02e5ef65",
+      "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07893449_a4dc8ad6",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 10
@@ -87,6 +123,24 @@
       "writtenOn": "2019-10-03T15:17:53Z",
       "side": 1,
       "message": "What do you think about such alternative implementation?:\n```\n    static CbsClientConfiguration fromEnvironment() {\n        ImmutableCbsClientConfiguration.Builder configBuilder \u003d ImmutableCbsClientConfiguration.builder()\n                .hostname(System.getenv(ENV_CBS_HOSTNAME))\n                .appName(System.getenv(ENV_APP_NAME));\n        if (System.getenv(DCAE_CA_CERT_PATH) \u003d\u003d null) {\n            LOGGER.info(\"Cannot read SSL keys. CBS client will use plain http protocol.\");\n            return configBuilder.protocol(\"http\")\n                    .port(Integer.valueOf(System.getenv(ENV_CBS_PORT)))\n                    .hostname(System.getenv(ENV_CBS_HOSTNAME))\n                    .appName(System.getenv(ENV_APP_NAME))\n                    .build();\n        }\n        else {\n            LOGGER.info(\"CBS client will use http over TLS.\");\n            return configBuilder.securityKeys(crateSecurityKeysFromEnvironment(createPathToJksFile(System.getenv(DCAE_CA_CERT_PATH))))\n                    .port(Integer.valueOf(System.getenv(ENV_CBS_PORT_SECURE)))\n                    .protocol(\"https\")\n                    .hostname(System.getenv(ENV_CBS_HOSTNAME))\n                    .appName(System.getenv(ENV_APP_NAME))\n                    .build();\n        }\n    }\n```",
+      "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b07537_6ad9fae8",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-10-04T13:23:08Z",
+      "side": 1,
+      "message": "Due to offline discussion existing implementation will be used.",
+      "parentUuid": "07893449_a4dc8ad6",
       "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
