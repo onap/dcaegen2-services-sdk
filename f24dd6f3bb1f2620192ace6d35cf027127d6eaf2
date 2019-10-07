@@ -158,6 +158,30 @@
     },
     {
       "key": {
+        "uuid": "8ee21cd9_aff48e3d",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-10-07T14:33:50Z",
+      "side": 1,
+      "message": "There is no such variable in the environment. I\u0027ve checked it.",
+      "parentUuid": "5088528b_20727900",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 76
+      },
+      "revId": "f24dd6f3bb1f2620192ace6d35cf027127d6eaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07893449_a4dc8ad6",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 10
