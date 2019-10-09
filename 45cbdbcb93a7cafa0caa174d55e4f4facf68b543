@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e67d6b8_8e2521a4",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-09T09:53:50Z",
+      "side": 1,
+      "message": "Sorry I have missed it in my previous review. As we discussed with Maciej Grabiński please delete it.",
+      "range": {
+        "startLine": 148,
+        "startChar": 26,
+        "endLine": 148,
+        "endChar": 47
+      },
+      "revId": "45cbdbcb93a7cafa0caa174d55e4f4facf68b543",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dc40270_9c6cf2d4",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientConfigurationTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-09T09:53:50Z",
+      "side": 1,
+      "message": "same like beneath\nadditional: I would end it with ...isEmpty()",
+      "revId": "45cbdbcb93a7cafa0caa174d55e4f4facf68b543",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "372161ae_85504567",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientConfigurationTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-09T09:53:50Z",
+      "side": 1,
+      "message": "same like beneath",
+      "revId": "45cbdbcb93a7cafa0caa174d55e4f4facf68b543",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90e7eeb6_77b640c5",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientConfigurationTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-09T09:53:50Z",
+      "side": 1,
+      "message": "Please add \"_\" for this and all others to: fromEnvironment_shouldReturn_CbsClientConfigurationException_When_CONFIG_BINDING_SERVICE_SERVICE_PORT_isMissing",
+      "revId": "45cbdbcb93a7cafa0caa174d55e4f4facf68b543",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
