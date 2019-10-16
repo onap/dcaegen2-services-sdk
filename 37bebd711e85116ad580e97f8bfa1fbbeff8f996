@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf21c3fc_b55b9b7c",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-10-16T16:00:18Z",
+      "side": 1,
+      "message": "For a component having use_tls:false in blueprint, these files will not available.",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 37
+      },
+      "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6c2c99_fe28f694",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-10-16T16:00:18Z",
+      "side": 1,
+      "message": "This is not env exposed by the plugin explicitly, I think k8s deployment automatically exposes these based on service definition. Using this env as is okay, other option will be define a constant for secure port as 10443 use it.",
+      "range": {
+        "startLine": 72,
+        "startChar": 34,
+        "endLine": 72,
+        "endChar": 76
+      },
+      "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f11b3095_88f04479",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-10-16T16:00:18Z",
+      "side": 1,
+      "message": "If cert/trust file is not available CBS connection could fail. How about default to CBS HTTP in such case?",
+      "range": {
+        "startLine": 156,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 66
+      },
+      "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
