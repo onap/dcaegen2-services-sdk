@@ -68,6 +68,30 @@
       "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88eee8fc_7c72d4a2",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-10-17T05:31:55Z",
+      "side": 1,
+      "message": "Plain http is realised in first code block above.\nLines 148 - 152\nThis is suitable for current design of k8s plugin.",
+      "parentUuid": "f11b3095_88f04479",
+      "range": {
+        "startLine": 156,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 66
+      },
+      "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
