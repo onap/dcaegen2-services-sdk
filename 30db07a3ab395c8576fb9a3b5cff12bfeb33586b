@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "3735403b_2e24f130",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2019-11-04T14:14:26Z",
+      "side": 1,
+      "message": "Consider using \u003cskipITs\u003etrue\u003c/skipITs\u003e",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5aefb18_7b666b9d",
         "filename": "pom.xml",
         "patchSetId": 3
@@ -45,6 +68,29 @@
       "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5da9df21_d281cb1f",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2019-11-04T14:14:26Z",
+      "side": 1,
+      "message": "Consider using \u003cskipTests\u003etrue\u003c/skipTests\u003e",
+      "range": {
+        "startLine": 55,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
