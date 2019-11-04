@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f0f2711_a4be1c83",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-04T16:18:50Z",
+      "side": 1,
+      "message": "At the first time, I placed exclude IT tests configuration section in the plugins section. \nI was not able to override it by integration-pairwise profile by adding include section.\nSo I decided to create two profiles.",
+      "parentUuid": "4d31d6f1_f4fce181",
+      "range": {
+        "startLine": 37,
+        "startChar": 35,
+        "endLine": 37,
+        "endChar": 57
+      },
+      "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3735403b_2e24f130",
         "filename": "pom.xml",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "747a0de9_5e9c3e3d",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-04T16:18:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3735403b_2e24f130",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -91,6 +139,30 @@
       "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "627eaeb6_018ff51c",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-04T16:18:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5da9df21_d281cb1f",
+      "range": {
+        "startLine": 55,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
