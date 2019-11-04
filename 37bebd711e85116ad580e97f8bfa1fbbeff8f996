@@ -188,6 +188,30 @@
       "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24c8a372_be5c2ce2",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-11-04T18:05:29Z",
+      "side": 1,
+      "message": "Appears we are going back to option#2 noted on 10/24 notes? During our meeting, I thought there were consensus to support option#3 and Damian also suggested looking into this option.\n\nThe env setting - DCAE_CA_CERT_PATH  is being used by ConfigBinginService and works(this is python component though). As DCAE services includes both java and python components, option#3 (plugin update) was discussed to enhance distribution of other files required for java component.\n\nAlthough we can approach this in phases i.e proceed option#2 for Frankfurt and move to option#3 as target post Frankfurt. If so, any clients looking to switch to CBS https using this SDK version MUST have use_tls flag set in their blueprint during the interim time. Any issues/concern by this approach?\n\nPiotr - Can you clarify what is behavior using this SDK version when DCAE_CA_CERT_PATH is defined but it doesn\u0027t include all the cert files SDK needs? This is possible case if the blueprint uses newer K8S plugin and does not set use_tls to true. Doesn\u0027t seem like this scenario is handled in code; can you check/confirm?",
+      "parentUuid": "7b2d51e5_662b6e84",
+      "range": {
+        "startLine": 156,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 66
+      },
+      "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
