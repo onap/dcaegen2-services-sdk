@@ -164,6 +164,30 @@
       "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b2d51e5_662b6e84",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-04T10:54:29Z",
+      "side": 1,
+      "message": "It seems that we did not get along with this Cbs Client certificates.\n\nI proposed to put ALL the JKS certificates (trust.jks, cert.jks) with THEIR PASSWORDS to the same dir as cacert.pem. \n\nCurrent logic, I meant the SecurityKeys.java class is using all these JKS files (with their passwords) to establish an SSL connection. \n\nThe benefits of such an approach are:\n - more general code to use \n - support for one way TLS (trust.jks)\n - support mutual TLS (trust.jks, cert.jks)\n - passwords for certs are in place (we don\u0027t need to create them using KEY_TOOL in some shell script) \n - worked in production\n - get rid of additional code which handles almost the same functionality (cacert.pem included in trust.jks)  \n\nI was convinced this approach is more efficient from SDK CBS Clint\u0027s point of view.\n\n-----------------------------------------------------------------------------------------------------\n\nThe more reasonable and concise solution is to get rid of DCAE_CA_CERT_PATH which points to cacert.pem file\n\n(like \"/opt/app/prh/component-name/etc/cert/cacert.pem\")\n\nand set DCAE_JKS_CERTS_PATH which points to dir where \"cert.jks\", \"jks.pass\", \"trust.jks\", \"trust.pass\" are present.\n(like \"/opt/app/prh/component-name/etc/cert/\") \n\nDue to what I mentioned above, we are not using cacert.pem for establishing an SSL context in this commit.\n\n\n--------------------------------------------------------------------------------------------------------------\n\n\"pathToCaCert will be set by default when k8s plugin version 1.6.0 (or later) is used; however trust.key and trust.pass will not be available by default (unless use_tls is also set) hence this may result in an exception?\"\n\nIf some of: \"cert.jks\", \"jks.pass\", \"trust.jks\", \"trust.pass\" will be not present in pathToCaCert directory, excepiton will be thrown.",
+      "parentUuid": "87d282f4_a5ea2853",
+      "range": {
+        "startLine": 156,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 66
+      },
+      "revId": "37bebd711e85116ad580e97f8bfa1fbbeff8f996",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
