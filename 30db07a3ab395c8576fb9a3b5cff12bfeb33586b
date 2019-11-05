@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "86271175_eecb925f",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-05T10:46:13Z",
+      "side": 1,
+      "message": "The failsafe plugin is responsible for running IT tests.\nThe surefire plugin runs only UT tests. (I\u0027ve checked it)\n\nSo if you want to skip execution of IT tests during verify JJB you should exclude them within a failsafe plugin configuration.",
+      "parentUuid": "33507c36_2e7869ec",
+      "range": {
+        "startLine": 37,
+        "startChar": 35,
+        "endLine": 37,
+        "endChar": 57
+      },
+      "revId": "30db07a3ab395c8576fb9a3b5cff12bfeb33586b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3735403b_2e24f130",
         "filename": "pom.xml",
         "patchSetId": 3
