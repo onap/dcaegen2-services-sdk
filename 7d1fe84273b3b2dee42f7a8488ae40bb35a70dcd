@@ -22,6 +22,30 @@
       "revId": "7d1fe84273b3b2dee42f7a8488ae40bb35a70dcd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "478b912e_64fa2a1e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-06T14:52:19Z",
+      "side": 1,
+      "message": "Yes, I replaced it in patchset 6",
+      "parentUuid": "5ec488c6_9bc705cf",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "7d1fe84273b3b2dee42f7a8488ae40bb35a70dcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
