@@ -20,7 +20,6 @@
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import io.vavr.collection.Stream;
-import java.util.stream.Collectors;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,8 @@ import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClient.ResponseReceiver;
 import reactor.netty.http.client.HttpClientRequest;
 import reactor.netty.http.client.HttpClientResponse;
+
+import java.util.stream.Collectors;
 
 /**
  * @since 1.1.4
@@ -71,7 +72,7 @@ public class RxHttpClient {
 
     private ResponseReceiver<?> prepareBodyChunked(HttpRequest request, HttpClient theClient) {
         return theClient
-                .chunkedTransfer(true)
+                .headers(hdrs -> hdrs.set(HttpHeaders.TRANSFER_ENCODING_TYPE, HttpHeaders.CHUNKED))
                 .request(request.method().asNetty())
                 .send(request.body().contents())
                 .uri(request.url());

@@ -11,7 +11,7 @@
 
     <groupId>org.onap.dcaegen2.services</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.3.3-SNAPSHOT</version>
 
     <name>dcaegen2-services-sdk</name>
     <description>Common SDK repo for all DCAE Services</description>
@@ -75,7 +75,7 @@
         <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
         <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
         <testcontainers.version>1.12.0</testcontainers.version>
-        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <spring.boot.version>2.2.1.RELEASE</spring.boot.version>
     </properties>
 
     <modules>
