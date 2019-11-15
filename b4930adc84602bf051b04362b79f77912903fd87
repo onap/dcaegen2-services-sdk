@@ -19,6 +19,42 @@
     },
     {
       "key": {
+        "uuid": "1beb8e04_3309b4f5",
+        "filename": "pom.xml",
+        "patchSetId": 17
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a1f8bfa_6550748c",
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c8d24ec_56326a95",
+        "filename": "pom.xml",
+        "patchSetId": 17
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a1f8bfa_6550748c",
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c107c20_b83dee99",
         "filename": "rest-services/cbs-client/pom.xml",
         "patchSetId": 17
@@ -36,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "43dfeb75_76a5b22e",
+        "filename": "rest-services/cbs-client/pom.xml",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c107c20_b83dee99",
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7388bb7_9936d559",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
         "patchSetId": 17
@@ -47,6 +101,30 @@
       "writtenOn": "2019-11-14T14:20:43Z",
       "side": 1,
       "message": "If there is no story behind use in this method field. No reason for passing this as argument.",
+      "range": {
+        "startLine": 68,
+        "startChar": 48,
+        "endLine": 68,
+        "endChar": 64
+      },
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64e41535_427bbf20",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7388bb7_9936d559",
       "range": {
         "startLine": 68,
         "startChar": 48,
@@ -82,6 +160,30 @@
     },
     {
       "key": {
+        "uuid": "7a0c71c8_99223e63",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b287c2fe_5ee02ca0",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 75
+      },
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15d59de4_537a43f0",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 17
@@ -93,6 +195,30 @@
       "writtenOn": "2019-11-14T14:20:43Z",
       "side": 1,
       "message": "I have reworked this part to use Optional instead of null checking:\n```\n   static CbsClientConfiguration fromEnvironment() {\n        String pathToCaCert \u003d System.getenv(DCAE_CA_CERT_PATH);\n\n        ImmutableCbsClientConfiguration.Builder configBuilder \u003d ImmutableCbsClientConfiguration.builder()\n                .hostname(getEnv(ENV_CBS_HOSTNAME))\n                .appName(getEnv(ENV_APP_NAME));\n        return Optional.ofNullable(pathToCaCert).filter(certPath -\u003e !certPath.equals(\"\"))\n                .map(certPath -\u003e createSslHttpConfig(configBuilder, certPath))\n                .orElse(createPlainHttpConfig(configBuilder));\n    }\n\n    static CbsClientConfiguration createPlainHttpConfig(ImmutableCbsClientConfiguration.Builder configBuilder) {\n        LOGGER.info(\"CBS client will use plain http protocol.\");\n        return configBuilder\n                .protocol(\"http\")\n                .port(Integer.valueOf(getEnv(ENV_CBS_PORT)))\n                .build();\n    }\n\n    static CbsClientConfiguration createSslHttpConfig(ImmutableCbsClientConfiguration.Builder configBuilder,\n                                                      String pathToCaCert) {\n        LOGGER.info(\"CBS client will use http over TLS.\");\n        return configBuilder\n                .trustStoreKeys(crateSecurityKeysFromEnvironment(createPathToJksFile(pathToCaCert)))\n                .port(ENV_CBS_PORT_SECURE)\n                .protocol(\"https\")\n                .build();\n    }\n```\nYou could use it as a code base.",
+      "range": {
+        "startLine": 139,
+        "startChar": 1,
+        "endLine": 159,
+        "endChar": 5
+      },
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de7174d6_f7127d3a",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15d59de4_537a43f0",
       "range": {
         "startLine": 139,
         "startChar": 1,
@@ -128,6 +254,30 @@
     },
     {
       "key": {
+        "uuid": "a6a69dee_db538079",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientConfigurationTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff0c68db_e8e2b592",
+      "range": {
+        "startLine": 81,
+        "startChar": 9,
+        "endLine": 81,
+        "endChar": 101
+      },
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8b727bf_4c3e675b",
         "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientConfigurationTest.java",
         "patchSetId": 17
@@ -139,6 +289,30 @@
       "writtenOn": "2019-11-14T14:20:43Z",
       "side": 1,
       "message": "Please rename it to something more meaning full. If this prepare path to cert file I would name it preparePathToCertFile. Correct me if I am wrong.",
+      "range": {
+        "startLine": 131,
+        "startChar": 20,
+        "endLine": 131,
+        "endChar": 31
+      },
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2cb7f25a_835d968c",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientConfigurationTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8b727bf_4c3e675b",
       "range": {
         "startLine": 131,
         "startChar": 20,
@@ -174,6 +348,30 @@
     },
     {
       "key": {
+        "uuid": "965be87f_5787a40b",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactory.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "417dd33a_0c2294b7",
+      "range": {
+        "startLine": 67,
+        "startChar": 53,
+        "endLine": 67,
+        "endChar": 64
+      },
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba902a58_2f7aa012",
         "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactory.java",
         "patchSetId": 17
@@ -185,6 +383,30 @@
       "writtenOn": "2019-11-14T14:20:43Z",
       "side": 1,
       "message": "mark here Trust store ...",
+      "range": {
+        "startLine": 69,
+        "startChar": 20,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "b4930adc84602bf051b04362b79f77912903fd87",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "692941be_db6531e8",
+        "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactory.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2019-11-15T12:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba902a58_2f7aa012",
       "range": {
         "startLine": 69,
         "startChar": 20,
