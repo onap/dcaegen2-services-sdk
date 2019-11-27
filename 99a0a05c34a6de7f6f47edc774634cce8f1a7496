@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "774bb947_15220e55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-11-27T06:18:56Z",
+      "side": 1,
+      "message": "Tony certs from this MR are for test purposes. Check the path of this files.",
+      "parentUuid": "342cfa9a_eb60e910",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "789c26cf_161cab9c",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
         "patchSetId": 19
@@ -82,6 +100,24 @@
     },
     {
       "key": {
+        "uuid": "42e03602_e42b7200",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/cacert.pem",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-11-27T06:18:56Z",
+      "side": 1,
+      "message": "This is test cert. I assume that this \"rule\" is related to production certs.",
+      "parentUuid": "e0a5b91c_318f0241",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5878fca9_df8d0bf9",
         "filename": "rest-services/cbs-client/src/test/resources/test-certs/cert.jks",
         "patchSetId": 19
@@ -93,6 +129,24 @@
       "writtenOn": "2019-11-27T05:03:18Z",
       "side": 1,
       "message": "there must not be any certs or passwords stored in gerrit",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1de768ff_c39896da",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/cert.jks",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-11-27T06:18:56Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "5878fca9_df8d0bf9",
       "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -116,6 +170,24 @@
     },
     {
       "key": {
+        "uuid": "6c40c3ba_875a2c8f",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/jks.pass",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-11-27T06:18:56Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "3e3342e8_e7123c1f",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d75efb79_7693908e",
         "filename": "rest-services/cbs-client/src/test/resources/test-certs/trust.jks",
         "patchSetId": 19
@@ -133,6 +205,24 @@
     },
     {
       "key": {
+        "uuid": "598d7635_d8a8e0af",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/trust.jks",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-11-27T06:18:56Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "d75efb79_7693908e",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51d669ef_97df791d",
         "filename": "rest-services/cbs-client/src/test/resources/test-certs/trust.pass",
         "patchSetId": 19
@@ -144,6 +234,24 @@
       "writtenOn": "2019-11-27T05:03:18Z",
       "side": 1,
       "message": "there must not be any certs or passwords stored in gerrit",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc267236_fc46af8c",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/trust.pass",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2019-11-27T06:18:56Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "51d669ef_97df791d",
       "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
