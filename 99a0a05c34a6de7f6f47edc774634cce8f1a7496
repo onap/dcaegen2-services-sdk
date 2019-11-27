@@ -48,6 +48,91 @@
     },
     {
       "key": {
+        "uuid": "e0a5b91c_318f0241",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/cacert.pem",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-11-27T05:03:18Z",
+      "side": 1,
+      "message": "there must not be any certs or passwords stored in gerrit",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5878fca9_df8d0bf9",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/cert.jks",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-11-27T05:03:18Z",
+      "side": 1,
+      "message": "there must not be any certs or passwords stored in gerrit",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e3342e8_e7123c1f",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/jks.pass",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-11-27T05:03:18Z",
+      "side": 1,
+      "message": "there must not be any certs or passwords stored in gerrit",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d75efb79_7693908e",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/trust.jks",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-11-27T05:03:18Z",
+      "side": 1,
+      "message": "there must not be any certs or passwords stored in gerrit",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51d669ef_97df791d",
+        "filename": "rest-services/cbs-client/src/test/resources/test-certs/trust.pass",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-11-27T05:03:18Z",
+      "side": 1,
+      "message": "there must not be any certs or passwords stored in gerrit",
+      "revId": "99a0a05c34a6de7f6f47edc774634cce8f1a7496",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddf4abbf_0f6bc7cb",
         "filename": "security/ssl/src/main/java/org/onap/dcaegen2/services/sdk/security/ssl/SslFactory.java",
         "patchSetId": 19
