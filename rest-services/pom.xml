@@ -20,7 +20,6 @@
   <modules>
     <module>model</module>
     <module>http-client</module>
-    <module>aai-client</module>
     <module>cbs-client</module>
     <module>dmaap-client</module>
   </modules>
