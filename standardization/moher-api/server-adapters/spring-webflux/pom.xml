@@ -25,7 +25,7 @@
     <parent>
         <artifactId>dcaegen2-sdk-moher-server-adapters</artifactId>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
-        <version>1.3.3-SNAPSHOT</version>
+        <version>1.3.3</version>
     </parent>
 
     <name>Monitoring and Healthcheck :: Server Adapters :: Spring Webflux</name>
