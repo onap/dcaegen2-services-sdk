@@ -11,7 +11,7 @@
 
     <groupId>org.onap.dcaegen2.services</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.3.3-SNAPSHOT</version>
+    <version>1.3.4-SNAPSHOT</version>
 
     <name>dcaegen2-services-sdk</name>
     <description>Common SDK repo for all DCAE Services</description>
