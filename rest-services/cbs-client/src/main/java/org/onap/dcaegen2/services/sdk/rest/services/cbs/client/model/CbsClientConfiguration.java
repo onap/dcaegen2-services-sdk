@@ -141,7 +141,7 @@ public interface CbsClientConfiguration {
                 .appName(getEnv(ENV_APP_NAME));
         return Optional.ofNullable(pathToCaCert).filter(certPath -> !"".equals(certPath))
                 .map(certPath -> createSslHttpConfig(configBuilder, certPath))
-                .orElse(createPlainHttpConfig(configBuilder));
+                .orElseGet(() -> createPlainHttpConfig(configBuilder));
     }
 
     static CbsClientConfiguration createPlainHttpConfig(ImmutableCbsClientConfiguration.Builder configBuilder) {

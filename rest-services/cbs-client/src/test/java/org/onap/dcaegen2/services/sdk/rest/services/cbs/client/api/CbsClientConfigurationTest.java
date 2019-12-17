@@ -65,7 +65,6 @@ class CbsClientConfigurationTest {
         // given
         envs.set("DCAE_CA_CERTPATH", preparePathToCertFile());
         envs.set("CONFIG_BINDING_SERVICE", "config-binding-service");
-        envs.set("CONFIG_BINDING_SERVICE_PORT_10443_TCP_PORT", "10443");
         envs.set("HOSTNAME", "dcae-prh");
         envs.set("CONSUL_HOST", "consul-server.onap");
 
@@ -83,7 +82,6 @@ class CbsClientConfigurationTest {
         envs.set("DCAE_CA_CERTPATH", null);
         envs.set("CONFIG_BINDING_SERVICE_SERVICE_PORT", "9090");
         envs.set("CONFIG_BINDING_SERVICE", "config-binding-service");
-        envs.set("CONFIG_BINDING_SERVICE_PORT_10443_TCP_PORT", "10443");
         envs.set("HOSTNAME", "dcae-prh");
         envs.set("CONSUL_HOST", "consul-server.onap");
 
@@ -107,7 +105,6 @@ class CbsClientConfigurationTest {
         envs.set("DCAE_CA_CERTPATH", "/home/cacert.pem");
         envs.set("HOSTNAME", "dcae-prh");
         envs.set("CONFIG_BINDING_SERVICE", "config-binding-service");
-        envs.set("CONFIG_BINDING_SERVICE_PORT_10443_TCP_PORT", "10443");
         envs.set("CONSUL_HOST", "consul-server.onap");
 
         // then
@@ -122,7 +119,6 @@ class CbsClientConfigurationTest {
         envs.set("HOSTNAME", "");
         envs.set("DCAE_CA_CERTPATH", preparePathToCertFile());
         envs.set("CONFIG_BINDING_SERVICE", "config-binding-service");
-        envs.set("CONFIG_BINDING_SERVICE_PORT_10443_TCP_PORT", "10443");
         envs.set("CONSUL_HOST", "consul-server.onap");
 
         // then
