@@ -1,0 +1,4 @@
+distribution_type: 'maven'
+version: '1.3.4'
+project: 'dcaegen2-services-sdk'
+log_dir: 'dcaegen2-services-sdk-maven-stage-master/219/'
