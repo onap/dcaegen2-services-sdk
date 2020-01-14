@@ -26,7 +26,7 @@
     <parent>
         <artifactId>dcaegen2-sdk-moher-api</artifactId>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
-        <version>1.3.4-SNAPSHOT</version>
+        <version>1.3.4</version>
     </parent>
 
     <name>Monitoring and Healthcheck :: Metrics</name>
