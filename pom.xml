@@ -78,6 +78,9 @@
         <spring.boot.version>2.2.1.RELEASE</spring.boot.version>
         <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
         <system.rules.version>1.17.2</system.rules.version>
+	<sonar.coverage.jacoco.xmlReportPaths>
+	  ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
+	</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <modules>
