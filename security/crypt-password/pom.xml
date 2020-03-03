@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.onap.dcaegen2.services.sdk.security</groupId>
         <artifactId>dcaegen2-services-sdk-security</artifactId>
-        <version>1.4.0-SNAPSHOT</version>
+        <version>1.5.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,6 +15,10 @@
 
     <name>Security :: Crypt Password</name>
     <description>DMaaP Security Module</description>
+    <properties>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
+    </properties>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -47,7 +51,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>${maven-shade-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -61,6 +65,20 @@
                                     <mainClass>org.onap.dcaegen2.services.sdk.security.EncodePassword</mainClass>
                                 </transformer>
                             </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>only-library</id>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>slim</classifier>
                         </configuration>
                     </execution>
                 </executions>
