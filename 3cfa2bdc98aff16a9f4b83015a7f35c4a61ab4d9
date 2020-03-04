@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26bdace2_18f0e136",
+        "filename": "version.properties",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-04T22:02:10Z",
+      "side": 1,
+      "message": "If version bump is necessary, I suppose all SDK lib pom.xml may need to be revised. Piotr J - Can you check/confirm?",
+      "range": {
+        "startLine": 2,
+        "startChar": 6,
+        "endLine": 2,
+        "endChar": 7
+      },
+      "revId": "3cfa2bdc98aff16a9f4b83015a7f35c4a61ab4d9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
