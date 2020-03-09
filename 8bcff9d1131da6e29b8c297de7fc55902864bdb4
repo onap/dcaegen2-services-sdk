@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d02e07e_1d0e550c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-03-09T13:12:40Z",
+      "side": 1,
+      "message": "I would rather expect here something similar to: \"Version changed to 1.3.5 since it is just fix for logging issue for crypt-...\".",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 93
+      },
+      "revId": "8bcff9d1131da6e29b8c297de7fc55902864bdb4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
