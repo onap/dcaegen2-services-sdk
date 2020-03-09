@@ -22,6 +22,30 @@
       "revId": "8bcff9d1131da6e29b8c297de7fc55902864bdb4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8c5ed69_f914ea16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-03-09T13:26:31Z",
+      "side": 1,
+      "message": "IF you want more information about commit you can always go to the Jira and check Task title and description.",
+      "parentUuid": "7d02e07e_1d0e550c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 93
+      },
+      "revId": "8bcff9d1131da6e29b8c297de7fc55902864bdb4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
