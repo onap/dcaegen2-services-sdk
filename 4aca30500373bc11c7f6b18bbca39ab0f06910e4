@@ -1,0 +1,10 @@
+Code-Review+1: Bogumil Zebek <bogumil.zebek@nokia.com>
+Code-Review+1: Piotr Wielebski <piotr.wielebski@nokia.com>
+Code-Review+1: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Kornel Janiak <kornel.janiak@nokia.com>
+Submitted-by: Kornel Janiak <kornel.janiak@nokia.com>
+Submitted-at: Wed, 11 Mar 2020 13:36:02 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/103501
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
