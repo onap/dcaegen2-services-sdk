@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.onap.dcaegen2.services.sdk</groupId>
     <artifactId>dcaegen2-services-sdk-standardization</artifactId>
-      <version>1.3.5-SNAPSHOT</version>
+      <version>1.3.6-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   
