@@ -10,7 +10,7 @@ services:
    ports:
     - "9092:9092"
    environment:
-    # For creating authenticated topics add AAF locate aplication ip address to host alias aaf-onap-test.osaaf.org
+    # For creating authenticated topics add AAF locate application ip address to host alias aaf-onap-test.osaaf.org
     # For creating the authenticated topics enable the following property
     enableCadi: 'false'
     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -37,7 +37,7 @@ services:
     - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.16
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.22
     ports:
       - "3904:3904"
       - "3905:3905"
