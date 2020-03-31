@@ -20,23 +20,25 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
+import org.testcontainers.containers.DockerComposeContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+
 import java.io.File;
 import java.net.URL;
-import org.testcontainers.containers.DockerComposeContainer;
 
 final class DMaapContainer {
     private static final String MR_COMPOSE_RESOURCE_NAME = "dmaap-msg-router/message-router-compose.yml";
-    private static final String DOCKER_COMPOSE_FILE_PATH = getDockerComposeFilePath(
-            MR_COMPOSE_RESOURCE_NAME);
+    private static final String DOCKER_COMPOSE_FILE_PATH = getDockerComposeFilePath(MR_COMPOSE_RESOURCE_NAME);
     static final int DMAAP_SERVICE_EXPOSED_PORT = 3904;
     static final String DMAAP_SERVICE_NAME = "dmaap";
 
     private DMaapContainer() {}
 
-    static DockerComposeContainer createContainerInstance(){
+    static DockerComposeContainer createContainerInstance() {
         return new DockerComposeContainer(
                 new File(DOCKER_COMPOSE_FILE_PATH))
                 .withExposedService(DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT)
+                .waitingFor(DMAAP_SERVICE_NAME, Wait.forHttp("/readiness").forPort(DMAAP_SERVICE_EXPOSED_PORT))
                 .withLocalCompose(true);
     }
 
