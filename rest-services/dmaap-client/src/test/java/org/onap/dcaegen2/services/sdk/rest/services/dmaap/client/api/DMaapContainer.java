@@ -20,9 +20,12 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
+import org.junit.ClassRule;
+import org.testcontainers.containers.DockerComposeContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+
 import java.io.File;
 import java.net.URL;
-import org.testcontainers.containers.DockerComposeContainer;
 
 final class DMaapContainer {
     private static final String MR_COMPOSE_RESOURCE_NAME = "dmaap-msg-router/message-router-compose.yml";
@@ -33,10 +36,11 @@ final class DMaapContainer {
 
     private DMaapContainer() {}
 
+    @ClassRule
     static DockerComposeContainer createContainerInstance(){
         return new DockerComposeContainer(
                 new File(DOCKER_COMPOSE_FILE_PATH))
-                .withExposedService(DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT)
+                .withExposedService(DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT, Wait.forListeningPort())
                 .withLocalCompose(true);
     }
 
