@@ -20,9 +20,10 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
+import org.testcontainers.containers.DockerComposeContainer;
+
 import java.io.File;
 import java.net.URL;
-import org.testcontainers.containers.DockerComposeContainer;
 
 final class DMaapContainer {
     private static final String MR_COMPOSE_RESOURCE_NAME = "dmaap-msg-router/message-router-compose.yml";
