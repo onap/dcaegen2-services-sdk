@@ -1,12 +1,12 @@
 version: '2'
 services:
   zookeeper:
-    image: nexus3.onap.org:10001/onap/dmaap/zookeeper:6.0.0
+    image: nexus3.onap.org:10001/onap/dmaap/zookeeper:6.0.3
     ports:
       - "2181:2181"
 
   kafka:
-   image: nexus3.onap.org:10001/onap/dmaap/kafka111:1.0.1
+    image: nexus3.onap.org:10001/onap/dmaap/kafka111:1.0.4
    ports:
     - "9092:9092"
    environment:
@@ -37,7 +37,7 @@ services:
     - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.16
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.18
     ports:
       - "3904:3904"
       - "3905:3905"
