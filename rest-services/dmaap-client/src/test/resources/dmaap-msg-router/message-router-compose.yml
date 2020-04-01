@@ -1,46 +1,52 @@
 version: '2'
 services:
   zookeeper:
-    image: nexus3.onap.org:10001/onap/dmaap/zookeeper:6.0.0
+    image: nexus3.onap.org:10001/onap/dmaap/zookeeper:6.0.3
     ports:
       - "2181:2181"
+    environment:
+      ZOOKEEPER_REPLICAS: 1
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_SYNC_LIMIT: 5
+      ZOOKEEPER_INIT_LIMIT: 10
+      ZOOKEEPER_MAX_CLIENT_CNXNS: 200
+      ZOOKEEPER_AUTOPURGE_SNAP_RETAIN_COUNT: 3
+      ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL: 24
+      ZOOKEEPER_CLIENT_PORT: 2181
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/zookeeper/secrets/jaas/zk_server_jaas.conf -Dzookeeper.kerberos.removeHostFromPrincipal=true -Dzookeeper.kerberos.removeRealmFromPrincipal=true -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -Dzookeeper.requireClientAuthScheme=sasl
+      ZOOKEEPER_SERVER_ID: 1
+    volumes:
+      - ./zk_server_jaas.conf:/opt/app/subscriber/etc/subscriber.properties
 
   kafka:
-   image: nexus3.onap.org:10001/onap/dmaap/kafka111:1.0.1
-   ports:
-    - "9092:9092"
-   environment:
-    # For creating authenticated topics add AAF locate aplication ip address to host alias aaf-onap-test.osaaf.org
-    # For creating the authenticated topics enable the following property
-    enableCadi: 'false'
-    KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    KAFKA_LOG_DIRS: /opt/kafka/data
-    KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 40000
-    KAFKA_ZOOKEEPER_SESSION_TIMEOUT_MS: 40000
-    # Uncomment the following lines to create authenticated topics
-    #KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL_SASL_PLAINTEXT:SASL_PLAINTEXT,EXTERNAL_SASL_PLAINTEXT:SASL_PLAINTEXT
-    #KAFKA_ADVERTISED_LISTENERS: INTERNAL_SASL_PLAINTEXT://kafka:9092
-    #KAFKA_LISTENERS: INTERNAL_SASL_PLAINTEXT://0.0.0.0:9092
-    #KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL_SASL_PLAINTEXT
-    #KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
-    #KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
-    #KAFKA_AUTHORIZER_CLASS_NAME: org.onap.dmaap.kafkaAuthorize.KafkaCustomAuthorizer
-    #aaf_locate_url: https://aaf-onap-test.osaaf.org:8095
-    # Remove the following 4 lines to create authenticated topics
-    KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL_PLAINTEXT:PLAINTEXT,EXTERNAL_PLAINTEXT:PLAINTEXT
-    KAFKA_ADVERTISED_LISTENERS: INTERNAL_PLAINTEXT://kafka:9092
-    KAFKA_LISTENERS: INTERNAL_PLAINTEXT://0.0.0.0:9092
-    KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL_PLAINTEXT
-   volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-   depends_on:
-    - zookeeper
+    image: nexus3.onap.org:10001/onap/dmaap/kafka111:1.0.4
+    ports:
+      - "9092:9092"
+    environment:
+      enableCadi: 'false'
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 40000
+      KAFKA_ZOOKEEPER_SESSION_TIMEOUT_MS: 40000
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL_PLAINTEXT:PLAINTEXT,EXTERNAL_PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL_PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: INTERNAL_PLAINTEXT://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL_PLAINTEXT
+      KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/jaas/zk_client_jaas.conf
+      KAFKA_ZOOKEEPER_SET_ACL: 'true'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.16
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.18
     ports:
       - "3904:3904"
       - "3905:3905"
+    environment:
+      enableCadi: 'false'
     volumes:
       - ./MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties
     depends_on:
