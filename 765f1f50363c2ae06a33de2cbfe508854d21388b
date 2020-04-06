@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "155a94eb_0911cc16",
+        "filename": "rest-services/dmaap-client/src/test/resources/dmaap-msg-router/cadi.properties",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-04-06T09:13:46Z",
+      "side": 1,
+      "message": "Is this needed? Looks like yaml charts templating",
+      "range": {
+        "startLine": 1,
+        "startChar": 34,
+        "endLine": 1,
+        "endChar": 68
+      },
+      "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
