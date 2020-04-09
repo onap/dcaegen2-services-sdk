@@ -157,6 +157,24 @@
       "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab847b7_cfd7ae19",
+        "filename": "rest-services/dmaap-client/src/test/resources/dmaap-msg-router/message-router-compose.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-04-09T10:57:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b3b90ed_f51307b6",
+      "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
