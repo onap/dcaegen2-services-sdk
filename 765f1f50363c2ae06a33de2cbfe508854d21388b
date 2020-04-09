@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d23fee0c_91e32a05",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2020-04-09T10:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17da0249_6e9d2d09",
+      "range": {
+        "startLine": 44,
+        "startChar": 96,
+        "endLine": 44,
+        "endChar": 97
+      },
+      "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b57708b1_33bab2d2",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
         "patchSetId": 17
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8cf42c38_eaedb8b8",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2020-04-09T10:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b57708b1_33bab2d2",
+      "range": {
+        "startLine": 42,
+        "startChar": 96,
+        "endLine": 42,
+        "endChar": 97
+      },
+      "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "155a94eb_0911cc16",
         "filename": "rest-services/dmaap-client/src/test/resources/dmaap-msg-router/cadi.properties",
         "patchSetId": 17
@@ -68,6 +116,30 @@
       "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df18b377_a782f294",
+        "filename": "rest-services/dmaap-client/src/test/resources/dmaap-msg-router/cadi.properties",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2807
+      },
+      "writtenOn": "2020-04-09T10:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "155a94eb_0911cc16",
+      "range": {
+        "startLine": 1,
+        "startChar": 34,
+        "endLine": 1,
+        "endChar": 68
+      },
+      "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
