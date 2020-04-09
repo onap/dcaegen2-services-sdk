@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "17da0249_6e9d2d09",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2020-04-09T06:49:34Z",
+      "side": 1,
+      "message": "It could be replace with single import.",
+      "range": {
+        "startLine": 44,
+        "startChar": 96,
+        "endLine": 44,
+        "endChar": 97
+      },
+      "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b57708b1_33bab2d2",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2020-04-09T06:49:34Z",
+      "side": 1,
+      "message": "It could be replace with single import.",
+      "range": {
+        "startLine": 42,
+        "startChar": 96,
+        "endLine": 42,
+        "endChar": 97
+      },
+      "revId": "765f1f50363c2ae06a33de2cbfe508854d21388b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "155a94eb_0911cc16",
         "filename": "rest-services/dmaap-client/src/test/resources/dmaap-msg-router/cadi.properties",
         "patchSetId": 17
