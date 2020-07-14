@@ -18,8 +18,36 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.externalschemamanager;
+package org.onap.dcaegen2.services.sdk.services.externalschemamanager.model;
 
-class MainTest {
+import org.onap.dcaegen2.services.sdk.services.externalschemamanager.service.SchemaReferenceResolver;
 
+public class SchemaReference {
+
+    public static final String URL_SEPARATOR = "#";
+
+    private String url;
+    private String internalReference;
+
+    public SchemaReference(String schemaReference) {
+        this.url = SchemaReferenceResolver.resolveUrl(schemaReference);
+        this.internalReference = SchemaReferenceResolver.resolveInternalReference(schemaReference);
+    }
+
+    public SchemaReference(String url, String internalReference) {
+        this.url = url;
+        this.internalReference = internalReference;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getInternalReference() {
+        return internalReference;
+    }
+
+    public String getFullSchemaReference() {
+        return url + URL_SEPARATOR + internalReference;
+    }
 }

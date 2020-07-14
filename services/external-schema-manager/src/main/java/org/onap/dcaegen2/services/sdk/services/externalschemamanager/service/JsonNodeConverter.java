@@ -18,7 +18,19 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.externalschemamanager;
+package org.onap.dcaegen2.services.sdk.services.externalschemamanager.service;
 
-public class Main {
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+
+final class JsonNodeConverter {
+
+    private JsonNodeConverter() {
+    }
+
+    static JsonNode fromString(String content) throws IOException {
+        return new ObjectMapper().readTree(content);
+    }
 }
