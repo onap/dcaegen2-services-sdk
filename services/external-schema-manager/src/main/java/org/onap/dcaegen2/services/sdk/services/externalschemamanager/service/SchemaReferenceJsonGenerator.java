@@ -18,8 +18,28 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.externalschemamanager;
+package org.onap.dcaegen2.services.sdk.services.externalschemamanager.service;
 
-class MainTest {
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.onap.dcaegen2.services.sdk.services.externalschemamanager.model.SchemaReference;
 
+import java.io.IOException;
+
+final class SchemaReferenceJsonGenerator {
+
+    private SchemaReferenceJsonGenerator() {
+    }
+
+    static JsonNode getSchemaReferenceJson(SchemaReference schemaReference) throws IOException {
+        return toJsonNode(getReferenceJson(schemaReference));
+    }
+
+    private static String getReferenceJson(SchemaReference url) {
+        return "{\"$ref\":\"" + url.getFullSchemaReference() + "\"}";
+    }
+
+    private static JsonNode toJsonNode(String content) throws IOException {
+        return new ObjectMapper().readTree(content);
+    }
 }

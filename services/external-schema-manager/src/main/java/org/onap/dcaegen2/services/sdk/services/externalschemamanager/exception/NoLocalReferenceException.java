@@ -18,7 +18,12 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.externalschemamanager;
+package org.onap.dcaegen2.services.sdk.services.externalschemamanager.exception;
 
-public class Main {
+public class NoLocalReferenceException extends RuntimeException {
+
+    public NoLocalReferenceException(String message) {
+        super(message);
+    }
+
 }
