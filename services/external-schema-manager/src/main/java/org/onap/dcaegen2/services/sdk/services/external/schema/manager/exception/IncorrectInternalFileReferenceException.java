@@ -18,8 +18,12 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.externalschemamanager;
+package org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception;
 
-class MainTest {
+public class IncorrectInternalFileReferenceException extends RuntimeException {
+
+    public IncorrectInternalFileReferenceException(String message) {
+        super(message);
+    }
 
 }

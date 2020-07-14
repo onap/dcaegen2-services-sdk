@@ -18,7 +18,31 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.externalschemamanager;
+package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
 
-public class Main {
+import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.NoLocalReferenceException;
+
+import java.util.Map;
+
+final class UrlMapper {
+
+    private final Map<String, String> mappingsCache;
+
+    UrlMapper(Map<String, String> mappings) {
+        this.mappingsCache = Map.copyOf(mappings);
+    }
+
+    Map<String, String> getMappingsCache() {
+        return Map.copyOf(mappingsCache);
+    }
+
+    String mapToLocalUrl(String publicUrl) {
+        String externalUrl = mappingsCache.get(publicUrl);
+        if (externalUrl == null) {
+            throw new NoLocalReferenceException("Couldn't find mapping for public url. PublicURL: " + publicUrl);
+        }
+        return externalUrl;
+    }
+
+
 }
