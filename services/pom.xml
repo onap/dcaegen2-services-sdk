@@ -38,5 +38,6 @@
 
   <modules>
     <module>hv-ves-client</module>
+    <module>schema-manager</module>
   </modules>
 </project>
