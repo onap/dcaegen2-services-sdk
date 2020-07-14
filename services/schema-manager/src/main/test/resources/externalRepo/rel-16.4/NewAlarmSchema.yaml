@@ -1,0 +1,734 @@
+openapi: 3.0.1
+info:
+  title: Fault Supervision MnS
+  version: 16.4.0
+  description: >-
+    OAS 3.0.1 definition of the Fault Supervision MnS
+    © 2020, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).
+    All rights reserved.
+
+properties:
+  allOf:
+    - $ref: '#/components/schemas/NotificationHeader'
+    - type: object
+      required:
+        - alarmId
+        - alarmType
+        - probableCause
+        - perceivedSeverity
+      properties:
+        alarmId:
+          $ref: '#/components/schemas/AlarmId'
+        alarmType:
+          $ref: '#/components/schemas/AlarmType'
+        probableCause:
+          $ref: '#/components/schemas/ProbableCause'
+        specificProblem:
+          $ref: '#/components/schemas/SpecificProblem'
+        perceivedSeverity:
+          $ref: '#/components/schemas/PerceivedSeverity'
+        backedUpStatus:
+          type: boolean
+        backUpObject:
+          $ref: '#/components/schemas/Dn'
+        trendIndication:
+          $ref: '#/components/schemas/TrendIndication'
+        thresholdInfo:
+          $ref: '#/components/schemas/ThresholdInfo'
+        correlatedNotifications:
+          $ref: '#/components/schemas/CorrelatedNotifications'
+        stateChangeDefinition:
+          $ref: '#/components/schemas/AttributeValueChangeSet'
+        monitoredAttributes:
+          $ref: '#/components/schemas/AttributeNameValuePairSet'
+        proposedRepairActions:
+          type: string
+        additionalText:
+          type: string
+        additionalInformation:
+          $ref: '#/components/schemas/AttributeNameValuePairSet'
+        rootCauseIndicator:
+          type: boolean
+
+components:
+  schemas:
+
+    #---- Definitions to be moved to comDefs.yaml --------------------------------------#
+
+    Long:
+      type: string
+      format: long
+    Float:
+      type: string
+      format: float
+    DateTime:
+      type: string
+      format: date-Time
+
+    Dn:
+      type: string
+    Uri:
+      type: string
+
+    AttributeNameValuePairSet:
+      type: object
+      minProperties: 1
+    AttributeValueChangeSet:
+      description: >-
+        The key in this map is the attribute name. The value of each key is an array.
+        When only one item is present in the array, it carries the new attribute
+        value. If two items are present, then the first item carries the old value
+        and the second item the new value. The items can be of any type including null.
+      type: object
+      additionalProperties:
+        type: array
+        minItems: 1
+        maxItems: 2
+        items:
+          nullable: true
+
+    Filter:
+      type: string
+    SystemDN:
+      type: string
+
+    NotificationId:
+      type: integer
+    NotificationHeader:
+      description: >-
+        Header used for all notification types
+      type: object
+      required:
+        - href
+        - notificationId
+        - notificationType
+        - eventTime
+        - systemDN
+      properties:
+        uri:
+          $ref: '#/components/schemas/Uri'
+        notificationId:
+          $ref: '#/components/schemas/NotificationId'
+        notificationType:
+          oneOf:
+            - $ref: '#/components/schemas/AlarmNotificationTypes'
+            #- $ref: 'faultMnS.yaml#/components/schemas/AlarmNotificationTypes'
+            #- $ref: 'provMnS.yaml#/components/schemas/CmNotificationTypes'
+            # more to be added
+        eventTime:
+          $ref: '#/components/schemas/DateTime'
+        systemDN:
+          $ref: '#/components/schemas/SystemDN'
+
+    ErrorResponse:
+      description: >-
+        Default schema for the response message body in case the request is not
+        successful.
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            errorInfo:
+              type: string
+
+    #---- End of definitions to be moved to comDefs.yaml -------------------------------#
+
+    #---- Definition of AlarmRecord ----------------------------------------------------#
+
+    AlarmId:
+      type: string
+    AlarmType:
+      type: string
+      enum:
+        - COMMUNICATIONS_ALARM
+        - QUALITY_OF_SERVICE_ALARM
+        - PROCESSING_ERROR_ALARM
+        - EQUIPMENT_ALARM
+        - ENVIRONMENTAL_ALARM
+        - INTEGRITY_VIOLATION
+        - OPERATIONAL_VIOLATION
+        - PHYSICAL_VIOLATION
+        - SECURITY_SERVICE_OR_MECHANISM_VIOLATION
+        - TIME_DOMAIN_VIOLATION
+    ProbableCause:
+      description: >-
+        The value of the probable cause may be a specific standardized string, or any
+        vendor provided string. Probable cause strings are not standardized in the
+        present document. They may be added in a future version. Up to then the
+        mapping of the generic probable cause strings "PROBABLE_CAUSE_001" to
+        "PROBABLE_CAUSE_005" is vendor specific.
+        The value of the probable cause may also be an integer. The mapping of integer
+        values to probable causes is vendor specific.
+      oneOf:
+        - anyOf:
+            - type: string
+              enum:
+                - PROBABLE_CAUSE_001
+                - PROBABLE_CAUSE_002
+                - PROBABLE_CAUSE_003
+                - PROBABLE_CAUSE_004
+                - PROBABLE_CAUSE_005
+            - type: string
+        - type: integer
+    SpecificProblem:
+      oneOf:
+        - type: string
+        - type: integer
+    PerceivedSeverity:
+      type: string
+      enum:
+        - INDETERMINATE
+        - CRITICAL
+        - MAJOR
+        - MINOR
+        - WARNING
+        - CLEARED
+    TrendIndication:
+      type: string
+      enum:
+        - MORE_SEVERE
+        - NO_CHANGE
+        - LESS_SEVERE
+    ThresholdHysteresis:
+      type: object
+      required:
+        - high
+      properties:
+        high:
+          oneOf:
+            - type: integer
+            - $ref: '#/components/schemas/Float'
+        low:
+          $ref: '#/components/schemas/Float'
+    ThresholdLevelInd:
+      type: object
+      required:
+        - up
+      properties:
+        up:
+          $ref: '#/components/schemas/ThresholdHysteresis'
+        low:
+          $ref: '#/components/schemas/ThresholdHysteresis'
+    ThresholdInfo:
+      type: object
+      required:
+        - observedMeasurement
+        - observedValue
+      properties:
+        observedMeasurement:
+          type: string
+        observedValue:
+          oneOf:
+            - type: integer
+            - $ref: '#/components/schemas/Float'
+        thresholdLevelInd:
+          $ref: '#/components/schemas/ThresholdLevelInd'
+        armTime:
+          $ref: '#/components/schemas/DateTime'
+    CorrelatedNotification:
+      type: object
+      required:
+        - source
+        - notificationId
+      properties:
+        sourceObjectInstance:
+          $ref: '#/components/schemas/Dn'
+        notificationIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationId'
+    CorrelatedNotifications:
+      type: array
+      items:
+        $ref: '#/components/schemas/CorrelatedNotification'
+    AckState:
+      type: string
+      enum:
+        - ACKNOWLEDGED
+        - UNACKNOWLEDGED
+
+    AlarmRecord:
+      description: >-
+        The alarmId is not a property of an alarm record. It is used as key
+        in the map of alarm records instead.
+      type: object
+      properties:
+        # alarmId:
+        #  $ref: '#/components/schemas/AlarmId'
+        objectInstance:
+          $ref: '#/components/schemas/Dn'
+        notificationId:
+          $ref: '#/components/schemas/NotificationId'
+        alarmRaisedTime:
+          $ref: '#/components/schemas/DateTime'
+        alarmChangedTime:
+          $ref: '#/components/schemas/DateTime'
+        alarmClearedTime:
+          $ref: '#/components/schemas/DateTime'
+        alarmType:
+          $ref: '#/components/schemas/AlarmType'
+        probableCause:
+          $ref: '#/components/schemas/ProbableCause'
+        specificProblem:
+          $ref: '#/components/schemas/SpecificProblem'
+        perceivedSeverity:
+          $ref: '#/components/schemas/PerceivedSeverity'
+        backedUpStatus:
+          type: boolean
+        backUpObject:
+          $ref: '#/components/schemas/Dn'
+        trendIndication:
+          $ref: '#/components/schemas/TrendIndication'
+        thresholdinfo:
+          $ref: '#/components/schemas/ThresholdInfo'
+        correlatedNotifications:
+          $ref: '#/components/schemas/CorrelatedNotifications'
+        stateChangeDefinition:
+          $ref: '#/components/schemas/AttributeValueChangeSet'
+        monitoredAttributes:
+          $ref: '#/components/schemas/AttributeNameValuePairSet'
+        proposedRepairActions:
+          type: string
+        additionalText:
+          type: string
+        additionalInformation:
+          $ref: '#/components/schemas/AttributeNameValuePairSet'
+
+        rootCauseIndicator:
+          type: boolean
+
+        ackTime:
+          $ref: '#/components/schemas/DateTime'
+        ackUserId:
+          type: string
+        ackSystemId:
+          type: string
+        ackState:
+          $ref: '#/components/schemas/AckState'
+
+        clearUserId:
+          type: string
+        clearSystemId:
+          type: string
+        serviceUser:
+          type: string
+        serviceProvider:
+          type: string
+        securityAlarmDetector:
+          type: string
+
+    #---- Definition of alarm notifications --------------------------------------------#
+
+    AlarmNotificationTypes:
+      type: string
+      enum:
+        - notifyNewAlarm
+        - notifyChangedAlarm
+        - notifyChangedAlarmGeneral
+        - notifyAckStateChanged
+        - notifyCorrelatedNotificationChanged
+        - notifyComments
+        - notifyClearedAlarm
+        - notifyAlarmListRebuiltAlarm
+        - notifyPotentialFaultyAlarmList
+    AlarmListAlignmentRequirement:
+      type: string
+      enum:
+        - ALIGNMENT_REQUIRED
+        - ALIGNMENT_NOT_REQUIRED
+
+    NotifyNewAlarm:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - alarmType
+            - probableCause
+            - perceivedSeverity
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            alarmType:
+              $ref: '#/components/schemas/AlarmType'
+            probableCause:
+              $ref: '#/components/schemas/ProbableCause'
+            specificProblem:
+              $ref: '#/components/schemas/SpecificProblem'
+            perceivedSeverity:
+              $ref: '#/components/schemas/PerceivedSeverity'
+            backedUpStatus:
+              type: boolean
+            backUpObject:
+              $ref: '#/components/schemas/Dn'
+            trendIndication:
+              $ref: '#/components/schemas/TrendIndication'
+            thresholdInfo:
+              $ref: '#/components/schemas/ThresholdInfo'
+            correlatedNotifications:
+              $ref: '#/components/schemas/CorrelatedNotifications'
+            stateChangeDefinition:
+              $ref: '#/components/schemas/AttributeValueChangeSet'
+            monitoredAttributes:
+              $ref: '#/components/schemas/AttributeNameValuePairSet'
+            proposedRepairActions:
+              type: string
+            additionalText:
+              type: string
+            additionalInformation:
+              $ref: '#/components/schemas/AttributeNameValuePairSet'
+            rootCauseIndicator:
+              type: boolean
+    NotifyNewSecAlarm:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - alarmType
+            - probableCause
+            - perceivedSeverity
+            - serviceUser
+            - serviceProvider
+            - securityAlarmDetector
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            alarmType:
+              $ref: '#/components/schemas/AlarmType'
+            probableCause:
+              $ref: '#/components/schemas/ProbableCause'
+            perceivedSeverity:
+              $ref: '#/components/schemas/PerceivedSeverity'
+            correlatedNotifications:
+              $ref: '#/components/schemas/CorrelatedNotifications'
+            additionalText:
+              type: string
+            additionalInformation:
+              $ref: '#/components/schemas/AttributeNameValuePairSet'
+            rootCauseIndicator:
+              type: boolean
+            serviceUser:
+              type: string
+            serviceProvider:
+              type: string
+            securityAlarmDetector:
+              type: string
+    NotifyClearedAlarm:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - alarmType
+            - probableCause
+            - perceivedSeverity
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            alarmType:
+              $ref: '#/components/schemas/AlarmType'
+            probableCause:
+              $ref: '#/components/schemas/ProbableCause'
+            perceivedSeverity:
+              $ref: '#/components/schemas/PerceivedSeverity'
+            correlatedNotifications:
+              $ref: '#/components/schemas/CorrelatedNotifications'
+            clearUserId:
+              type: string
+            clearSystemId:
+              type: string
+    NotifyChangedAlarm:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - alarmType
+            - probableCause
+            - perceivedSeverity
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            alarmType:
+              $ref: '#/components/schemas/AlarmType'
+            probableCause:
+              $ref: '#/components/schemas/ProbableCause'
+            perceivedSeverity:
+              $ref: '#/components/schemas/PerceivedSeverity'
+    NotifyChangedAlarmGeneral:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - alarmType
+            - probableCause
+            - perceivedSeverity
+            - changedAlarmAttributes
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            alarmType:
+              $ref: '#/components/schemas/AlarmType'
+            probableCause:
+              $ref: '#/components/schemas/ProbableCause'
+            specificProblem:
+              $ref: '#/components/schemas/SpecificProblem'
+            perceivedSeverity:
+              $ref: '#/components/schemas/PerceivedSeverity'
+            correlatedNotifications:
+              $ref: '#/components/schemas/CorrelatedNotifications'
+            backedUpStatus:
+              type: boolean
+            backUpObject:
+              $ref: '#/components/schemas/Dn'
+            trendIndication:
+              $ref: '#/components/schemas/TrendIndication'
+            thresholdInfo:
+              $ref: '#/components/schemas/ThresholdInfo'
+            stateChangeDefinition:
+              $ref: '#/components/schemas/AttributeValueChangeSet'
+            monitoredAttributes:
+              $ref: '#/components/schemas/AttributeNameValuePairSet'
+            proposedRepairActions:
+              type: string
+            additionalText:
+              type: string
+            additionalInformation:
+              $ref: '#/components/schemas/AttributeNameValuePairSet'
+            rootCauseIndicator:
+              type: boolean
+            changedAlarmAttributes:
+              $ref: '#/components/schemas/AttributeNameValuePairSet'
+    NotifyChangedSecAlarmGeneral:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - alarmType
+            - probableCause
+            - perceivedSeverity
+            - serviceUser
+            - serviceProvider
+            - securityAlarmDetector
+            - changedAlarmAttributes
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            alarmType:
+              $ref: '#/components/schemas/AlarmType'
+            probableCause:
+              $ref: '#/components/schemas/ProbableCause'
+            perceivedSeverity:
+              $ref: '#/components/schemas/PerceivedSeverity'
+            correlatedNotifications:
+              $ref: '#/components/schemas/CorrelatedNotifications'
+            additionalText:
+              type: string
+            additionalInformation:
+              $ref: '#/components/schemas/AttributeNameValuePairSet'
+            rootCauseIndicator:
+              type: boolean
+            serviceUser:
+              type: string
+            serviceProvider:
+              type: string
+            securityAlarmDetector:
+              type: string
+            changedAlarmAttributes:
+              $ref: '#/components/schemas/AttributeNameValuePairSet'
+    NotifyCorrelatedNotificationChanged:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - correlatedNotifications
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            correlatedNotifications:
+              $ref: '#/components/schemas/CorrelatedNotifications'
+            rootCauseIndicator:
+              type: boolean
+    NotifyAckStateChanged:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - alarmType
+            - probableCause
+            - perceivedSeverity
+            - ackState
+            - ackUserId
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            alarmType:
+              $ref: '#/components/schemas/AlarmType'
+            probableCause:
+              $ref: '#/components/schemas/ProbableCause'
+            perceivedSeverity:
+              $ref: '#/components/schemas/PerceivedSeverity'
+            ackState:
+              $ref: '#/components/schemas/AckState'
+            ackUserId:
+              type: string
+            ackSystemId:
+              type: string
+    NotifyComments:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - alarmId
+            - alarmType
+            - probableCause
+            - perceivedSeverity
+            - comments
+          properties:
+            alarmId:
+              $ref: '#/components/schemas/AlarmId'
+            alarmType:
+              $ref: '#/components/schemas/AlarmType'
+            probableCause:
+              $ref: '#/components/schemas/ProbableCause'
+            perceivedSeverity:
+              $ref: '#/components/schemas/PerceivedSeverity'
+            comments:
+              $ref: '#/components/schemas/Comments'
+    NotifyPotentialFaultyAlarmList:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - reason
+          properties:
+            reason:
+              type: string
+    NotifyAlarmListRebuilt:
+      allOf:
+        - $ref: '#/components/schemas/NotificationHeader'
+        - type: object
+          required:
+            - reason
+          properties:
+            reason:
+              type: string
+            alarmListAlignmentRequirement:
+              $ref: '#/components/schemas/AlarmListAlignmentRequirement'
+
+    #---- Definition of query parameters -----------------------------------------------#
+
+    AlarmAckState:
+      type: string
+      enum:
+        - ALL_ALARMS
+        - ALL_ACTIVE_ALARMS
+        - ALL_ACTIVE_AND_ACKNOWLEDGED_ALARMS
+        - ALL_ACTIVE_AND_UNACKNOWLEDGED_ALARMS
+        - ALL_CLEARED_AND_UNACKNOWLEDGED_ALARMS
+        - ALL_UNACKNOWLEDGED_ALARMS
+
+    #---- Definition of patch documents ------------------------------------------------#
+
+    MergePatchAcknowledgeAlarm:
+      description: >-
+        Patch document acknowledging or unacknowledging a single alarm. For
+        acknowleding an alarm the value of ackState is ACKNOWLEDGED, for unacknowleding
+        an alarm the value of ackState is UNACKNOWLEDGED.
+      type: object
+      required:
+        - ackUserId
+        - ackState
+      properties:
+        ackUserId:
+          type: string
+        ackSystemId:
+          type: string
+        ackState:
+          $ref: '#/components/schemas/AckState'
+    MergePatchClearAlarm:
+      description: Patch document for clearing a single alarm
+      type: object
+      required:
+        - clearUserId
+        - perceivedSeverity
+      properties:
+        clearUserId:
+          type: string
+        clearSystemId:
+          type: string
+        perceivedSeverity:
+          type: string
+          enum:
+            - CLEARED
+
+    #---- Definition of method responses -----------------------------------------------#
+
+    FailedAlarm:
+      type: object
+      required:
+        - alarmId
+        - failureReason
+      properties:
+        alarmId:
+          $ref: '#/components/schemas/AlarmId'
+        failureReason:
+          type: string
+
+    #---- Definition of resources ------------------------------------------------------#
+
+    AlarmCount:
+      type: object
+      required:
+        - criticalCount
+        - majorCount
+        - minorCount
+        - warningCount
+        - indeterminateCount
+        - clearedCount
+      properties:
+        criticalCount:
+          type: integer
+        majorCount:
+          type: integer
+        minorCount:
+          type: integer
+        warningCount:
+          type: integer
+        indeterminateCount:
+          type: integer
+        clearedCount:
+          type: integer
+    Comment:
+      type: object
+      properties:
+        commentTime:
+          $ref: '#/components/schemas/DateTime'
+        commentUserId:
+          type: string
+        commentSystemId:
+          type: string
+        commentText:
+          type: string
+    Comments:
+      description: >-
+        Collection of comments. The comment identifiers are allocated by the
+        MnS producer and used as key in the map.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Comment'
+    Subscription:
+      type: object
+      properties:
+        consumerReference:
+          $ref: '#/components/schemas/Uri'
+        timeTick:
+          $ref: '#/components/schemas/Long'
+        filter:
+          $ref: '#/components/schemas/Filter'
