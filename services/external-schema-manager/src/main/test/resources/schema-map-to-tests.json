@@ -1,0 +1,18 @@
+[
+  {
+    "publicURL": "http://someExternalUrl/external",
+    "localURL": "file_with_one_line.json"
+  },
+  {
+    "publicURL": "http://someExternalUrl/emptySchema",
+    "localURL": "empty_schema_file.yaml"
+  },
+  {
+    "publicURL": "http://someExternalUrl/invalidYamlFile",
+    "localURL": "invalid_yaml_structure.yaml"
+  },
+  {
+    "publicURL": "http://someExternalUrl/missingFile",
+    "localURL": "missingFile.yaml"
+  }
+]
