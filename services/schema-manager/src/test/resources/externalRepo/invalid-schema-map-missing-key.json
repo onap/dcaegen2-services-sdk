@@ -1,0 +1,9 @@
+[
+  {
+    "publicURL": "http://localhost:8080/external",
+  },
+  {
+    "publicURL": "http://localhost:8080/local",
+    "localURL": "file:/home/amaciaga/Documents/Onap/sdk/services/schema-manager/src/test/resources/externalRepo/r16/test.json"
+  }
+]

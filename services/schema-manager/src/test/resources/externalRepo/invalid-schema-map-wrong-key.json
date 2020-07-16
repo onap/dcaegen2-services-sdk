@@ -1,0 +1,10 @@
+[
+  {
+    "publicurl": "http://localhost:8080/external",
+    "localURL": "file:/home/amaciaga/Documents/Onap/sdk/services/schema-manager/src/test/resources/externalRepo/r16/2020-07-10-3GPP_TS28532_FaultMNS.yaml"
+  },
+  {
+    "publicURL": "http://localhost:8080/local",
+    "localURL": "file:/home/amaciaga/Documents/Onap/sdk/services/schema-manager/src/test/resources/externalRepo/r16/test.json"
+  }
+]
