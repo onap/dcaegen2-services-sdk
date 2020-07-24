@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ebcec43_2e0b005a",
+        "filename": "services/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-07-24T11:23:01Z",
+      "side": 1,
+      "message": "May we call this external-schema-manager?\nJust to show, it is about external schemas, which are not managed in ONAP?",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "f7088832504cc4a7be27585bbd9e44a46216888b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d48b64eb_9d3178d1",
+        "filename": "services/schema-manager/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-07-24T11:23:01Z",
+      "side": 1,
+      "message": "I think, 1.3.6 is the current version, right?\nWith this update (which is a new functionality), we shall probably updated to the next minor version (1.4.0).",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "f7088832504cc4a7be27585bbd9e44a46216888b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cde643fb_e620094a",
+        "filename": "services/schema-manager/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-07-24T11:23:01Z",
+      "side": 1,
+      "message": "I`d recommend 1.4.0",
+      "range": {
+        "startLine": 14,
+        "startChar": 13,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "f7088832504cc4a7be27585bbd9e44a46216888b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
