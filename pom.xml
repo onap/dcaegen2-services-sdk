@@ -76,8 +76,9 @@
         <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
         <testcontainers.version>1.13.0</testcontainers.version>
         <spring.boot.version>2.2.1.RELEASE</spring.boot.version>
-        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
         <system.rules.version>1.17.2</system.rules.version>
+        <reactor-netty.version>0.9.5.RELEASE</reactor-netty.version>
+        <spring-webflux.version>5.2.7.RELEASE</spring-webflux.version>
 	<sonar.coverage.jacoco.xmlReportPaths>
 	  ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
 	</sonar.coverage.jacoco.xmlReportPaths>
@@ -266,6 +267,17 @@
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>1.7.26</version>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.projectreactor.netty</groupId>
+                <artifactId>reactor-netty</artifactId>
+                <version>${reactor-netty.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webflux</artifactId>
+                <version>${spring-webflux.version}</version>
             </dependency>
 
             <dependency>
