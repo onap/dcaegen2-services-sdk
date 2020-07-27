@@ -80,12 +80,10 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
     }
 
     private List<JsonElement> getAsJsonElements(HttpResponse httpResponse){
-        JsonParser parser = new JsonParser();
-
         JsonArray bodyAsJsonArray = httpResponse
                 .bodyAsJson(StandardCharsets.UTF_8, gson, JsonArray.class);
 
-        return List.ofAll(bodyAsJsonArray).map(arrayElement -> parser.parse(arrayElement.getAsString()));
+        return List.ofAll(bodyAsJsonArray).map(arrayElement -> JsonParser.parseString(arrayElement.getAsString()));
     }
 
     private String buildSubscribeUrl(MessageRouterSubscribeRequest request) {
