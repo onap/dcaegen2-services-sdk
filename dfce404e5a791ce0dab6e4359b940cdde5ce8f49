@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b4e5611_e7034f7e",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-27T11:02:55Z",
+      "side": 1,
+      "message": "it should be different name. Damian send a name in email.",
+      "revId": "dfce404e5a791ce0dab6e4359b940cdde5ce8f49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884efa4b_c0693bd3",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-27T11:02:55Z",
+      "side": 1,
+      "message": "extract to properties",
+      "revId": "dfce404e5a791ce0dab6e4359b940cdde5ce8f49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e029915d_e57a5fa7",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-27T11:02:55Z",
+      "side": 1,
+      "message": "the same here",
+      "revId": "dfce404e5a791ce0dab6e4359b940cdde5ce8f49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e08be55f_a45cac73",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-27T11:02:55Z",
+      "side": 1,
+      "message": "the same here",
+      "revId": "dfce404e5a791ce0dab6e4359b940cdde5ce8f49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7ed1d5b_aad3a5eb",
+        "filename": "services/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-27T11:02:55Z",
+      "side": 1,
+      "message": "change name of project",
+      "revId": "dfce404e5a791ce0dab6e4359b940cdde5ce8f49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
