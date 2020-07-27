@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/health", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/health", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HealthController {
     private final Gson gson;
     private final HealthProvider healthProvider;
@@ -55,7 +55,7 @@ public class HealthController {
     public Mono<ResponseEntity<String>> readinessCheck() {
         return healthProvider.currentHealth()
                 .map(health -> responseStatusForHealth(health)
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .body(gson.toJson(health)));
     }
 
