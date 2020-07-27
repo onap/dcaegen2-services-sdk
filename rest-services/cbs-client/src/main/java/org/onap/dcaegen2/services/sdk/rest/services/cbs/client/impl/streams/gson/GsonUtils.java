@@ -93,7 +93,7 @@ public final class GsonUtils {
 
     public static JsonElement readFromResource(String resource) throws IOException {
         try (Reader reader = new InputStreamReader(GsonUtils.class.getResourceAsStream(resource))) {
-            return new JsonParser().parse(reader);
+            return JsonParser.parseReader(reader);
         }
     }
 
