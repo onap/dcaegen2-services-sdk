@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/health", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/health", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HealthController {
     private final Gson gson;
     private final HealthProvider healthProvider;
@@ -55,7 +55,7 @@ public class HealthController {
     public Mono<ResponseEntity<String>> readinessCheck() {
         return healthProvider.currentHealth()
                 .map(health -> responseStatusForHealth(health)
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .body(gson.toJson(health)));
     }
 
