@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,7 +93,7 @@ public final class GsonUtils {
 
     public static JsonElement readFromResource(String resource) throws IOException {
         try (Reader reader = new InputStreamReader(GsonUtils.class.getResourceAsStream(resource))) {
-            return new JsonParser().parse(reader);
+            return JsonParser.parseReader(reader);
         }
     }
 

@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,6 @@ import reactor.core.publisher.Flux;
 
 
 public final class MessageRouterTestsUtils {
-    private static final JsonParser parser = new JsonParser();
     private MessageRouterTestsUtils() {}
 
     public static MessageRouterPublishRequest createPublishRequest(String topicUrl){
@@ -78,7 +77,7 @@ public final class MessageRouterTestsUtils {
     }
 
     public static List<JsonElement> getAsJsonElements(List<String> messages){
-        return messages.map(parser::parse);
+        return messages.map(JsonParser::parseString);
     }
 
     public static List<JsonObject> getAsJsonObjects(List<String> messages){
