@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "302cb7e4_90475742",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-27T11:27:05Z",
+      "side": 1,
+      "message": "my mistake. Name is correct.",
+      "parentUuid": "0b4e5611_e7034f7e",
+      "revId": "dfce404e5a791ce0dab6e4359b940cdde5ce8f49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "884efa4b_c0693bd3",
         "filename": "services/external-schema-manager/pom.xml",
         "patchSetId": 2
@@ -81,6 +99,24 @@
       "writtenOn": "2020-07-27T11:02:55Z",
       "side": 1,
       "message": "change name of project",
+      "revId": "dfce404e5a791ce0dab6e4359b940cdde5ce8f49",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f785df87_b9356208",
+        "filename": "services/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-27T11:27:05Z",
+      "side": 1,
+      "message": "my mistake. Name is correct.",
+      "parentUuid": "f7ed1d5b_aad3a5eb",
       "revId": "dfce404e5a791ce0dab6e4359b940cdde5ce8f49",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
