@@ -19,6 +19,301 @@
     },
     {
       "key": {
+        "uuid": "44a398f7_c4d16564",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/FileReader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "final",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19fae924_dafbd3e6",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/FileReader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "private",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49af3c01_94d173e6",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/JsonNodeConverter.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "final",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82101fb3_e2508b3f",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceJsonGenerator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "final",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cecd5c03_31a4f3d3",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceMapper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "use string.format.Extract #/ to const",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f093f58_f4dff417",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "pass validatorCache instance via constructor. Do not create instance in constructor.",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e184d6b6_d6a93e03",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "remove method",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b742679_0347e707",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "move this line to try section.\n\ngroup 49 and 52 line in single method: resolveValidator",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ffbc79c_70bb481f",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "create single return point in method.",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5077c8b_89a78718",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "extract to const with prefix: DEFAULT_\n\nhere and below",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ef61855_c2092350",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlMapper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "if class has private constructor it must be marked as final",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a0b660_84fcae58",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlMapper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "if you return collection outside the object pls remember to make copy or unmodifiable collection",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54ffd2dc_7b377c20",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlSplitter.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "it is better to design code by using value object, not util class.\nIf you create class Url(String url) with dedicated methods such as getUrlPart(), getFragmetPart(), etc. then code will be more object oriented.",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1de9e39d_82fd238c",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlSplitter.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "extract to const and give proper name for 0. This is magic word code smell.",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20cbf80c_6b8a06e7",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlSplitter.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 37,
+        "startChar": 33,
+        "endLine": 37,
+        "endChar": 34
+      },
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92608c95_fca0e159",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlSplitter.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a895ddd3_b2660df4",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/ValidatorCache.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-28T10:08:34Z",
+      "side": 1,
+      "message": "is this method required?",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "636f7160_b3d87d8c",
         "filename": "services/external-schema-manager/src/main/test/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidatorBuilderTest.java",
         "patchSetId": 14
