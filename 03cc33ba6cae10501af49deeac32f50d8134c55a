@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "764f9aa4_ff9d4740",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-28T08:55:01Z",
+      "side": 1,
+      "message": "extract version to variable",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
