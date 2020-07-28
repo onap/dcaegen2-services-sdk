@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "185b50d7_ace57c92",
+        "filename": "services/schema-manager/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-28T10:18:32Z",
+      "side": 1,
+      "message": "It is being done over there: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/110605.\n\nWhen it will be merged, we will rebase this MR so 1.4.0 version is set.",
+      "parentUuid": "d48b64eb_9d3178d1",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "f7088832504cc4a7be27585bbd9e44a46216888b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cde643fb_e620094a",
         "filename": "services/schema-manager/pom.xml",
         "patchSetId": 11
@@ -92,6 +116,30 @@
       "revId": "f7088832504cc4a7be27585bbd9e44a46216888b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68530582_cb825ecd",
+        "filename": "services/schema-manager/pom.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-28T10:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cde643fb_e620094a",
+      "range": {
+        "startLine": 14,
+        "startChar": 13,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "f7088832504cc4a7be27585bbd9e44a46216888b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }

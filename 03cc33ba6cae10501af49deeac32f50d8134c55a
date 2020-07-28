@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "57b990ec_5f2e2c44",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-28T10:18:32Z",
+      "side": 1,
+      "message": "This file is waiting for merge of https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/110605.\n\nWhen it will be merged, we will rebase this MR and this file will have no changes.",
+      "parentUuid": "764f9aa4_ff9d4740",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44a398f7_c4d16564",
         "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/FileReader.java",
         "patchSetId": 14
