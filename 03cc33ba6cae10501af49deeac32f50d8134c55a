@@ -16,6 +16,23 @@
       "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "636f7160_b3d87d8c",
+        "filename": "services/external-schema-manager/src/main/test/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidatorBuilderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2020-07-28T09:01:30Z",
+      "side": 1,
+      "message": "extract to constant \"externalRepo\"",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
