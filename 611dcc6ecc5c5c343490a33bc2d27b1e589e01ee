@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "daaf45af_5f01301b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-07-28T06:42:24Z",
+      "side": 1,
+      "message": "Just want to ask are you planning move change notes in next commits?",
+      "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2bbb13e_8f3a92a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-07-28T06:42:24Z",
+      "side": 1,
+      "message": "replace with: \"external-schema-manager submodule\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 46,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9dbacb8_f18e7950",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-07-28T06:42:24Z",
+      "side": 1,
+      "message": "Check main pom. Especially dependencyManagement section.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a84f5473_f2d3815f",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-07-28T06:42:24Z",
+      "side": 1,
+      "message": "In sub pom just groupId and artifactId and scope should be declared. Take a look around in other submodels.\nTake care of versions if needed top up.",
+      "range": {
+        "startLine": 27,
+        "startChar": 3,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
