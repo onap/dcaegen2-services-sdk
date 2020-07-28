@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1f8194e4_9c872cb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-28T09:48:11Z",
+      "side": 1,
+      "message": "We postponed idea of moving change notes to repo.",
+      "parentUuid": "daaf45af_5f01301b",
+      "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2bbb13e_8f3a92a5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6db0c5d4_6a04f7f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-28T09:48:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2bbb13e_8f3a92a5",
+      "range": {
+        "startLine": 7,
+        "startChar": 46,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "f887eee1_fb604826",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-28T09:48:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9dbacb8_f18e7950",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a84f5473_f2d3815f",
         "filename": "services/external-schema-manager/pom.xml",
         "patchSetId": 3
@@ -85,6 +151,30 @@
       "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ba08265_9bb8671d",
+        "filename": "services/external-schema-manager/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-28T09:48:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a84f5473_f2d3815f",
+      "range": {
+        "startLine": 27,
+        "startChar": 3,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "611dcc6ecc5c5c343490a33bc2d27b1e589e01ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
