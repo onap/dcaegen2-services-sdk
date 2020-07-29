@@ -264,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "eb02fdb4_5f673aff",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-29T11:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e184d6b6_d6a93e03",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b742679_0347e707",
         "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
         "patchSetId": 14
@@ -665,6 +683,24 @@
       "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a743fd_84cc363c",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/ValidatorCache.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-29T11:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a895ddd3_b2660df4",
+      "revId": "03cc33ba6cae10501af49deeac32f50d8134c55a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "574f4dbb_fd9d5ef2",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/FileReader.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-29T11:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cf70302_7085d1d6",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c189d3e1_e6f9d045",
         "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceJsonGenerator.java",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1d1d8a8_db176f2d",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceJsonGenerator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-29T11:48:58Z",
+      "side": 1,
+      "message": "I merged SchemaReferenceJsongenerator and JsonNodeConverter, as one is used by the other and they are small. JsonFragmentRetriever imo should stay as is becouse it has functionality not related to the other two classes and is used in diferrent place.",
+      "parentUuid": "c189d3e1_e6f9d045",
+      "range": {
+        "startLine": 34,
+        "startChar": 15,
+        "endLine": 34,
+        "endChar": 79
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a8cff63f_41e9289d",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceResolver.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-29T11:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "441f0c62_31e04618",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e67e90e_fe764e70",
         "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlMapper.java",
         "patchSetId": 16
@@ -91,6 +163,30 @@
       "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06042fa1_c1f3b9bd",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlMapper.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-29T11:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e67e90e_fe764e70",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c65ab5c7_77dd9f9a",
+        "filename": "services/external-schema-manager/src/main/test/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/JsonFragmentRetrieverTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-29T11:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd6b4e93_b62d20d3",
+      "range": {
+        "startLine": 46,
+        "startChar": 36,
+        "endLine": 46,
+        "endChar": 54
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46fb3270_620b6b9c",
         "filename": "services/external-schema-manager/src/main/test/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/JsonNodeConverterTest.java",
         "patchSetId": 16
@@ -137,6 +257,30 @@
       "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f3a8009_38584bd2",
+        "filename": "services/external-schema-manager/src/main/test/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/JsonNodeConverterTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-29T11:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46fb3270_620b6b9c",
+      "range": {
+        "startLine": 51,
+        "startChar": 39,
+        "endLine": 51,
+        "endChar": 80
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
