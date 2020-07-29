@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cf70302_7085d1d6",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/FileReader.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-29T06:23:40Z",
+      "side": 1,
+      "message": "I think this methods may be not static and fileName may be passed in constructor as class parameter",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c189d3e1_e6f9d045",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceJsonGenerator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-29T06:23:40Z",
+      "side": 1,
+      "message": "I think, that this class and classes JsonFragmentRetriever, JsonNodeConverter may be merged in to one class responsible for JsonNode creation, especially that this method uses method from JsonNodeConverter",
+      "range": {
+        "startLine": 34,
+        "startChar": 15,
+        "endLine": 34,
+        "endChar": 79
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "441f0c62_31e04618",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceResolver.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-29T06:23:40Z",
+      "side": 1,
+      "message": "I think this methods may be not static and schemaReference may be passed in constructor",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e67e90e_fe764e70",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlMapper.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-29T06:23:40Z",
+      "side": 1,
+      "message": "Due to fact there is quite a lot of logic responsible for instantiating UrlMapper, I think it would be reasonable to move it to Factory or Supplier",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd6b4e93_b62d20d3",
+        "filename": "services/external-schema-manager/src/main/test/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/JsonFragmentRetrieverTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-29T06:23:40Z",
+      "side": 1,
+      "message": "I think ObjectMapper can be instantiate once and then used for both readTree method.",
+      "range": {
+        "startLine": 46,
+        "startChar": 36,
+        "endLine": 46,
+        "endChar": 54
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46fb3270_620b6b9c",
+        "filename": "services/external-schema-manager/src/main/test/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/JsonNodeConverterTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2020-07-29T06:23:40Z",
+      "side": 1,
+      "message": "I think this method invocation should be in previous line in //when and the outcome should be placed here, it would be more readable",
+      "range": {
+        "startLine": 51,
+        "startChar": 39,
+        "endLine": 51,
+        "endChar": 80
+      },
+      "revId": "be7e16afb47a5e1108a2e61305c9899c416f7696",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
