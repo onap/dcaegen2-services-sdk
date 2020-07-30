@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af239fad_3ddf1a55",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/FileReader.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-30T01:03:37Z",
+      "side": 1,
+      "message": "ONAP style guide says LOGGER should NOT be capitalized",
+      "revId": "baac75cdfffff0d379f7bb85cab5629d4664f497",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "294ae257_728d0f85",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/FileReader.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-30T01:03:37Z",
+      "side": 1,
+      "message": "please join these lines",
+      "revId": "baac75cdfffff0d379f7bb85cab5629d4664f497",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c8dc5d_fb175987",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-30T01:03:37Z",
+      "side": 1,
+      "message": "ONAP style guide says LOGGER should NOT be capitalized",
+      "revId": "baac75cdfffff0d379f7bb85cab5629d4664f497",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecc82edb_c07fa236",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlMapperFactory.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-30T01:03:37Z",
+      "side": 1,
+      "message": "ONAP coding standards say that LOGGER should NOT be capitalized",
+      "revId": "baac75cdfffff0d379f7bb85cab5629d4664f497",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75d24e99_6db0b869",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/ValidatorCache.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-30T01:03:37Z",
+      "side": 1,
+      "message": "ONAP coding standards say that LOGGER should NOT be capitalized",
+      "revId": "baac75cdfffff0d379f7bb85cab5629d4664f497",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
