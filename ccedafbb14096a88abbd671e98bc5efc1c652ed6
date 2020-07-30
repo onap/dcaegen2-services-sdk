@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0df480bd_be518055",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/exception/IncorrectInternalFileReferenceException.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-30T13:30:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de602170_b891ced8",
+      "range": {
+        "startLine": 21,
+        "startChar": 48,
+        "endLine": 21,
+        "endChar": 69
+      },
+      "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc199a82_d34ea68d",
         "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceJsonGenerator.java",
         "patchSetId": 20
@@ -45,6 +69,30 @@
       "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f2adfbd_244da339",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceJsonGenerator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-30T13:30:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc199a82_d34ea68d",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 5
+      },
+      "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
