@@ -53,7 +53,7 @@ public class StndDefinedValidator {
      * @param event as JsonNode
      * @return validation result
      * @throws IncorrectInternalFileReferenceException when reference to part of openApi yaml file with schemas is incorrect.
-     * @throws NoLocalReferenceException when mapping for public url is not present in schema mapping file.
+     * @throws NoLocalReferenceException               when mapping for public url is not present in schema mapping file.
      */
     public boolean validate(JsonNode event) throws IncorrectInternalFileReferenceException, NoLocalReferenceException {
         boolean validationResult = false;
@@ -65,7 +65,7 @@ public class StndDefinedValidator {
             validationResult = true;
         } catch (ValidationException ex) {
             logger.error(String.valueOf(ex.results()));
-        } catch (IOException ex){
+        } catch (IOException ex) {
             logger.error("Schema reference has invalid characters", ex);
         }
         return validationResult;

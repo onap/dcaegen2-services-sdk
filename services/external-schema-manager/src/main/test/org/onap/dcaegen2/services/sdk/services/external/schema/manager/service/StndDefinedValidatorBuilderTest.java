@@ -26,7 +26,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class StndDefinedValidatorBuilderTest {
+class StndDefinedValidatorBuilderTest {
 
     private static final String TEST_RESOURCES = "src/main/test/resources/externalRepo/";
 
@@ -38,7 +38,7 @@ public class StndDefinedValidatorBuilderTest {
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
-        assertThat(mappingsCache.size()).isEqualTo(6);
+        assertThat(mappingsCache).hasSize(6);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class StndDefinedValidatorBuilderTest {
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
-        assertThat(mappingsCache.size()).isEqualTo(5);
+        assertThat(mappingsCache).hasSize(5);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class StndDefinedValidatorBuilderTest {
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
-        assertThat(mappingsCache.size()).isEqualTo(4);
+        assertThat(mappingsCache).hasSize(4);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class StndDefinedValidatorBuilderTest {
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
-        assertThat(mappingsCache.size()).isEqualTo(3);
+        assertThat(mappingsCache).hasSize(3);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class StndDefinedValidatorBuilderTest {
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
-        assertThat(mappingsCache.size()).isEqualTo(0);
+        assertThat(mappingsCache.size()).isZero();
     }
 
     @Test
@@ -88,7 +88,7 @@ public class StndDefinedValidatorBuilderTest {
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
-        assertThat(mappingsCache.size()).isEqualTo(0);
+        assertThat(mappingsCache.size()).isZero();
     }
 
     private StndDefinedValidator getValidator(String mappingFilePath) {

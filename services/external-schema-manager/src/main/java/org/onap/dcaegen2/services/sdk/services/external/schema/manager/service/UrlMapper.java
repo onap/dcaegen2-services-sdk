@@ -36,7 +36,7 @@ final class UrlMapper {
         return Map.copyOf(mappingsCache);
     }
 
-    String mapToLocalUrl(String publicUrl) {
+    String mapToLocalUrl(String publicUrl) throws NoLocalReferenceException {
         String externalUrl = mappingsCache.get(publicUrl);
         if (externalUrl == null) {
             throw new NoLocalReferenceException("Couldn't find mapping for public url. PublicURL: " + publicUrl);

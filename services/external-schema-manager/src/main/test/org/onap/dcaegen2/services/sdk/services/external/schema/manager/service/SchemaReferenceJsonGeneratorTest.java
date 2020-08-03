@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class SchemaReferenceJsonGeneratorTest {
 
     @Test
-    public void shouldReturnValidSchemaReferenceWhenUrlIsInValidFormat() throws IOException {
+    void shouldReturnValidSchemaReferenceWhenUrlIsInValidFormat() throws IOException {
         //given
         String validUrl = "src/main/test/resources/file_with_one_line.json#/elo";
         String schemaReferenceContent = "{\"$ref\":\"" + validUrl + "\"}";
@@ -49,7 +49,7 @@ class SchemaReferenceJsonGeneratorTest {
     }
 
     @Test
-    public void shouldThrowErrorWhenUrlIsInInvalidFormat() {
+    void shouldThrowErrorWhenUrlIsInInvalidFormat() {
         //given
         String invalidFormatUrl = "\"someDummyValue\n\t";
         SchemaReferenceResolver schemaReferenceResolver = new SchemaReferenceResolver(invalidFormatUrl);

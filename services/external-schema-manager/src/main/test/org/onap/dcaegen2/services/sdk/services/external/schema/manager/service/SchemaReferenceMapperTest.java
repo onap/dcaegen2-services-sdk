@@ -30,7 +30,7 @@ class SchemaReferenceMapperTest {
     public static final String SCHEMAS_PATH = "src/main/test/resources";
 
     @Test
-    public void shouldReturnProperReferenceWhenSchemaReferenceHasNoHash() {
+    void shouldReturnProperReferenceWhenSchemaReferenceHasNoHash() {
         //given
         SchemaReferenceMapper schemaReferenceMapper = getSchemaReferenceMapper();
         String publicUrlWithoutHash = "http://someExternalUrl/external";
@@ -47,7 +47,7 @@ class SchemaReferenceMapperTest {
     }
 
     @Test
-    public void shouldReturnProperReferenceWhenSchemaReferenceContainsHash() {
+    void shouldReturnProperReferenceWhenSchemaReferenceContainsHash() {
         //given
         SchemaReferenceMapper schemaReferenceMapper = getSchemaReferenceMapper();
         String publicUrlWithHash = "http://someExternalUrl/external#someString";
