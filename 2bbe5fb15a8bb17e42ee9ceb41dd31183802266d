@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f72619b3_d9fa4feb",
+        "filename": "pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2020-08-03T12:29:17Z",
+      "side": 1,
+      "message": "Consider updated this to 1.14.3 (DCAE-pairwise build)",
+      "range": {
+        "startLine": 77,
+        "startChar": 32,
+        "endLine": 77,
+        "endChar": 38
+      },
+      "revId": "2bbe5fb15a8bb17e42ee9ceb41dd31183802266d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
