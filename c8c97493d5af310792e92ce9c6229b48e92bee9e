@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb91a597_5a30cf3d",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/GsonUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T18:15:11Z",
+      "side": 1,
+      "message": "need to update copyright",
+      "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dac6a65_de3a3e11",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/MessageRouterTestsUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T18:15:11Z",
+      "side": 1,
+      "message": "need to update copyright",
+      "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e26de05_4548a89d",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/HvVesProducerFactoryImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T18:15:11Z",
+      "side": 1,
+      "message": "need to update copyright",
+      "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "607be49d_686b648a",
+        "filename": "standardization/moher-api/server-adapters/spring-webflux/src/main/java/org/onap/dcaegen2/services/sdk/standardization/moher/adapters/springwebflux/HealthController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-05T18:15:11Z",
+      "side": 1,
+      "message": "need to update copyright",
+      "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
