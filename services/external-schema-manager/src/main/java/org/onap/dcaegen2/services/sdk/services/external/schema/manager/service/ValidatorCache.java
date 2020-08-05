@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.NoLocalReferenceException;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.model.SchemaReference;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.IncorrectInternalFileReferenceException;
 import org.openapi4j.core.exception.ResolutionException;
@@ -47,7 +48,7 @@ class ValidatorCache {
         return schemaReferenceMapper;
     }
 
-    synchronized SchemaValidator resolveValidator(JsonNode event, String schemaRefPath) throws IOException {
+    synchronized SchemaValidator resolveValidator(JsonNode event, String schemaRefPath) throws IOException, IncorrectInternalFileReferenceException, NoLocalReferenceException {
         SchemaReference schemaReference = resolveSchemaReference(event, schemaRefPath);
         schemaReference = schemaReferenceMapper.mapToLocalSchema(schemaReference);
         SchemaValidator validator = cache.get(schemaReference.getUrl());
@@ -67,7 +68,7 @@ class ValidatorCache {
         return validator != null;
     }
 
-    private SchemaValidator createNewValidator(SchemaReference schemaReference) throws IOException {
+    private SchemaValidator createNewValidator(SchemaReference schemaReference) throws IOException, IncorrectInternalFileReferenceException {
         logger.info("Creating new stndDefined schema validator");
         JsonNode schemaRefNode = SchemaReferenceJsonGenerator.getSchemaReferenceJson(schemaReference);
         SchemaValidator schemaValidator = handleValidatorCreation(schemaRefNode);
@@ -75,7 +76,7 @@ class ValidatorCache {
         return schemaValidator;
     }
 
-    private SchemaValidator handleValidatorCreation(JsonNode schemaNode) {
+    private SchemaValidator handleValidatorCreation(JsonNode schemaNode) throws IncorrectInternalFileReferenceException{
         try {
             return new SchemaValidator("StndDefinedSchemaValidator", schemaNode);
         } catch (ResolutionException e) {

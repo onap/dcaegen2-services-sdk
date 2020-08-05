@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class StndDefinedValidatorTest {
+class StndDefinedValidatorTest {
 
     private static final String TEST_RESOURCES = "src/main/test/resources/";
     private static final String MAPPING_FILE_PATH = TEST_RESOURCES + "externalRepo/schema-map.json";

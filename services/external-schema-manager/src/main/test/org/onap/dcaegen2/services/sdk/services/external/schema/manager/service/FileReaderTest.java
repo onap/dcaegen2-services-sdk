@@ -31,7 +31,7 @@ class FileReaderTest {
     public static final String TEST_RESOURCES = "src/main/test/resources/";
 
     @Test
-    public void shouldReturnEmptyStringWhenFileNotFound() {
+    void shouldReturnEmptyStringWhenFileNotFound() {
         //given
         String expectedContent = "";
         String fileName = "dummyFileName";
@@ -44,7 +44,7 @@ class FileReaderTest {
     }
 
     @Test
-    public void shouldReturnFileContentWhenFileExists() {
+    void shouldReturnFileContentWhenFileExists() {
         //given
         String expectedContent = "{\n" +
                 "  \"someObject\": \"dummyValue\"\n" +
@@ -59,7 +59,7 @@ class FileReaderTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenFileDoesNotExist() {
+    void shouldReturnFalseWhenFileDoesNotExist() {
         //when
         boolean doesFileExists = new FileReader("dummyFileName").doesFileExists();
 
@@ -68,7 +68,7 @@ class FileReaderTest {
     }
 
     @Test
-    public void shouldReturnTrueWhenFileExists() {
+    void shouldReturnTrueWhenFileExists() {
         //when
         boolean doesFileExists = new FileReader(TEST_RESOURCES + "file_with_one_line.json").doesFileExists();
 

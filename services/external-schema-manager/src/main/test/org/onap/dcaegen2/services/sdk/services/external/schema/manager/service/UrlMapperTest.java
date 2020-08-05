@@ -40,7 +40,7 @@ class UrlMapperTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenNoMappingExists() {
+    void shouldThrowExceptionWhenNoMappingExists() {
         //given
         String notMappedPublicUrl = "http://localhost:8080/notExisting";
 
@@ -50,7 +50,7 @@ class UrlMapperTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenLocalSchemaFileIsEmpty() {
+    void shouldThrowExceptionWhenLocalSchemaFileIsEmpty() {
         //given
         String publicUrlToEmptyLocal = "http://someExternalUrl/emptySchema";
 
@@ -60,7 +60,7 @@ class UrlMapperTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenFileHasInvalidYamlStructure() {
+    void shouldThrowExceptionWhenFileHasInvalidYamlStructure() {
         //given
         String publicUrlToInvalidYamlLocal = "http://someExternalUrl/invalidYamlFile";
 
@@ -70,7 +70,7 @@ class UrlMapperTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenLocalFileDoesNotExist() {
+    void shouldThrowExceptionWhenLocalFileDoesNotExist() {
         //given
         String publicUrlToNotExistingLocalFile = "http://someExternalUrl/missingFile";
 
@@ -80,7 +80,7 @@ class UrlMapperTest {
     }
 
     @Test
-    public void shouldReturnLocalUrlWhenFileValidAndFound() {
+    void shouldReturnLocalUrlWhenFileValidAndFound() {
         //given
         String publicUrl = "http://someExternalUrl/external";
 
@@ -90,7 +90,7 @@ class UrlMapperTest {
     }
 
     @Test
-    public void shouldNotThrowExceptionWhenMappingFileDoesNotExist() {
+    void shouldNotThrowExceptionWhenMappingFileDoesNotExist() {
         String invalidMappingFilePath = "src/main/test/resources/missing-schema.json";
 
         Assertions.assertDoesNotThrow(() -> new UrlMapperFactory().getUrlMapper(invalidMappingFilePath, SCHEMAS_PATH));

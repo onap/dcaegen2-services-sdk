@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
 
+import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.NoLocalReferenceException;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.model.SchemaReference;
 
 import java.io.File;
@@ -38,7 +39,7 @@ class SchemaReferenceMapper {
         return urlMapper;
     }
 
-    SchemaReference mapToLocalSchema(SchemaReference schemaReference) {
+    SchemaReference mapToLocalSchema(SchemaReference schemaReference) throws NoLocalReferenceException {
         String publicUrl = schemaReference.getUrl();
         String localUrl = urlMapper.mapToLocalUrl(publicUrl);
         return createLocalSchemaReference(localUrl, schemaReference.getInternalReference());

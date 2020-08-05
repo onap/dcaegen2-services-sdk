@@ -41,7 +41,7 @@ class JsonFragmentRetrieverTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    public void shouldReturnJsonFragmentAtValidPath() throws IOException {
+    void shouldReturnJsonFragmentAtValidPath() throws IOException {
         //given
         JsonNode jsonContent = objectMapper.readTree(VALID_JSON_CONTENT);
         JsonNode expectedJsonNode = objectMapper.readTree("true");
@@ -55,7 +55,7 @@ class JsonFragmentRetrieverTest {
     }
 
     @Test
-    public void shouldThrowErrorWhenPathDoesNotExistInJsonContent() throws IOException {
+    void shouldThrowErrorWhenPathDoesNotExistInJsonContent() throws IOException {
         //given
         JsonNode jsonContent = objectMapper.readTree(VALID_JSON_CONTENT);
         String dummyPath = "dummyPath";
