@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "96aa140e_5df9a8e9",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/GsonUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-06T13:56:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10675f72_30f9f35f",
+      "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dac6a65_de3a3e11",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/MessageRouterTestsUtils.java",
         "patchSetId": 8
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "2dac6a65_de3a3e11",
+      "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b6ba272_1beb1a40",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/MessageRouterTestsUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-06T13:56:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ace32377_bd6e2a9d",
       "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "84abc9b1_09f8e5ec",
+        "filename": "services/hv-ves-client/producer/impl/src/main/java/org/onap/dcaegen2/services/sdk/services/hvves/client/producer/impl/HvVesProducerFactoryImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-06T13:56:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56ba947c_054fc5b8",
+      "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "607be49d_686b648a",
         "filename": "standardization/moher-api/server-adapters/spring-webflux/src/main/java/org/onap/dcaegen2/services/sdk/standardization/moher/adapters/springwebflux/HealthController.java",
         "patchSetId": 8
@@ -136,6 +190,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "607be49d_686b648a",
+      "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53820cfc_c38c7fc6",
+        "filename": "standardization/moher-api/server-adapters/spring-webflux/src/main/java/org/onap/dcaegen2/services/sdk/standardization/moher/adapters/springwebflux/HealthController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-06T13:56:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "579500bd_42cc2911",
       "revId": "c8c97493d5af310792e92ce9c6229b48e92bee9e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
