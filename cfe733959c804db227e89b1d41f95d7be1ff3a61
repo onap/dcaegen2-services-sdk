@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6649d5e_0f883ed1",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/streams/gson/GsonUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-08-06T13:25:26Z",
+      "side": 1,
+      "message": "sigh. Needs to be 2019-2020\n\nsame for the others",
+      "revId": "cfe733959c804db227e89b1d41f95d7be1ff3a61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
