@@ -1,0 +1,8 @@
+Code-Review+1: Damian Nowak <damian.nowak@nokia.com>
+Code-Review+2: Tony Hansen <tony@att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Thu, 06 Aug 2020 13:56:38 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/110624
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
