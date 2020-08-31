@@ -45,7 +45,7 @@ class JsonFragmentRetrieverTest {
         //given
         JsonNode jsonContent = objectMapper.readTree(VALID_JSON_CONTENT);
         JsonNode expectedJsonNode = objectMapper.readTree("true");
-        String validPath = "/validObject/someEvent/someObject";
+        String validPath = "$.validObject.someEvent.someObject";
 
         //when
         JsonNode actualJsonNode = JsonFragmentRetriever.getFragment(jsonContent, validPath);

@@ -28,6 +28,13 @@ final class JsonFragmentRetriever {
     }
 
     static JsonNode getFragment(JsonNode event, String fragmentPath) {
-        return event.at(fragmentPath);
+        String fragmentPathInSlashNotation = jsonToSlashNotation(fragmentPath);
+        return event.at(fragmentPathInSlashNotation);
+    }
+
+    private static String jsonToSlashNotation(String fragmentPath) {
+        return fragmentPath
+                .replace(".", "/")
+                .replace("$","");
     }
 }
