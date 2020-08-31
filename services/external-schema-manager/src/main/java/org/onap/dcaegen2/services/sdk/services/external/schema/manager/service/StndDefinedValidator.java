@@ -74,8 +74,8 @@ public class StndDefinedValidator {
     public static final class ValidatorBuilder {
 
         public static final String DEFAULT_MAPPING_FILE_PATH = "etc/externalRepo/schema-map.json";
-        public static final String DEFAULT_SCHEMA_REF_PATH = "/event/stndDefinedFields/schemaReference";
-        public static final String DEFAULT_STND_DEFINED_DATA_PATH = "/event/stndDefinedFields/data";
+        public static final String DEFAULT_SCHEMA_REF_PATH = "$.event.stndDefinedFields.schemaReference";
+        public static final String DEFAULT_STND_DEFINED_DATA_PATH = "$.event.stndDefinedFields.data";
         public static final String DEFAULT_SCHEMAS_PATH = "etc/externalRepo";
 
         private String mappingFilePath = DEFAULT_MAPPING_FILE_PATH;
