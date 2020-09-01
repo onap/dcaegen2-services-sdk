@@ -1,0 +1,10 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Vijay Venkatesh Kumar <vv770d@att.com>
+Code-Review+1: Michał Bańka <michal.banka@nokia.com>
+Code-Review+1: Bartosz Gardziejewski <bartosz.gardziejewski@nokia.com>
+Code-Review+2: Kornel Janiak <kornel.janiak@nokia.com>
+Submitted-by: Kornel Janiak <kornel.janiak@nokia.com>
+Submitted-at: Tue, 01 Sep 2020 13:59:43 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/111877
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
