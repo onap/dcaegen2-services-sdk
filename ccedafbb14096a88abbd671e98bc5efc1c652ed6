@@ -49,6 +49,40 @@
     },
     {
       "key": {
+        "uuid": "07aea542_8b53575b",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/model/SchemaReference.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:23:29Z",
+      "side": 1,
+      "message": "javadocs for the class?",
+      "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b3cbad_9a25b9e8",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/FileReader.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:23:29Z",
+      "side": 1,
+      "message": "javadocs for the class and public methods?",
+      "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fc199a82_d34ea68d",
         "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceJsonGenerator.java",
         "patchSetId": 20
@@ -93,6 +127,74 @@
       "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "537823fe_baa3c00a",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/SchemaReferenceResolver.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:23:29Z",
+      "side": 1,
+      "message": "javadocs for the class?",
+      "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b7b667_dcb00d77",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/StndDefinedValidator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:23:29Z",
+      "side": 1,
+      "message": "javadocs for the class?",
+      "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6bb4ccf_fadc68ba",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/UrlMapperFactory.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:23:29Z",
+      "side": 1,
+      "message": "javadocs for the class and public methods?",
+      "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac15ed25_120426e1",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/externalschemamanager/service/ValidatorCache.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:23:29Z",
+      "side": 1,
+      "message": "javadocs for the class and public methods?",
+      "revId": "ccedafbb14096a88abbd671e98bc5efc1c652ed6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
