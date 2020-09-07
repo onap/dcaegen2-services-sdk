@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e69b379_0e40a289",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/model/SchemaReference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T11:43:07Z",
+      "side": 1,
+      "message": "schema URL",
+      "range": {
+        "startLine": 26,
+        "startChar": 54,
+        "endLine": 26,
+        "endChar": 60
+      },
+      "revId": "642857047202e57efff75572de43ef65aade914b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27368e14_81e59e9f",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/model/SchemaReference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T11:43:07Z",
+      "side": 1,
+      "message": "internal schema reference path",
+      "revId": "642857047202e57efff75572de43ef65aade914b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c53d962_f5f4e6f2",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/service/SchemaReferenceResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T11:43:07Z",
+      "side": 1,
+      "message": "schemaReference is represented by an URL with optional internal reference path (for example: http://someExternalUrl/external#schemaName)",
+      "range": {
+        "startLine": 39,
+        "startChar": 60,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "642857047202e57efff75572de43ef65aade914b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ddb897c_0895e2bd",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/service/StndDefinedEventValidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T11:43:07Z",
+      "side": 1,
+      "message": "JsonNode objects",
+      "range": {
+        "startLine": 35,
+        "startChar": 48,
+        "endLine": 35,
+        "endChar": 65
+      },
+      "revId": "642857047202e57efff75572de43ef65aade914b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7e27750_a681b985",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/service/StndDefinedEventValidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T11:43:07Z",
+      "side": 1,
+      "message": "It\u0027s not really Event validator. It\u0027s validator of specific JsonNode objects. In my opinion name should stay more generic as was before (StndDefinedValidator).\n\nIf you think that new one is better fix name in comment above class header.",
+      "revId": "642857047202e57efff75572de43ef65aade914b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c15ee07_560592e3",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/service/StndDefinedEventValidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T11:43:07Z",
+      "side": 1,
+      "message": "Last name was better in my opinion. This is more generic library than just VES event validator.\n\nSame with comment above this builder.",
+      "revId": "642857047202e57efff75572de43ef65aade914b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a0d12c_f70b89b0",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/service/UrlMapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T11:43:07Z",
+      "side": 1,
+      "message": "An UrlMapper contains mappings between public urls and locally stored schema files.",
+      "revId": "642857047202e57efff75572de43ef65aade914b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d7e165_b79407c6",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/service/UrlMapperFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T11:43:07Z",
+      "side": 1,
+      "message": "@param schemasPath path to local schemas repository",
+      "revId": "642857047202e57efff75572de43ef65aade914b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
