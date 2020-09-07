@@ -22,7 +22,9 @@ package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
 
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.model.SchemaReference;
 
-
+/**
+ * A SchemaReferenceResolver is used to resolve a schema reference which will be used to validate json data.
+ */
 public class SchemaReferenceResolver {
 
     private static final String ROOT_REFERENCE = "/";
@@ -32,6 +34,10 @@ public class SchemaReferenceResolver {
 
     private final String schemaReference;
 
+    /**
+     * Constructor
+     * @param schemaReference is represented by an url with hash tag (for example: http://someExternalUrl/external#schemaName)
+     */
     public SchemaReferenceResolver(String schemaReference) {
         this.schemaReference = schemaReference;
     }

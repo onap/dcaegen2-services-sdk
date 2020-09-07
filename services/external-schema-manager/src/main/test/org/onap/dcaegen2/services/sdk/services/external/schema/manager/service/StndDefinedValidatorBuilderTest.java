@@ -33,7 +33,7 @@ class StndDefinedValidatorBuilderTest {
     @Test
     void shouldGenerateValidatorWithAllSchemaMappings() {
         //when
-        StndDefinedValidator validator = getValidator("schema-map.json");
+        StndDefinedEventValidator validator = getValidator("schema-map.json");
 
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
@@ -44,7 +44,7 @@ class StndDefinedValidatorBuilderTest {
     @Test
     void shouldGenerateValidatorWithoutSchemaMappingsWithReferenceToNotExistingLocalResource() {
         //when
-        StndDefinedValidator validator = getValidator("schema-map-no-local-resource.json");
+        StndDefinedEventValidator validator = getValidator("schema-map-no-local-resource.json");
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
@@ -54,7 +54,7 @@ class StndDefinedValidatorBuilderTest {
     @Test
     void shouldGenerateValidatorWithoutSchemaMappingsWithEmptyLocalFileContent() {
         //when
-        StndDefinedValidator validator = getValidator("schema-map-empty-content.json");
+        StndDefinedEventValidator validator = getValidator("schema-map-empty-content.json");
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
@@ -64,7 +64,7 @@ class StndDefinedValidatorBuilderTest {
     @Test
     void shouldGenerateValidatorWithoutSchemaMappingsWithIncorrectYamlFormat() {
         //when
-        StndDefinedValidator validator = getValidator("schema-map-incorrect-yaml-format.json");
+        StndDefinedEventValidator validator = getValidator("schema-map-incorrect-yaml-format.json");
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
@@ -74,7 +74,7 @@ class StndDefinedValidatorBuilderTest {
     @Test
     void shouldGenerateValidatorWithoutSchemaMappingsWhenSchemaMappingFileHasNotJsonFormat() {
         //when
-        StndDefinedValidator validator = getValidator("schema-map-no-json-format.json");
+        StndDefinedEventValidator validator = getValidator("schema-map-no-json-format.json");
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
@@ -84,15 +84,15 @@ class StndDefinedValidatorBuilderTest {
     @Test
     void shouldGenerateValidatorWithoutSchemaMappingsWhenSchemaMappingFileHasWrongFieldName() {
         //when
-        StndDefinedValidator validator = getValidator("schema-map-wrong-field-name.json");
+        StndDefinedEventValidator validator = getValidator("schema-map-wrong-field-name.json");
         Map<String, String> mappingsCache = getMappingsCache(validator);
 
         //then
         assertThat(mappingsCache.size()).isZero();
     }
 
-    private StndDefinedValidator getValidator(String mappingFilePath) {
-        return new StndDefinedValidator.ValidatorBuilder()
+    private StndDefinedEventValidator getValidator(String mappingFilePath) {
+        return new StndDefinedEventValidator.EventValidatorBuilder()
                 .mappingFilePath(TEST_RESOURCES + mappingFilePath)
                 .schemasPath(TEST_RESOURCES)
                 .schemaRefPath("/event/stndDefinedFields/schemaReference")
@@ -100,7 +100,7 @@ class StndDefinedValidatorBuilderTest {
                 .build();
     }
 
-    private Map<String, String> getMappingsCache(StndDefinedValidator validator) {
+    private Map<String, String> getMappingsCache(StndDefinedEventValidator validator) {
         return validator.getValidatorCache()
                 .getSchemaReferenceMapper()
                 .getUrlMapper()

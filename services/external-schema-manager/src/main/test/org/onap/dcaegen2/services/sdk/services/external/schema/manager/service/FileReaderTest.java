@@ -29,15 +29,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class FileReaderTest {
 
     public static final String TEST_RESOURCES = "src/main/test/resources/";
+    public static final String DUMMY_FILE_PATH = "dummyFileName";
 
     @Test
     void shouldReturnEmptyStringWhenFileNotFound() {
         //given
         String expectedContent = "";
-        String fileName = "dummyFileName";
 
         //when
-        String actualContent = new FileReader(fileName).readFile();
+        String actualContent = new FileReader(DUMMY_FILE_PATH).getContent();
 
         //then
         assertEquals(expectedContent, actualContent);
@@ -49,10 +49,10 @@ class FileReaderTest {
         String expectedContent = "{\n" +
                 "  \"someObject\": \"dummyValue\"\n" +
                 "}";
-        String filename = TEST_RESOURCES + "file_with_one_line.json";
+        String filePath = TEST_RESOURCES + "file_with_one_line.json";
 
         //when
-        String actualContent = new FileReader(filename).readFile();
+        String actualContent = new FileReader(filePath).getContent();
 
         //then
         assertEquals(expectedContent, actualContent);
@@ -61,7 +61,7 @@ class FileReaderTest {
     @Test
     void shouldReturnFalseWhenFileDoesNotExist() {
         //when
-        boolean doesFileExists = new FileReader("dummyFileName").doesFileExists();
+        boolean doesFileExists = new FileReader(DUMMY_FILE_PATH).doesFileExists();
 
         //then
         assertFalse(doesFileExists);

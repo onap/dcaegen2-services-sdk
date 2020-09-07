@@ -31,18 +31,31 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
-public class StndDefinedValidator {
-    private static final Logger logger = LoggerFactory.getLogger(StndDefinedValidator.class);
+/**
+ * A StndDefinedValidator is used to validate a StndDefined event.
+ */
+public class StndDefinedEventValidator {
+    private static final Logger logger = LoggerFactory.getLogger(StndDefinedEventValidator.class);
     private final String schemaRefPath;
     private final String stndDefinedDataPath;
     private final ValidatorCache validatorCache;
 
-    private StndDefinedValidator(String schemaRefPath, String stndDefinedDataPath, ValidatorCache validatorCache) {
+    /**
+     * Constructor
+     *
+     * @param schemaRefPath path to schema reference in json
+     * @param stndDefinedDataPath path to data in json which is described by schemaRefPath
+     * @param validatorCache contains cached validators
+     */
+    private StndDefinedEventValidator(String schemaRefPath, String stndDefinedDataPath, ValidatorCache validatorCache) {
         this.schemaRefPath = schemaRefPath;
         this.stndDefinedDataPath = stndDefinedDataPath;
         this.validatorCache = validatorCache;
     }
 
+    /**
+     * @return cached validators
+     */
     ValidatorCache getValidatorCache() {
         return validatorCache;
     }
@@ -71,7 +84,10 @@ public class StndDefinedValidator {
         return validationResult;
     }
 
-    public static final class ValidatorBuilder {
+    /**
+     * An event validator builder.
+     */
+    public static final class EventValidatorBuilder {
 
         public static final String DEFAULT_MAPPING_FILE_PATH = "etc/externalRepo/schema-map.json";
         public static final String DEFAULT_SCHEMA_REF_PATH = "$.event.stndDefinedFields.schemaReference";
@@ -96,7 +112,7 @@ public class StndDefinedValidator {
          * ]
          * @implNote default mapping file path: "etc/externalRepo/schema-map.json"
          */
-        public ValidatorBuilder mappingFilePath(String mappingFilePath) {
+        public EventValidatorBuilder mappingFilePath(String mappingFilePath) {
             this.mappingFilePath = mappingFilePath;
             return this;
         }
@@ -106,7 +122,7 @@ public class StndDefinedValidator {
          * @return builder reference
          * @implNote default: "/event/stndDefinedFields/schemaReference"
          */
-        public ValidatorBuilder schemaRefPath(String schemaRefPath) {
+        public EventValidatorBuilder schemaRefPath(String schemaRefPath) {
             this.schemaRefPath = schemaRefPath;
             return this;
         }
@@ -116,7 +132,7 @@ public class StndDefinedValidator {
          * @return builder reference
          * @implNote default: "/event/stndDefinedFields/data"
          */
-        public ValidatorBuilder stndDefinedDataPath(String stndDefinedDataPath) {
+        public EventValidatorBuilder stndDefinedDataPath(String stndDefinedDataPath) {
             this.stndDefinedDataPath = stndDefinedDataPath;
             return this;
         }
@@ -126,7 +142,7 @@ public class StndDefinedValidator {
          * @return builder reference
          * @implNote default: "etc/externalRepo"
          */
-        public ValidatorBuilder schemasPath(String schemasPath) {
+        public EventValidatorBuilder schemasPath(String schemasPath) {
             this.schemasPath = new File(schemasPath).getAbsolutePath();
             return this;
         }
@@ -141,11 +157,11 @@ public class StndDefinedValidator {
          *
          * @return stndDefinedValidator with cached schemas
          */
-        public StndDefinedValidator build() {
+        public StndDefinedEventValidator build() {
             UrlMapper urlMapper = new UrlMapperFactory().getUrlMapper(mappingFilePath, schemasPath);
             SchemaReferenceMapper schemaReferenceMapper = new SchemaReferenceMapper(urlMapper, schemasPath);
             ValidatorCache validatorCache = new ValidatorCache(schemaReferenceMapper);
-            return new StndDefinedValidator(schemaRefPath, stndDefinedDataPath, validatorCache);
+            return new StndDefinedEventValidator(schemaRefPath, stndDefinedDataPath, validatorCache);
         }
     }
 }

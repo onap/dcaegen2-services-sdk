@@ -23,19 +23,34 @@ package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.NoLocalReferenceException;
 
 import java.util.Map;
-
+/**
+ * An UrlMapper contains mapping between public urls received in events and schemas stored locally in the system.
+ * */
 final class UrlMapper {
 
     private final Map<String, String> mappingsCache;
 
+    /**
+     * Constructor
+     * @param mappings contain mapping public urls to local schema file
+     */
     UrlMapper(Map<String, String> mappings) {
         this.mappingsCache = Map.copyOf(mappings);
     }
 
+    /**
+     * @return cached mapping of public urls to local schemas
+     */
     Map<String, String> getMappingsCache() {
         return Map.copyOf(mappingsCache);
     }
 
+    /**
+     * Map public url received in the event to url of local schema file
+     * @param publicUrl public url
+     * @return Urt to local schema file
+     * @throws NoLocalReferenceException when local schema file doesn't exist for selected public url
+     */
     String mapToLocalUrl(String publicUrl) throws NoLocalReferenceException {
         String externalUrl = mappingsCache.get(publicUrl);
         if (externalUrl == null) {
