@@ -54,7 +54,7 @@ class StndDefinedValidatorTest {
             throws IOException {
         //given
         FileReader fileReader = new FileReader(VALID_EVENT_PATH);
-        JsonNode validEventNode = objectMapper.readTree(fileReader.readFile());
+        JsonNode validEventNode = objectMapper.readTree(fileReader.getContent());
 
         //when
         boolean validationResult = validator.validate(validEventNode);
@@ -68,7 +68,7 @@ class StndDefinedValidatorTest {
             throws IOException {
         //given
         FileReader fileReader = new FileReader(INVALID_EVENT_PATH);
-        JsonNode invalidEventNode = objectMapper.readTree(fileReader.readFile());
+        JsonNode invalidEventNode = objectMapper.readTree(fileReader.getContent());
 
         //when
         boolean validationResult = validator.validate(invalidEventNode);
@@ -82,7 +82,7 @@ class StndDefinedValidatorTest {
             throws IOException {
         //given
         FileReader fileReader = new FileReader(VALID_NO_HASH_EVENT_PATH);
-        JsonNode validEventNode = objectMapper.readTree(fileReader.readFile());
+        JsonNode validEventNode = objectMapper.readTree(fileReader.getContent());
 
         //when
         boolean validationResult = validator.validate(validEventNode);
@@ -98,7 +98,7 @@ class StndDefinedValidatorTest {
         String noLocalResourceMappingFilePath = TEST_RESOURCES + "externalRepo/schema-map-no-local-resource.json";
         StndDefinedValidator validator = getValidator(noLocalResourceMappingFilePath);
         FileReader fileReader = new FileReader(VALID_EVENT_PATH);
-        JsonNode validEventNode = objectMapper.readTree(fileReader.readFile());
+        JsonNode validEventNode = objectMapper.readTree(fileReader.getContent());
 
         //when
         //then
@@ -112,7 +112,7 @@ class StndDefinedValidatorTest {
         String noLocalResourceMappingFilePath = TEST_RESOURCES + "externalRepo/schema-map-empty-content.json";
         StndDefinedValidator validator = getValidator(noLocalResourceMappingFilePath);
         FileReader fileReader = new FileReader(VALID_EVENT_PATH);
-        JsonNode validEventNode = objectMapper.readTree(fileReader.readFile());
+        JsonNode validEventNode = objectMapper.readTree(fileReader.getContent());
 
         //when
         //then
@@ -125,7 +125,7 @@ class StndDefinedValidatorTest {
         //given
         String noLocalResourceMappingFilePath = TEST_RESOURCES + "externalRepo/schema-map-incorrect-yaml-format.json";
         StndDefinedValidator validator = getValidator(noLocalResourceMappingFilePath);
-        JsonNode validEventNode = objectMapper.readTree(new FileReader(VALID_EVENT_PATH).readFile());
+        JsonNode validEventNode = objectMapper.readTree(new FileReader(VALID_EVENT_PATH).getContent());
 
         //when
         //then
@@ -136,7 +136,7 @@ class StndDefinedValidatorTest {
     void shouldValidateStndDefinedFieldsInEventAndReturnExceptionWhenEventReferToIncorrectInternalFileReference()
             throws IOException {
         //given
-        JsonNode validEventNode = objectMapper.readTree(new FileReader(INCORRECT_INTERNAL_REF_EVENT_PATH).readFile());
+        JsonNode validEventNode = objectMapper.readTree(new FileReader(INCORRECT_INTERNAL_REF_EVENT_PATH).getContent());
 
         //when
         //then

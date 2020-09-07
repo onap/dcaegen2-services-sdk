@@ -33,10 +33,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An UrlMapperFactory is used to produced {@link UrlMapper}.
+ */
 public class UrlMapperFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(UrlMapperFactory.class);
 
+    /**
+     * Returns UrlMapper instance
+     * @param mappingFilePath path to file with mappings
+     * @param schemasPath path to local schemas repository
+     * @return {@link UrlMapper}
+     */
     UrlMapper getUrlMapper(String mappingFilePath, String schemasPath) {
         Map<String, String> mappings = new HashMap<>();
         try {
@@ -56,7 +65,7 @@ public class UrlMapperFactory {
         FileReader fileReader = new FileReader(mappingFilePath);
         Map<String, String> mappings = new HashMap<>();
 
-        for (JsonNode mapping : objectMapper.readTree(fileReader.readFile())) {
+        for (JsonNode mapping : objectMapper.readTree(fileReader.getContent())) {
             String localURL = mapping.get("localURL").asText();
             if (isMappingValid(schemasPath, localURL)) {
                 mappings.put(mapping.get("publicURL").asText(), localURL);
@@ -73,7 +82,7 @@ public class UrlMapperFactory {
     }
 
     private boolean isFileValidSchema(String schemaRelativePath) throws IOException {
-        String schemaContent = new FileReader(schemaRelativePath).readFile();
+        String schemaContent = new FileReader(schemaRelativePath).getContent();
         return isNotEmpty(schemaContent, schemaRelativePath) && isYaml(schemaContent, schemaRelativePath);
     }
 

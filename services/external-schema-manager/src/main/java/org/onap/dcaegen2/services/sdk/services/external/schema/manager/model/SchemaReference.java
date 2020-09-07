@@ -22,6 +22,9 @@ package org.onap.dcaegen2.services.sdk.services.external.schema.manager.model;
 
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.service.SchemaReferenceResolver;
 
+/**
+ * A SchemaReference model contains information about schema URL which will be used to validate json content.
+ */
 public class SchemaReference {
 
     public static final String URL_SEPARATOR = "#";
@@ -29,9 +32,12 @@ public class SchemaReference {
     private final String url;
     private final String internalReference;
 
+    /**
+     * Constructor
+     * @param schemaReferenceResolver to resolve schema reference
+     */
     public SchemaReference(SchemaReferenceResolver schemaReferenceResolver) {
-        this.url = schemaReferenceResolver.resolveUrl();
-        this.internalReference = schemaReferenceResolver.resolveInternalReference();
+        this(schemaReferenceResolver.resolveUrl(), schemaReferenceResolver.resolveInternalReference());
     }
 
     public SchemaReference(String url, String internalReference) {
@@ -39,10 +45,16 @@ public class SchemaReference {
         this.internalReference = internalReference;
     }
 
+    /**
+     * @return url to schema reference
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * @return internal schema reference path
+     */
     public String getInternalReference() {
         return internalReference;
     }

@@ -31,18 +31,31 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * A StndDefinedValidator is used to validate a JsonNode objects.
+ */
 public class StndDefinedValidator {
     private static final Logger logger = LoggerFactory.getLogger(StndDefinedValidator.class);
     private final String schemaRefPath;
     private final String stndDefinedDataPath;
     private final ValidatorCache validatorCache;
 
+    /**
+     * Constructor
+     *
+     * @param schemaRefPath path to schema reference in json
+     * @param stndDefinedDataPath path to data in json which is described by schemaRefPath
+     * @param validatorCache contains cached validators
+     */
     private StndDefinedValidator(String schemaRefPath, String stndDefinedDataPath, ValidatorCache validatorCache) {
         this.schemaRefPath = schemaRefPath;
         this.stndDefinedDataPath = stndDefinedDataPath;
         this.validatorCache = validatorCache;
     }
 
+    /**
+     * @return cached validators
+     */
     ValidatorCache getValidatorCache() {
         return validatorCache;
     }
@@ -71,6 +84,9 @@ public class StndDefinedValidator {
         return validationResult;
     }
 
+    /**
+     * An event validator builder.
+     */
     public static final class ValidatorBuilder {
 
         public static final String DEFAULT_MAPPING_FILE_PATH = "etc/externalRepo/schema-map.json";
