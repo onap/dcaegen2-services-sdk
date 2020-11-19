@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,17 +54,20 @@ public class CbsClientFactory {
      * @since 1.1.2
      */
     public static @NotNull Mono<CbsClient> createCbsClient(CbsClientConfiguration configuration) {
-        return Mono.defer(() -> {
-            final RxHttpClient httpClient = buildHttpClient(configuration.trustStoreKeys());
-            final CbsLookup cbsLookup = new CbsLookup();
-            return cbsLookup.lookup(configuration)
-                    .map(addr -> new CbsClientImpl(httpClient, configuration.appName(), addr, configuration.protocol()));
-        });
+        return Mono.fromCallable(() -> buildHttpClient(configuration.trustStoreKeys()))
+            .cache()
+            .flatMap(httpClient -> createCbsClientMono(httpClient, configuration));
     }
 
     private static RxHttpClient buildHttpClient(TrustStoreKeys trustStoreKeys) {
         return trustStoreKeys != null
                 ? RxHttpClientFactory.create(trustStoreKeys)
                 : RxHttpClientFactory.create();
+    }
+
+    private static Mono<CbsClient> createCbsClientMono(RxHttpClient httpClient,
+        CbsClientConfiguration configuration) {
+        return new CbsLookup().lookup(configuration)
+            .map(addr -> new CbsClientImpl(httpClient, configuration.appName(), addr, configuration.protocol()));
     }
 }
