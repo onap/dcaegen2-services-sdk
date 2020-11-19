@@ -54,12 +54,10 @@ public class CbsClientFactory {
      * @since 1.1.2
      */
     public static @NotNull Mono<CbsClient> createCbsClient(CbsClientConfiguration configuration) {
-        return Mono.defer(() -> {
-            final RxHttpClient httpClient = buildHttpClient(configuration.trustStoreKeys());
-            final CbsLookup cbsLookup = new CbsLookup();
-            return cbsLookup.lookup(configuration)
-                    .map(addr -> new CbsClientImpl(httpClient, configuration.appName(), addr, configuration.protocol()));
-        });
+        final RxHttpClient httpClient = buildHttpClient(configuration.trustStoreKeys());
+        final CbsLookup cbsLookup = new CbsLookup();
+        return cbsLookup.lookup(configuration)
+            .map(addr -> new CbsClientImpl(httpClient, configuration.appName(), addr, configuration.protocol()));
     }
 
     private static RxHttpClient buildHttpClient(TrustStoreKeys trustStoreKeys) {
