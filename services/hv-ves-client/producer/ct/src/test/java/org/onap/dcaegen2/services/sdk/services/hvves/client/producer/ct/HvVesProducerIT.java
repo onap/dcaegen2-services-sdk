@@ -69,6 +69,7 @@ class HvVesProducerIT {
 
     @Test
     void singleMessageTest_withSecureConnection() throws Exception {
+        // Note: In case of test failure check validity of certificates present in resources
         // given
         final VesEvent sampleEvent = createSimpleVesEvent();
         final Flux<VesEvent> input = Flux.just(sampleEvent);
