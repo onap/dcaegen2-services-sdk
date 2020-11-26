@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +67,7 @@ public class DummyCollector {
                         .wiretap(true)
                         .handle(this::handleConnection);
         server = tcpServer.bindNow();
-        return server.address();
+        return (InetSocketAddress) server.address();
     }
 
     public void stop() {
