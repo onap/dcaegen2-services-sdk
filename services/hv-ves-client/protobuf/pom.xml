@@ -3,7 +3,7 @@
   ~ ============LICENSE_START=======================================================
   ~ DCAEGEN2-SERVICES-SDK
   ~ ================================================================================
-  ~ Copyright (C) 2019 Nokia
+  ~ Copyright (C) 2019-2020 Nokia
   ~ ================================================================================
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@
     <parent>
         <artifactId>dcaegen2-services-sdk-services-hvvesclient</artifactId>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
-        <version>1.4.4-SNAPSHOT</version>
+        <version>1.5.0-SNAPSHOT</version>
     </parent>
 
     <name>High Volume VES Collector Client :: Protobuf</name>
