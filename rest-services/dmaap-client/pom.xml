@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.onap.dcaegen2.services.sdk</groupId>
     <artifactId>dcaegen2-services-sdk-rest-services</artifactId>
-      <version>1.5.0-SNAPSHOT</version>
+      <version>1.6.0-SNAPSHOT</version>
   </parent>
 
   <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
@@ -75,6 +75,12 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>eu.rekawek.toxiproxy</groupId>
+      <artifactId>toxiproxy-java</artifactId>
+      <version>${toxiproxy-java.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

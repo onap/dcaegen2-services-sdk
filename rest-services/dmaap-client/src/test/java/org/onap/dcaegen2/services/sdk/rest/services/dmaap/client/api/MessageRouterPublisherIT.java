@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import eu.rekawek.toxiproxy.Proxy;
+import eu.rekawek.toxiproxy.ToxiproxyClient;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,8 +41,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
+import static eu.rekawek.toxiproxy.model.ToxicDirection.DOWNSTREAM;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.createMRSubscribeRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.createPublishRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.errorPublishResponse;
@@ -50,6 +55,10 @@ import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageR
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.registerTopic;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.successPublishResponse;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.successSubscribeResponse;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.DMAAP_SERVICE_EXPOSED_PORT;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.DMAAP_SERVICE_NAME;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.LOCALHOST;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.PROXY_SERVICE_EXPOSED_PORT;
 
 @Testcontainers
 class MessageRouterPublisherIT {
@@ -64,23 +73,27 @@ class MessageRouterPublisherIT {
             + "Successfully published number of messages :0."
             + "Expected { to start an object.\",\"status\":400"
             + "}";
+    private static final String TIMEOUT_ERROR_MESSAGE = "408 Request Timeout";
+    private static Proxy DMAAP_PROXY;
     private static String EVENTS_PATH;
+    private static String PROXY_EVENTS_PATH;
     private final MessageRouterPublisher publisher = DmaapClientFactory
             .createMessageRouterPublisher(MessageRouterPublisherConfig.createDefault());
-    private MessageRouterSubscriber subscriber = DmaapClientFactory
+    private final MessageRouterSubscriber subscriber = DmaapClientFactory
             .createMessageRouterSubscriber(MessageRouterSubscriberConfig.createDefault());
 
     @BeforeAll
-    static void setUp() {
-        EVENTS_PATH = String.format("http://%s:%d/events",
-                CONTAINER.getServiceHost(DMaapContainer.DMAAP_SERVICE_NAME,
-                        DMaapContainer.DMAAP_SERVICE_EXPOSED_PORT),
-                CONTAINER.getServicePort(DMaapContainer.DMAAP_SERVICE_NAME,
-                        DMaapContainer.DMAAP_SERVICE_EXPOSED_PORT));
+    static void setUp() throws IOException {
+        EVENTS_PATH = String.format("http://%s:%d/events", LOCALHOST, DMAAP_SERVICE_EXPOSED_PORT);
+        PROXY_EVENTS_PATH = String.format("http://%s:%d/events", LOCALHOST, PROXY_SERVICE_EXPOSED_PORT);
+
+        DMAAP_PROXY = new ToxiproxyClient().createProxy("dmaapProxy",
+                String.format("[::]:%s", PROXY_SERVICE_EXPOSED_PORT),
+                String.format("%s:%d", DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT));
     }
 
     @Test
-    void test_put_givenMessageBatch_shouldMakeSuccessfulPostRequestReturningBatch(){
+    void test_put_givenMessageBatch_shouldMakeSuccessfulPostRequestReturningBatch() {
         //given
         final String topic = "TOPIC";
         final List<String> twoJsonMessages = List.of("{\"message\":\"message1\"}",
@@ -100,7 +113,7 @@ class MessageRouterPublisherIT {
     }
 
     @Test
-    void publisher_shouldHandleBadRequestError(){
+    void publisher_shouldHandleBadRequestError() {
         //given
         final String topic = "TOPIC2";
         final List<String> threePlainTextMessages = List.of("I", "like", "pizza");
@@ -120,7 +133,7 @@ class MessageRouterPublisherIT {
     }
 
     @Test
-    void publisher_shouldSuccessfullyPublishSingleMessage(){
+    void publisher_shouldSuccessfullyPublishSingleMessage() {
         //given
         final String topic = "TOPIC3";
         final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
@@ -145,7 +158,7 @@ class MessageRouterPublisherIT {
     }
 
     @Test
-    void publisher_shouldSuccessfullyPublishMultipleMessages(){
+    void publisher_shouldSuccessfullyPublishMultipleMessages() {
         final String topic = "TOPIC5";
         final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
         final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}",
@@ -170,7 +183,7 @@ class MessageRouterPublisherIT {
     }
 
     @Test
-    void publisher_shouldSuccessfullyPublishSingleJsonMessageWithPlainContentType(){
+    void publisher_shouldSuccessfullyPublishSingleJsonMessageWithPlainContentType() {
         //given
         final String topic = "TOPIC6";
         final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
@@ -197,7 +210,7 @@ class MessageRouterPublisherIT {
     }
 
     @Test
-    void publisher_shouldSuccessfullyPublishMultipleJsonMessagesWithPlainContentType(){
+    void publisher_shouldSuccessfullyPublishMultipleJsonMessagesWithPlainContentType() {
         //given
         final String topic = "TOPIC7";
         final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
@@ -224,7 +237,7 @@ class MessageRouterPublisherIT {
     }
 
     @Test
-    void publisher_shouldSuccessfullyPublishSinglePlainMessageWithPlainContentType(){
+    void publisher_shouldSuccessfullyPublishSinglePlainMessageWithPlainContentType() {
         //given
         final String topic = "TOPIC8";
         final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
@@ -251,7 +264,7 @@ class MessageRouterPublisherIT {
     }
 
     @Test
-    void publisher_shouldSuccessfullyPublishMultiplePlainMessagesWithPlainContentType(){
+    void publisher_shouldSuccessfullyPublishMultiplePlainMessagesWithPlainContentType() {
         //given
         final String topic = "TOPIC9";
         final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
@@ -275,5 +288,31 @@ class MessageRouterPublisherIT {
                 .expectNext(expectedResponse)
                 .expectComplete()
                 .verify();
+    }
+
+    @Test
+    void publisher_shouldHandleClientTimeoutError() throws IOException {
+        //given
+        final String toxic = "latency-toxic";
+        DMAAP_PROXY.toxics()
+                .latency(toxic, DOWNSTREAM, TimeUnit.SECONDS.toMillis(5));
+        final String topic = "TOPIC10";
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final Flux<JsonObject> messageBatch = jsonBatch(singleJsonMessage);
+        final MessageRouterPublishRequest mrRequest = createPublishRequest(
+                String.format("%s/%s", PROXY_EVENTS_PATH, topic), Duration.ofSeconds(1));
+        final MessageRouterPublishResponse expectedResponse = errorPublishResponse(TIMEOUT_ERROR_MESSAGE);
+
+        //when
+        final Flux<MessageRouterPublishResponse> result = publisher.put(mrRequest, messageBatch);
+
+        //then
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify(TIMEOUT);
+
+        //cleanup
+        DMAAP_PROXY.toxics().get(toxic).remove();
     }
 }

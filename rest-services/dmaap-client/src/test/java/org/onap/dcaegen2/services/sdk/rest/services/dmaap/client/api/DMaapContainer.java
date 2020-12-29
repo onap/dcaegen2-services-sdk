@@ -31,6 +31,8 @@ final class DMaapContainer {
             MR_COMPOSE_RESOURCE_NAME);
     static final int DMAAP_SERVICE_EXPOSED_PORT = 3904;
     static final String DMAAP_SERVICE_NAME = "dmaap";
+    static final int PROXY_SERVICE_EXPOSED_PORT = 8666;
+    static final String LOCALHOST = "localhost";
 
     private DMaapContainer() {}
 
