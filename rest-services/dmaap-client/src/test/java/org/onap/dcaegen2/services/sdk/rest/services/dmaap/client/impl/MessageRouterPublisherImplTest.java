@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +20,15 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.*;
-
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.Gson;
 import com.google.gson.JsonPrimitive;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.handler.codec.http.HttpHeaderValues;
+import io.netty.handler.timeout.ReadTimeoutException;
 import io.vavr.collection.List;
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpHeaders;
@@ -53,6 +44,22 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.createPublishRequest;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.getAsJsonElements;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.getAsJsonObjects;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.getAsJsonPrimitives;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.jsonBatch;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.plainBatch;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -87,11 +94,11 @@ class MessageRouterPublisherImplTest {
         assertThat(httpRequest.method()).isEqualTo(HttpMethod.POST);
         assertThat(httpRequest.url()).isEqualTo(TOPIC_URL);
         assertThat(httpRequest.body()).isNotNull();
-        assertThat(httpRequest.body().length()).isGreaterThan(0);
+        assertThat(httpRequest.body().length()).isPositive();
     }
 
     @Test
-    void onPut_givenJsonMessages_whenTheirAmountIsNotAboveMaxBatchSize_shouldSendSingleHttpRequest(){
+    void onPut_givenJsonMessages_whenTheirAmountIsNotAboveMaxBatchSize_shouldSendSingleHttpRequest() {
         // given
         final List<String> threeJsonMessages = getAsMRJsonMessages(List.of("I", "like", "cookies"));
         final List<JsonObject> parsedThreeMessages = getAsJsonObjects(threeJsonMessages);
@@ -115,9 +122,8 @@ class MessageRouterPublisherImplTest {
     }
 
 
-
     @Test
-    void onPut_givenJsonMessagesWithPlainContentType_whenTheirAmountIsNotAboveMaxBatchSize_shouldSendSingleHttpRequest(){
+    void onPut_givenJsonMessagesWithPlainContentType_whenTheirAmountIsNotAboveMaxBatchSize_shouldSendSingleHttpRequest() {
         // given
         final List<String> threeJsonMessages = getAsMRJsonMessages(List.of("I", "like", "cookies"));
         final List<JsonObject> parsedThreeMessages = getAsJsonObjects(threeJsonMessages);
@@ -143,7 +149,7 @@ class MessageRouterPublisherImplTest {
     }
 
     @Test
-    void onPut_givenPlainMessages_whenTheirAmountIsNotAboveMaxBatchSize_shouldSendSingleHttpRequest(){
+    void onPut_givenPlainMessages_whenTheirAmountIsNotAboveMaxBatchSize_shouldSendSingleHttpRequest() {
         // given
         final List<String> threePlainMessages = List.of("I", "like", "cookies");
         final List<JsonPrimitive> parsedThreeMessages = getAsJsonPrimitives(threePlainMessages);
@@ -168,7 +174,7 @@ class MessageRouterPublisherImplTest {
     }
 
     @Test
-    void puttingElementsWithoutContentTypeSetShouldUseApplicationJson(){
+    void puttingElementsWithoutContentTypeSetShouldUseApplicationJson() {
         // given
         final List<String> threeJsonMessages = getAsMRJsonMessages(List.of("I", "like", "cookies"));
         final Flux<JsonObject> singleJsonMessageBatch = jsonBatch(threeJsonMessages);
@@ -267,7 +273,7 @@ class MessageRouterPublisherImplTest {
 
         final JsonArray secondRequest = extractNonEmptyJsonRequestBody(httpRequests.get(1));
         assertThat(secondRequest.size()).describedAs("Http request second batch size")
-                .isEqualTo(MAX_BATCH_SIZE-1);
+                .isEqualTo(MAX_BATCH_SIZE - 1);
         assertListsContainSameElements(secondRequest, parsedTwoMessages);
     }
 
@@ -303,7 +309,7 @@ class MessageRouterPublisherImplTest {
         final List<JsonObject> secondRequest = extractNonEmptyPlainRequestBody(httpRequests.get(1))
                 .map(JsonElement::getAsJsonObject);
         assertThat(secondRequest.size()).describedAs("Http request second batch size")
-                .isEqualTo(MAX_BATCH_SIZE-1);
+                .isEqualTo(MAX_BATCH_SIZE - 1);
         assertListsContainSameElements(secondRequest, parsedTwoMessages);
     }
 
@@ -339,7 +345,7 @@ class MessageRouterPublisherImplTest {
         final List<JsonPrimitive> secondRequest = extractNonEmptyPlainRequestBody(httpRequests.get(1))
                 .map(JsonElement::getAsJsonPrimitive);
         assertThat(secondRequest.size()).describedAs("Http request second batch size")
-                .isEqualTo(MAX_BATCH_SIZE-1);
+                .isEqualTo(MAX_BATCH_SIZE - 1);
         assertListsContainSameElements(secondRequest, parsedTwoPlainMessages);
     }
 
@@ -404,12 +410,79 @@ class MessageRouterPublisherImplTest {
         verifyDoubleResponse(parsedThreeMessages, parsedTwoMessages, responses);
     }
 
-    private static List<String> getAsMRJsonMessages(List<String> plainTextMessages){
+    @Test
+    void onPut_whenReadTimeoutExceptionOccurs_shouldReturnOneTimeoutError() {
+        // given
+        final List<String> plainMessage = List.of("I", "like", "cookies");
+
+        final Flux<JsonElement> plainMessagesMaxBatch = plainBatch(plainMessage);
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.error(ReadTimeoutException.INSTANCE));
+
+        // when
+        final Flux<MessageRouterPublishResponse> responses = cut
+                .put(plainPublishRequest, plainMessagesMaxBatch);
+
+        // then
+        StepVerifier.create(responses)
+                .consumeNextWith(this::assertTimeoutError)
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void onPut_whenReadTimeoutExceptionOccursForSecondBatch_shouldReturnOneCorrectResponseAndThenOneTimeoutError() {
+        // given
+        final List<String> threeJsonMessages = getAsMRJsonMessages(List.of("I", "like", "cookies"));
+        final List<String> twoJsonMessages = getAsMRJsonMessages(List.of("and", "pierogi"));
+
+        final List<JsonObject> parsedThreeMessages = getAsJsonObjects(threeJsonMessages);
+
+        final Flux<JsonObject> doubleJsonMessageBatch = jsonBatch(threeJsonMessages.appendAll(twoJsonMessages));
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.just(successHttpResponse))
+                .willReturn(Mono.error(ReadTimeoutException.INSTANCE));
+        // when
+        final Flux<MessageRouterPublishResponse> responses = cut
+                .put(jsonPublishRequest, doubleJsonMessageBatch);
+
+        // then
+        StepVerifier.create(responses)
+                .consumeNextWith(response -> verifySuccessfulResponses(parsedThreeMessages, response))
+                .consumeNextWith(this::assertTimeoutError)
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void onPut_whenReadTimeoutExceptionOccursForFirstBatch_shouldReturnOneTimeoutErrorAndThenOneCorrectResponse() {
+        // given
+        final List<String> threeJsonMessages = getAsMRJsonMessages(List.of("I", "like", "cookies"));
+        final List<String> twoJsonMessages = getAsMRJsonMessages(List.of("and", "pierogi"));
+
+        final List<JsonObject> parsedTwoMessages = getAsJsonObjects(twoJsonMessages);
+
+        final Flux<JsonObject> doubleJsonMessageBatch = jsonBatch(threeJsonMessages.appendAll(twoJsonMessages));
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.error(ReadTimeoutException.INSTANCE))
+                .willReturn(Mono.just(successHttpResponse));
+        // when
+        final Flux<MessageRouterPublishResponse> responses = cut
+                .put(jsonPublishRequest, doubleJsonMessageBatch);
+
+        // then
+        StepVerifier.create(responses)
+                .consumeNextWith(this::assertTimeoutError)
+                .consumeNextWith(response -> verifySuccessfulResponses(parsedTwoMessages, response))
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    private static List<String> getAsMRJsonMessages(List<String> plainTextMessages) {
         return plainTextMessages
                 .map(message -> String.format("{\"message\":\"%s\"}", message));
     }
 
-    private static HttpResponse createHttpResponse(String statusReason, int statusCode){
+    private static HttpResponse createHttpResponse(String statusReason, int statusCode) {
         return ImmutableHttpResponse.builder()
                 .statusCode(statusCode)
                 .url(TOPIC_URL)
@@ -418,7 +491,7 @@ class MessageRouterPublisherImplTest {
                 .build();
     }
 
-    private String collectNonEmptyRequestBody(HttpRequest httpRequest){
+    private String collectNonEmptyRequestBody(HttpRequest httpRequest) {
         final String body = Flux.from(httpRequest.body().contents())
                 .collect(ByteBufAllocator.DEFAULT::compositeBuffer,
                         (byteBufs, buffer) -> byteBufs.addComponent(true, buffer))
@@ -429,11 +502,11 @@ class MessageRouterPublisherImplTest {
         return body;
     }
 
-    private JsonArray extractNonEmptyJsonRequestBody(HttpRequest httpRequest){
+    private JsonArray extractNonEmptyJsonRequestBody(HttpRequest httpRequest) {
         return new Gson().fromJson(collectNonEmptyRequestBody(httpRequest), JsonArray.class);
     }
 
-    private List<JsonElement> extractNonEmptyPlainRequestBody(HttpRequest httpRequest){
+    private List<JsonElement> extractNonEmptyPlainRequestBody(HttpRequest httpRequest) {
         return getAsJsonElements(
                 List.of(
                         collectNonEmptyRequestBody(httpRequest)
@@ -442,8 +515,8 @@ class MessageRouterPublisherImplTest {
         );
     }
 
-    private void assertListsContainSameElements(List<? extends  JsonElement> actualMessages,
-            List<? extends JsonElement> expectedMessages){
+    private void assertListsContainSameElements(List<? extends JsonElement> actualMessages,
+                                                List<? extends JsonElement> expectedMessages) {
         for (int i = 0; i < actualMessages.size(); i++) {
             assertThat(actualMessages.get(i))
                     .describedAs(String.format("Http request element at position %d", i))
@@ -452,7 +525,7 @@ class MessageRouterPublisherImplTest {
     }
 
     private void assertListsContainSameElements(JsonArray actualMessages,
-            List<? extends JsonElement> expectedMessages){
+                                                List<? extends JsonElement> expectedMessages) {
         assertThat(actualMessages.size()).describedAs("Http request batch size")
                 .isEqualTo(expectedMessages.size());
 
@@ -463,38 +536,32 @@ class MessageRouterPublisherImplTest {
         }
     }
 
+    private void assertTimeoutError(MessageRouterPublishResponse response) {
+        assertThat(response.failed()).isTrue();
+        assertThat(response.items()).isEmpty();
+        assertThat(response.failReason()).isEqualTo("408 Request Timeout");
+    }
+
     private void verifySingleResponse(List<? extends JsonElement> threeMessages,
-            Flux<MessageRouterPublishResponse> responses) {
+                                      Flux<MessageRouterPublishResponse> responses) {
         StepVerifier.create(responses)
-                .consumeNextWith(response -> {
-                    assertThat(response.successful()).describedAs("successful").isTrue();
-                    assertThat(response.items()).containsExactly(
-                            threeMessages.get(0),
-                            threeMessages.get(1),
-                            threeMessages.get(2));
-                })
+                .consumeNextWith(response -> verifySuccessfulResponses(threeMessages, response))
                 .expectComplete()
                 .verify(TIMEOUT);
     }
 
     private void verifyDoubleResponse(List<? extends JsonElement> threeMessages,
-            List<? extends JsonElement> twoMessages, Flux<MessageRouterPublishResponse> responses) {
-
+                                      List<? extends JsonElement> twoMessages, Flux<MessageRouterPublishResponse> responses) {
         StepVerifier.create(responses)
-                .consumeNextWith(response -> {
-                    assertThat(response.successful()).describedAs("successful").isTrue();
-                    assertThat(response.items()).containsExactly(
-                            threeMessages.get(0),
-                            threeMessages.get(1),
-                            threeMessages.get(2));
-                })
-                .consumeNextWith(response -> {
-                    assertThat(response.successful()).describedAs("successful").isTrue();
-                    assertThat(response.items()).containsExactly(
-                            twoMessages.get(0),
-                            twoMessages.get(1));
-                })
+                .consumeNextWith(response -> verifySuccessfulResponses(threeMessages, response))
+                .consumeNextWith(response -> verifySuccessfulResponses(twoMessages, response))
                 .expectComplete()
                 .verify(TIMEOUT);
+    }
+
+    private void verifySuccessfulResponses(List<? extends JsonElement> threeMessages, MessageRouterPublishResponse response) {
+        assertThat(response.successful()).describedAs("successful").isTrue();
+        JsonElement[] jsonElements = threeMessages.toJavaStream().toArray(JsonElement[]::new);
+        assertThat(response.items()).containsExactly(jsonElements);
     }
 }

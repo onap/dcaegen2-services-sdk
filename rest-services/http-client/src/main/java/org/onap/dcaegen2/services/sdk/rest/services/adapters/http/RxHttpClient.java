@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import io.vavr.collection.Stream;
+import io.vavr.control.Option;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,10 +53,14 @@ public class RxHttpClient {
     }
 
     ResponseReceiver<?> prepareRequest(HttpRequest request) {
-        final HttpClient theClient = httpClient
+        final HttpClient basicClient = httpClient
                 .doOnRequest((req, conn) -> logRequest(request.diagnosticContext(), req))
                 .doOnResponse((rsp, conn) -> logResponse(request.diagnosticContext(), rsp))
                 .headers(hdrs -> request.headers().forEach(hdr -> hdrs.set(hdr._1, hdr._2)));
+
+        final HttpClient theClient = Option.of(request.timeout())
+                .map(basicClient::responseTimeout)
+                .getOrElse(basicClient);
 
         return prepareBody(request, theClient);
     }
