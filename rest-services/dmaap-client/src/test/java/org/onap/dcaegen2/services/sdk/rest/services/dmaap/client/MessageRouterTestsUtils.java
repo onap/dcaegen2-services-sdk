@@ -28,7 +28,6 @@ import com.google.gson.JsonPrimitive;
 import io.vavr.collection.List;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSink;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSource;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterPublisher;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterSubscriber;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishRequest;
@@ -39,30 +38,39 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableTimeoutConfig;
 import reactor.core.publisher.Flux;
+
+import java.time.Duration;
 
 
 public final class MessageRouterTestsUtils {
-    private MessageRouterTestsUtils() {}
+    private MessageRouterTestsUtils() {
+    }
 
-    public static MessageRouterPublishRequest createPublishRequest(String topicUrl){
+    public static MessageRouterPublishRequest createPublishRequest(String topicUrl) {
         return createPublishRequest(topicUrl, ContentType.APPLICATION_JSON);
     }
 
-    public static MessageRouterPublishRequest createPublishRequest(String topicUrl, ContentType contentType){
-        MessageRouterSink sinkDefinition = ImmutableMessageRouterSink.builder()
-                .name("the topic")
-                .topicUrl(topicUrl)
-                .build();
-
+    public static MessageRouterPublishRequest createPublishRequest(String topicUrl, Duration timeout) {
         return ImmutableMessageRouterPublishRequest.builder()
-                .sinkDefinition(sinkDefinition)
+                .sinkDefinition(createMessageRouterSink(topicUrl))
+                .contentType(ContentType.APPLICATION_JSON)
+                .timeoutConfig(ImmutableTimeoutConfig.builder()
+                        .timeout(timeout)
+                        .build())
+                .build();
+    }
+
+    public static MessageRouterPublishRequest createPublishRequest(String topicUrl, ContentType contentType) {
+        return ImmutableMessageRouterPublishRequest.builder()
+                .sinkDefinition(createMessageRouterSink(topicUrl))
                 .contentType(contentType)
                 .build();
     }
 
     public static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
-            String consumerGroup, String consumerId) {
+                                                                         String consumerGroup, String consumerId) {
         ImmutableMessageRouterSource sourceDefinition = ImmutableMessageRouterSource.builder()
                 .name("the topic")
                 .topicUrl(topicUrl)
@@ -76,52 +84,53 @@ public final class MessageRouterTestsUtils {
                 .build();
     }
 
-    public static List<JsonElement> getAsJsonElements(List<String> messages){
+    public static List<JsonElement> getAsJsonElements(List<String> messages) {
         return messages.map(JsonParser::parseString);
     }
 
-    public static List<JsonObject> getAsJsonObjects(List<String> messages){
+    public static List<JsonObject> getAsJsonObjects(List<String> messages) {
         return getAsJsonElements(messages).map(JsonElement::getAsJsonObject);
     }
 
-    public static List<JsonPrimitive> getAsJsonPrimitives(List<String> messages){
+    public static List<JsonPrimitive> getAsJsonPrimitives(List<String> messages) {
         return getAsJsonElements(messages).map(JsonElement::getAsJsonPrimitive);
     }
 
-    public static JsonObject getAsJsonObject(String item){
+    public static JsonObject getAsJsonObject(String item) {
         return new Gson().fromJson(item, JsonObject.class);
     }
 
-    public static Flux<JsonElement> plainBatch(List<String> messages){
+    public static Flux<JsonElement> plainBatch(List<String> messages) {
         return Flux.fromIterable(getAsJsonElements(messages));
     }
 
-    public static Flux<JsonObject> jsonBatch(List<String> messages){
+    public static Flux<JsonObject> jsonBatch(List<String> messages) {
         return Flux.fromIterable(getAsJsonObjects(messages));
     }
 
-    public static MessageRouterSubscribeResponse errorSubscribeResponse(String failReasonFormat, Object... formatArgs){
+    public static MessageRouterSubscribeResponse errorSubscribeResponse(String failReasonFormat, Object... formatArgs) {
         return ImmutableMessageRouterSubscribeResponse
                 .builder()
                 .failReason(String.format(failReasonFormat, formatArgs))
                 .build();
     }
 
-    public static MessageRouterSubscribeResponse successSubscribeResponse(List<JsonElement> items){
+    public static MessageRouterSubscribeResponse successSubscribeResponse(List<JsonElement> items) {
         return ImmutableMessageRouterSubscribeResponse
                 .builder()
                 .items(items)
                 .build();
     }
 
-    public static MessageRouterPublishResponse errorPublishResponse(String failReasonFormat, Object... formatArgs){
+    public static MessageRouterPublishResponse errorPublishResponse(String failReasonFormat, Object... formatArgs) {
+        String failReason = formatArgs.length == 0 ? failReasonFormat : String.format(failReasonFormat, formatArgs);
         return ImmutableMessageRouterPublishResponse
                 .builder()
-                .failReason(String.format(failReasonFormat, formatArgs))
+                .failReason(failReason)
                 .build();
     }
 
-    public static MessageRouterPublishResponse successPublishResponse(List<JsonElement> items){
+    public static MessageRouterPublishResponse successPublishResponse(List<JsonElement> items) {
         return ImmutableMessageRouterPublishResponse
                 .builder()
                 .items(items)
@@ -129,12 +138,19 @@ public final class MessageRouterTestsUtils {
     }
 
     public static void registerTopic(MessageRouterPublisher publisher, MessageRouterPublishRequest publishRequest,
-            MessageRouterSubscriber subscriber, MessageRouterSubscribeRequest subscribeRequest) {
+                                     MessageRouterSubscriber subscriber, MessageRouterSubscribeRequest subscribeRequest) {
         final List<String> sampleJsonMessages = List.of("{\"message\":\"message1\"}",
                 "{\"differentMessage\":\"message2\"}");
         final Flux<JsonObject> jsonMessageBatch = MessageRouterTestsUtils.jsonBatch(sampleJsonMessages);
 
         publisher.put(publishRequest, jsonMessageBatch).blockLast();
         subscriber.get(subscribeRequest).block();
+    }
+
+    private static ImmutableMessageRouterSink createMessageRouterSink(String topicUrl) {
+        return ImmutableMessageRouterSink.builder()
+                .name("the topic")
+                .topicUrl(topicUrl)
+                .build();
     }
 }

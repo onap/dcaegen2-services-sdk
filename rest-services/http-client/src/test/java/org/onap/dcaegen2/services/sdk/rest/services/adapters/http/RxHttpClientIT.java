@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,8 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
-
 import io.netty.handler.codec.http.HttpResponseStatus;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
+import io.netty.handler.timeout.ReadTimeoutException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -34,6 +29,13 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.Htt
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
 
 class RxHttpClientIT {
 
@@ -43,12 +45,13 @@ class RxHttpClientIT {
 
     @BeforeAll
     static void setUpClass() {
-        httpServer = DummyHttpServer.start(routes ->
-                routes.get("/sample-get", (req, resp) -> sendString(resp, Mono.just("OK")))
-                        .get("/sample-get-500", (req, resp) -> resp.status(HttpResponseStatus.INTERNAL_SERVER_ERROR).send())
-                        .post("/headers-post", (req, resp) -> resp
-                                .sendString(Mono.just(req.requestHeaders().toString())))
-                        .post("/echo-post", (req, resp) -> resp.send(req.receive().retain()))
+        httpServer = DummyHttpServer.start(routes -> routes
+                .get("/sample-get", (req, resp) -> sendString(resp, Mono.just("OK")))
+                .get("/delayed-get", (req, resp) -> sendString(resp, Mono.just("OK").delayElement(Duration.ofMinutes(1))))
+                .get("/sample-get-500", (req, resp) -> resp.status(HttpResponseStatus.INTERNAL_SERVER_ERROR).send())
+                .post("/headers-post", (req, resp) -> resp
+                        .sendString(Mono.just(req.requestHeaders().toString())))
+                .post("/echo-post", (req, resp) -> resp.send(req.receive().retain()))
         );
     }
 
@@ -65,7 +68,9 @@ class RxHttpClientIT {
     @Test
     void simpleGet() throws Exception {
         // given
-        final HttpRequest httpRequest = requestFor("/sample-get").method(HttpMethod.GET).build();
+        final HttpRequest httpRequest = requestFor("/sample-get")
+                .method(HttpMethod.GET)
+                .build();
 
         // when
         final Mono<String> bodyAsString = cut.call(httpRequest)
@@ -73,13 +78,18 @@ class RxHttpClientIT {
                 .map(HttpResponse::bodyAsString);
 
         // then
-        StepVerifier.create(bodyAsString).expectNext("OK").expectComplete().verify(TIMEOUT);
+        StepVerifier.create(bodyAsString)
+                .expectNext("OK")
+                .expectComplete()
+                .verify(TIMEOUT);
     }
 
     @Test
     void getWithError() throws Exception {
         // given
-        final HttpRequest httpRequest = requestFor("/sample-get-500").method(HttpMethod.GET).build();
+        final HttpRequest httpRequest = requestFor("/sample-get-500")
+                .method(HttpMethod.GET)
+                .build();
 
         // when
         final Mono<String> bodyAsString = cut.call(httpRequest)
@@ -87,7 +97,9 @@ class RxHttpClientIT {
                 .map(HttpResponse::bodyAsString);
 
         // then
-        StepVerifier.create(bodyAsString).expectError(HttpException.class).verify(TIMEOUT);
+        StepVerifier.create(bodyAsString)
+                .expectError(HttpException.class)
+                .verify(TIMEOUT);
     }
 
     @Test
@@ -156,6 +168,23 @@ class RxHttpClientIT {
                     assertThat(responseBody).contains("content-length");
                 })
                 .expectComplete()
+                .verify(TIMEOUT);
+    }
+
+    @Test
+    void getWithTimeoutError() throws Exception {
+        // given
+        final HttpRequest httpRequest = requestFor("/delayed-get")
+                .method(HttpMethod.GET)
+                .timeout(Duration.ofSeconds(1))
+                .build();
+
+        // when
+        final Mono<HttpResponse> response = cut.call(httpRequest);
+
+        // then
+        StepVerifier.create(response)
+                .expectError(ReadTimeoutException.class)
                 .verify(TIMEOUT);
     }
 }

@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,9 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendError;
-import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import io.vavr.collection.List;
-
-import java.time.Duration;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSink;
@@ -43,6 +37,11 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.Me
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+
+import java.time.Duration;
+
+import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendError;
+import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendString;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -69,18 +68,19 @@ class MessageRouterPublisherTest {
 
     @BeforeAll
     static void setUp() {
-        server = DummyHttpServer.start(routes ->
-                routes.post(SUCCESS_RESP_TOPIC_PATH, (req, resp) -> sendString(resp, Mono.just("OK")))
-                        .post(FAILING_WITH_400_RESP_PATH, (req, resp) ->
-                                sendError(resp, 400, ERROR_MESSAGE))
-                        .post(FAILING_WITH_401_RESP_PATH, (req, resp) ->
-                                sendError(resp, 401, ERROR_MESSAGE))
-                        .post(FAILING_WITH_403_RESP_PATH, (req, resp) ->
-                                sendError(resp, 403, ERROR_MESSAGE))
-                        .post(FAILING_WITH_404_RESP_PATH, (req, resp) ->
-                                sendError(resp, 404, ERROR_MESSAGE))
-                        .post(FAILING_WITH_500_TOPIC_PATH, (req, resp) ->
-                                sendError(resp, 500, ERROR_MESSAGE))
+        server = DummyHttpServer.start(routes -> routes
+                .post(SUCCESS_RESP_TOPIC_PATH, (req, resp) ->
+                        sendString(resp, Mono.just("OK")))
+                .post(FAILING_WITH_400_RESP_PATH, (req, resp) ->
+                        sendError(resp, 400, ERROR_MESSAGE))
+                .post(FAILING_WITH_401_RESP_PATH, (req, resp) ->
+                        sendError(resp, 401, ERROR_MESSAGE))
+                .post(FAILING_WITH_403_RESP_PATH, (req, resp) ->
+                        sendError(resp, 403, ERROR_MESSAGE))
+                .post(FAILING_WITH_404_RESP_PATH, (req, resp) ->
+                        sendError(resp, 404, ERROR_MESSAGE))
+                .post(FAILING_WITH_500_TOPIC_PATH, (req, resp) ->
+                        sendError(resp, 500, ERROR_MESSAGE))
         );
     }
 

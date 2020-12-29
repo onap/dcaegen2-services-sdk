@@ -66,6 +66,17 @@ services:
     depends_on:
       - zookeeper
       - kafka
+
+  toxiproxy:
+    image: shopify/toxiproxy:2.1.4
+    ports:
+      - "8474:8474"
+      - "8666:8666"
+    networks:
+      - net
+    depends_on:
+      - dmaap
+
 networks:
   net:
     driver: bridge

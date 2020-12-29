@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019-2020 Nokia. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,27 +18,18 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
+package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error;
 
-import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSink;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.ContentType;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.TimeoutConfig;
+import java.util.Collections;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.1.4
- */
-@Value.Immutable
-public interface MessageRouterPublishRequest extends DmaapRequest {
+public class ClientErrorReasons {
 
-    MessageRouterSink sinkDefinition();
+    private ClientErrorReasons() { }
 
-    @Nullable TimeoutConfig timeoutConfig();
+    public static final ClientErrorReason TIMEOUT = ImmutableClientErrorReason.builder()
+            .header("408 Request Timeout")
+            .text("Client timeout exception occurred, Error code is %1")
+            .messageId("SVC0001")
+            .variables(Collections.singletonList("408")).build();
 
-    @Value.Default
-    default ContentType contentType() {
-        return ContentType.APPLICATION_JSON;
-    }
 }

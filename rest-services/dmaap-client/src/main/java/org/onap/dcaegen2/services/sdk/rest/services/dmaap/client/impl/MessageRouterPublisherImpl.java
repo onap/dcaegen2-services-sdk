@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2020 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,12 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.extractFailReason;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import io.netty.handler.timeout.ReadTimeoutException;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
-import java.time.Duration;
-import java.util.stream.Collectors;
+import io.vavr.control.Option;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpHeaders;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
@@ -38,6 +36,9 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RequestBody;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.ContentType;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterPublisher;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.ClientErrorReason;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.ClientErrorReasonPresenter;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.ClientErrorReasons;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
@@ -46,6 +47,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.time.Duration;
+import java.util.stream.Collectors;
+
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.extractFailReason;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -77,29 +83,34 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
         LOGGER.debug("Sending a batch of {} items to DMaaP MR", batch.size());
         LOGGER.trace("The items to be sent: {}", batch);
         return httpClient.call(buildHttpRequest(request, createBody(batch, request.contentType())))
-                .map(httpResponse -> buildResponse(httpResponse, batch));
+                .map(httpResponse -> buildResponse(httpResponse, batch))
+                .doOnError(ReadTimeoutException.class, e -> LOGGER.error("Timeout exception occurred when sending items to DMaaP MR", e))
+                .onErrorResume(ReadTimeoutException.class, e -> createErrorResponse(ClientErrorReasons.TIMEOUT));
     }
 
     private @NotNull RequestBody createBody(List<? extends JsonElement> subItems, ContentType contentType) {
-        if(contentType == ContentType.APPLICATION_JSON) {
+        if (contentType == ContentType.APPLICATION_JSON) {
             final JsonArray elements = new JsonArray(subItems.size());
             subItems.forEach(elements::add);
             return RequestBody.fromJson(elements);
-        }else if(contentType == ContentType.TEXT_PLAIN){
+        } else if (contentType == ContentType.TEXT_PLAIN) {
             String messages = subItems.map(JsonElement::toString)
                     .collect(Collectors.joining("\n"));
             return RequestBody.fromString(messages);
-        }else throw new IllegalArgumentException("Unsupported content type: " + contentType);
+        } else throw new IllegalArgumentException("Unsupported content type: " + contentType);
     }
 
     private @NotNull HttpRequest buildHttpRequest(MessageRouterPublishRequest request, RequestBody body) {
-        return ImmutableHttpRequest.builder()
+        ImmutableHttpRequest.Builder requestBuilder = ImmutableHttpRequest.builder()
                 .method(HttpMethod.POST)
                 .url(request.sinkDefinition().topicUrl())
                 .diagnosticContext(request.diagnosticContext().withNewInvocationId())
                 .customHeaders(HashMap.of(HttpHeaders.CONTENT_TYPE, request.contentType().toString()))
-                .body(body)
-                .build();
+                .body(body);
+
+        return Option.of(request.timeoutConfig())
+                .map(timeoutConfig -> requestBuilder.timeout(timeoutConfig.getTimeout()).build())
+                .getOrElse(requestBuilder::build);
     }
 
     private MessageRouterPublishResponse buildResponse(
@@ -110,5 +121,12 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
         return httpResponse.successful()
                 ? builder.items(batch).build()
                 : builder.failReason(extractFailReason(httpResponse)).build();
+    }
+
+    private Mono<MessageRouterPublishResponse> createErrorResponse(ClientErrorReason clientErrorReason) {
+        String failReason = ClientErrorReasonPresenter.present(clientErrorReason);
+        return Mono.just(ImmutableMessageRouterPublishResponse.builder()
+                .failReason(failReason)
+                .build());
     }
 }
