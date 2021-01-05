@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import eu.rekawek.toxiproxy.Proxy;
+import eu.rekawek.toxiproxy.ToxiproxyClient;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -37,8 +39,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
+import static eu.rekawek.toxiproxy.model.ToxicDirection.DOWNSTREAM;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.createMRSubscribeRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.createPublishRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.errorSubscribeResponse;
@@ -48,11 +53,18 @@ import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageR
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.registerTopic;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.successSubscribeResponse;
 
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.DMAAP_SERVICE_EXPOSED_PORT;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.DMAAP_SERVICE_NAME;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.LOCALHOST;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.PROXY_SERVICE_EXPOSED_PORT;
+
 @Testcontainers
 class MessageRouterSubscriberIT {
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
     private static final String CONSUMER_GROUP = "group1";
     private static final String CONSUMER_ID = "consumer200";
+    private static String PROXY_EVENTS_PATH;
+    private static Proxy DMAAP_PROXY;
     private static final String DMAAP_404_ERROR_RESPONSE_FORMAT = "404 Not Found\n" +
             "{" +
             "\"mrstatus\":3001," +
@@ -60,6 +72,18 @@ class MessageRouterSubscriberIT {
             "\"message\":\"No such topic exists.-[%s]\"," +
             "\"status\":404" +
             "}";
+    private static final String TIMEOUT_ERROR_MESSAGE = "408 Request Timeout\n"
+            + "{"
+            + "\"requestError\":"
+            + "{"
+            + "\"serviceException\":"
+            + "{"
+            + "\"messageId\":\"SVC0001\","
+            + "\"text\":\"Client timeout exception occurred, Error code is %1\","
+            + "\"variables\":[\"408\"]"
+            + "}"
+            + "}"
+            + "}";
 
     @Container
     private static final DockerComposeContainer CONTAINER = DMaapContainer.createContainerInstance();
@@ -73,13 +97,15 @@ class MessageRouterSubscriberIT {
 
 
     @BeforeAll
-    static void setUp() {
-        EVENTS_PATH = String.format("http://%s:%d/events",
-                CONTAINER.getServiceHost(DMaapContainer.DMAAP_SERVICE_NAME,
-                        DMaapContainer.DMAAP_SERVICE_EXPOSED_PORT),
-                CONTAINER.getServicePort(DMaapContainer.DMAAP_SERVICE_NAME,
-                        DMaapContainer.DMAAP_SERVICE_EXPOSED_PORT));
+    static void setUp() throws IOException {
+        EVENTS_PATH = String.format("http://%s:%d/events", LOCALHOST, DMAAP_SERVICE_EXPOSED_PORT);
+        PROXY_EVENTS_PATH = String.format("http://%s:%d/events", LOCALHOST, PROXY_SERVICE_EXPOSED_PORT);
+
+        DMAAP_PROXY = new ToxiproxyClient().createProxy("dmaapProxy",
+                String.format("[::]:%s", PROXY_SERVICE_EXPOSED_PORT),
+                String.format("%s:%d", DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT));
     }
+
 
     @Test
     void subscriber_shouldHandleNoSuchTopicException() {
@@ -207,6 +233,30 @@ class MessageRouterSubscriberIT {
                 .verify(TIMEOUT);
     }
 
+    @Test
+    void subscriber_shouldHandleTimeoutException() throws IOException {
+        //given
+        final String topic = "newTopic";
+        final MessageRouterSubscribeRequest mrSubscribeRequest = createMRSubscribeRequest(
+                String.format("%s/%s", PROXY_EVENTS_PATH, topic), CONSUMER_GROUP, CONSUMER_ID, Duration.ofSeconds(1));
+        final MessageRouterSubscribeResponse expectedResponse = errorSubscribeResponse(
+                TIMEOUT_ERROR_MESSAGE);
 
+        final String toxic = "latency-toxic";
+        DMAAP_PROXY.toxics()
+                .latency(toxic, DOWNSTREAM, TimeUnit.SECONDS.toMillis(5));
 
+        //when
+        Mono<MessageRouterSubscribeResponse> response = subscriber
+                .get(mrSubscribeRequest);
+
+        //then
+        StepVerifier.create(response)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify(TIMEOUT);
+
+        //cleanup
+        DMAAP_PROXY.toxics().get(toxic).remove();
+    }
 }

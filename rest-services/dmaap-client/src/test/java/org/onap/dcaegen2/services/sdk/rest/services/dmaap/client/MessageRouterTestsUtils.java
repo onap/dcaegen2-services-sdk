@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019-2020 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,16 +71,34 @@ public final class MessageRouterTestsUtils {
 
     public static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
                                                                          String consumerGroup, String consumerId) {
-        ImmutableMessageRouterSource sourceDefinition = ImmutableMessageRouterSource.builder()
-                .name("the topic")
-                .topicUrl(topicUrl)
-                .build();
 
         return ImmutableMessageRouterSubscribeRequest
                 .builder()
-                .sourceDefinition(sourceDefinition)
+                .sourceDefinition(getImmutableMessageRouterSource(topicUrl))
                 .consumerGroup(consumerGroup)
                 .consumerId(consumerId)
+                .build();
+    }
+
+    public static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
+                                                                         String consumerGroup, String consumerId,
+                                                                         Duration timeout) {
+
+        return ImmutableMessageRouterSubscribeRequest
+                .builder()
+                .timeoutConfig(ImmutableTimeoutConfig.builder()
+                        .timeout(timeout)
+                        .build())
+                .sourceDefinition(getImmutableMessageRouterSource(topicUrl))
+                .consumerGroup(consumerGroup)
+                .consumerId(consumerId)
+                .build();
+    }
+
+    private static ImmutableMessageRouterSource getImmutableMessageRouterSource(String topicUrl) {
+        return ImmutableMessageRouterSource.builder()
+                .name("the topic")
+                .topicUrl(topicUrl)
                 .build();
     }
 
@@ -109,9 +127,10 @@ public final class MessageRouterTestsUtils {
     }
 
     public static MessageRouterSubscribeResponse errorSubscribeResponse(String failReasonFormat, Object... formatArgs) {
+        String failReason = formatArgs.length == 0 ? failReasonFormat : String.format(failReasonFormat, formatArgs);
         return ImmutableMessageRouterSubscribeResponse
                 .builder()
-                .failReason(String.format(failReasonFormat, formatArgs))
+                .failReason(failReason)
                 .build();
     }
 

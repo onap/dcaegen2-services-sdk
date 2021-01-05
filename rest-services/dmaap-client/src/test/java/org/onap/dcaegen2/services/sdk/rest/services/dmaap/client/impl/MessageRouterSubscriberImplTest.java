@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.google.gson.JsonSyntaxException;
+import io.netty.handler.timeout.ReadTimeoutException;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSource;
@@ -48,7 +49,8 @@ class MessageRouterSubscriberImplTest {
 
     private final RxHttpClient httpClient = mock(RxHttpClient.class);
     private final MessageRouterSubscriberConfig clientConfig = MessageRouterSubscriberConfig.createDefault();
-    private final MessageRouterSubscriber cut = new MessageRouterSubscriberImpl(httpClient, clientConfig.gsonInstance());
+    private final MessageRouterSubscriber
+            cut = new MessageRouterSubscriberImpl(httpClient, clientConfig.gsonInstance());
 
     private final ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
     private final MessageRouterSource sourceDefinition = ImmutableMessageRouterSource.builder()
@@ -128,5 +130,30 @@ class MessageRouterSubscriberImplTest {
         // when
         // then
         assertThatExceptionOfType(JsonSyntaxException.class).isThrownBy(() -> cut.get(mrRequest).block());
+    }
+
+    @Test
+    void getWithProperRequest_shouldReturnTimeoutError() {
+
+        // given
+        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.error(ReadTimeoutException.INSTANCE));
+
+        // when
+        final Mono<MessageRouterSubscribeResponse> responses = cut
+                .get(mrRequest);
+        final MessageRouterSubscribeResponse response = responses.block();
+
+        // then
+        assertThat(response.failed()).isTrue();
+        assertThat(response.failReason()).contains("408 Request Timeout");
+        assertThat(response.hasElements()).isFalse();
+
+
+        verify(httpClient).call(httpRequestArgumentCaptor.capture());
+        final HttpRequest httpRequest = httpRequestArgumentCaptor.getValue();
+        assertThat(httpRequest.method()).isEqualTo(HttpMethod.GET);
+        assertThat(httpRequest.url()).isEqualTo(String.format("%s/%s/%s", sourceDefinition.topicUrl(),
+                mrRequest.consumerGroup(), mrRequest.consumerId()));
+        assertThat(httpRequest.body()).isNull();
     }
 }
