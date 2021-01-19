@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "406ba944_13973172",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2021-01-19T12:53:01Z",
+      "side": 1,
+      "message": "please make \"given\" section smaller, by extracting methods",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a0f37d0_1dad900f",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2021-01-19T12:53:01Z",
+      "side": 1,
+      "message": "please make \"given\" section smaller, by extracting methods",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb3e7ff_fe8e7417",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2021-01-19T12:53:01Z",
+      "side": 1,
+      "message": "please make \"given\" section smaller, by extracting methods",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a0bf07e_ad23fef1",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 3771
+      },
+      "writtenOn": "2021-01-19T12:53:01Z",
+      "side": 1,
+      "message": "please seperate \u0027given\u0027 and \u0027when\u0027 sections with space",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
