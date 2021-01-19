@@ -60,8 +60,8 @@
 
     <properties>
         <java.version>11</java.version>
-        <junit-jupiter.version>5.3.1</junit-jupiter.version>
-        <junit-vintage.version>5.3.1</junit-vintage.version>
+        <junit-jupiter.version>5.7.0</junit-jupiter.version>
+        <junit-vintage.version>5.7.0</junit-vintage.version>
         <junit-platform.version>1.3.1</junit-platform.version>
         <immutables.version>2.7.5</immutables.version>
         <assertj-core.version>3.12.2</assertj-core.version>
@@ -74,11 +74,11 @@
         <commons-text.version>1.6</commons-text.version>
         <jetbrains-annotations.version>16.0.3</jetbrains-annotations.version>
         <protoc-jar-maven-plugin.version>3.6.0.2</protoc-jar-maven-plugin.version>
-        <testcontainers.version>1.15.0</testcontainers.version>
+        <testcontainers.version>1.15.1</testcontainers.version>
         <spring.boot.version>2.4.0</spring.boot.version>
         <system.rules.version>1.17.2</system.rules.version>
         <openapi4j.version>1.0.3</openapi4j.version>
-        <toxiproxy-java.version>2.1.4</toxiproxy-java.version>
+        <mockserver-client.version>5.11.2</mockserver-client.version>
 	<sonar.coverage.jacoco.xmlReportPaths>
 	  ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
 	</sonar.coverage.jacoco.xmlReportPaths>

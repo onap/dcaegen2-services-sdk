@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,8 @@
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test;
 
 import io.vavr.CheckedFunction0;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
+import io.vavr.Tuple3;
+import io.vavr.control.Try;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +31,13 @@ import reactor.netty.DisposableServer;
 import reactor.netty.http.server.HttpServer;
 import reactor.netty.http.server.HttpServerResponse;
 import reactor.netty.http.server.HttpServerRoutes;
+
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -63,11 +67,26 @@ public class DummyHttpServer {
         return responses[state.getAndIncrement()];
     }
 
+    public static Publisher<Void> sendInOrderWithDelay(AtomicInteger counter, Tuple3<HttpServerResponse, Integer, Duration>... responses) {
+        Tuple3<HttpServerResponse, Integer, Duration> tuple = responses[counter.get()];
+        HttpServerResponse httpServerResponse = tuple._1;
+        Integer statusCode = tuple._2;
+        long timeout = tuple._3.toMillis();
+        Try.run(() -> Thread.sleep(timeout));
+        counter.incrementAndGet();
+        return sendString(httpServerResponse.status(statusCode), Mono.just("OK"));
+    }
+
+    public static Publisher<Void> sendWithDelay(HttpServerResponse response, int statusCode, Duration timeout) {
+        Try.run(() -> Thread.sleep(timeout.toMillis()));
+        return sendString(response.status(statusCode), Mono.just("OK"));
+    }
+
     public static Publisher<Void> sendResource(HttpServerResponse httpServerResponse, String resourcePath) {
         return sendString(httpServerResponse, Mono.fromCallable(() -> readResource(resourcePath)));
     }
 
-    public static Publisher<Void> sendError(HttpServerResponse httpServerResponse, int statusCode, String message){
+    public static Publisher<Void> sendError(HttpServerResponse httpServerResponse, int statusCode, String message) {
         return sendString(httpServerResponse.status(statusCode), Mono.just(message));
     }
 
@@ -77,6 +96,11 @@ public class DummyHttpServer {
 
     public void close() {
         server.disposeNow();
+    }
+
+    public DummyHttpServer closeAndGet() {
+        server.disposeNow();
+        return this;
     }
 
     public String host() {

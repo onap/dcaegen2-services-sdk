@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2020-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ class ClientErrorReasonPresenterTest {
                 + "{\"requestError\":{\"serviceException\":{\"messageId\":\"messageId\",\"text\":\"text\"}}}";
 
         //when
-        String actual = ClientErrorReasonPresenter.present(clientErrorReason);
+        String actual = new ClientErrorReasonPresenter().present(clientErrorReason);
 
         //then
         assertThat(actual).isEqualTo(expected);
@@ -48,7 +48,7 @@ class ClientErrorReasonPresenterTest {
                 + "{\"requestError\":{\"serviceException\":{\"messageId\":\"messageId\",\"text\":\"text\",\"variables\":[\"v1\",\"v2\"]}}}";
 
         //when
-        String actual = ClientErrorReasonPresenter.present(clientErrorReason);
+        String actual = new ClientErrorReasonPresenter().present(clientErrorReason);
 
         //then
         assertThat(actual).isEqualTo(expected);

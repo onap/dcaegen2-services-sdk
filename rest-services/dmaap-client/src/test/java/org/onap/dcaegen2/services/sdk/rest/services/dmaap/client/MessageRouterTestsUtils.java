@@ -38,7 +38,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableTimeoutConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapTimeoutConfig;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
@@ -56,7 +56,7 @@ public final class MessageRouterTestsUtils {
         return ImmutableMessageRouterPublishRequest.builder()
                 .sinkDefinition(createMessageRouterSink(topicUrl))
                 .contentType(ContentType.APPLICATION_JSON)
-                .timeoutConfig(ImmutableTimeoutConfig.builder()
+                .timeoutConfig(ImmutableDmaapTimeoutConfig.builder()
                         .timeout(timeout)
                         .build())
                 .build();
@@ -86,7 +86,7 @@ public final class MessageRouterTestsUtils {
 
         return ImmutableMessageRouterSubscribeRequest
                 .builder()
-                .timeoutConfig(ImmutableTimeoutConfig.builder()
+                .timeoutConfig(ImmutableDmaapTimeoutConfig.builder()
                         .timeout(timeout)
                         .build())
                 .sourceDefinition(getImmutableMessageRouterSource(topicUrl))

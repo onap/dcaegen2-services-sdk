@@ -56,6 +56,10 @@
       <artifactId>junit-jupiter-engine</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
       <scope>test</scope>
@@ -76,11 +80,10 @@
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
     </dependency>
-    <dependency>
-      <groupId>eu.rekawek.toxiproxy</groupId>
-      <artifactId>toxiproxy-java</artifactId>
-      <version>${toxiproxy-java.version}</version>
-      <scope>test</scope>
-    </dependency>
+      <dependency>
+          <groupId>org.mock-server</groupId>
+          <artifactId>mockserver-client-java</artifactId>
+          <version>${mockserver-client.version}</version>
+      </dependency>
   </dependencies>
 </project>

@@ -22,7 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model;
 
 import org.immutables.value.Value;
 import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.TimeoutConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.DmaapTimeoutConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 
 /**
@@ -35,5 +35,5 @@ public interface DmaapRequest {
         return RequestDiagnosticContext.create();
     }
 
-    @Nullable TimeoutConfig timeoutConfig();
+    @Nullable DmaapTimeoutConfig timeoutConfig();
 }
