@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "50b6cc3b_4ac889eb",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-19T15:26:55Z",
+      "side": 1,
+      "message": "not so easy, it is a integration test with a lot prerequisites, i prefer to have all tests in this class in similar structure",
+      "parentUuid": "406ba944_13973172",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a0f37d0_1dad900f",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-01-19T12:53:01Z",
       "side": 1,
       "message": "please make \"given\" section smaller, by extracting methods",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abe151c9_14ea8c3b",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-19T15:26:55Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "9a0f37d0_1dad900f",
       "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5df35d3d_37edf56d",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-19T15:26:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ceb3e7ff_fe8e7417",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a0bf07e_ad23fef1",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2021-01-19T12:53:01Z",
       "side": 1,
       "message": "please seperate \u0027given\u0027 and \u0027when\u0027 sections with space",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4d2374_28ef24b0",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-19T15:26:55Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "8a0bf07e_ad23fef1",
       "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
