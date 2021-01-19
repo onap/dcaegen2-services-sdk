@@ -35,6 +35,7 @@ import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouter
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSource;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.*;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterSubscriber;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.ClientErrorReasonPresenter;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
@@ -47,10 +48,12 @@ import reactor.core.publisher.Mono;
  */
 class MessageRouterSubscriberImplTest {
 
+    private static final String ERROR_MESSAGE = "Something went wrong";
     private final RxHttpClient httpClient = mock(RxHttpClient.class);
+    private final ClientErrorReasonPresenter clientErrorReasonPresenter = mock(ClientErrorReasonPresenter.class);
     private final MessageRouterSubscriberConfig clientConfig = MessageRouterSubscriberConfig.createDefault();
     private final MessageRouterSubscriber
-            cut = new MessageRouterSubscriberImpl(httpClient, clientConfig.gsonInstance());
+            cut = new MessageRouterSubscriberImpl(httpClient, clientConfig.gsonInstance(),clientErrorReasonPresenter);
 
     private final ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
     private final MessageRouterSource sourceDefinition = ImmutableMessageRouterSource.builder()
@@ -136,7 +139,10 @@ class MessageRouterSubscriberImplTest {
     void getWithProperRequest_shouldReturnTimeoutError() {
 
         // given
-        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.error(ReadTimeoutException.INSTANCE));
+        given(clientErrorReasonPresenter.present(any()))
+                .willReturn(ERROR_MESSAGE);
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.error(ReadTimeoutException.INSTANCE));
 
         // when
         final Mono<MessageRouterSubscribeResponse> responses = cut
@@ -145,7 +151,7 @@ class MessageRouterSubscriberImplTest {
 
         // then
         assertThat(response.failed()).isTrue();
-        assertThat(response.failReason()).contains("408 Request Timeout");
+        assertThat(response.failReason()).isEqualTo(ERROR_MESSAGE);
         assertThat(response.hasElements()).isFalse();
 
 

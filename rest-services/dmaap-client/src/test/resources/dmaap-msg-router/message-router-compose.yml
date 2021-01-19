@@ -67,11 +67,11 @@ services:
       - zookeeper
       - kafka
 
-  toxiproxy:
-    image: shopify/toxiproxy:2.1.4
+  mockserver:
+    image: mockserver/mockserver:mockserver-5.11.2
+    command: -serverPort 1090 -proxyRemotePort 3904 -proxyRemoteHost dmaap
     ports:
-      - "8474:8474"
-      - "8666:8666"
+      - "1080:1090"
     networks:
       - net
     depends_on:

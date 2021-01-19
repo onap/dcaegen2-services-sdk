@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import org.immutables.value.Value;
 import java.time.Duration;
 
 @Value.Immutable
-public interface TimeoutConfig {
+public interface DmaapTimeoutConfig {
 
     @Value.Default
     default Duration getTimeout() {
