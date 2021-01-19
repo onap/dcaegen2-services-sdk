@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019-2020 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpR
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.ContentType;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterPublisher;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.ClientErrorReasonPresenter;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
 import reactor.core.publisher.Flux;
@@ -69,9 +70,11 @@ class MessageRouterPublisherImplTest {
     private static final Duration TIMEOUT = Duration.ofSeconds(5);
     private static final String TOPIC_URL = "https://dmaap-mr/TOPIC";
     private static final int MAX_BATCH_SIZE = 3;
-    public static final String TIMEOUT_ERROR_MESSAGE_HEADER = "408 Request Timeout";
+    private static final String ERROR_MESSAGE = "Something went wrong";
     private final RxHttpClient httpClient = mock(RxHttpClient.class);
-    private final MessageRouterPublisher cut = new MessageRouterPublisherImpl(httpClient, MAX_BATCH_SIZE, Duration.ofMinutes(1));
+    private final ClientErrorReasonPresenter clientErrorReasonPresenter = mock(ClientErrorReasonPresenter.class);
+    private final MessageRouterPublisher cut = new MessageRouterPublisherImpl(
+            httpClient, MAX_BATCH_SIZE, Duration.ofMinutes(1), clientErrorReasonPresenter);
     private final ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
     private final MessageRouterPublishRequest plainPublishRequest = createPublishRequest(TOPIC_URL, ContentType.TEXT_PLAIN);
     private final MessageRouterPublishRequest jsonPublishRequest = createPublishRequest(TOPIC_URL);
@@ -417,7 +420,10 @@ class MessageRouterPublisherImplTest {
         final List<String> plainMessage = List.of("I", "like", "cookies");
 
         final Flux<JsonElement> plainMessagesMaxBatch = plainBatch(plainMessage);
-        given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.error(ReadTimeoutException.INSTANCE));
+        given(clientErrorReasonPresenter.present(any()))
+                .willReturn(ERROR_MESSAGE);
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.error(ReadTimeoutException.INSTANCE));
 
         // when
         final Flux<MessageRouterPublishResponse> responses = cut
@@ -439,6 +445,8 @@ class MessageRouterPublisherImplTest {
         final List<JsonObject> parsedThreeMessages = getAsJsonObjects(threeJsonMessages);
 
         final Flux<JsonObject> doubleJsonMessageBatch = jsonBatch(threeJsonMessages.appendAll(twoJsonMessages));
+        given(clientErrorReasonPresenter.present(any()))
+                .willReturn(ERROR_MESSAGE);
         given(httpClient.call(any(HttpRequest.class)))
                 .willReturn(Mono.just(successHttpResponse))
                 .willReturn(Mono.error(ReadTimeoutException.INSTANCE));
@@ -463,6 +471,8 @@ class MessageRouterPublisherImplTest {
         final List<JsonObject> parsedTwoMessages = getAsJsonObjects(twoJsonMessages);
 
         final Flux<JsonObject> doubleJsonMessageBatch = jsonBatch(threeJsonMessages.appendAll(twoJsonMessages));
+        given(clientErrorReasonPresenter.present(any()))
+                .willReturn(ERROR_MESSAGE);
         given(httpClient.call(any(HttpRequest.class)))
                 .willReturn(Mono.error(ReadTimeoutException.INSTANCE))
                 .willReturn(Mono.just(successHttpResponse));
@@ -540,7 +550,7 @@ class MessageRouterPublisherImplTest {
     private void assertTimeoutError(MessageRouterPublishResponse response) {
         assertThat(response.failed()).isTrue();
         assertThat(response.items()).isEmpty();
-        assertThat(response.failReason()).startsWith(TIMEOUT_ERROR_MESSAGE_HEADER);
+        assertThat(response.failReason()).isEqualTo(ERROR_MESSAGE);
     }
 
     private void verifySingleResponse(List<? extends JsonElement> threeMessages,

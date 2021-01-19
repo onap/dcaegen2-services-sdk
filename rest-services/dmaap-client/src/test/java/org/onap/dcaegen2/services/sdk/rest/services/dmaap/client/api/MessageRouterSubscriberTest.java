@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,29 +20,35 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendError;
-import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendResource;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
+import io.vavr.Tuple;
 import io.vavr.collection.List;
-
-import java.time.Duration;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSource;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.MessageRouterSource;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.DmaapResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterSubscribeResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapTimeoutConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterSubscriberConfig;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.server.HttpServerRoutes;
 import reactor.test.StepVerifier;
+
+import java.time.Duration;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendError;
+import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendInOrderWithDelay;
+import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer.sendResource;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -51,8 +57,10 @@ import reactor.test.StepVerifier;
 class MessageRouterSubscriberTest {
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
     private static final String ERROR_MESSAGE = "Something went wrong";
+    private static final String TIMEOUT_ERROR_MESSAGE = "408 Request Timeout";
     private static final String CONSUMER_GROUP = "group1";
     private static final String SUCCESS_CONSUMER_ID = "consumer200";
+    private static final String DELAY_CONSUMER_ID = "delay200";
     private static final String FAILING_WITH_401_CONSUMER_ID = "consumer401";
     private static final String FAILING_WITH_403_CONSUMER_ID = "consumer403";
     private static final String FAILING_WITH_409_CONSUMER_ID = "consumer409";
@@ -63,6 +71,8 @@ class MessageRouterSubscriberTest {
 
     private static final String SUCCESS_RESP_PATH = String
             .format("%s/%s", CONSUMER_PATH, SUCCESS_CONSUMER_ID);
+    private static final String DELAY_RESP_PATH = String
+            .format("%s/%s", CONSUMER_PATH, DELAY_CONSUMER_ID);
     private static final String FAILING_WITH_401_RESP_PATH = String
             .format("%s/%s", CONSUMER_PATH, FAILING_WITH_401_CONSUMER_ID);
     private static final String FAILING_WITH_403_RESP_PATH = String
@@ -83,7 +93,16 @@ class MessageRouterSubscriberTest {
 
     @BeforeAll
     static void setUp() {
-        DummyHttpServer server = DummyHttpServer.start(MessageRouterSubscriberTest::setRoutes);
+        DummyHttpServer server = DummyHttpServer.start(routes -> routes
+                .get(SUCCESS_RESP_PATH, (req, resp) ->
+                        sendResource(resp, "/sample-mr-subscribe-response.json"))
+                .get(DELAY_RESP_PATH, (req, resp) ->
+                        sendInOrderWithDelay(new AtomicInteger(), Tuple.of(resp, 200, TIMEOUT)))
+                .get(FAILING_WITH_401_RESP_PATH, (req, resp) -> sendError(resp, 401, ERROR_MESSAGE))
+                .get(FAILING_WITH_403_RESP_PATH, (req, resp) -> sendError(resp, 403, ERROR_MESSAGE))
+                .get(FAILING_WITH_409_RESP_PATH, (req, resp) -> sendError(resp, 409, ERROR_MESSAGE))
+                .get(FAILING_WITH_429_RESP_PATH, (req, resp) -> sendError(resp, 429, ERROR_MESSAGE))
+                .get(FAILING_WITH_500_RESP_PATH, (req, resp) -> sendError(resp, 500, ERROR_MESSAGE)));
 
         sourceDefinition = createMessageRouterSource(server);
 
@@ -110,69 +129,19 @@ class MessageRouterSubscriberTest {
                 .verify(TIMEOUT);
     }
 
-    @Test
-    void subscriber_shouldGetUnauthorizedErrorResponse() {
-        MessageRouterSubscribeRequest request = createFailingRequest(FAILING_WITH_401_CONSUMER_ID);
+    @ParameterizedTest
+    @CsvSource({
+            FAILING_WITH_401_CONSUMER_ID + "," + "401 Unauthorized",
+            FAILING_WITH_403_CONSUMER_ID + "," + "403 Forbidden",
+            FAILING_WITH_409_CONSUMER_ID + "," + "409 Conflict",
+            FAILING_WITH_429_CONSUMER_ID + "," + "429 Too Many Requests",
+            FAILING_WITH_500_CONSUMER_ID + "," + "500 Internal Server Error"
+    })
+    void subscriber_shouldHandleError(String consumerId, String failReason) {
+        MessageRouterSubscribeRequest request = createFailingRequest(consumerId);
         Mono<MessageRouterSubscribeResponse> response = sut.get(request);
 
-        MessageRouterSubscribeResponse expectedResponse = createErrorResponse(String
-                .format("401 Unauthorized\n%s", ERROR_MESSAGE));
-
-        StepVerifier.create(response)
-                .expectNext(expectedResponse)
-                .expectComplete()
-                .verify(TIMEOUT);
-    }
-
-    @Test
-    void subscriber_shouldGetForbiddenErrorResponse() {
-        MessageRouterSubscribeRequest request = createFailingRequest(FAILING_WITH_403_CONSUMER_ID);
-        Mono<MessageRouterSubscribeResponse> response = sut.get(request);
-
-        MessageRouterSubscribeResponse expectedResponse = createErrorResponse(String
-                .format("403 Forbidden\n%s", ERROR_MESSAGE));
-
-        StepVerifier.create(response)
-                .expectNext(expectedResponse)
-                .expectComplete()
-                .verify(TIMEOUT);
-    }
-
-    @Test
-    void subscriber_shouldGetConflictErrorResponse() {
-        MessageRouterSubscribeRequest request = createFailingRequest(FAILING_WITH_409_CONSUMER_ID);
-        Mono<MessageRouterSubscribeResponse> response = sut.get(request);
-
-        MessageRouterSubscribeResponse expectedResponse = createErrorResponse(String
-                .format("409 Conflict\n%s", ERROR_MESSAGE));
-
-        StepVerifier.create(response)
-                .expectNext(expectedResponse)
-                .expectComplete()
-                .verify(TIMEOUT);
-    }
-
-    @Test
-    void subscriber_shouldGetTooManyRequestsErrorResponse() {
-        MessageRouterSubscribeRequest request = createFailingRequest(FAILING_WITH_429_CONSUMER_ID);
-        Mono<MessageRouterSubscribeResponse> response = sut.get(request);
-
-        MessageRouterSubscribeResponse expectedResponse = createErrorResponse(String
-                .format("429 Too Many Requests\n%s", ERROR_MESSAGE));
-
-        StepVerifier.create(response)
-                .expectNext(expectedResponse)
-                .expectComplete()
-                .verify(TIMEOUT);
-    }
-
-    @Test
-    void subscriber_shouldGetInternalServerErrorResponse() {
-        Mono<MessageRouterSubscribeResponse> response = sut
-                .get(mrFailingRequest);
-
-        MessageRouterSubscribeResponse expectedResponse = createErrorResponse(String
-                .format("500 Internal Server Error\n%s", ERROR_MESSAGE));
+        MessageRouterSubscribeResponse expectedResponse = createErrorResponse(failReason);
 
         StepVerifier.create(response)
                 .expectNext(expectedResponse)
@@ -226,20 +195,16 @@ class MessageRouterSubscriberTest {
                 .verify(TIMEOUT);
     }
 
-    private static HttpServerRoutes setRoutes(HttpServerRoutes routes) {
-        return routes
-                .get(SUCCESS_RESP_PATH, (req, resp) ->
-                        sendResource(resp, "/sample-mr-subscribe-response.json"))
-                .get(FAILING_WITH_401_RESP_PATH, (req, resp) ->
-                        sendError(resp, 401, ERROR_MESSAGE))
-                .get(FAILING_WITH_403_RESP_PATH, (req, resp) ->
-                        sendError(resp, 403, ERROR_MESSAGE))
-                .get(FAILING_WITH_409_RESP_PATH, (req, resp) ->
-                        sendError(resp, 409, ERROR_MESSAGE))
-                .get(FAILING_WITH_429_RESP_PATH, (req, resp) ->
-                        sendError(resp, 429, ERROR_MESSAGE))
-                .get(FAILING_WITH_500_RESP_PATH, (req, resp) ->
-                        sendError(resp, 500, ERROR_MESSAGE));
+    @Test
+    void subscriber_shouldHandleClientTimeoutError() {
+        Duration requestTimeout = Duration.ofMillis(1);
+        MessageRouterSubscribeRequest request = createDelayRequest(DELAY_CONSUMER_ID, requestTimeout);
+        Mono<MessageRouterSubscribeResponse> response = sut.get(request);
+
+        StepVerifier.create(response)
+                .consumeNextWith(this::assertTimeoutError)
+                .expectComplete()
+                .verify(TIMEOUT);
     }
 
     private static MessageRouterSource createMessageRouterSource(DummyHttpServer server) {
@@ -257,6 +222,15 @@ class MessageRouterSubscriberTest {
                 .build();
     }
 
+    private static MessageRouterSubscribeRequest createDelayRequest(String consumerId, Duration timeout) {
+        return ImmutableMessageRouterSubscribeRequest.builder()
+                .sourceDefinition(sourceDefinition)
+                .consumerGroup(CONSUMER_GROUP)
+                .consumerId(consumerId)
+                .timeoutConfig(ImmutableDmaapTimeoutConfig.builder().timeout(timeout).build())
+                .build();
+    }
+
     private static MessageRouterSubscribeRequest createFailingRequest(String consumerId) {
         return ImmutableMessageRouterSubscribeRequest
                 .builder()
@@ -266,11 +240,17 @@ class MessageRouterSubscriberTest {
                 .build();
     }
 
-    private static MessageRouterSubscribeResponse createErrorResponse(String failReason) {
+    private MessageRouterSubscribeResponse createErrorResponse(String failReason) {
+        String failReasonFormat = failReason + "\n%s";
         return ImmutableMessageRouterSubscribeResponse
                 .builder()
-                .failReason(failReason)
+                .failReason(String.format(failReasonFormat, ERROR_MESSAGE))
                 .build();
+    }
+
+    private void assertTimeoutError(DmaapResponse response) {
+        assertThat(response.failed()).isTrue();
+        assertThat(response.failReason()).startsWith(TIMEOUT_ERROR_MESSAGE);
     }
 }
 

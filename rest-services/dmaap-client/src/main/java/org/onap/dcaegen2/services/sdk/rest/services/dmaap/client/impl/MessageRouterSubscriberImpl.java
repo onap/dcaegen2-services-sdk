@@ -20,16 +20,12 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.extractFailReason;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import io.netty.handler.timeout.ReadTimeoutException;
 import io.vavr.collection.List;
-import java.nio.charset.StandardCharsets;
-
 import io.vavr.control.Option;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
@@ -48,6 +44,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
+
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.extractFailReason;
+
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since March 2019
@@ -55,11 +55,13 @@ import reactor.core.publisher.Mono;
 public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
     private final RxHttpClient httpClient;
     private final Gson gson;
+    private final ClientErrorReasonPresenter clientErrorReasonPresenter;
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageRouterSubscriberImpl.class);
 
-    public MessageRouterSubscriberImpl(RxHttpClient httpClient, Gson gson) {
+    public MessageRouterSubscriberImpl(RxHttpClient httpClient, Gson gson, ClientErrorReasonPresenter clientErrorReasonPresenter) {
         this.httpClient = httpClient;
         this.gson = gson;
+        this.clientErrorReasonPresenter = clientErrorReasonPresenter;
     }
 
     @Override
@@ -91,7 +93,7 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
                 : builder.failReason(extractFailReason(httpResponse)).build();
     }
 
-    private List<JsonElement> getAsJsonElements(HttpResponse httpResponse){
+    private List<JsonElement> getAsJsonElements(HttpResponse httpResponse) {
         JsonArray bodyAsJsonArray = httpResponse
                 .bodyAsJson(StandardCharsets.UTF_8, gson, JsonArray.class);
 
@@ -104,7 +106,7 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
     }
 
     private Mono<MessageRouterSubscribeResponse> createErrorResponse(ClientErrorReason clientErrorReason) {
-        String failReason = ClientErrorReasonPresenter.present(clientErrorReason);
+        String failReason = clientErrorReasonPresenter.present(clientErrorReason);
         return Mono.just(ImmutableMessageRouterSubscribeResponse.builder()
                 .failReason(failReason)
                 .build());

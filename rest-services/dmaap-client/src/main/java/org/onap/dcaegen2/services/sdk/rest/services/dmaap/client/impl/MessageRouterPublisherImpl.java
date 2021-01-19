@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019-2020 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,12 +61,15 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
     private final RxHttpClient httpClient;
     private final int maxBatchSize;
     private final Duration maxBatchDuration;
+    private final ClientErrorReasonPresenter clientErrorReasonPresenter;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageRouterPublisherImpl.class);
 
-    public MessageRouterPublisherImpl(RxHttpClient httpClient, int maxBatchSize, Duration maxBatchDuration) {
+    public MessageRouterPublisherImpl(RxHttpClient httpClient, int maxBatchSize, Duration maxBatchDuration, ClientErrorReasonPresenter clientErrorReasonPresenter) {
         this.httpClient = httpClient;
         this.maxBatchSize = maxBatchSize;
         this.maxBatchDuration = maxBatchDuration;
+        this.clientErrorReasonPresenter = clientErrorReasonPresenter;
     }
 
     @Override
@@ -124,7 +127,7 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
     }
 
     private Mono<MessageRouterPublishResponse> createErrorResponse(ClientErrorReason clientErrorReason) {
-        String failReason = ClientErrorReasonPresenter.present(clientErrorReason);
+        String failReason = clientErrorReasonPresenter.present(clientErrorReason);
         return Mono.just(ImmutableMessageRouterPublishResponse.builder()
                 .failReason(failReason)
                 .build());

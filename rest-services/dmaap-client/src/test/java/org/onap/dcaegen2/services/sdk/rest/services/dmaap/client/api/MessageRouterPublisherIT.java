@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019-2020 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +22,21 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import eu.rekawek.toxiproxy.Proxy;
-import eu.rekawek.toxiproxy.ToxiproxyClient;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockserver.client.MockServerClient;
+import org.mockserver.matchers.TimeToLive;
+import org.mockserver.matchers.Times;
+import org.mockserver.verify.VerificationTimes;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.ContentType;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapRetryConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableMessageRouterPublisherConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterPublisherConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterSubscriberConfig;
 import org.testcontainers.containers.DockerComposeContainer;
@@ -41,11 +46,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-import static eu.rekawek.toxiproxy.model.ToxicDirection.DOWNSTREAM;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.createMRSubscribeRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.createPublishRequest;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.errorPublishResponse;
@@ -56,14 +61,19 @@ import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageR
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.successPublishResponse;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.MessageRouterTestsUtils.successSubscribeResponse;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.DMAAP_SERVICE_EXPOSED_PORT;
-import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.DMAAP_SERVICE_NAME;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.LOCALHOST;
-import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.PROXY_SERVICE_EXPOSED_PORT;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.PROXY_MOCK_SERVICE_EXPOSED_PORT;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.DMaapContainer.createContainerInstance;
 
 @Testcontainers
 class MessageRouterPublisherIT {
     @Container
-    private static final DockerComposeContainer CONTAINER = DMaapContainer.createContainerInstance();
+    private static final DockerComposeContainer CONTAINER = createContainerInstance();
+    private static final MockServerClient MOCK_SERVER_CLIENT = new MockServerClient(
+            LOCALHOST, PROXY_MOCK_SERVICE_EXPOSED_PORT);
+    private static String EVENTS_PATH;
+    private static String PROXY_MOCK_EVENTS_PATH;
+
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
     private static final String DMAAP_400_ERROR_RESPONSE_FORMAT = "400 Bad Request\n"
             + "{"
@@ -85,22 +95,21 @@ class MessageRouterPublisherIT {
             + "}"
             + "}"
             + "}";
-    private static Proxy DMAAP_PROXY;
-    private static String EVENTS_PATH;
-    private static String PROXY_EVENTS_PATH;
+
     private final MessageRouterPublisher publisher = DmaapClientFactory
             .createMessageRouterPublisher(MessageRouterPublisherConfig.createDefault());
     private final MessageRouterSubscriber subscriber = DmaapClientFactory
             .createMessageRouterSubscriber(MessageRouterSubscriberConfig.createDefault());
 
     @BeforeAll
-    static void setUp() throws IOException {
+    static void setUp() {
         EVENTS_PATH = String.format("http://%s:%d/events", LOCALHOST, DMAAP_SERVICE_EXPOSED_PORT);
-        PROXY_EVENTS_PATH = String.format("http://%s:%d/events", LOCALHOST, PROXY_SERVICE_EXPOSED_PORT);
+        PROXY_MOCK_EVENTS_PATH = String.format("http://%s:%d/events", LOCALHOST, PROXY_MOCK_SERVICE_EXPOSED_PORT);
+    }
 
-        DMAAP_PROXY = new ToxiproxyClient().createProxy("dmaapProxy",
-                String.format("[::]:%s", PROXY_SERVICE_EXPOSED_PORT),
-                String.format("%s:%d", DMAAP_SERVICE_NAME, DMAAP_SERVICE_EXPOSED_PORT));
+    @BeforeEach
+    void set() {
+        MOCK_SERVER_CLIENT.reset();
     }
 
     @Test
@@ -302,17 +311,18 @@ class MessageRouterPublisherIT {
     }
 
     @Test
-    void publisher_shouldHandleClientTimeoutErrorWhenTimeoutDefined() throws IOException {
+    void publisher_shouldHandleClientTimeoutErrorWhenTimeoutDefined() {
         //given
-        final String toxic = "latency-toxic";
-        DMAAP_PROXY.toxics()
-                .latency(toxic, DOWNSTREAM, TimeUnit.SECONDS.toMillis(5));
         final String topic = "TOPIC10";
         final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
         final Flux<JsonObject> messageBatch = jsonBatch(singleJsonMessage);
         final MessageRouterPublishRequest mrRequest = createPublishRequest(
-                String.format("%s/%s", PROXY_EVENTS_PATH, topic), Duration.ofSeconds(1));
+                String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic), Duration.ofSeconds(1));
         final MessageRouterPublishResponse expectedResponse = errorPublishResponse(TIMEOUT_ERROR_MESSAGE);
+        final String path = String.format("/events/%s", topic);
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withDelay(TimeUnit.SECONDS, 2));
 
         //when
         final Flux<MessageRouterPublishResponse> result = publisher.put(mrRequest, messageBatch);
@@ -323,7 +333,75 @@ class MessageRouterPublisherIT {
                 .expectComplete()
                 .verify(TIMEOUT);
 
-        //cleanup
-        DMAAP_PROXY.toxics().get(toxic).remove();
+        MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(1));
+    }
+
+    @Test
+    void publisher_shouldRetryWhenRetryableHttpCodeAndSuccessfullyPublish() {
+        final String topic = "TOPIC11";
+        final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(singleJsonMessage);
+        final Flux<JsonElement> plainBatch = plainBatch(singleJsonMessage);
+
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl);
+        final MessageRouterPublishResponse expectedResponse = successPublishResponse(expectedItems);
+
+        final String path = String.format("/events/%s", topic);
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withStatusCode(404));
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig());
+
+        //when
+        final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
+
+        //then
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
+    }
+
+    @Test
+    void publisher_shouldRetryWhenClientTimeoutAndSuccessfullyPublish() {
+        final String topic = "TOPIC12";
+        final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(singleJsonMessage);
+        final Flux<JsonElement> plainBatch = plainBatch(singleJsonMessage);
+
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl, Duration.ofSeconds(1));
+        final MessageRouterPublishResponse expectedResponse = successPublishResponse(expectedItems);
+
+        final String path = String.format("/events/%s", topic);
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withDelay(TimeUnit.SECONDS, 10));
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig());
+
+        //when
+        final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
+
+        //then
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
+    }
+
+    private MessageRouterPublisherConfig retryConfig() {
+        return ImmutableMessageRouterPublisherConfig.builder()
+                .retryConfig(ImmutableDmaapRetryConfig.builder()
+                        .retryIntervalInSeconds(1)
+                        .retryCount(1)
+                        .build())
+                .build();
     }
 }
