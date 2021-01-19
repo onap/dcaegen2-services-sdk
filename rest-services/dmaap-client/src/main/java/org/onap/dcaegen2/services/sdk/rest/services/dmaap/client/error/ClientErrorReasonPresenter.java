@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2020-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,17 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.vavr.control.Option;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.model.ClientError;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.model.ImmutableClientError;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.model.ImmutableRequestError;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.model.ImmutableServiceException;
 
 public class ClientErrorReasonPresenter {
-
-    private ClientErrorReasonPresenter() { }
 
     private static final Gson GSON = new GsonBuilder().create();
     private static final String PATTERN = "%s\n%s";
 
-    public static String present(ClientErrorReason clientErrorReason) {
+    public String present(ClientErrorReason clientErrorReason) {
         ImmutableServiceException simpleServiceException = ImmutableServiceException.builder()
                 .messageId(clientErrorReason.messageId())
                 .text(clientErrorReason.text())

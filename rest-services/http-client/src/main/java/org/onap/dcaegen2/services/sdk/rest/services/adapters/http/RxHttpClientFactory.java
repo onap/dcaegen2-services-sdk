@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import io.netty.handler.ssl.SslContext;
+import io.vavr.control.Option;
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.RxHttpClientConfig;
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.security.ssl.TrustStoreKeys;
@@ -42,10 +44,18 @@ public final class RxHttpClientFactory {
         return new RxHttpClient(HttpClient.create());
     }
 
+    public static RxHttpClient create(RxHttpClientConfig config) {
+        return createWithConfig(HttpClient.create(), config);
+    }
 
     public static RxHttpClient create(SecurityKeys securityKeys) {
         final SslContext context = SSL_FACTORY.createSecureClientContext(securityKeys);
         return create(context);
+    }
+
+    public static RxHttpClient create(SecurityKeys securityKeys, RxHttpClientConfig config) {
+        final SslContext context = SSL_FACTORY.createSecureClientContext(securityKeys);
+        return create(context, config);
     }
 
     public static RxHttpClient create(TrustStoreKeys trustStoreKeys) {
@@ -53,12 +63,34 @@ public final class RxHttpClientFactory {
         return create(context);
     }
 
+    public static RxHttpClient create(TrustStoreKeys trustStoreKeys, RxHttpClientConfig config) {
+        final SslContext context = SSL_FACTORY.createSecureClientContext(trustStoreKeys);
+        return create(context, config);
+    }
+
     public static RxHttpClient createInsecure() {
         final SslContext context = SSL_FACTORY.createInsecureClientContext();
         return create(context);
     }
 
+    public static RxHttpClient createInsecure(RxHttpClientConfig config) {
+        final SslContext context = SSL_FACTORY.createInsecureClientContext();
+        return create(context, config);
+    }
+
     private static RxHttpClient create(@NotNull SslContext sslContext) {
-        return new RxHttpClient(HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext)));
+        HttpClient secure = HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext));
+        return new RxHttpClient(secure);
+    }
+
+    private static RxHttpClient create(@NotNull SslContext sslContext, RxHttpClientConfig config) {
+        HttpClient secure = HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext));
+        return createWithConfig(secure, config);
+    }
+
+    private static RxHttpClient createWithConfig(HttpClient httpClient, RxHttpClientConfig config) {
+        return Option.of(config.retryConfig())
+                .map(retryConfig -> new RxHttpClient(httpClient, retryConfig))
+                .getOrElse(() -> new RxHttpClient(httpClient));
     }
 }
