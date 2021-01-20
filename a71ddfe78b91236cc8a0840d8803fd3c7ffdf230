@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3cd26596_39fc533f",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:36:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50b6cc3b_4ac889eb",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a0f37d0_1dad900f",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8eb872b_55598033",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:36:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abe151c9_14ea8c3b",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +175,24 @@
       "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "181b8fd0_cdc0db61",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterPublisherImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:36:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de4d2374_28ef24b0",
+      "revId": "a71ddfe78b91236cc8a0840d8803fd3c7ffdf230",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
