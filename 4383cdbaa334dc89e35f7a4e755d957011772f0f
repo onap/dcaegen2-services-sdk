@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3390d64_b7a7a217",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/DmaapClientFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-01-20T10:23:32Z",
+      "side": 1,
+      "message": "Would be easier to read if getOrNull would be in next line.",
+      "range": {
+        "startLine": 87,
+        "startChar": 33,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6c9e42f_471dcd8d",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterSubscriberImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-01-20T10:23:32Z",
+      "side": 1,
+      "message": "Could you format it to match the onap line length limit?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 131
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1df5051_963d50ec",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-01-20T10:23:32Z",
+      "side": 1,
+      "message": "shouldHandleClientTimeoutError?",
+      "range": {
+        "startLine": 133,
+        "startChar": 19,
+        "endLine": 133,
+        "endChar": 43
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b079877_16ec37b5",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/model/config/DmaapRetryConfigTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-01-20T10:23:32Z",
+      "side": 1,
+      "message": "Consider value different than default",
+      "range": {
+        "startLine": 32,
+        "startChar": 40,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96add2bf_891493cb",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-01-20T10:23:32Z",
+      "side": 1,
+      "message": "Why not:\n         return Option.of(retryConfig)\n                .map(RetryConfig::retryableHttpResponseCodes)\n                .getOrElse(HashSet::empty)\n                .contains(code);\nor something similar?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649027f5_8165b176",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/test/DummyHttpServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-01-20T10:23:32Z",
+      "side": 1,
+      "message": "You could consider adding method without the counter and use it when You use:\n -\u003e sendInOrderWithDelay(new AtomicInteger(), ...)",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 5
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "898a3d99_45e9d5ee",
+        "filename": "rest-services/http-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-01-20T10:23:32Z",
+      "side": 1,
+      "message": "Can be private",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 71
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
