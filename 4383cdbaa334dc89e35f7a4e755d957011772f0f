@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "ff1eedab_7a3249f8",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/model/config/DmaapRetryConfigTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:51:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "430dcd47_d0352ab4",
+      "range": {
+        "startLine": 32,
+        "startChar": 40,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96add2bf_891493cb",
         "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClient.java",
         "patchSetId": 2
