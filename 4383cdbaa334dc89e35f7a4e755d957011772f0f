@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b17b1f7b_7699c48f",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/DmaapClientFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3390d64_b7a7a217",
+      "range": {
+        "startLine": 87,
+        "startChar": 33,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6c9e42f_471dcd8d",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterSubscriberImpl.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3e80f9a_81545176",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/MessageRouterSubscriberImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6c9e42f_471dcd8d",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 131
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "636b14ff_04dcdfd7",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1df5051_963d50ec",
+      "range": {
+        "startLine": 133,
+        "startChar": 19,
+        "endLine": 133,
+        "endChar": 43
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b079877_16ec37b5",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/model/config/DmaapRetryConfigTest.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2021-01-20T10:23:32Z",
       "side": 1,
       "message": "Consider value different than default",
+      "range": {
+        "startLine": 32,
+        "startChar": 40,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430dcd47_d0352ab4",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/model/config/DmaapRetryConfigTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:21:11Z",
+      "side": 1,
+      "message": "i would like to stay wit boundary values, unfortunately default is boundary for retryInterval",
+      "parentUuid": "4b079877_16ec37b5",
       "range": {
         "startLine": 32,
         "startChar": 40,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "bc7a1e45_bbdc98de",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96add2bf_891493cb",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "649027f5_8165b176",
         "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/test/DummyHttpServer.java",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "30a801fc_3afb9ccf",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/test/DummyHttpServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "649027f5_8165b176",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 5
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "898a3d99_45e9d5ee",
         "filename": "rest-services/http-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientIT.java",
         "patchSetId": 2
@@ -160,6 +304,30 @@
       "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70b3f906_2c734299",
+        "filename": "rest-services/http-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-01-20T11:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "898a3d99_45e9d5ee",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 71
+      },
+      "revId": "4383cdbaa334dc89e35f7a4e755d957011772f0f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
