@@ -27,7 +27,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
-import org.mockserver.matchers.TimeToLive;
 import org.mockserver.matchers.Times;
 import org.mockserver.verify.VerificationTimes;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.ContentType;
@@ -352,7 +351,9 @@ class MessageRouterPublisherIT {
         MOCK_SERVER_CLIENT
                 .when(request().withPath(path), Times.once())
                 .respond(response().withStatusCode(404));
-        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig());
+
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(
+                retryConfig(1, 1));
 
         //when
         final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
@@ -381,8 +382,9 @@ class MessageRouterPublisherIT {
         final String path = String.format("/events/%s", topic);
         MOCK_SERVER_CLIENT
                 .when(request().withPath(path), Times.once())
-                .respond(response().withDelay(TimeUnit.SECONDS, 10));
-        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig());
+                .respond(response().withDelay(TimeUnit.SECONDS, 2));
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(
+                retryConfig(1, 1));
 
         //when
         final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
@@ -396,11 +398,51 @@ class MessageRouterPublisherIT {
         MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
     }
 
-    private MessageRouterPublisherConfig retryConfig() {
+    @Test
+    void publisher_shouldRetryManyTimesAndSuccessfullyPublish() {
+        final String topic = "TOPIC13";
+        final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+
+        final List<String> twoJsonMessages = List.of("{\"message\":\"message1\"}",
+                "{\"differentMessage\":\"message2\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(twoJsonMessages);
+        final Flux<JsonElement> plainBatch = plainBatch(twoJsonMessages);
+
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl, Duration.ofSeconds(1));
+        final MessageRouterPublishResponse expectedResponse = successPublishResponse(expectedItems);
+
+        final String path = String.format("/events/%s", topic);
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withDelay(TimeUnit.SECONDS, 2));
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withStatusCode(404));
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withDelay(TimeUnit.SECONDS, 2));
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withStatusCode(500));
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig(1, 5));
+
+        //when
+        final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
+
+        //then
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(5));
+    }
+
+    private MessageRouterPublisherConfig retryConfig(int retryInterval, int retryCount) {
         return ImmutableMessageRouterPublisherConfig.builder()
                 .retryConfig(ImmutableDmaapRetryConfig.builder()
-                        .retryIntervalInSeconds(1)
-                        .retryCount(1)
+                        .retryIntervalInSeconds(retryInterval)
+                        .retryCount(retryCount)
                         .build())
                 .build();
     }

@@ -28,7 +28,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.RetryCo
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClient.ResponseReceiver;
@@ -113,7 +112,7 @@ public class RxHttpClient {
         return theClient
                 .headers(hdrs -> hdrs.set(HttpHeaders.TRANSFER_ENCODING_TYPE, HttpHeaders.CHUNKED))
                 .request(request.method().asNetty())
-                .send(Flux.from(request.body().contents()))
+                .send(request.body().contents())
                 .uri(request.url());
     }
 
@@ -121,7 +120,7 @@ public class RxHttpClient {
         return theClient
                 .headers(hdrs -> hdrs.set(HttpHeaders.CONTENT_LENGTH, request.body().length().toString()))
                 .request(request.method().asNetty())
-                .send(Flux.from(request.body().contents()))
+                .send(request.body().contents())
                 .uri(request.url());
     }
 

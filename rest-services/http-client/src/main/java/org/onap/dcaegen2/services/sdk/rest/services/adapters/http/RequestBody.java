@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufFlux;
+import reactor.netty.ByteBufMono;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -58,12 +59,9 @@ public interface RequestBody {
     }
 
     static RequestBody fromString(String contents, Charset charset) {
-        ByteBuf encodedContents = ByteBufAllocator.DEFAULT.buffer();
-        encodedContents.writeCharSequence(contents, charset);
-
         return ImmutableRequestBody.builder()
-                .length(encodedContents.readableBytes())
-                .contents(Mono.just(encodedContents.retain()))
+                .length(contents.length())
+                .contents(ByteBufMono.fromString(Mono.just(contents), charset, ByteBufAllocator.DEFAULT))
                 .build();
     }
 
