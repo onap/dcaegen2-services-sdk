@@ -23,7 +23,6 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import io.vavr.collection.List;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -55,6 +54,7 @@ import static org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.Du
 class MessageRouterSubscriberTest {
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
     private static final String ERROR_MESSAGE = "Something went wrong";
+    private static final String CONNECTION_ERROR_MESSAGE = "503 Service unavailable";
     private static final String TIMEOUT_ERROR_MESSAGE = "408 Request Timeout";
     private static final String CONSUMER_GROUP = "group1";
     private static final String SUCCESS_CONSUMER_ID = "consumer200";
@@ -82,16 +82,18 @@ class MessageRouterSubscriberTest {
     private static final String FAILING_WITH_500_RESP_PATH = String
             .format("%s/%s", CONSUMER_PATH, FAILING_WITH_500_CONSUMER_ID);
 
-    private static MessageRouterSubscribeRequest mrSuccessRequest;
-    private static MessageRouterSubscribeRequest mrFailingRequest;
+    private static final DummyHttpServer DISPOSED_HTTP_SERVER = initialize().closeAndGet();
+    private static final DummyHttpServer SERVER = initialize();
+
     private MessageRouterSubscriber sut = DmaapClientFactory
             .createMessageRouterSubscriber(MessageRouterSubscriberConfig.createDefault());
-    private static MessageRouterSource sourceDefinition;
+    private static MessageRouterSource sourceDefinition = createMessageRouterSource(SERVER);
+    private static MessageRouterSource failingSourceDefinition = createMessageRouterSource(DISPOSED_HTTP_SERVER);
+    private static MessageRouterSubscribeRequest mrSuccessRequest = createSuccessRequest(sourceDefinition);
+    private static MessageRouterSubscribeRequest mrFailingRequest = createFailingRequest(FAILING_WITH_500_CONSUMER_ID);
 
-
-    @BeforeAll
-    static void setUp() {
-        DummyHttpServer server = DummyHttpServer.start(routes -> routes
+    private static DummyHttpServer initialize() {
+        return DummyHttpServer.start(routes -> routes
                 .get(SUCCESS_RESP_PATH, (req, resp) ->
                         sendResource(resp, "/sample-mr-subscribe-response.json"))
                 .get(DELAY_RESP_PATH, (req, resp) -> sendWithDelay(resp, 200, TIMEOUT))
@@ -100,12 +102,6 @@ class MessageRouterSubscriberTest {
                 .get(FAILING_WITH_409_RESP_PATH, (req, resp) -> sendError(resp, 409, ERROR_MESSAGE))
                 .get(FAILING_WITH_429_RESP_PATH, (req, resp) -> sendError(resp, 429, ERROR_MESSAGE))
                 .get(FAILING_WITH_500_RESP_PATH, (req, resp) -> sendError(resp, 500, ERROR_MESSAGE)));
-
-        sourceDefinition = createMessageRouterSource(server);
-
-        mrSuccessRequest = createSuccessRequest();
-
-        mrFailingRequest = createFailingRequest(FAILING_WITH_500_CONSUMER_ID);
     }
 
     @Test
@@ -204,6 +200,17 @@ class MessageRouterSubscriberTest {
                 .verify(TIMEOUT);
     }
 
+    @Test
+    void subscriber_shouldHandleConnectionError() {
+        MessageRouterSubscribeRequest request = createSuccessRequest(failingSourceDefinition);
+        Mono<MessageRouterSubscribeResponse> response = sut.get(request);
+
+        StepVerifier.create(response)
+                .consumeNextWith(this::assertConnectionError)
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
+
     private static MessageRouterSource createMessageRouterSource(DummyHttpServer server) {
         return ImmutableMessageRouterSource.builder()
                 .name("the topic")
@@ -211,9 +218,9 @@ class MessageRouterSubscriberTest {
                 .build();
     }
 
-    private static MessageRouterSubscribeRequest createSuccessRequest() {
+    private static MessageRouterSubscribeRequest createSuccessRequest(MessageRouterSource source) {
         return ImmutableMessageRouterSubscribeRequest.builder()
-                .sourceDefinition(sourceDefinition)
+                .sourceDefinition(source)
                 .consumerGroup(CONSUMER_GROUP)
                 .consumerId(SUCCESS_CONSUMER_ID)
                 .build();
@@ -248,6 +255,11 @@ class MessageRouterSubscriberTest {
     private void assertTimeoutError(DmaapResponse response) {
         assertThat(response.failed()).isTrue();
         assertThat(response.failReason()).startsWith(TIMEOUT_ERROR_MESSAGE);
+    }
+
+    private void assertConnectionError(DmaapResponse response) {
+        assertThat(response.failed()).isTrue();
+        assertThat(response.failReason()).startsWith(CONNECTION_ERROR_MESSAGE);
     }
 }
 

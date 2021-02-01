@@ -438,6 +438,41 @@ class MessageRouterPublisherIT {
         MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(5));
     }
 
+    @Test
+    void publisher_shouldHandleLastRetryError500() {
+        final String topic = "TOPIC14";
+        final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+
+        final List<String> twoJsonMessages = List.of("{\"message\":\"message1\"}",
+                "{\"differentMessage\":\"message2\"}");
+        final Flux<JsonElement> plainBatch = plainBatch(twoJsonMessages);
+
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl, Duration.ofSeconds(1));
+        final String responseMessage = "Response Message";
+        final MessageRouterPublishResponse expectedResponse = errorPublishResponse(
+                "500 Internal Server Error\n%s", responseMessage);
+
+        final String path = String.format("/events/%s", topic);
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withStatusCode(404));
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withStatusCode(500).withBody(responseMessage));
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig(1, 1));
+
+        //when
+        final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
+
+        //then
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
+    }
+
     private MessageRouterPublisherConfig retryConfig(int retryInterval, int retryCount) {
         return ImmutableMessageRouterPublisherConfig.builder()
                 .retryConfig(ImmutableDmaapRetryConfig.builder()

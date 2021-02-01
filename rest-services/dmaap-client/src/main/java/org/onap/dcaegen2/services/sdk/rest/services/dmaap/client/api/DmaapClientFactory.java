@@ -36,7 +36,6 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.Me
 
 import java.time.Duration;
 
-import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.DmaapRetryConfig.ON_RETRY_EXHAUSTED_EXCEPTION;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.DmaapRetryConfig.RETRYABLE_EXCEPTIONS;
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.DmaapRetryConfig.RETRYABLE_HTTP_CODES;
 
@@ -83,7 +82,6 @@ public final class DmaapClientFactory {
                         .retryCount(rc.retryCount())
                         .retryableHttpResponseCodes(RETRYABLE_HTTP_CODES)
                         .customRetryableExceptions(RETRYABLE_EXCEPTIONS)
-                        .onRetryExhaustedException(ON_RETRY_EXHAUSTED_EXCEPTION)
                         .build())
                 .getOrNull();
     }

@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.vavr.collection.List;
+import io.vavr.control.Try;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -380,6 +381,39 @@ class MessageRouterSubscriberIT {
                 .verify();
 
         MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(5));
+    }
+
+    @Test
+    void subscriber_shouldHandleLastRetryError500() {
+        //given
+        final String topic = "TOPIC9";
+        final String proxyTopicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+        final MessageRouterSubscribeRequest subscribeRequest = createMRSubscribeRequest(
+                proxyTopicUrl, CONSUMER_GROUP, CONSUMER_ID);
+        final String responseMessage = "Response Message";
+        final MessageRouterSubscribeResponse expectedResponse = errorSubscribeResponse(
+                "500 Internal Server Error\n%s", responseMessage);
+
+        final String path = String.format("/events/%s/%s/%s", topic, CONSUMER_GROUP, CONSUMER_ID);
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withStatusCode(404));
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withStatusCode(500).withBody(responseMessage));
+        final MessageRouterSubscriber subscriber = DmaapClientFactory.createMessageRouterSubscriber(
+                retryConfig(1, 1));
+
+        //when
+        Mono<MessageRouterSubscribeResponse> response = subscriber.get(subscribeRequest);
+
+        //then
+        StepVerifier.create(response)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
     }
 
     private MessageRouterSubscriberConfig retryConfig(int retryInterval, int retryCount) {

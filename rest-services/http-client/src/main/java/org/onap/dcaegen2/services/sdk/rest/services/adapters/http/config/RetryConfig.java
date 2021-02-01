@@ -23,7 +23,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.RetryableException;
 
 import java.time.Duration;
 
@@ -52,8 +52,4 @@ public interface RetryConfig {
         }
         return result;
     }
-
-    @Nullable RuntimeException onRetryExhaustedException();
-
-    class RetryableException extends RuntimeException {}
 }

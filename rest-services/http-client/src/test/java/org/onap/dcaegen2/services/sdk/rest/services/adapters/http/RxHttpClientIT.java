@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ImmutableRetryConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ImmutableRxHttpClientConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.HttpException;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.RetryableException;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttpServer;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -214,7 +215,7 @@ class RxHttpClientIT {
     }
 
     @Test
-    void getWithRetryExhaustedExceptionWhenClosedServer() throws Exception {
+    void getWithConnectExceptionWhenClosedServer() throws Exception {
         // given
         REQUEST_COUNTER = new AtomicInteger();
         final HttpRequest httpRequest = requestForClosedServer("/sample-get")
@@ -231,37 +232,13 @@ class RxHttpClientIT {
 
         // then
         StepVerifier.create(response)
-                .expectError(IllegalStateException.class)
+                .expectError(ConnectException.class)
                 .verify(TIMEOUT);
         assertNoServerResponse();
     }
 
     @Test
-    void getWithCustomRetryExhaustedExceptionWhenClosedServer() throws Exception {
-        // given
-        REQUEST_COUNTER = new AtomicInteger();
-        final HttpRequest httpRequest = requestForClosedServer("/sample-get")
-                .method(HttpMethod.GET)
-                .build();
-        final RxHttpClient cut = RxHttpClientFactory.create(ImmutableRxHttpClientConfig.builder()
-                .retryConfig(defaultRetryConfig()
-                        .customRetryableExceptions(HashSet.of(ConnectException.class))
-                        .onRetryExhaustedException(ReadTimeoutException.INSTANCE)
-                        .build())
-                .build());
-
-        // when
-        final Mono<HttpResponse> response = cut.call(httpRequest);
-
-        // then
-        StepVerifier.create(response)
-                .expectError(ReadTimeoutException.class)
-                .verify(TIMEOUT);
-        assertNoServerResponse();
-    }
-
-    @Test
-    void getWithRetryExhaustedExceptionWhen500() throws Exception {
+    void getWithRetryableExceptionWhen500() throws Exception {
         // given
         REQUEST_COUNTER = new AtomicInteger();
         final HttpRequest httpRequest = requestFor("/retry-get-500")
@@ -278,31 +255,7 @@ class RxHttpClientIT {
 
         // then
         StepVerifier.create(response)
-                .expectError(IllegalStateException.class)
-                .verify(TIMEOUT);
-        assertRetry();
-    }
-
-    @Test
-    void getWithCustomRetryExhaustedExceptionWhen500() throws Exception {
-        // given
-        REQUEST_COUNTER = new AtomicInteger();
-        final HttpRequest httpRequest = requestFor("/retry-get-500")
-                .method(HttpMethod.GET)
-                .build();
-        final RxHttpClient cut = RxHttpClientFactory.create(ImmutableRxHttpClientConfig.builder()
-                .retryConfig(defaultRetryConfig()
-                        .onRetryExhaustedException(ReadTimeoutException.INSTANCE)
-                        .retryableHttpResponseCodes(HashSet.of(500))
-                        .build())
-                .build());
-
-        // when
-        final Mono<HttpResponse> response = cut.call(httpRequest);
-
-        // then
-        StepVerifier.create(response)
-                .expectError(ReadTimeoutException.class)
+                .expectError(RetryableException.class)
                 .verify(TIMEOUT);
         assertRetry();
     }

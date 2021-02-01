@@ -18,24 +18,19 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error;
+package org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions;
 
-import java.util.Collections;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 
-public class ClientErrorReasons {
+public class RetryableException extends RuntimeException {
 
-    private ClientErrorReasons() { }
+    private final HttpResponse response;
 
-    public static final ClientErrorReason TIMEOUT = ImmutableClientErrorReason.builder()
-            .header("408 Request Timeout")
-            .text("Client timeout exception occurred, Error code is %1")
-            .messageId("SVC0001")
-            .variables(Collections.singletonList("408")).build();
+    public RetryableException(HttpResponse response) {
+        this.response = response;
+    }
 
-    public static final ClientErrorReason SERVICE_UNAVAILABLE = ImmutableClientErrorReason.builder()
-            .header("503 Service unavailable")
-            .text("DMaaP MR is unavailable")
-            .messageId("SVC2001")
-            .build();
-
+    public HttpResponse getResponse() {
+        return response;
+    }
 }
