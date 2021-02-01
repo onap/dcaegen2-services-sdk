@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e35db2e4_7dedc00b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-02-01T11:31:18Z",
+      "side": 1,
+      "message": "Consider writing commit message like:\n One line title\n \u003cempty-line\u003e\n Longer description",
+      "revId": "7b91671f9c65f14bf514be3cac8d07017789425b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
