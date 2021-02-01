@@ -25,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.google.gson.JsonSyntaxException;
@@ -41,6 +42,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterSubscriberConfig;
 import reactor.core.publisher.Mono;
+
+import java.net.ConnectException;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -67,6 +70,12 @@ class MessageRouterSubscriberImplTest {
     private final HttpResponse httpResponse = ImmutableHttpResponse.builder()
             .statusCode(200)
             .statusReason("OK")
+            .url(sourceDefinition.topicUrl())
+            .rawBody("[]".getBytes())
+            .build();
+    private final HttpResponse retryableHttpResponse = ImmutableHttpResponse.builder()
+            .statusCode(500)
+            .statusReason("Something braked")
             .url(sourceDefinition.topicUrl())
             .rawBody("[]".getBytes())
             .build();
@@ -154,6 +163,53 @@ class MessageRouterSubscriberImplTest {
         assertThat(response.failReason()).isEqualTo(ERROR_MESSAGE);
         assertThat(response.hasElements()).isFalse();
 
+        verify(clientErrorReasonPresenter, times(1)).present(any());
+        verify(httpClient).call(httpRequestArgumentCaptor.capture());
+        final HttpRequest httpRequest = httpRequestArgumentCaptor.getValue();
+        assertThat(httpRequest.method()).isEqualTo(HttpMethod.GET);
+        assertThat(httpRequest.url()).isEqualTo(String.format("%s/%s/%s", sourceDefinition.topicUrl(),
+                mrRequest.consumerGroup(), mrRequest.consumerId()));
+        assertThat(httpRequest.body()).isNull();
+    }
+
+    @Test
+    void getWithProperRequest_shouldReturnConnectionException() {
+        given(clientErrorReasonPresenter.present(any()))
+                .willReturn(ERROR_MESSAGE);
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.error(new ConnectException()));
+
+        // when
+        final Mono<MessageRouterSubscribeResponse> responses = cut
+                .get(mrRequest);
+        final MessageRouterSubscribeResponse response = responses.block();
+
+        assertThat(response.failed()).isTrue();
+        assertThat(response.failReason()).isEqualTo(ERROR_MESSAGE);
+        assertThat(response.hasElements()).isFalse();
+
+        verify(clientErrorReasonPresenter, times(1)).present(any());
+        verify(httpClient).call(httpRequestArgumentCaptor.capture());
+        final HttpRequest httpRequest = httpRequestArgumentCaptor.getValue();
+        assertThat(httpRequest.method()).isEqualTo(HttpMethod.GET);
+        assertThat(httpRequest.url()).isEqualTo(String.format("%s/%s/%s", sourceDefinition.topicUrl(),
+                mrRequest.consumerGroup(), mrRequest.consumerId()));
+        assertThat(httpRequest.body()).isNull();
+    }
+
+    @Test
+    void getWithProperRequest_shouldReturnCertainFailedResponse() {
+        given(httpClient.call(any(HttpRequest.class)))
+                .willReturn(Mono.just(retryableHttpResponse));
+
+        // when
+        final Mono<MessageRouterSubscribeResponse> responses = cut
+                .get(mrRequest);
+        final MessageRouterSubscribeResponse response = responses.block();
+
+        assertThat(response.failed()).isTrue();
+        assertThat(response.failReason()).startsWith("500 Something braked");
+        assertThat(response.hasElements()).isFalse();
 
         verify(httpClient).call(httpRequestArgumentCaptor.capture());
         final HttpRequest httpRequest = httpRequestArgumentCaptor.getValue();

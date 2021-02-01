@@ -33,6 +33,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.RetryableException;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterSubscriber;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.ClientErrorReason;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.ClientErrorReasonPresenter;
@@ -44,6 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
+import java.net.ConnectException;
 import java.nio.charset.StandardCharsets;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.extractFailReason;
@@ -72,9 +74,11 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
                 .map(this::buildGetResponse)
                 .doOnError(ReadTimeoutException.class,
                         e -> LOGGER.error("Timeout exception occurred when subscribe items from DMaaP MR", e))
-                .onErrorResume(ReadTimeoutException.class, e -> createErrorResponse(ClientErrorReasons.TIMEOUT));
+                .onErrorResume(ReadTimeoutException.class, e -> buildErrorResponse(ClientErrorReasons.TIMEOUT))
+                .doOnError(ConnectException.class, e -> LOGGER.error("DMaaP MR is unavailable, {}", e.getMessage()))
+                .onErrorResume(ConnectException.class, e -> buildErrorResponse(ClientErrorReasons.SERVICE_UNAVAILABLE))
+                .onErrorResume(RetryableException.class, e -> Mono.just(buildGetResponse(e.getResponse())));
     }
-
 
     private @NotNull HttpRequest buildGetHttpRequest(MessageRouterSubscribeRequest request) {
         ImmutableHttpRequest.Builder requestBuilder = ImmutableHttpRequest.builder()
@@ -107,7 +111,7 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
                 request.consumerId());
     }
 
-    private Mono<MessageRouterSubscribeResponse> createErrorResponse(ClientErrorReason clientErrorReason) {
+    private Mono<MessageRouterSubscribeResponse> buildErrorResponse(ClientErrorReason clientErrorReason) {
         String failReason = clientErrorReasonPresenter.present(clientErrorReason);
         return Mono.just(ImmutableMessageRouterSubscribeResponse.builder()
                 .failReason(failReason)

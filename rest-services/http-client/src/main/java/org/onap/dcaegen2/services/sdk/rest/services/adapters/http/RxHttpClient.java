@@ -25,6 +25,7 @@ import io.vavr.collection.HashSet;
 import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.RetryConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.RetryableException;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,12 +84,17 @@ public class RxHttpClient {
     }
 
     private Mono<HttpResponse> mapResponse(String url, HttpResponseStatus status, reactor.netty.ByteBufMono content) {
-        if (shouldRetry(status.code())) {
-            return Mono.error(new RetryConfig.RetryableException());
-        }
         return content.asByteArray()
                 .defaultIfEmpty(new byte[0])
-                .map(bytes -> new NettyHttpResponse(url, status, bytes));
+                .map(bytes -> new NettyHttpResponse(url, status, bytes))
+                .map(this::validatedResponse);
+    }
+
+    private HttpResponse validatedResponse(HttpResponse response) {
+        if (shouldRetry(response.statusCode())) {
+            throw new RetryableException(response);
+        }
+        return response;
     }
 
     private boolean shouldRetry(int code) {
@@ -149,15 +155,12 @@ public class RxHttpClient {
     }
 
     private RetryBackoffSpec retryConfig(RetryConfig retryConfig, RequestDiagnosticContext context) {
-        RetryBackoffSpec retry = Retry
+        return Retry
                 .fixedDelay(retryConfig.retryCount(), retryConfig.retryInterval())
                 .doBeforeRetry(retrySignal -> context.withSlf4jMdc(
                         LOGGER.isTraceEnabled(), () -> LOGGER.trace("Retry: {}", retrySignal)))
-                .filter(ex -> isRetryable(retryConfig, ex));
-
-        return Option.of(retryConfig.onRetryExhaustedException())
-                .map(ex -> retry.onRetryExhaustedThrow((retryBackoffSpec, retrySignal) -> ex))
-                .getOrElse(retry);
+                .filter(ex -> isRetryable(retryConfig, ex))
+                .onRetryExhaustedThrow((retryBackoffSpec, retrySignal) -> retrySignal.failure());
     }
 
     private boolean isRetryable(RetryConfig retryConfig, Throwable ex) {
