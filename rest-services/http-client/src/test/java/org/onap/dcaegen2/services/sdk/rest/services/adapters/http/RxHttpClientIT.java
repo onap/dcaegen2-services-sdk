@@ -26,6 +26,7 @@ import io.vavr.Tuple;
 import io.vavr.collection.HashSet;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ImmutableConnectionPoolConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ImmutableRetryConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ImmutableRxHttpClientConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.HttpException;
@@ -335,6 +336,28 @@ class RxHttpClientIT {
                 .verify(TIMEOUT);
         assertNoRetry();
     }
+    @Test
+    void simpleGetWithCustomConnectionPool() throws Exception {
+        // given
+        final HttpRequest httpRequest = requestFor("/sample-get")
+                .method(HttpMethod.GET)
+                .build();
+        final RxHttpClient cut = RxHttpClientFactory.create(ImmutableRxHttpClientConfig.builder()
+                .connectionPool(defaultConnectionPoolConfig().build())
+                .build());
+
+
+        // when
+        final Mono<String> bodyAsString = cut.call(httpRequest)
+                .doOnNext(HttpResponse::throwIfUnsuccessful)
+                .map(HttpResponse::bodyAsString);
+
+        // then
+        StepVerifier.create(bodyAsString)
+                .expectNext("OK")
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
 
     private ImmutableHttpRequest.Builder requestFor(String path) throws MalformedURLException {
         return ImmutableHttpRequest.builder()
@@ -366,5 +389,12 @@ class RxHttpClientIT {
     
     private void assert400(HttpResponse httpResponse) {
         assertThat(httpResponse.statusCode()).isEqualTo(400);
+    }
+
+    private ImmutableConnectionPoolConfig.Builder defaultConnectionPoolConfig(){
+        return ImmutableConnectionPoolConfig.builder()
+                .connectionPool(1)
+                .maxIdleTime(Duration.ofSeconds(5))
+                .maxLifeTime(Duration.ofSeconds(10));
     }
 }

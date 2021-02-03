@@ -34,6 +34,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapConnectionPoolConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapRetryConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableMessageRouterPublisherConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterPublisherConfig;
@@ -351,9 +352,7 @@ class MessageRouterPublisherIT {
         MOCK_SERVER_CLIENT
                 .when(request().withPath(path), Times.once())
                 .respond(response().withStatusCode(404));
-
-        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(
-                retryConfig(1, 1));
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig());
 
         //when
         final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
@@ -382,9 +381,8 @@ class MessageRouterPublisherIT {
         final String path = String.format("/events/%s", topic);
         MOCK_SERVER_CLIENT
                 .when(request().withPath(path), Times.once())
-                .respond(response().withDelay(TimeUnit.SECONDS, 2));
-        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(
-                retryConfig(1, 1));
+                .respond(response().withDelay(TimeUnit.SECONDS, 10));
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig());
 
         //when
         final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
@@ -397,16 +395,14 @@ class MessageRouterPublisherIT {
 
         MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
     }
-
     @Test
-    void publisher_shouldRetryManyTimesAndSuccessfullyPublish() {
-        final String topic = "TOPIC13";
+    void publisher_shouldshouldSuccessfullyPublishWhenConnectionPoolConfigurationIsSet() {
+        final String topic = "TOPIC12";
         final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
 
-        final List<String> twoJsonMessages = List.of("{\"message\":\"message1\"}",
-                "{\"differentMessage\":\"message2\"}");
-        final List<JsonElement> expectedItems = getAsJsonElements(twoJsonMessages);
-        final Flux<JsonElement> plainBatch = plainBatch(twoJsonMessages);
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(singleJsonMessage);
+        final Flux<JsonElement> plainBatch = plainBatch(singleJsonMessage);
 
         final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl, Duration.ofSeconds(1));
         final MessageRouterPublishResponse expectedResponse = successPublishResponse(expectedItems);
@@ -414,17 +410,9 @@ class MessageRouterPublisherIT {
         final String path = String.format("/events/%s", topic);
         MOCK_SERVER_CLIENT
                 .when(request().withPath(path), Times.once())
-                .respond(response().withDelay(TimeUnit.SECONDS, 2));
-        MOCK_SERVER_CLIENT
-                .when(request().withPath(path), Times.once())
-                .respond(response().withStatusCode(404));
-        MOCK_SERVER_CLIENT
-                .when(request().withPath(path), Times.once())
-                .respond(response().withDelay(TimeUnit.SECONDS, 2));
-        MOCK_SERVER_CLIENT
-                .when(request().withPath(path), Times.once())
-                .respond(response().withStatusCode(500));
-        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig(1, 5));
+                .respond(response().withStatusCode(200));
+
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(connectionPoolConfiguration());
 
         //when
         final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
@@ -435,31 +423,27 @@ class MessageRouterPublisherIT {
                 .expectComplete()
                 .verify();
 
-        MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(5));
+        MOCK_SERVER_CLIENT.verify(request().withPath(path).withKeepAlive(true), VerificationTimes.exactly(1));
     }
 
     @Test
-    void publisher_shouldHandleLastRetryError500() {
-        final String topic = "TOPIC14";
+    void publisher_shouldRetryWhenClientTimeoutAndSuccessfullyPublishWithConnectionPoolConfiguration() {
+        final String topic = "TOPIC12";
         final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
 
-        final List<String> twoJsonMessages = List.of("{\"message\":\"message1\"}",
-                "{\"differentMessage\":\"message2\"}");
-        final Flux<JsonElement> plainBatch = plainBatch(twoJsonMessages);
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(singleJsonMessage);
+        final Flux<JsonElement> plainBatch = plainBatch(singleJsonMessage);
 
         final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl, Duration.ofSeconds(1));
-        final String responseMessage = "Response Message";
-        final MessageRouterPublishResponse expectedResponse = errorPublishResponse(
-                "500 Internal Server Error\n%s", responseMessage);
+        final MessageRouterPublishResponse expectedResponse = successPublishResponse(expectedItems);
 
         final String path = String.format("/events/%s", topic);
         MOCK_SERVER_CLIENT
                 .when(request().withPath(path), Times.once())
-                .respond(response().withStatusCode(404));
-        MOCK_SERVER_CLIENT
-                .when(request().withPath(path), Times.once())
-                .respond(response().withStatusCode(500).withBody(responseMessage));
-        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(retryConfig(1, 1));
+                .respond(response().withDelay(TimeUnit.SECONDS, 10));
+
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(connectionPoolAndRetryConfiguration());
 
         //when
         final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
@@ -470,14 +454,38 @@ class MessageRouterPublisherIT {
                 .expectComplete()
                 .verify();
 
-        MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
+        MOCK_SERVER_CLIENT.verify(request().withPath(path).withKeepAlive(true), VerificationTimes.exactly(2));
     }
 
-    private MessageRouterPublisherConfig retryConfig(int retryInterval, int retryCount) {
+    private MessageRouterPublisherConfig retryConfig() {
         return ImmutableMessageRouterPublisherConfig.builder()
                 .retryConfig(ImmutableDmaapRetryConfig.builder()
-                        .retryIntervalInSeconds(retryInterval)
-                        .retryCount(retryCount)
+                        .retryIntervalInSeconds(1)
+                        .retryCount(1)
+                        .build())
+                .build();
+    }
+
+    private MessageRouterPublisherConfig connectionPoolConfiguration() {
+        return ImmutableMessageRouterPublisherConfig.builder()
+                .connectionPoolConfig(ImmutableDmaapConnectionPoolConfig.builder()
+                        .connectionPool(10)
+                        .maxIdleTime(10)
+                        .maxLifeTime(20)
+                        .build())
+                .build();
+    }
+
+    private MessageRouterPublisherConfig connectionPoolAndRetryConfiguration() {
+        return ImmutableMessageRouterPublisherConfig.builder()
+                .connectionPoolConfig(ImmutableDmaapConnectionPoolConfig.builder()
+                        .connectionPool(10)
+                        .maxIdleTime(10)
+                        .maxLifeTime(20)
+                        .build())
+                .retryConfig(ImmutableDmaapRetryConfig.builder()
+                        .retryIntervalInSeconds(1)
+                        .retryCount(1)
                         .build())
                 .build();
     }
