@@ -28,6 +28,7 @@ import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.security.ssl.TrustStoreKeys;
 import reactor.netty.http.client.HttpClient;
+import reactor.netty.resources.ConnectionProvider;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -45,6 +46,15 @@ public final class RxHttpClientFactory {
     }
 
     public static RxHttpClient create(RxHttpClientConfig config) {
+        if(config.connectionPool() != null){
+            ConnectionProvider provider =
+                    ConnectionProvider.builder("fixed")
+                            .maxConnections(config.connectionPool().connectionPool())
+                            .maxIdleTime(config.connectionPool().maxIdleTime())
+                            .maxLifeTime(config.connectionPool().maxLifeTime())
+                            .build();
+            return createWithConfig(HttpClient.create(provider), config);
+        }
         return createWithConfig(HttpClient.create(), config);
     }
 

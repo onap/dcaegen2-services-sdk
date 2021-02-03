@@ -26,4 +26,5 @@ import org.jetbrains.annotations.Nullable;
 @Value.Immutable
 public interface RxHttpClientConfig {
     @Nullable RetryConfig retryConfig();
+    @Nullable ConnectionPoolConfig connectionPool();
 }
