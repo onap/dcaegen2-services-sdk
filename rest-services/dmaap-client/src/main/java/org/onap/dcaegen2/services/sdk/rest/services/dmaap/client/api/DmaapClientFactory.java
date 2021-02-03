@@ -23,6 +23,8 @@ import io.vavr.control.Option;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFactory;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ConnectionPoolConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ImmutableConnectionPoolConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ImmutableRetryConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ImmutableRxHttpClientConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.RetryConfig;
@@ -68,6 +70,7 @@ public final class DmaapClientFactory {
 
     private static @NotNull RxHttpClient createHttpClient(DmaapClientConfiguration config) {
         RxHttpClientConfig clientConfig = ImmutableRxHttpClientConfig.builder()
+                .connectionPool(createConnectionPool(config))
                 .retryConfig(createRetry(config))
                 .build();
         return config.securityKeys() == null
@@ -82,6 +85,16 @@ public final class DmaapClientFactory {
                         .retryCount(rc.retryCount())
                         .retryableHttpResponseCodes(RETRYABLE_HTTP_CODES)
                         .customRetryableExceptions(RETRYABLE_EXCEPTIONS)
+                        .build())
+                .getOrNull();
+    }
+
+    private static ConnectionPoolConfig createConnectionPool(DmaapClientConfiguration config){
+        return Option.of(config.connectionPoolConfig())
+                .map(cp -> ImmutableConnectionPoolConfig.builder()
+                        .connectionPool(cp.connectionPool())
+                        .maxIdleTime(Duration.ofSeconds(cp.maxIdleTime()))
+                        .maxLifeTime(Duration.ofSeconds(cp.maxLifeTime()))
                         .build())
                 .getOrNull();
     }

@@ -23,11 +23,13 @@ package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 import io.netty.handler.ssl.SslContext;
 import io.vavr.control.Option;
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ConnectionPoolConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.RxHttpClientConfig;
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.security.ssl.TrustStoreKeys;
 import reactor.netty.http.client.HttpClient;
+import reactor.netty.resources.ConnectionProvider;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -44,8 +46,11 @@ public final class RxHttpClientFactory {
         return new RxHttpClient(HttpClient.create());
     }
 
-    public static RxHttpClient create(RxHttpClientConfig config) {
-        return createWithConfig(HttpClient.create(), config);
+    public static RxHttpClient create(RxHttpClientConfig config){
+        return Option.of(config.connectionPool())
+                .map(RxHttpClientFactory::createConnectionProvider)
+                .map(provider -> createWithConfig(HttpClient.create(provider), config))
+                .getOrElse(createWithConfig(HttpClient.create(), config));
     }
 
     public static RxHttpClient create(SecurityKeys securityKeys) {
@@ -92,5 +97,14 @@ public final class RxHttpClientFactory {
         return Option.of(config.retryConfig())
                 .map(retryConfig -> new RxHttpClient(httpClient, retryConfig))
                 .getOrElse(() -> new RxHttpClient(httpClient));
+    }
+
+    @NotNull
+    private static ConnectionProvider createConnectionProvider(ConnectionPoolConfig connectionPoolConfig) {
+        return ConnectionProvider.builder("fixed")
+                .maxConnections(connectionPoolConfig.connectionPool())
+                .maxIdleTime(connectionPoolConfig.maxIdleTime())
+                .maxLifeTime(connectionPoolConfig.maxLifeTime())
+                .build();
     }
 }

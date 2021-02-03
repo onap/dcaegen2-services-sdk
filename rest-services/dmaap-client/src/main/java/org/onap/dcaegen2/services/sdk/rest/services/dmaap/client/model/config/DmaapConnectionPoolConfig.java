@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019-2021 Nokia. All rights reserved.
+ * Copyright (C) 2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +20,20 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config;
 
 import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
-import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 
-/**
- * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
- * @since 1.2.0
- */
-public interface DmaapClientConfiguration {
+@Value.Immutable
+public interface DmaapConnectionPoolConfig {
+
     @Value.Default
-    default @Nullable SecurityKeys securityKeys() {
-        return null;
+    default int connectionPool(){
+        return 16;
     }
     @Value.Default
-    default @Nullable DmaapRetryConfig retryConfig(){
-        return null;
+    default int maxLifeTime(){
+        return Integer.MAX_VALUE;
     }
     @Value.Default
-    default @Nullable DmaapConnectionPoolConfig connectionPoolConfig (){
-        return null;
+    default int maxIdleTime(){
+        return  Integer.MAX_VALUE;
     }
 }
