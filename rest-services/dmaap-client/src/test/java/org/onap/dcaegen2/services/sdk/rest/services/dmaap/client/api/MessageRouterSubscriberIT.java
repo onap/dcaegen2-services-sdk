@@ -23,7 +23,6 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.vavr.collection.List;
-import io.vavr.control.Try;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +32,7 @@ import org.mockserver.verify.VerificationTimes;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapConnectionPoolConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapRetryConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableMessageRouterSubscriberConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterPublisherConfig;
@@ -415,12 +415,51 @@ class MessageRouterSubscriberIT {
 
         MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
     }
+    @Test
+    void subscriber_shouldSubscribeToTopicWithConnectionPoolConfiguration() {
+        //given
+        final String topic = "TOPIC4";
+        final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl);
+        final MessageRouterSubscribeRequest subscribeRequest = createMRSubscribeRequest(topicUrl,
+                CONSUMER_GROUP, CONSUMER_ID);
+
+        final List<String> twoJsonMessages = List.of("{\"message\":\"message1\"}",
+                "{\"differentMessage\":\"message2\"}");
+        final List<JsonElement> messages = getAsJsonElements(twoJsonMessages);
+        final Flux<JsonObject> jsonMessageBatch = jsonBatch(twoJsonMessages);
+
+        final MessageRouterSubscriber subscriber = DmaapClientFactory.createMessageRouterSubscriber(connectionPoolConfiguration());
+
+
+        //when
+        registerTopic(publisher, publishRequest, subscriber, subscribeRequest);
+        final Flux<JsonElement> result = publisher.put(publishRequest, jsonMessageBatch)
+                .thenMany(subscriber.subscribeForElements(subscribeRequest, Duration.ofSeconds(1)));
+
+        //then
+        StepVerifier.create(result.take(2))
+                .expectNext(messages.get(0))
+                .expectNext(messages.get(1))
+                .expectComplete()
+                .verify(TIMEOUT);
+    }
 
     private MessageRouterSubscriberConfig retryConfig(int retryInterval, int retryCount) {
         return ImmutableMessageRouterSubscriberConfig.builder()
                 .retryConfig(ImmutableDmaapRetryConfig.builder()
                         .retryIntervalInSeconds(retryInterval)
                         .retryCount(retryCount)
+                        .build())
+                .build();
+    }
+
+    private MessageRouterSubscriberConfig connectionPoolConfiguration() {
+        return ImmutableMessageRouterSubscriberConfig.builder()
+                .connectionPoolConfig(ImmutableDmaapConnectionPoolConfig.builder()
+                        .connectionPool(10)
+                        .maxIdleTime(10)
+                        .maxLifeTime(20)
                         .build())
                 .build();
     }
