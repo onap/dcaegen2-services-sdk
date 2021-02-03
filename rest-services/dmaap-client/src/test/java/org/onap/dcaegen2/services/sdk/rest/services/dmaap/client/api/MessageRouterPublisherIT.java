@@ -34,6 +34,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapConnectionPoolConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapRetryConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableMessageRouterPublisherConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterPublisherConfig;
@@ -337,6 +338,7 @@ class MessageRouterPublisherIT {
 
     @Test
     void publisher_shouldRetryWhenRetryableHttpCodeAndSuccessfullyPublish() {
+        //given
         final String topic = "TOPIC11";
         final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
 
@@ -369,6 +371,7 @@ class MessageRouterPublisherIT {
 
     @Test
     void publisher_shouldRetryWhenClientTimeoutAndSuccessfullyPublish() {
+        //given
         final String topic = "TOPIC12";
         final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
 
@@ -400,6 +403,7 @@ class MessageRouterPublisherIT {
 
     @Test
     void publisher_shouldRetryManyTimesAndSuccessfullyPublish() {
+        //given
         final String topic = "TOPIC13";
         final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
 
@@ -440,6 +444,7 @@ class MessageRouterPublisherIT {
 
     @Test
     void publisher_shouldHandleLastRetryError500() {
+        //given
         final String topic = "TOPIC14";
         final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
 
@@ -472,12 +477,99 @@ class MessageRouterPublisherIT {
 
         MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
     }
+    @Test
+    void publisher_shouldSuccessfullyPublishWhenConnectionPoolConfigurationIsSet() {
+        //given
+        final String topic = "TOPIC15";
+        final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(singleJsonMessage);
+        final Flux<JsonElement> plainBatch = plainBatch(singleJsonMessage);
+
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl, Duration.ofSeconds(1));
+        final MessageRouterPublishResponse expectedResponse = successPublishResponse(expectedItems);
+
+        final String path = String.format("/events/%s", topic);
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withStatusCode(200));
+
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(connectionPoolConfiguration());
+
+        //when
+        final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
+
+        //then
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path).withKeepAlive(true), VerificationTimes.exactly(1));
+    }
+
+    @Test
+    void publisher_shouldRetryWhenClientTimeoutAndSuccessfullyPublishWithConnectionPoolConfiguration() {
+        //given
+        final String topic = "TOPIC16";
+        final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(singleJsonMessage);
+        final Flux<JsonElement> plainBatch = plainBatch(singleJsonMessage);
+
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl, Duration.ofSeconds(1));
+        final MessageRouterPublishResponse expectedResponse = successPublishResponse(expectedItems);
+
+        final String path = String.format("/events/%s", topic);
+        MOCK_SERVER_CLIENT
+                .when(request().withPath(path), Times.once())
+                .respond(response().withDelay(TimeUnit.SECONDS, 10));
+
+        final MessageRouterPublisher publisher = DmaapClientFactory.createMessageRouterPublisher(connectionPoolAndRetryConfiguration());
+
+        //when
+        final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
+
+        //then
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path).withKeepAlive(true), VerificationTimes.exactly(2));
+    }
+
 
     private MessageRouterPublisherConfig retryConfig(int retryInterval, int retryCount) {
         return ImmutableMessageRouterPublisherConfig.builder()
                 .retryConfig(ImmutableDmaapRetryConfig.builder()
                         .retryIntervalInSeconds(retryInterval)
                         .retryCount(retryCount)
+                        .build())
+                .build();
+    }
+    private MessageRouterPublisherConfig connectionPoolConfiguration() {
+        return ImmutableMessageRouterPublisherConfig.builder()
+                .connectionPoolConfig(ImmutableDmaapConnectionPoolConfig.builder()
+                        .connectionPool(10)
+                        .maxIdleTime(10)
+                        .maxLifeTime(20)
+                        .build())
+                .build();
+    }
+
+    private MessageRouterPublisherConfig connectionPoolAndRetryConfiguration() {
+        return ImmutableMessageRouterPublisherConfig.builder()
+                .connectionPoolConfig(ImmutableDmaapConnectionPoolConfig.builder()
+                        .connectionPool(10)
+                        .maxIdleTime(10)
+                        .maxLifeTime(20)
+                        .build())
+                .retryConfig(ImmutableDmaapRetryConfig.builder()
+                        .retryIntervalInSeconds(1)
+                        .retryCount(1)
                         .build())
                 .build();
     }
