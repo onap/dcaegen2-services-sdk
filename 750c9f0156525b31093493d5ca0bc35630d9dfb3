@@ -319,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "444b689c_7c361672",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2021-02-04T14:00:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2a60cc1_ad9ed271",
+      "range": {
+        "startLine": 56,
+        "startChar": 36,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "750c9f0156525b31093493d5ca0bc35630d9dfb3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f463cd8_012c346c",
         "filename": "rest-services/http-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientIT.java",
         "patchSetId": 2
