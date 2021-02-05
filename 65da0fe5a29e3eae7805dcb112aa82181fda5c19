@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d2703b3_f2351535",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-02-05T10:27:34Z",
+      "side": 1,
+      "message": "please rename this method to: publisher_shouldSuccessfullyPublishWhenConnectionPoolConfigurationIsSet;\nconsider put \"given\" section",
+      "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "279fbad4_de9b7b70",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-02-05T10:27:34Z",
+      "side": 1,
+      "message": "consider put \"given\" section",
+      "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f29974b6_a5ccdcdd",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-02-05T10:27:34Z",
+      "side": 1,
+      "message": "please remove unnecessary white line",
+      "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c7b8812_3ebb68cb",
+        "filename": "rest-services/http-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2021-02-05T10:27:34Z",
+      "side": 1,
+      "message": "please remove unnecessary white line",
+      "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
