@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee0d8927_fc4882b5",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-02-05T18:47:04Z",
+      "side": 1,
+      "message": "pls add complete history based on https://git.onap.org/dcaegen2/tree/docs/sections/sdk/changelog.rst",
+      "revId": "549473eb3f2d061603bc6d8f7191015c28c1b8c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
