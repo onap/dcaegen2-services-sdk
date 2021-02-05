@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "df5c4e99_0114d836",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2021-02-05T10:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d2703b3_f2351535",
+      "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "279fbad4_de9b7b70",
         "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca620081_09a425f4",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterPublisherIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2021-02-05T10:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "279fbad4_de9b7b70",
+      "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c2b267a8_2f3fa09b",
+        "filename": "rest-services/dmaap-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/api/MessageRouterSubscriberIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2021-02-05T10:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f29974b6_a5ccdcdd",
+      "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c7b8812_3ebb68cb",
         "filename": "rest-services/http-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientIT.java",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb74110c_c5302ece",
+        "filename": "rest-services/http-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2021-02-05T10:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c7b8812_3ebb68cb",
+      "revId": "65da0fe5a29e3eae7805dcb112aa82181fda5c19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
