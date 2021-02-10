@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8c01b9a_3a6bc96a",
+        "filename": "Changelog.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-02-10T08:28:50Z",
+      "side": 1,
+      "message": "Consider flipping the order (latest version on top).",
+      "revId": "78bb60bc17e73182c59e044c54c803152468baf1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e379213_90527501",
+        "filename": "Changelog.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-02-10T08:28:50Z",
+      "side": 1,
+      "message": "Consider writing what changes were actually made.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 1
+      },
+      "revId": "78bb60bc17e73182c59e044c54c803152468baf1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
