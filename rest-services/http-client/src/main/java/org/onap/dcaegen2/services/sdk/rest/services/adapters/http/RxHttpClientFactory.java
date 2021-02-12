@@ -20,16 +20,11 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
-import io.netty.handler.ssl.SslContext;
 import io.vavr.control.Option;
-import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.ConnectionPoolConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.RxHttpClientConfig;
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
-import org.onap.dcaegen2.services.sdk.security.ssl.SslFactory;
 import org.onap.dcaegen2.services.sdk.security.ssl.TrustStoreKeys;
 import reactor.netty.http.client.HttpClient;
-import reactor.netty.resources.ConnectionProvider;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -37,74 +32,56 @@ import reactor.netty.resources.ConnectionProvider;
  */
 public final class RxHttpClientFactory {
 
-    private static final SslFactory SSL_FACTORY = new SslFactory();
-
     private RxHttpClientFactory() {
     }
 
     public static RxHttpClient create() {
-        return new RxHttpClient(HttpClient.create());
+        return new RxHttpClient(HttpClientFactory.create());
     }
 
-    public static RxHttpClient create(RxHttpClientConfig config){
-        return Option.of(config.connectionPool())
-                .map(RxHttpClientFactory::createConnectionProvider)
-                .map(provider -> createWithConfig(HttpClient.create(provider), config))
-                .getOrElse(createWithConfig(HttpClient.create(), config));
+    public static RxHttpClient create(RxHttpClientConfig config) {
+        HttpClient httpClient = Option.of(config.connectionPool())
+                .map(HttpClientFactory::create)
+                .getOrElse(HttpClientFactory::create);
+        return createWithConfig(httpClient, config);
     }
 
     public static RxHttpClient create(SecurityKeys securityKeys) {
-        final SslContext context = SSL_FACTORY.createSecureClientContext(securityKeys);
-        return create(context);
+        return new RxHttpClient(HttpClientFactory.create(securityKeys));
     }
 
     public static RxHttpClient create(SecurityKeys securityKeys, RxHttpClientConfig config) {
-        final SslContext context = SSL_FACTORY.createSecureClientContext(securityKeys);
-        return create(context, config);
+        HttpClient httpClient = Option.of(config.connectionPool())
+                .map(connectionPoolConfig -> HttpClientFactory.create(securityKeys, connectionPoolConfig))
+                .getOrElse(() -> HttpClientFactory.create(securityKeys));
+        return createWithConfig(httpClient, config);
     }
 
     public static RxHttpClient create(TrustStoreKeys trustStoreKeys) {
-        final SslContext context = SSL_FACTORY.createSecureClientContext(trustStoreKeys);
-        return create(context);
+        return new RxHttpClient(HttpClientFactory.create(trustStoreKeys));
     }
 
     public static RxHttpClient create(TrustStoreKeys trustStoreKeys, RxHttpClientConfig config) {
-        final SslContext context = SSL_FACTORY.createSecureClientContext(trustStoreKeys);
-        return create(context, config);
+        HttpClient httpClient = Option.of(config.connectionPool())
+                .map(connectionPoolConfig -> HttpClientFactory.create(trustStoreKeys, connectionPoolConfig))
+                .getOrElse(() -> HttpClientFactory.create(trustStoreKeys));
+        return createWithConfig(httpClient, config);
     }
 
     public static RxHttpClient createInsecure() {
-        final SslContext context = SSL_FACTORY.createInsecureClientContext();
-        return create(context);
+        return new RxHttpClient(HttpClientFactory.createInsecure());
     }
 
     public static RxHttpClient createInsecure(RxHttpClientConfig config) {
-        final SslContext context = SSL_FACTORY.createInsecureClientContext();
-        return create(context, config);
-    }
-
-    private static RxHttpClient create(@NotNull SslContext sslContext) {
-        HttpClient secure = HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext));
-        return new RxHttpClient(secure);
-    }
-
-    private static RxHttpClient create(@NotNull SslContext sslContext, RxHttpClientConfig config) {
-        HttpClient secure = HttpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext));
-        return createWithConfig(secure, config);
+        HttpClient httpClient = Option.of(config.connectionPool())
+                .map(HttpClientFactory::createInsecure)
+                .getOrElse(HttpClientFactory::createInsecure);
+        return createWithConfig(httpClient, config);
     }
 
     private static RxHttpClient createWithConfig(HttpClient httpClient, RxHttpClientConfig config) {
         return Option.of(config.retryConfig())
                 .map(retryConfig -> new RxHttpClient(httpClient, retryConfig))
                 .getOrElse(() -> new RxHttpClient(httpClient));
-    }
-
-    @NotNull
-    private static ConnectionProvider createConnectionProvider(ConnectionPoolConfig connectionPoolConfig) {
-        return ConnectionProvider.builder("fixed")
-                .maxConnections(connectionPoolConfig.connectionPool())
-                .maxIdleTime(connectionPoolConfig.maxIdleTime())
-                .maxLifeTime(connectionPoolConfig.maxLifeTime())
-                .build();
     }
 }
