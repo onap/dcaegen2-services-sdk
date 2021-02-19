@@ -25,11 +25,17 @@ class EncodePassword {
 
     private static final int MAX_PASSWORD_LENGTH = 64 * 1024;
     private static final int ARGS_LENGTH_PASSWORD_PROVIDED = 1;
-    private CryptPassword cryptPassword = new CryptPassword();
-    private CharsFromStreamReader charsFromStreamReader = new CharsFromStreamReader(MAX_PASSWORD_LENGTH);
+    private final CryptPassword cryptPassword;
+    private final CharsFromStreamReader charsFromStreamReader;
+
+    public EncodePassword(CryptPassword cryptPassword, CharsFromStreamReader charsFromStreamReader) {
+        this.cryptPassword = cryptPassword;
+        this.charsFromStreamReader = charsFromStreamReader;
+    }
+
 
     public static void main(String[] args) {
-        new EncodePassword().run(args);
+        new EncodePassword(new CryptPassword(), new CharsFromStreamReader(MAX_PASSWORD_LENGTH)).run(args);
     }
 
     public void run(String[] args) {
@@ -65,7 +71,7 @@ class EncodePassword {
         System.err.println(msg);
     }
 
-    private void printErrorAndExit(ExitCode exitCode, String msg) {
+    void printErrorAndExit(ExitCode exitCode, String msg) {
         System.err.println(msg);
         System.exit(exitCode.value);
     }

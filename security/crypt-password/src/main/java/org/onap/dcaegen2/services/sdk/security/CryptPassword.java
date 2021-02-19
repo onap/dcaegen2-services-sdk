@@ -24,7 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /**
  * Class for encoding passwords using BCrypt algorithm.
  */
-public final class CryptPassword {
+public class CryptPassword {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
