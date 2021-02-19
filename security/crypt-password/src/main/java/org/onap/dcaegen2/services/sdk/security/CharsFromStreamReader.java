@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.CharBuffer;
 
-final class CharsFromStreamReader {
+class CharsFromStreamReader {
 
     public static final int END_OF_STREAM = -1;
     private final int maxLength;
