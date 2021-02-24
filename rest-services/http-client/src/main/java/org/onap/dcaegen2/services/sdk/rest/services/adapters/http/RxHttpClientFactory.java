@@ -22,6 +22,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import io.vavr.control.Option;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.RxHttpClientConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.retry.RetryIntervalExtractor;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.retry.RetryLogic;
 import org.onap.dcaegen2.services.sdk.security.ssl.SecurityKeys;
 import org.onap.dcaegen2.services.sdk.security.ssl.TrustStoreKeys;
 import reactor.netty.http.client.HttpClient;
@@ -81,7 +83,7 @@ public final class RxHttpClientFactory {
 
     private static RxHttpClient createWithConfig(HttpClient httpClient, RxHttpClientConfig config) {
         return Option.of(config.retryConfig())
-                .map(retryConfig -> new RxHttpClient(httpClient, retryConfig))
+                .map(retryConfig -> new RxHttpClient(httpClient, new RetryLogic(retryConfig, new RetryIntervalExtractor())))
                 .getOrElse(() -> new RxHttpClient(httpClient));
     }
 }

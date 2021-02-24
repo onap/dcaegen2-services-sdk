@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import com.google.gson.JsonObject;
+import io.vavr.collection.HashMultimap;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
@@ -58,6 +59,7 @@ class CbsClientImplTest {
                 .url("http://xxx")
                 .statusCode(200)
                 .rawBody("{}".getBytes())
+                .headers(HashMultimap.withSeq().empty())
                 .build();
         given(httpClient.call(any(HttpRequest.class))).willReturn(Mono.just(httpResponse));
         RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
