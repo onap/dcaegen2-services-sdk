@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,11 @@
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import com.google.gson.Gson;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import io.vavr.collection.Multimap;
 import org.immutables.value.Value;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions.HttpException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -38,6 +39,8 @@ public interface HttpResponse {
     int statusCode();
 
     byte[] rawBody();
+
+    Multimap<String, String> headers();
 
     @Value.Default
     default String statusReason() {

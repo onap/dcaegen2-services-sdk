@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).    
 
-## [1.7.0] - 10/02/2021
+## [1.7.0] - 25/02/2021
 ### Added
     - [DCAEGEN2-1483] (https://jira.onap.org/browse/DCAEGEN2-1483) - VESCollector Event ordering
         - Add possibility to modify the configuration for persistent connection
+        - Support retry-after header in DCAE-SDK DMaaP-Client
      
 ## [1.6.0] ##
     - Add configurable timeout in dmaap-client

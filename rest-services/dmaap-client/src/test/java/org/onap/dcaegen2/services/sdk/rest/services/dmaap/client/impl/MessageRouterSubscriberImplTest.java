@@ -30,6 +30,7 @@ import static org.mockito.Mockito.verify;
 
 import com.google.gson.JsonSyntaxException;
 import io.netty.handler.timeout.ReadTimeoutException;
+import io.vavr.collection.HashMultimap;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSource;
@@ -72,24 +73,28 @@ class MessageRouterSubscriberImplTest {
             .statusReason("OK")
             .url(sourceDefinition.topicUrl())
             .rawBody("[]".getBytes())
+            .headers(HashMultimap.withSeq().empty())
             .build();
     private final HttpResponse retryableHttpResponse = ImmutableHttpResponse.builder()
             .statusCode(500)
             .statusReason("Something braked")
             .url(sourceDefinition.topicUrl())
             .rawBody("[]".getBytes())
+            .headers(HashMultimap.withSeq().empty())
             .build();
     private final HttpResponse httpResponseWithWrongStatusCode = ImmutableHttpResponse.builder()
             .statusCode(301)
             .statusReason("Something braked")
             .url(sourceDefinition.topicUrl())
             .rawBody("[]".getBytes())
+            .headers(HashMultimap.withSeq().empty())
             .build();
     private final HttpResponse httpResponseWithIncorrectJson = ImmutableHttpResponse.builder()
             .statusCode(200)
             .statusReason("OK")
             .url(sourceDefinition.topicUrl())
             .rawBody("{}".getBytes())
+            .headers(HashMultimap.withSeq().empty())
             .build();
 
     @Test
