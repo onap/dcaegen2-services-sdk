@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,18 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
+import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpStatusClass;
+import io.vavr.Tuple;
+import io.vavr.Tuple2;
+import io.vavr.collection.HashMultimap;
+import io.vavr.collection.Multimap;
+import reactor.netty.http.client.HttpClientResponse;
+
 import java.nio.charset.Charset;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -32,11 +41,13 @@ class NettyHttpResponse implements HttpResponse {
 
     private final String url;
     private final HttpResponseStatus status;
+    private final HttpHeaders headers;
     private final byte[] body;
 
-    NettyHttpResponse(String url, HttpResponseStatus status, byte[] body) {
+    public NettyHttpResponse(String url, HttpClientResponse response, byte[] body) {
         this.url = url;
-        this.status = status;
+        this.status = response.status();
+        this.headers = response.responseHeaders();
         this.body = body;
     }
 
@@ -63,6 +74,14 @@ class NettyHttpResponse implements HttpResponse {
     @Override
     public byte[] rawBody() {
         return new byte[0];
+    }
+
+    @Override
+    public Multimap<String, String> headers() {
+        List<Tuple2<String, String>> httpHeaders = headers.entries().stream()
+                .map(entry -> Tuple.of(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
+        return HashMultimap.withSeq().ofEntries(httpHeaders);
     }
 
     @Override

@@ -28,6 +28,7 @@ import com.google.gson.JsonPrimitive;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.handler.codec.http.HttpHeaderValues;
 import io.netty.handler.timeout.ReadTimeoutException;
+import io.vavr.collection.HashMultimap;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -545,6 +546,7 @@ class MessageRouterPublisherImplTest {
                 .url(TOPIC_URL)
                 .statusReason(statusReason)
                 .rawBody("[]".getBytes())
+                .headers(HashMultimap.withSeq().empty())
                 .build();
     }
 

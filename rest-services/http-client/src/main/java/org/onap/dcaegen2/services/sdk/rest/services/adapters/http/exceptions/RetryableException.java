@@ -22,12 +22,14 @@ package org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions;
 
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 
+import java.util.Objects;
+
 public class RetryableException extends RuntimeException {
 
     private final HttpResponse response;
 
     public RetryableException(HttpResponse response) {
-        this.response = response;
+        this.response = Objects.requireNonNull(response, "response must not be null");
     }
 
     public HttpResponse getResponse() {
