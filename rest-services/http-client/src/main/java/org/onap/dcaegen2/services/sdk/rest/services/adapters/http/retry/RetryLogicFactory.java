@@ -18,21 +18,16 @@
  * ============LICENSE_END=====================================
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.adapters.http.exceptions;
+package org.onap.dcaegen2.services.sdk.rest.services.adapters.http.retry;
 
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.config.RetryConfig;
 
-import java.util.Objects;
+public final class RetryLogicFactory {
 
-public class RetryableException extends RuntimeException {
-
-    private final HttpResponse response;
-
-    public RetryableException(HttpResponse response) {
-        this.response = Objects.requireNonNull(response, "response must not be null");
+    private RetryLogicFactory() {
     }
 
-    public HttpResponse getResponse() {
-        return response;
+    public static RetryLogic create(RetryConfig config) {
+        return new RetryLogic(config, new RetryIntervalExtractor());
     }
 }
