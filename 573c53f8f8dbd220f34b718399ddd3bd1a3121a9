@@ -1,0 +1,8 @@
+Code-Review+1: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Code-Review+2: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-at: Thu, 25 Feb 2021 14:24:51 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/118365
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
