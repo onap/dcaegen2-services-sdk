@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0039887c_3e5a1276",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/NettyHttpResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-02-25T08:30:58Z",
+      "side": 1,
+      "message": "no, it isn\u0027t",
+      "parentUuid": "d66b0175_c7fcb8b4",
+      "revId": "5c61d9a97d5e0197c7da905d8a2c8f758885e12a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88e00895_352b882d",
         "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientFactory.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-02-24T19:49:57Z",
       "side": 1,
       "message": "is inject RetryIntervalExtractor necessary?",
+      "revId": "5c61d9a97d5e0197c7da905d8a2c8f758885e12a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af6736c5_22370531",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/RxHttpClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-02-25T08:30:58Z",
+      "side": 1,
+      "message": "for unit testing purpose",
+      "parentUuid": "88e00895_352b882d",
       "revId": "5c61d9a97d5e0197c7da905d8a2c8f758885e12a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7154211c_b1676630",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/retry/RetryIntervalExtractor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-02-25T08:30:58Z",
+      "side": 1,
+      "message": "i want to inject this class to RetryLogic class which is injected to RxHttpClient(is in different package), so has to be public,",
+      "parentUuid": "1fd6239a_9d671bc5",
+      "revId": "5c61d9a97d5e0197c7da905d8a2c8f758885e12a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdf5f3b9_b467bf03",
         "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/retry/RetryIntervalExtractor.java",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "8d5c2f93_2815eff0",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/retry/RetryIntervalExtractor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-02-25T08:30:58Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "cdf5f3b9_b467bf03",
+      "revId": "5c61d9a97d5e0197c7da905d8a2c8f758885e12a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ffc456cb_6d2826db",
         "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/retry/RetryLogic.java",
         "patchSetId": 1
@@ -81,6 +153,24 @@
       "writtenOn": "2021-02-24T19:49:57Z",
       "side": 1,
       "message": "consider use new RetryIntervalExtractor() in calculateDelay method instead of inject it, or create and use an interface as a type of RetryIntervalExtractor()",
+      "revId": "5c61d9a97d5e0197c7da905d8a2c8f758885e12a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ee0d1f_97b9b216",
+        "filename": "rest-services/http-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/retry/RetryLogic.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-02-25T08:30:58Z",
+      "side": 1,
+      "message": "if i do as you suggest, how will i mock this for unit test purpose?",
+      "parentUuid": "ffc456cb_6d2826db",
       "revId": "5c61d9a97d5e0197c7da905d8a2c8f758885e12a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
