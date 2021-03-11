@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).    
 
+## [1.8.0] - 10/03/2021
+### Added
+    - [DCAEGEN2-2670] (https://jira.onap.org/browse/DCAEGEN2-2670) - Support authorized topics in DMaaP-Client
+
 ## [1.7.0] - 25/02/2021
 ### Added
     - [DCAEGEN2-1483] (https://jira.onap.org/browse/DCAEGEN2-1483) - VESCollector Event ordering
