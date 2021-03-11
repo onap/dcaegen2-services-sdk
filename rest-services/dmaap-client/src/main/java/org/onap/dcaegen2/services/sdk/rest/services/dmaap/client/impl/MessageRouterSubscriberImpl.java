@@ -25,7 +25,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import io.netty.handler.timeout.ReadTimeoutException;
+import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
+import io.vavr.collection.Map;
 import io.vavr.control.Option;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
@@ -41,12 +43,15 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.error.ClientErr
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.ImmutableMessageRouterSubscribeResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.DmaapTimeoutConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.SecureTopicCredentials;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 import java.net.ConnectException;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.extractFailReason;
 
@@ -81,14 +86,13 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
     }
 
     private @NotNull HttpRequest buildGetHttpRequest(MessageRouterSubscribeRequest request) {
-        ImmutableHttpRequest.Builder requestBuilder = ImmutableHttpRequest.builder()
+        return ImmutableHttpRequest.builder()
                 .method(HttpMethod.GET)
                 .url(buildSubscribeUrl(request))
-                .diagnosticContext(request.diagnosticContext().withNewInvocationId());
-
-        return Option.of(request.timeoutConfig())
-                .map(timeoutConfig -> requestBuilder.timeout(timeoutConfig.getTimeout()).build())
-                .getOrElse(requestBuilder::build);
+                .diagnosticContext(request.diagnosticContext().withNewInvocationId())
+                .customHeaders(headers(request))
+                .timeout(timeout(request).getOrNull())
+                .build();
     }
 
     private @NotNull MessageRouterSubscribeResponse buildGetResponse(HttpResponse httpResponse) {
@@ -116,5 +120,17 @@ public class MessageRouterSubscriberImpl implements MessageRouterSubscriber {
         return Mono.just(ImmutableMessageRouterSubscribeResponse.builder()
                 .failReason(failReason)
                 .build());
+    }
+
+    private Option<Duration> timeout(MessageRouterSubscribeRequest request) {
+        return Option.of(request.timeoutConfig())
+                .map(DmaapTimeoutConfig::getTimeout);
+    }
+
+    private Map<String, String> headers(MessageRouterSubscribeRequest request) {
+        return Option.of(request.topicCredentials())
+                .map(SecureTopicCredentials::basicAuthHeader)
+                .map(HashMap::of)
+                .getOrElse(HashMap.empty());
     }
 }

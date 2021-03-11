@@ -39,6 +39,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRo
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterSubscribeResponse;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableDmaapTimeoutConfig;
+import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.ImmutableSecureTopicCredentials;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
@@ -58,6 +59,17 @@ public final class MessageRouterTestsUtils {
                 .contentType(ContentType.APPLICATION_JSON)
                 .timeoutConfig(ImmutableDmaapTimeoutConfig.builder()
                         .timeout(timeout)
+                        .build())
+                .build();
+    }
+
+    public static MessageRouterPublishRequest createPublishRequest(String topicUrl, String username, String password) {
+        return ImmutableMessageRouterPublishRequest.builder()
+                .sinkDefinition(createMessageRouterSink(topicUrl))
+                .contentType(ContentType.APPLICATION_JSON)
+                .topicCredentials(ImmutableSecureTopicCredentials.builder()
+                        .username(username)
+                        .password(password.toCharArray())
                         .build())
                 .build();
     }
@@ -83,7 +95,6 @@ public final class MessageRouterTestsUtils {
     public static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
                                                                          String consumerGroup, String consumerId,
                                                                          Duration timeout) {
-
         return ImmutableMessageRouterSubscribeRequest
                 .builder()
                 .timeoutConfig(ImmutableDmaapTimeoutConfig.builder()
@@ -92,6 +103,21 @@ public final class MessageRouterTestsUtils {
                 .sourceDefinition(getImmutableMessageRouterSource(topicUrl))
                 .consumerGroup(consumerGroup)
                 .consumerId(consumerId)
+                .build();
+    }
+
+    public static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
+                                                                         String consumerGroup, String consumerId,
+                                                                         String username, String password) {
+        return ImmutableMessageRouterSubscribeRequest
+                .builder()
+                .sourceDefinition(getImmutableMessageRouterSource(topicUrl))
+                .consumerGroup(consumerGroup)
+                .consumerId(consumerId)
+                .topicCredentials(ImmutableSecureTopicCredentials.builder()
+                        .username(username)
+                        .password(password.toCharArray())
+                        .build())
                 .build();
     }
 
