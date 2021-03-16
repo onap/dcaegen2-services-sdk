@@ -131,7 +131,7 @@ class MessageRouterSubscriberIT {
     }
 
     @Test
-    void subscriberShouldHandleSingleItemResponse() {
+    void subscriber_shouldHandleSingleItemResponse() {
         //given
         final String topic = "TOPIC";
         final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
@@ -415,10 +415,11 @@ class MessageRouterSubscriberIT {
 
         MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
     }
+
     @Test
     void subscriber_shouldSubscribeToTopicWithConnectionPoolConfiguration() {
         //given
-        final String topic = "TOPIC4";
+        final String topic = "TOPIC10";
         final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
         final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl);
         final MessageRouterSubscribeRequest subscribeRequest = createMRSubscribeRequest(topicUrl,
@@ -442,6 +443,40 @@ class MessageRouterSubscriberIT {
                 .expectNext(messages.get(1))
                 .expectComplete()
                 .verify(TIMEOUT);
+    }
+
+    @Test
+    void subscriber_shouldHandleSingleItemResponseWithBasicAuthHeader() {
+        //given
+        final String topic = "TOPIC11";
+        final String proxyTopicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+        final String topicUrl = String.format("%s/%s", EVENTS_PATH, topic);
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(proxyTopicUrl);
+        final MessageRouterSubscribeRequest subscribeRequest = createMRSubscribeRequest(
+                proxyTopicUrl, CONSUMER_GROUP, CONSUMER_ID, "username", "password");
+
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(singleJsonMessage);
+        final Flux<JsonObject> jsonMessageBatch = jsonBatch(singleJsonMessage);
+        final MessageRouterSubscribeResponse expectedResponse = successSubscribeResponse(expectedItems);
+
+        final String path = String.format("/events/%s/%s/%s", topic, CONSUMER_GROUP, CONSUMER_ID);
+
+        //when
+        registerTopic(publisher, createPublishRequest(topicUrl), subscriber,
+                createMRSubscribeRequest(topicUrl, CONSUMER_GROUP, CONSUMER_ID));
+        Mono<MessageRouterSubscribeResponse> response = publisher
+                .put(publishRequest, jsonMessageBatch)
+                .then(subscriber.get(subscribeRequest));
+
+        //then
+        StepVerifier.create(response)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path)
+                .withHeader("Authorization", "Basic dXNlcm5hbWU6cGFzc3dvcmQ="), VerificationTimes.exactly(1));
     }
 
     private MessageRouterSubscriberConfig retryConfig(int retryInterval, int retryCount) {

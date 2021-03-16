@@ -477,6 +477,7 @@ class MessageRouterPublisherIT {
 
         MOCK_SERVER_CLIENT.verify(request().withPath(path), VerificationTimes.exactly(2));
     }
+
     @Test
     void publisher_shouldSuccessfullyPublishWhenConnectionPoolConfigurationIsSet() {
         //given
@@ -539,6 +540,34 @@ class MessageRouterPublisherIT {
                 .verify();
 
         MOCK_SERVER_CLIENT.verify(request().withPath(path).withKeepAlive(true), VerificationTimes.exactly(2));
+    }
+
+    @Test
+    void publisher_shouldSuccessfullyPublishSingleMessageWithBasicAuthHeader() {
+        //given
+        final String topic = "TOPIC17";
+        final String topicUrl = String.format("%s/%s", PROXY_MOCK_EVENTS_PATH, topic);
+
+        final List<String> singleJsonMessage = List.of("{\"message\":\"message1\"}");
+        final List<JsonElement> expectedItems = getAsJsonElements(singleJsonMessage);
+        final Flux<JsonElement> plainBatch = plainBatch(singleJsonMessage);
+
+        final MessageRouterPublishRequest publishRequest = createPublishRequest(topicUrl, "username","password");
+        final MessageRouterPublishResponse expectedResponse = successPublishResponse(expectedItems);
+
+        final String path = String.format("/events/%s", topic);
+
+        //when
+        final Flux<MessageRouterPublishResponse> result = publisher.put(publishRequest, plainBatch);
+
+        //then
+        StepVerifier.create(result)
+                .expectNext(expectedResponse)
+                .expectComplete()
+                .verify();
+
+        MOCK_SERVER_CLIENT.verify(request().withPath(path)
+                .withHeader("Authorization" ,"Basic dXNlcm5hbWU6cGFzc3dvcmQ="), VerificationTimes.exactly(1));
     }
 
 

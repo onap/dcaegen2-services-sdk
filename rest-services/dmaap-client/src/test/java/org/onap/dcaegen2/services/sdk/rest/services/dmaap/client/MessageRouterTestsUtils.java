@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import io.vavr.collection.List;
+import org.onap.dcaegen2.services.sdk.model.streams.ImmutableAafCredentials;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSink;
 import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableMessageRouterSource;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api.MessageRouterPublisher;
@@ -62,6 +63,17 @@ public final class MessageRouterTestsUtils {
                 .build();
     }
 
+    public static MessageRouterPublishRequest createPublishRequest(String topicUrl, String username, String password) {
+        return ImmutableMessageRouterPublishRequest.builder()
+                .sinkDefinition(createMessageRouterSink(topicUrl)
+                        .withAafCredentials(ImmutableAafCredentials.builder()
+                                .username(username)
+                                .password(password)
+                                .build()))
+                .contentType(ContentType.APPLICATION_JSON)
+                .build();
+    }
+
     public static MessageRouterPublishRequest createPublishRequest(String topicUrl, ContentType contentType) {
         return ImmutableMessageRouterPublishRequest.builder()
                 .sinkDefinition(createMessageRouterSink(topicUrl))
@@ -83,13 +95,27 @@ public final class MessageRouterTestsUtils {
     public static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
                                                                          String consumerGroup, String consumerId,
                                                                          Duration timeout) {
-
         return ImmutableMessageRouterSubscribeRequest
                 .builder()
                 .timeoutConfig(ImmutableDmaapTimeoutConfig.builder()
                         .timeout(timeout)
                         .build())
                 .sourceDefinition(getImmutableMessageRouterSource(topicUrl))
+                .consumerGroup(consumerGroup)
+                .consumerId(consumerId)
+                .build();
+    }
+
+    public static MessageRouterSubscribeRequest createMRSubscribeRequest(String topicUrl,
+                                                                         String consumerGroup, String consumerId,
+                                                                         String username, String password) {
+        return ImmutableMessageRouterSubscribeRequest
+                .builder()
+                .sourceDefinition(getImmutableMessageRouterSource(topicUrl)
+                .withAafCredentials(ImmutableAafCredentials.builder()
+                        .username(username)
+                        .password(password)
+                        .build()))
                 .consumerGroup(consumerGroup)
                 .consumerId(consumerId)
                 .build();
