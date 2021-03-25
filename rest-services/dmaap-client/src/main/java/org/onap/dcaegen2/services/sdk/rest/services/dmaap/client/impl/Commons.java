@@ -20,17 +20,15 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
-import com.google.common.primitives.Bytes;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.control.Option;
-import org.apache.commons.lang3.ArrayUtils;
 import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -47,18 +45,26 @@ final class Commons {
     }
 
     static Tuple2<String, String> basicAuthHeader(AafCredentials credentials) {
-        Charset utf8 = StandardCharsets.UTF_8;
-        byte[] username = toBytes(credentials.username(), utf8);
-        byte[] separator = ":".getBytes(utf8);
-        byte[] password = toBytes(credentials.password(), utf8);
-        byte[] combined = ArrayUtils.addAll(Bytes.concat(username, separator, password));
-        String userCredentials = Base64.getEncoder().encodeToString(combined);
+        Objects.requireNonNull(credentials, "aafCredentials");
+        String basicAuthFormat = basicAuthFormat(credentials);
+        byte[] utf8 = bytesUTF8(basicAuthFormat);
+        String userCredentials = Base64.getEncoder().encodeToString(utf8);
         return Tuple.of("Authorization", "Basic " + userCredentials);
     }
 
-    private static byte[] toBytes(String text, Charset charset) {
+    private static String basicAuthFormat(AafCredentials credentials) {
+        String username = getOrEmpty(credentials.username());
+        String password = getOrEmpty(credentials.password());
+        return username.concat(":").concat(password);
+    }
+
+    private static String getOrEmpty(String text) {
+        return Option.of(text).getOrElse("");
+    }
+
+    private static byte[] bytesUTF8(String text) {
         return Option.of(text)
-                .map(s -> s.getBytes(charset))
+                .map(s -> s.getBytes(StandardCharsets.UTF_8))
                 .getOrElse(new byte[0]);
     }
 }
