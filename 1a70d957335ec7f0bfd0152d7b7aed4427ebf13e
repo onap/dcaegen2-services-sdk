@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0d8fd2b3_e62cdf5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-03-25T16:59:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac3dbcfb_c65f03a6",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "1a70d957335ec7f0bfd0152d7b7aed4427ebf13e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bac710c0_79a774b5",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/Commons.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "1a70d957335ec7f0bfd0152d7b7aed4427ebf13e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aa6f18e_f1535ab4",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/Commons.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-03-25T16:59:37Z",
+      "side": 1,
+      "message": "refactored",
+      "parentUuid": "bac710c0_79a774b5",
+      "range": {
+        "startLine": 63,
+        "startChar": 26,
+        "endLine": 63,
+        "endChar": 32
+      },
+      "revId": "1a70d957335ec7f0bfd0152d7b7aed4427ebf13e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1530a15b_f85af422",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/Commons.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-03-25T16:59:37Z",
+      "side": 1,
+      "message": "refactored",
+      "parentUuid": "814c61d0_49d754f6",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "1a70d957335ec7f0bfd0152d7b7aed4427ebf13e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e2e558e_d78e134a",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/Commons.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8cf34be0_56f9dd78",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/Commons.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-03-25T16:59:37Z",
+      "side": 1,
+      "message": "refactored",
+      "parentUuid": "6e2e558e_d78e134a",
+      "range": {
+        "startLine": 75,
+        "startChar": 26,
+        "endLine": 75,
+        "endChar": 32
+      },
+      "revId": "1a70d957335ec7f0bfd0152d7b7aed4427ebf13e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c69d0d20_755f803b",
         "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/Commons.java",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "1a70d957335ec7f0bfd0152d7b7aed4427ebf13e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "626d1727_2fc6decd",
+        "filename": "rest-services/dmaap-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/dmaap/client/impl/Commons.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6931
+      },
+      "writtenOn": "2021-03-25T16:59:37Z",
+      "side": 1,
+      "message": "refactored",
+      "parentUuid": "c69d0d20_755f803b",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 36
+      },
+      "revId": "1a70d957335ec7f0bfd0152d7b7aed4427ebf13e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
