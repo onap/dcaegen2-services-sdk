@@ -20,11 +20,9 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
-import com.google.common.primitives.Bytes;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.control.Option;
-import org.apache.commons.lang3.ArrayUtils;
 import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
 
@@ -51,7 +49,7 @@ final class Commons {
         byte[] username = toBytes(credentials.username(), utf8);
         byte[] separator = ":".getBytes(utf8);
         byte[] password = toBytes(credentials.password(), utf8);
-        byte[] combined = ArrayUtils.addAll(Bytes.concat(username, separator, password));
+        byte[] combined = addAll(concat(username, separator, password));
         String userCredentials = Base64.getEncoder().encodeToString(combined);
         return Tuple.of("Authorization", "Basic " + userCredentials);
     }
@@ -61,4 +59,31 @@ final class Commons {
                 .map(s -> s.getBytes(charset))
                 .getOrElse(new byte[0]);
     }
+
+    private static byte[] addAll(final byte[] array1, final byte... array2) {
+        if (array1 == null) {
+            return array2.clone();
+        } else if (array2 == null) {
+            return array1.clone();
+        }
+        final byte[] joinedArray = new byte[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    private static byte[] concat(byte[]... arrays) {
+        int length = 0;
+        for (byte[] array : arrays) {
+            length += array.length;
+        }
+        byte[] result = new byte[length];
+        int pos = 0;
+        for (byte[] array : arrays) {
+            System.arraycopy(array, 0, result, pos, array.length);
+            pos += array.length;
+        }
+        return result;
+    }
+
 }
