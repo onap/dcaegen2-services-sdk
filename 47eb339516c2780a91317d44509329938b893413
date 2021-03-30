@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "798c411a_0714656f",
+        "filename": "services/hv-ves-client/protobuf/src/main/proto/VesEvent.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-03-30T14:23:39Z",
+      "side": 1,
+      "message": "Extend copyrights.",
+      "range": {
+        "startLine": 5,
+        "startChar": 3,
+        "endLine": 5,
+        "endChar": 27
+      },
+      "revId": "47eb339516c2780a91317d44509329938b893413",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe61f4bb_89b88827",
+        "filename": "services/hv-ves-client/protobuf/src/main/proto/VesEvent.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-03-30T14:23:39Z",
+      "side": 1,
+      "message": "add stndDefined in the comment",
+      "range": {
+        "startLine": 41,
+        "startChar": 47,
+        "endLine": 41,
+        "endChar": 59
+      },
+      "revId": "47eb339516c2780a91317d44509329938b893413",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85b15594_f2307538",
         "filename": "services/hv-ves-client/protobuf/src/main/proto/VesEvent.proto",
         "patchSetId": 1
