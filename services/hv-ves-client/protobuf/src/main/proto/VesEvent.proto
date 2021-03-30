@@ -69,6 +69,7 @@ message CommonEventHeader
     string sourceName = 16;                 // required, "name of the entity experiencing the event issued use A&AI entry"
     string timeZoneOffset = 17;             // "Offset to GMT to indicate local time zone for the device"
     string vesEventListenerVersion = 18;    // required, "Version of the VesEvent Listener", current value "7.2"
+    string stndDefinedNamespace = 19;       // optional, routing base when domain is "stndDefined"
 
     reserved "InternalHeaderFields";        // "enrichment fields for internal VES Event Listener service use only, not supplied by event sources"
     reserved 100;
