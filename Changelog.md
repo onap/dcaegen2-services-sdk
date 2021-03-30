@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).    
 
+## [1.8.2] - 30/03/2021
+### Added
+    - [DCAEGEN2-2701] (https://jira.onap.org/browse/DCAEGEN2-2701) - Add stndDefinedNamespace field to CommonEventHeader
+
 ## [1.8.1] - 25/03/2021
 ### Fixed
     - [DCAEGEN2-2670] (https://jira.onap.org/browse/DCAEGEN2-2670) - Support authorized topics in DMaaP-Client
