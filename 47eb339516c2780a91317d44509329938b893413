@@ -22,6 +22,30 @@
       "revId": "47eb339516c2780a91317d44509329938b893413",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a10a475_b1ca0c1d",
+        "filename": "services/hv-ves-client/protobuf/src/main/proto/VesEvent.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-30T07:53:54Z",
+      "side": 1,
+      "message": "In proto3 every field is optional by default.",
+      "parentUuid": "85b15594_f2307538",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "47eb339516c2780a91317d44509329938b893413",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
