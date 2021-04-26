@@ -21,69 +21,50 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpResponse;
-import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.ImmutableHttpRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientSource;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientSourceFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
-
 import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 
 public class CbsClientImpl implements CbsClient {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientImpl.class);
     private final RxHttpClient httpClient;
     private final String serviceName;
     private final InetSocketAddress cbsAddress;
     private final String protocol;
+    private final String configMapFilePath;
+    private CbsClientSource cbsClientSource = null;
 
     public CbsClientImpl(RxHttpClient httpClient, String serviceName, InetSocketAddress cbsAddress, String protocol) {
         this.httpClient = httpClient;
         this.serviceName = serviceName;
         this.cbsAddress = cbsAddress;
         this.protocol = protocol;
+        this.configMapFilePath = "/app-config/application_config.yaml";
+    }
+
+    public CbsClientImpl(RxHttpClient httpClient, String serviceName, InetSocketAddress cbsAddress, String protocol, String configMapFilePath) {
+        this.httpClient = httpClient;
+        this.serviceName = serviceName;
+        this.cbsAddress = cbsAddress;
+        this.protocol = protocol;
+        this.configMapFilePath = configMapFilePath;
     }
 
     @Override
     public @NotNull Mono<JsonObject> get(CbsRequest request) {
-        return Mono.fromCallable(() -> constructUrl(request).toString())
-                .doOnNext(this::logRequestUrl)
-                .map(url -> ImmutableHttpRequest.builder()
-                        .method(HttpMethod.GET)
-                        .url(url)
-                        .diagnosticContext(request.diagnosticContext())
-                        .build())
-                .flatMap(httpClient::call)
-                .doOnNext(HttpResponse::throwIfUnsuccessful)
-                .map(resp -> resp.bodyAsJson(JsonObject.class))
-                .doOnNext(this::logCbsResponse);
-    }
-
-
-    private URL constructUrl(CbsRequest request) {
-        try {
-            return new URL(
+        if (this.cbsClientSource == null) {
+            this.cbsClientSource = new CbsClientSourceFactory(
+                    this.httpClient,
+                    this.serviceName,
+                    this.cbsAddress,
                     this.protocol,
-                    cbsAddress.getHostString(),
-                    cbsAddress.getPort(),
-                    request.requestPath().getForService(serviceName));
-        } catch (MalformedURLException e) {
-            throw new IllegalArgumentException("Invalid CBS URL", e);
+                    this.configMapFilePath);
         }
-    }
-
-    private void logRequestUrl(String url) {
-        LOGGER.debug("Calling {} for configuration", url);
-    }
-
-    private void logCbsResponse(JsonObject json) {
-        LOGGER.info("Got successful response from Config Binding Service");
-        LOGGER.debug("CBS response: {}", json);
+        return this.cbsClientSource.get(request);
     }
 }
