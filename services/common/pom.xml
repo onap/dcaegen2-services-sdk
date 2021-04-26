@@ -10,23 +10,14 @@
         <version>1.8.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dcaegen2-services-sdk-services-external-schema-manager</artifactId>
-    <name>JSON Validator with schema mapping</name>
+    <artifactId>dcaegen2-services-sdk-services-common</artifactId>
+    <name>common services</name>
 
     <build>
         <testSourceDirectory>src/main/test</testSourceDirectory>
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>org.onap.dcaegen2.services.sdk</groupId>
-            <artifactId>dcaegen2-services-sdk-services-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openapi4j</groupId>
-            <artifactId>openapi-schema-validator</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
