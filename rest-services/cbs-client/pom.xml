@@ -29,6 +29,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <artifactId>dcaegen2-services-sdk-services-external-schema-manager</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.immutables</groupId>
             <artifactId>value</artifactId>
         </dependency>

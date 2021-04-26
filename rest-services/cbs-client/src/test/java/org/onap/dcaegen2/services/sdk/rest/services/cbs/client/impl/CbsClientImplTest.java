@@ -20,6 +20,7 @@
 
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.vavr.collection.HashMultimap;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
+import org.onap.dcaegen2.services.sdk.services.external.schema.manager.service.FileReader;
 import reactor.core.publisher.Mono;
 
 import java.net.InetSocketAddress;
@@ -75,5 +77,23 @@ class CbsClientImplTest {
                 .diagnosticContext(diagnosticContext)
                 .build());
         assertThat(result.toString()).isEqualTo(httpResponse.bodyAsString());
+    }
+    @Test
+    void shouldFetchUsingProperConfigMapFile() {
+        // given
+        InetSocketAddress cbsAddress = InetSocketAddress.createUnresolved("cbshost", 6969);
+        String serviceName = "dcaegen2-ves-collector";
+        String configMapFilePath = "src/test/resources/application_config.yaml";
+        final CbsClient cut = new CbsClientImpl(httpClient, serviceName, cbsAddress, "http",
+                configMapFilePath);
+
+        RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+
+        // when
+        final JsonObject result = cut.get(CbsRequests.getConfiguration(diagnosticContext)).block();
+
+        // then
+        assert result != null;
+        assertThat(result).isEqualTo(new Gson().fromJson(new FileReader(configMapFilePath).getContent(), JsonObject.class));
     }
 }
