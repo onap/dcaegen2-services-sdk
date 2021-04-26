@@ -1,3 +1,4 @@
+
 /*
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
@@ -18,7 +19,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
+package org.onap.dcaegen2.services.sdk.services.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ import java.nio.file.Paths;
 /**
  * A FileReader is used to load a file content.
  */
-class FileReader {
+public class FileReader {
 
     private static final Logger logger = LoggerFactory.getLogger(FileReader.class);
 
@@ -41,14 +42,14 @@ class FileReader {
      * Constructor
      * @param filePath path to file which will be read
      */
-    FileReader(String filePath) {
+    public FileReader(String filePath) {
         this.filename = filePath;
     }
 
     /**
      * @return all file content
      */
-    String getContent() {
+    public String getContent() {
         String fileContent = "";
         try {
             fileContent = getFileContent();
@@ -61,7 +62,7 @@ class FileReader {
     /**
      * @return true if file exists; otherwise false
      */
-    boolean doesFileExists() {
+    public boolean doesFileExists() {
         return new File(filename).exists();
     }
 
