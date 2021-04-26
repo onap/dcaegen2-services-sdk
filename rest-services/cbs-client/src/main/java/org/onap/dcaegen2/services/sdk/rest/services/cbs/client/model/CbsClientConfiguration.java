@@ -126,6 +126,10 @@ public interface CbsClientConfiguration {
     default String cbsName() {
         return "config-binding-service";
     }
+    @Value.Default
+    default String configMapFilePath() {
+        return "/app-config/application_config.yaml";
+    }
 
     /**
      * Creates CbsClientConfiguration from system environment variables.

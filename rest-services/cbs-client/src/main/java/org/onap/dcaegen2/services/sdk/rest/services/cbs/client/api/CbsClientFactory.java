@@ -22,7 +22,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFactory;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientImpl;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientConfigMap;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientRest;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import org.onap.dcaegen2.services.sdk.security.ssl.TrustStoreKeys;
@@ -37,6 +38,7 @@ import reactor.core.publisher.Mono;
  */
 public class CbsClientFactory {
 
+    private static Mono<CbsClient> cbsClient = null;
     /**
      * <p>Creates Mono which will emit instance of {@link CbsClient} when service discovery is complete.</p>
      *
@@ -67,7 +69,16 @@ public class CbsClientFactory {
 
     private static Mono<CbsClient> createCbsClientMono(RxHttpClient httpClient,
         CbsClientConfiguration configuration) {
+        if (cbsClient == null) {
+            CbsClientConfigMap cbsClientConfigMap = new CbsClientConfigMap(configuration.configMapFilePath());
+            cbsClient = cbsClientConfigMap.verifyConfigMapFile() ? Mono.just(cbsClientConfigMap) :
+                    getConfigFromCBS(httpClient, configuration);
+        }
+        return cbsClient;
+    }
+
+    private static Mono<CbsClient>  getConfigFromCBS(RxHttpClient httpClient, CbsClientConfiguration configuration) {
         return new CbsLookup().lookup(configuration)
-            .map(addr -> new CbsClientImpl(httpClient, configuration.appName(), addr, configuration.protocol()));
+                .map(addr ->new CbsClientRest(httpClient, configuration.appName(), addr, configuration.protocol()));
     }
 }
