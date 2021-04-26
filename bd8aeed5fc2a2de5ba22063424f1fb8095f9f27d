@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d934097c_a4b894be",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImplTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-04-26T08:44:46Z",
+      "side": 1,
+      "message": "do not mix asserts. Use assertThat.notNull",
+      "revId": "bd8aeed5fc2a2de5ba22063424f1fb8095f9f27d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
