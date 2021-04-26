@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
         <artifactId>dcaegen2-services-sdk-rest-services</artifactId>
-        <version>1.8.2-SNAPSHOT</version>
+        <version>1.8.3-SNAPSHOT</version>
     </parent>
 
     <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
@@ -26,6 +26,11 @@
         <dependency>
             <groupId>org.onap.dcaegen2.services.sdk.rest.services</groupId>
             <artifactId>model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.dcaegen2.services.sdk</groupId>
+            <artifactId>dcaegen2-services-sdk-services-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -57,6 +62,15 @@
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
         </dependency>
     </dependencies>
 

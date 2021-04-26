@@ -33,9 +33,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import reactor.core.publisher.Mono;
-
 import java.net.InetSocketAddress;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -46,7 +44,7 @@ import static org.mockito.Mockito.verify;
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
  * @since February 2019
  */
-class CbsClientImplTest {
+class CbsClientRestTest {
     private final RxHttpClient httpClient = mock(RxHttpClient.class);
 
     @Test
@@ -54,7 +52,7 @@ class CbsClientImplTest {
         // given
         InetSocketAddress cbsAddress = InetSocketAddress.createUnresolved("cbshost", 6969);
         String serviceName = "dcaegen2-ves-collector";
-        final CbsClient cut = new CbsClientImpl(httpClient, serviceName, cbsAddress, "http");
+        final CbsClient cut = new CbsClientRest(httpClient, serviceName, cbsAddress, "http");
         final HttpResponse httpResponse = ImmutableHttpResponse.builder()
                 .url("http://xxx")
                 .statusCode(200)

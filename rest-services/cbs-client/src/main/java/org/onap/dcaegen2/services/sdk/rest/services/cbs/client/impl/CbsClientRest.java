@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,15 +35,14 @@ import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class CbsClientImpl implements CbsClient {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientImpl.class);
+public class CbsClientRest implements CbsClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientRest.class);
     private final RxHttpClient httpClient;
     private final String serviceName;
     private final InetSocketAddress cbsAddress;
     private final String protocol;
 
-    public CbsClientImpl(RxHttpClient httpClient, String serviceName, InetSocketAddress cbsAddress, String protocol) {
+    public CbsClientRest(RxHttpClient httpClient, String serviceName, InetSocketAddress cbsAddress, String protocol) {
         this.httpClient = httpClient;
         this.serviceName = serviceName;
         this.cbsAddress = cbsAddress;
@@ -65,6 +64,14 @@ public class CbsClientImpl implements CbsClient {
                 .doOnNext(this::logCbsResponse);
     }
 
+    private void logRequestUrl(String url) {
+        LOGGER.debug("Calling {} for configuration", url);
+    }
+
+    private void logCbsResponse(JsonObject json) {
+        LOGGER.info("Got successful response from Config Binding Service");
+        LOGGER.debug("CBS response: {}", json);
+    }
 
     private URL constructUrl(CbsRequest request) {
         try {
@@ -76,14 +83,5 @@ public class CbsClientImpl implements CbsClient {
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException("Invalid CBS URL", e);
         }
-    }
-
-    private void logRequestUrl(String url) {
-        LOGGER.debug("Calling {} for configuration", url);
-    }
-
-    private void logCbsResponse(JsonObject json) {
-        LOGGER.info("Got successful response from Config Binding Service");
-        LOGGER.debug("CBS response: {}", json);
     }
 }
