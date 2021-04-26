@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.services.common.FileReader;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.IncorrectInternalFileReferenceException;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.NoLocalReferenceException;
 
