@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2020 Nokia. All rights reserved.
+ * Copyright (C) 2020-2021 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.onap.dcaegen2.services.sdk.services.common.FileReader;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.IncorrectInternalFileReferenceException;
 import org.onap.dcaegen2.services.sdk.services.external.schema.manager.exception.NoLocalReferenceException;
 

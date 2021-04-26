@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 
 import com.google.gson.JsonObject;
 import io.vavr.collection.Stream;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -64,8 +65,11 @@ class CbsClientImplIT {
     private static final String SAMPLE_ALL = "/sample_all.json";
     private static final String SAMPLE_KEY = "/sample_key.json";
     private static final String SAMPLE_CONFIG_KEY = "keystore.path";
-    private static final String EXPECTED_CONFIG_VALUE = "/var/run/security/keystore.p12";
-    private static CbsClientConfiguration sampleConfiguration;
+    private static final String EXPECTED_CONFIG_VALUE_FROM_CBS = "/var/run/security/keystore.p12";
+    private static final String EXPECTED_CONFIG_VALUE_FROM_FILE = "/var/run/security/keystore_file.p12";
+    private static final String CONFIG_MAP_FILE_PATH = "src/test/resources/sample_local_service_config.json";
+    private static CbsClientConfiguration sampleConfigurationCbsSource;
+    private static CbsClientConfiguration sampleConfigurationFileSource;
     private static DummyHttpServer server;
 
     @BeforeAll
@@ -75,12 +79,9 @@ class CbsClientImplIT {
                         .get("/service_component_all/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_ALL))
                         .get("/sampleKey/dcae-component", (req, resp) -> sendResource(resp, SAMPLE_KEY))
         );
-        sampleConfiguration = ImmutableCbsClientConfiguration.builder()
-                .protocol("http")
-                .appName("dcae-component")
-                .hostname(server.host())
-                .port(server.port())
-                .build();
+        ImmutableCbsClientConfiguration.Builder configBuilder = getConfigBuilder();
+        sampleConfigurationCbsSource = configBuilder.build();
+        sampleConfigurationFileSource = configBuilder.configMapFilePath(CONFIG_MAP_FILE_PATH).build();
     }
 
     @AfterAll
@@ -91,7 +92,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithSingleCall() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
         // when
@@ -99,7 +100,7 @@ class CbsClientImplIT {
 
         // then
         StepVerifier.create(result.map(this::sampleConfigValue))
-                .expectNext(EXPECTED_CONFIG_VALUE)
+                .expectNext(EXPECTED_CONFIG_VALUE_FROM_CBS)
                 .expectComplete()
                 .verify(Duration.ofSeconds(5));
     }
@@ -107,7 +108,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithPeriodicCall() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
         // when
@@ -117,7 +118,7 @@ class CbsClientImplIT {
         // then
         final int itemsToTake = 5;
         StepVerifier.create(result.take(itemsToTake).map(this::sampleConfigValue))
-                .expectNextSequence(Stream.of(EXPECTED_CONFIG_VALUE).cycle(itemsToTake))
+                .expectNextSequence(Stream.of(EXPECTED_CONFIG_VALUE_FROM_CBS).cycle(itemsToTake))
                 .expectComplete()
                 .verify(Duration.ofSeconds(5));
     }
@@ -125,7 +126,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithUpdatesCall() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
         final Duration period = Duration.ofMillis(10);
 
@@ -136,7 +137,23 @@ class CbsClientImplIT {
         // then
         final Duration timeToCollectItemsFor = period.multipliedBy(50);
         StepVerifier.create(result.take(timeToCollectItemsFor).map(this::sampleConfigValue))
-                .expectNext(EXPECTED_CONFIG_VALUE)
+                .expectNext(EXPECTED_CONFIG_VALUE_FROM_CBS)
+                .expectComplete()
+                .verify(Duration.ofSeconds(5));
+    }
+
+    @Test
+    void testCbsClientWithConfigRetrievedFromFile() {
+        // given
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationFileSource);
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
+
+        // when
+        final Mono<JsonObject> result = sut.flatMap(cbsClient -> cbsClient.get(request));
+
+        // then
+        StepVerifier.create(result.map(this::sampleConfigValue))
+                .expectNext(EXPECTED_CONFIG_VALUE_FROM_FILE)
                 .expectComplete()
                 .verify(Duration.ofSeconds(5));
     }
@@ -144,7 +161,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsing() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final StreamFromGsonParser<KafkaSink> kafkaSinkParser = StreamFromGsonParsers.kafkaSinkParser();
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -168,7 +185,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsingUsingSwitch() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
         // TODO: Use these parsers below
         final StreamFromGsonParser<KafkaSink> kafkaSinkParser = StreamFromGsonParsers.kafkaSinkParser();
@@ -204,7 +221,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsingWhenUsingInvalidParser() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final StreamFromGsonParser<KafkaSource> kafkaSourceParser = StreamFromGsonParsers.kafkaSourceParser();
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -228,7 +245,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithSingleAllRequest() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getAll(RequestDiagnosticContext.create());
 
         // when
@@ -249,7 +266,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithSingleKeyRequest() {
         // given
-        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfiguration);
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getByKey(RequestDiagnosticContext.create(), "sampleKey");
 
         // when
@@ -268,7 +285,7 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWhenTheConfigurationWasNotFound() {
         // given
-        final CbsClientConfiguration unknownAppEnv = ImmutableCbsClientConfiguration.copyOf(sampleConfiguration).withAppName("unknown_app");
+        final CbsClientConfiguration unknownAppEnv = ImmutableCbsClientConfiguration.copyOf(sampleConfigurationCbsSource).withAppName("unknown_app");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(unknownAppEnv);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -279,6 +296,15 @@ class CbsClientImplIT {
         StepVerifier.create(result)
                 .expectError(HttpException.class)
                 .verify(Duration.ofSeconds(5));
+    }
+
+    @NotNull
+    private static ImmutableCbsClientConfiguration.Builder getConfigBuilder() {
+        return ImmutableCbsClientConfiguration.builder()
+                .protocol("http")
+                .appName("dcae-component")
+                .hostname(server.host())
+                .port(server.port());
     }
 
     private String sampleConfigValue(JsonObject obj) {

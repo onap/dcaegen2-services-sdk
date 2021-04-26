@@ -11,7 +11,7 @@
 
     <groupId>org.onap.dcaegen2.services</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.8.2-SNAPSHOT</version>
+    <version>1.8.3-SNAPSHOT</version>
 
     <name>dcaegen2-services-sdk</name>
     <description>Common SDK repo for all DCAE Services</description>
@@ -89,6 +89,7 @@
         <module>services</module>
         <module>security</module>
         <module>standardization</module>
+        <module>services/common</module>
     </modules>
 
     <build>
