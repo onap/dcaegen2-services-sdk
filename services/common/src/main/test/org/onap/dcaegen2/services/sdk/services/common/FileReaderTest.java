@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcaegen2.services.sdk.services.external.schema.manager.service;
+package org.onap.dcaegen2.services.sdk.services.common;
 
 import org.junit.jupiter.api.Test;
 

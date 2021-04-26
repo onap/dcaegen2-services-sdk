@@ -89,6 +89,7 @@
         <module>services</module>
         <module>security</module>
         <module>standardization</module>
+        <module>services/common</module>
     </modules>
 
     <build>
