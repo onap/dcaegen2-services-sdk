@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "a140fed8_a12145c5",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientSourceFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-04-26T14:04:09Z",
+      "side": 1,
+      "message": "Seems kind of confusing that the actual logic of retrieving configMap is in CbsClientSourceFactory instead of CbsClientConfigMap.\n1. It seems that only fallback is present in the factory, should the factory be called periodically then?\n2. If You change the file and break it the CbsClientConfigMap won\u0027t know. I don\u0027t see the fallback for that. You ony check file when the factory is used.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ba6fb3b_cc8926ee",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 4
@@ -87,6 +110,29 @@
         "startChar": 12,
         "endLine": 35,
         "endChar": 24
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f54078aa_3650b82d",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-04-26T14:04:09Z",
+      "side": 1,
+      "message": "Is there a reason to put that logic here instead of constructor?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 9
       },
       "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
