@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b6c63dac_624a35ad",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientSourceFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-27T06:43:05Z",
+      "side": 1,
+      "message": "Remigiusz has right. Currently if you edit config map and break it, you  don\u0027t catch exception and it won\u0027t be work.\nProposed composition class with  CbsClientConfigMap and CbsClientRest allow to read configuration in steps: \n1. Read config map -\u003e if break ...\n2. Make REST Request -\u003e if break ...\n3. Read default config.",
+      "parentUuid": "148d1529_428150d7",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ba6fb3b_cc8926ee",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 4
