@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e36edc59_0cae59f8",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientSourceFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-04-27T08:49:41Z",
+      "side": 1,
+      "message": "Ok, what I meant is that there is no exception handling in CbsClientConfigMap, which seemed odd after reading the jira description, which talked about fallbacks. Now I understand that what You intend is to select the source pretty much permanently.\n(resolved for me)",
+      "parentUuid": "b6c63dac_624a35ad",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ba6fb3b_cc8926ee",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 4
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "method get, can be called later in the application than contructor.",
       "parentUuid": "f54078aa_3650b82d",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 9
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bc5e32e_e7ed8f28",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-04-27T08:49:41Z",
+      "side": 1,
+      "message": "Ok. Fine for me, consider if that should change anything e.g. if ConfigMap should appear between creating the CbsClientImpl and using the method get.\nMoving this call to the constructor would reduce the number of fields of the class (only field needed would be CbsClientSource) and there would be no need for null check.\n(feel free to mark the comment as resolved if no changes will be applied)",
+      "parentUuid": "a1aec182_2a4ed335",
       "range": {
         "startLine": 58,
         "startChar": 0,
