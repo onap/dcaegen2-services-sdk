@@ -411,6 +411,24 @@
       "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5a2e0d4_02d2f8b0",
+        "filename": "rest-services/cbs-client/src/test/resources/application_config.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-04-27T09:12:54Z",
+      "side": 1,
+      "message": "Well, the config maps in OOM have yaml file format, hence the extension. I suppose the current implementation won\u0027t work with the file from current config maps.\nAlso - misleading to put json in yaml file.",
+      "parentUuid": "83dbd32c_bfca6094",
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
