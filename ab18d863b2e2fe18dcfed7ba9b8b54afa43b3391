@@ -120,6 +120,54 @@
     },
     {
       "key": {
+        "uuid": "f15ba23e_39c7678c",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientSourceFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T12:36:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e36edc59_0cae59f8",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bb178c2_4780088b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientSourceFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T12:36:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e38e437a_dfd66695",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ba6fb3b_cc8926ee",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 4
@@ -429,6 +477,24 @@
       "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a50b75_97e986ba",
+        "filename": "rest-services/cbs-client/src/test/resources/application_config.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T12:36:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5a2e0d4_02d2f8b0",
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
