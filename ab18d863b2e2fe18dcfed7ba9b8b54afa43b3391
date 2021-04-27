@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "148d1529_428150d7",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientSourceFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "1. No\n2. Because it is supplier, it will execute this function on get call in CbsClientConfigMap",
+      "parentUuid": "a140fed8_a12145c5",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ba6fb3b_cc8926ee",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 4
@@ -68,6 +92,30 @@
       "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83b67609_fccc4f56",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ba6fb3b_cc8926ee",
+      "range": {
+        "startLine": 34,
+        "startChar": 65,
+        "endLine": 34,
+        "endChar": 78
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "67274f27_d1a49578",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "752fa782_ae3bfbbe",
+      "range": {
+        "startLine": 5,
+        "startChar": 17,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8bd628e_42829a46",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
         "patchSetId": 4
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "0fec86c5_ed2dcc99",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8bd628e_42829a46",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f54078aa_3650b82d",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
         "patchSetId": 4
@@ -128,6 +224,30 @@
       "writtenOn": "2021-04-26T14:04:09Z",
       "side": 1,
       "message": "Is there a reason to put that logic here instead of constructor?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 9
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1aec182_2a4ed335",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "method get, can be called later in the application than contructor.",
+      "parentUuid": "f54078aa_3650b82d",
       "range": {
         "startLine": 58,
         "startChar": 0,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "431000f8_88b99727",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientRest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd50a220_7cf3891e",
+      "range": {
+        "startLine": 39,
+        "startChar": 65,
+        "endLine": 39,
+        "endChar": 78
+      },
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34bd0d87_a49a4fc7",
         "filename": "rest-services/cbs-client/src/test/resources/application_config.yaml",
         "patchSetId": 4
@@ -174,6 +318,24 @@
       "writtenOn": "2021-04-26T13:19:32Z",
       "side": 1,
       "message": "Shouldn\u0027t be .json ?",
+      "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83dbd32c_bfca6094",
+        "filename": "rest-services/cbs-client/src/test/resources/application_config.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "according task CoS, yaml",
+      "parentUuid": "34bd0d87_a49a4fc7",
       "revId": "ab18d863b2e2fe18dcfed7ba9b8b54afa43b3391",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true

@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "9bdf7bfe_9c9090bc",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5df52008_f2b1196c",
+      "range": {
+        "startLine": 47,
+        "startChar": 33,
+        "endLine": 47,
+        "endChar": 70
+      },
+      "revId": "bd8aeed5fc2a2de5ba22063424f1fb8095f9f27d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4b8280_11e7b3d7",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "579ef1f5_674f60f5",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 71
+      },
+      "revId": "bd8aeed5fc2a2de5ba22063424f1fb8095f9f27d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d934097c_a4b894be",
         "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImplTest.java",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "bd8aeed5fc2a2de5ba22063424f1fb8095f9f27d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a22a1166_f9335974",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImplTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-27T05:30:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d934097c_a4b894be",
+      "revId": "bd8aeed5fc2a2de5ba22063424f1fb8095f9f27d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
