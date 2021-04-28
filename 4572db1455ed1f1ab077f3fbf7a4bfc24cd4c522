@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04f6a33b_bc00fc4d",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-04-28T10:27:01Z",
+      "side": 1,
+      "message": "by default class variable is null, you don\u0027t need to set it",
+      "revId": "4572db1455ed1f1ab077f3fbf7a4bfc24cd4c522",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
