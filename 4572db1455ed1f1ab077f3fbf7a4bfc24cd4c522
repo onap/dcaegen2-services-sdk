@@ -16,6 +16,46 @@
       "revId": "4572db1455ed1f1ab077f3fbf7a4bfc24cd4c522",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83804be7_6a290cd1",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-04-28T10:35:23Z",
+      "side": 1,
+      "message": "why keep the value of cbsClientMono? If application changes the configuration for example it will get the same cbsclient",
+      "revId": "4572db1455ed1f1ab077f3fbf7a4bfc24cd4c522",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "693b3c58_972737a5",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-04-28T10:35:23Z",
+      "side": 1,
+      "message": "Formatting",
+      "range": {
+        "startLine": 80,
+        "startChar": 34,
+        "endLine": 80,
+        "endChar": 36
+      },
+      "revId": "4572db1455ed1f1ab077f3fbf7a4bfc24cd4c522",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
