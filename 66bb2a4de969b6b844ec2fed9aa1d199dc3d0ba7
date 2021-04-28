@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93c67f2a_3ea9c567",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-28T05:59:58Z",
+      "side": 1,
+      "message": "Please move all after ? to private functions and use them instead. Imo it\u0027s too complicated to have that as a one liner.\n\ngetConfigFromFile() and getConfigFromCBS() would be more clear.",
+      "range": {
+        "startLine": 72,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 112
+      },
+      "revId": "66bb2a4de969b6b844ec2fed9aa1d199dc3d0ba7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "661270b8_9e4e3f36",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-28T05:59:58Z",
+      "side": 1,
+      "message": "split into few lines or even methods to make clear what this line does",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 56
+      },
+      "revId": "66bb2a4de969b6b844ec2fed9aa1d199dc3d0ba7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8008ce56_0f7cf074",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-28T05:59:58Z",
+      "side": 1,
+      "message": "move public method above private one",
+      "revId": "66bb2a4de969b6b844ec2fed9aa1d199dc3d0ba7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3efcde35_be15bc79",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientRest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-28T05:59:58Z",
+      "side": 1,
+      "message": "public overriden method should be above privates",
+      "revId": "66bb2a4de969b6b844ec2fed9aa1d199dc3d0ba7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e6e0b47_f44584d9",
+        "filename": "services/common/src/main/java/org/onap/dcaegen2/services/sdk/services/common/FileReader.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-28T05:59:58Z",
+      "side": 1,
+      "message": "remove this class path if possible",
+      "range": {
+        "startLine": 37,
+        "startChar": 65,
+        "endLine": 37,
+        "endChar": 112
+      },
+      "revId": "66bb2a4de969b6b844ec2fed9aa1d199dc3d0ba7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b17e7642_092b33ec",
+        "filename": "services/common/src/main/java/org/onap/dcaegen2/services/sdk/services/common/FileReader.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-28T05:59:58Z",
+      "side": 1,
+      "message": "no extra line here",
+      "revId": "66bb2a4de969b6b844ec2fed9aa1d199dc3d0ba7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
