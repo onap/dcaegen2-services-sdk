@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4f33b85_9bc1ebfa",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-29T08:33:42Z",
+      "side": 1,
+      "message": "2019-2021",
+      "range": {
+        "startLine": 5,
+        "startChar": 17,
+        "endLine": 5,
+        "endChar": 26
+      },
+      "revId": "d4fafde2c470827790c91c314fb5a07e5c27acc1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12dd4ea4_b5b91cd9",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientRest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-29T08:33:42Z",
+      "side": 1,
+      "message": "2019-2021",
+      "range": {
+        "startLine": 5,
+        "startChar": 17,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "d4fafde2c470827790c91c314fb5a07e5c27acc1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "776f3a7a_01b9a893",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/model/CbsClientConfiguration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-29T08:33:42Z",
+      "side": 1,
+      "message": "2019-2021",
+      "revId": "d4fafde2c470827790c91c314fb5a07e5c27acc1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78decd6b_7eb7bf55",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientImplIT.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-29T08:33:42Z",
+      "side": 1,
+      "message": "2019-2021",
+      "revId": "d4fafde2c470827790c91c314fb5a07e5c27acc1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb4fe817_6e0ca295",
+        "filename": "services/common/src/main/java/org/onap/dcaegen2/services/sdk/services/common/FileReader.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-29T08:33:42Z",
+      "side": 1,
+      "message": "2020-2021",
+      "revId": "d4fafde2c470827790c91c314fb5a07e5c27acc1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b154e92_145daae1",
+        "filename": "services/common/src/main/test/org/onap/dcaegen2/services/sdk/services/common/FileReaderTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-29T08:33:42Z",
+      "side": 1,
+      "message": "2020-2021",
+      "revId": "d4fafde2c470827790c91c314fb5a07e5c27acc1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8800457b_b7dd06d4",
+        "filename": "services/external-schema-manager/src/main/java/org/onap/dcaegen2/services/sdk/services/external/schema/manager/service/UrlMapperFactory.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-29T08:33:42Z",
+      "side": 1,
+      "message": "2020-2021",
+      "revId": "d4fafde2c470827790c91c314fb5a07e5c27acc1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0018d7e1_a6c1b1ce",
+        "filename": "services/external-schema-manager/src/main/test/org/onap/dcaegen2/services/sdk/services/external/schema/manager/service/StndDefinedValidatorTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-04-29T08:33:42Z",
+      "side": 1,
+      "message": "2020-2021",
+      "revId": "d4fafde2c470827790c91c314fb5a07e5c27acc1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
