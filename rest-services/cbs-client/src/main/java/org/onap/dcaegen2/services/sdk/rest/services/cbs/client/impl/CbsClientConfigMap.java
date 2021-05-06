@@ -24,6 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.CbsClientConfigMapException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsRequest;
 import org.onap.dcaegen2.services.sdk.services.common.FileReader;
 import org.slf4j.Logger;
@@ -31,11 +32,14 @@ import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 import reactor.core.publisher.Mono;
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CbsClientConfigMap implements CbsClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientConfigMap.class);
     private final String configMapFilePath;
+    private final Pattern shellEnvPattern = Pattern.compile("\\$\\{(.+?)}");
 
     public CbsClientConfigMap (String configMapFilePath) {
         this.configMapFilePath = configMapFilePath;
@@ -44,6 +48,7 @@ public class CbsClientConfigMap implements CbsClient {
     @Override
     public @NotNull Mono<JsonObject> get(CbsRequest request) {
         return Mono.just(this.loadConfigMapFile())
+                .doOnNext(this::processEnvironmentVariables)
                 .doOnNext(this::logConfigMapOutput);
     }
 
@@ -65,6 +70,25 @@ public class CbsClientConfigMap implements CbsClient {
 
     private Object loadYamlConfigMapFile() {
         return new Yaml().load(new FileReader(configMapFilePath).getContent());
+    }
+
+    void processEnvironmentVariables(JsonObject jsonObject) {
+            for (String key : jsonObject.keySet()) {
+                if (jsonObject.get(key) instanceof JsonObject) {
+                    processEnvironmentVariables(jsonObject.get(key).getAsJsonObject());
+                } else
+                {
+                    Matcher matcher = shellEnvPattern.matcher(jsonObject.get(key).getAsString());
+                    if (matcher.find()) {
+                        String envName = matcher.group(1);
+                        String envValue = System.getenv(envName);
+                        if (envValue == null || "".equals(envValue)) {
+                            throw new CbsClientConfigMapException("Cannot read " + envName + " from environment.");
+                        }
+                        jsonObject.addProperty(key, envValue);
+                    }
+                }
+            }
     }
 
     private void logConfigMapOutput(JsonObject jsonObject) {
