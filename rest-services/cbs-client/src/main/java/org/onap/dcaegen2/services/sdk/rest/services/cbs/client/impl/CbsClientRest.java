@@ -61,6 +61,7 @@ public class CbsClientRest implements CbsClient {
                 .flatMap(httpClient::call)
                 .doOnNext(HttpResponse::throwIfUnsuccessful)
                 .map(resp -> resp.bodyAsJson(JsonObject.class))
+                .doOnNext(CbsClientCommon::processEnvironmentVariables)
                 .doOnNext(this::logCbsResponse);
     }
 
