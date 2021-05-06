@@ -2,6 +2,10 @@
     "keystore.path": "/var/run/security/keystore.p12",
     "streams_publishes": {
         "perf3gpp": {
+            "aaf_credentials": {
+                "username": "${AAF_USER}",
+                "password": "${AAF_PASSWORD}"
+            },
             "type": "kafka",
             "kafka_info": {
                 "bootstrap_servers": "dmaap-mr-kafka:6060",
@@ -9,12 +13,20 @@
             }
         },
         "pnf_ready": {
+            "aaf_credentials": {
+                "username": "${AAF_USER}",
+                "password": "${AAF_PASSWORD}"
+            },
             "type": "message_router",
             "dmaap_info": {
                 "topic_url": "http://message-router:3904/events/VES_PNF_READY"
             }
         },
         "call_trace": {
+            "aaf_credentials": {
+                "username": "${AAF_USER}",
+                "password": "${AAF_PASSWORD}"
+            },
             "type": "kafka",
             "kafka_info": {
                 "bootstrap_servers": "dmaap-mr-kafka:6060",
