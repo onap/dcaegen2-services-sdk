@@ -37,6 +37,7 @@ public class CbsClientConfigMap implements CbsClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientConfigMap.class);
     private final String configMapFilePath;
 
+
     public CbsClientConfigMap (String configMapFilePath) {
         this.configMapFilePath = configMapFilePath;
     }
@@ -44,6 +45,7 @@ public class CbsClientConfigMap implements CbsClient {
     @Override
     public @NotNull Mono<JsonObject> get(CbsRequest request) {
         return Mono.just(this.loadConfigMapFile())
+                .map(CbsClientEnvironmentParsing::processEnvironmentVariables)
                 .doOnNext(this::logConfigMapOutput);
     }
 
@@ -66,6 +68,8 @@ public class CbsClientConfigMap implements CbsClient {
     private Object loadYamlConfigMapFile() {
         return new Yaml().load(new FileReader(configMapFilePath).getContent());
     }
+
+
 
     private void logConfigMapOutput(JsonObject jsonObject) {
         LOGGER.info("Got successful output from ConfigMap file");

@@ -23,6 +23,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 import com.google.gson.JsonObject;
 import io.vavr.collection.Stream;
 import org.jetbrains.annotations.NotNull;
+import org.junit.Rule;
+import org.junit.contrib.java.lang.system.EnvironmentVariables;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,6 +37,7 @@ import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.test.DummyHttp
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
+import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.EnvironmentParsingException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.StreamParsingException;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.DataStreams;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.streams.StreamFromGsonParser;
@@ -66,11 +69,14 @@ class CbsClientImplIT {
     private static final String SAMPLE_KEY = "/sample_key.json";
     private static final String SAMPLE_CONFIG_KEY = "keystore.path";
     private static final String EXPECTED_CONFIG_VALUE_FROM_CBS = "/var/run/security/keystore.p12";
-    private static final String EXPECTED_CONFIG_VALUE_FROM_FILE = "/var/run/security/keystore_file.p12";
-    private static final String CONFIG_MAP_FILE_PATH = "src/test/resources/sample_local_service_config.json";
+    private static final String CONFIG_MAP_FILE_PATH = "src/test/resources/application_config.yaml";
     private static CbsClientConfiguration sampleConfigurationCbsSource;
     private static CbsClientConfiguration sampleConfigurationFileSource;
     private static DummyHttpServer server;
+
+
+    @Rule
+    public final EnvironmentVariables envs = new EnvironmentVariables();
 
     @BeforeAll
     static void setUp() {
@@ -92,6 +98,8 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithSingleCall() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -108,6 +116,8 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithPeriodicCall() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -126,6 +136,8 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithUpdatesCall() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
         final Duration period = Duration.ofMillis(10);
@@ -143,8 +155,29 @@ class CbsClientImplIT {
     }
 
     @Test
+    void testCbsClientWithConfigRetrievedFromFileMissingEnv() {
+        // given
+        envs.set("AAF_USER", "");
+        final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationFileSource);
+        final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
+
+        // when
+        final Mono<JsonObject> result = sut.flatMap(cbsClient -> cbsClient.get(request));
+
+        // then
+        StepVerifier.create(result)
+                .expectErrorSatisfies(ex -> {
+                    assertThat(ex).isInstanceOf(EnvironmentParsingException.class);
+                    assertThat(ex).hasMessageContaining("Cannot read AAF_USER from environment.");
+                })
+                .verify(Duration.ofSeconds(5));
+    }
+
+    @Test
     void testCbsClientWithConfigRetrievedFromFile() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationFileSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
 
@@ -153,7 +186,7 @@ class CbsClientImplIT {
 
         // then
         StepVerifier.create(result.map(this::sampleConfigValue))
-                .expectNext(EXPECTED_CONFIG_VALUE_FROM_FILE)
+                .expectNext(EXPECTED_CONFIG_VALUE_FROM_CBS)
                 .expectComplete()
                 .verify(Duration.ofSeconds(5));
     }
@@ -161,6 +194,8 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsing() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final StreamFromGsonParser<KafkaSink> kafkaSinkParser = StreamFromGsonParsers.kafkaSinkParser();
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
@@ -185,6 +220,8 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsingUsingSwitch() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
         // TODO: Use these parsers below
@@ -221,6 +258,8 @@ class CbsClientImplIT {
     @Test
     void testCbsClientWithStreamsParsingWhenUsingInvalidParser() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
         final Mono<CbsClient> sut = CbsClientFactory.createCbsClient(sampleConfigurationCbsSource);
         final StreamFromGsonParser<KafkaSource> kafkaSourceParser = StreamFromGsonParsers.kafkaSourceParser();
         final CbsRequest request = CbsRequests.getConfiguration(RequestDiagnosticContext.create());
