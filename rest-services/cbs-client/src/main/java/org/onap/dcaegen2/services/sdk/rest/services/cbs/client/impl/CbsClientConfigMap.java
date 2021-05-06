@@ -31,11 +31,14 @@ import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 import reactor.core.publisher.Mono;
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CbsClientConfigMap implements CbsClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientConfigMap.class);
     private final String configMapFilePath;
+    private final Pattern shellEnvPattern = Pattern.compile("\\$\\{(.+?)}");
 
     public CbsClientConfigMap (String configMapFilePath) {
         this.configMapFilePath = configMapFilePath;
@@ -44,6 +47,7 @@ public class CbsClientConfigMap implements CbsClient {
     @Override
     public @NotNull Mono<JsonObject> get(CbsRequest request) {
         return Mono.just(this.loadConfigMapFile())
+                .doOnNext(this::processEnvironmentVariables)
                 .doOnNext(this::logConfigMapOutput);
     }
 
@@ -65,6 +69,19 @@ public class CbsClientConfigMap implements CbsClient {
 
     private Object loadYamlConfigMapFile() {
         return new Yaml().load(new FileReader(configMapFilePath).getContent());
+    }
+
+    private void processEnvironmentVariables(JsonObject jsonObject) {
+            for (String key : jsonObject.keySet()) {
+                if (jsonObject.get(key) instanceof JsonObject) {
+                    processEnvironmentVariables(jsonObject.get(key).getAsJsonObject());
+                } else
+                {
+                    Matcher matcher = shellEnvPattern.matcher(jsonObject.get(key).getAsString());
+                    if(matcher.find())
+                        jsonObject.addProperty(key, System.getenv(matcher.group(1)));
+                }
+            }
     }
 
     private void logConfigMapOutput(JsonObject jsonObject) {

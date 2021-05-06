@@ -22,6 +22,8 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import org.junit.Rule;
+import org.junit.contrib.java.lang.system.EnvironmentVariables;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
@@ -33,9 +35,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CbsClientConfigMapTest {
 
+    @Rule
+    public final EnvironmentVariables envs = new EnvironmentVariables();
+
     @Test
     void shouldFetchUsingProperConfigMapFile() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
+
         String configMapFilePath = "src/test/resources/application_config.yaml";
         final CbsClient cut = new CbsClientConfigMap(configMapFilePath);
 
