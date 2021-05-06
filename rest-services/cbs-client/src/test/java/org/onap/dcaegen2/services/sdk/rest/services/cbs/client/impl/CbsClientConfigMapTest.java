@@ -22,20 +22,41 @@ package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import org.junit.Rule;
+import org.junit.contrib.java.lang.system.EnvironmentVariables;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
 import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
-import org.onap.dcaegen2.services.sdk.services.common.FileReader;
-import org.yaml.snakeyaml.Yaml;
-import java.util.LinkedHashMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CbsClientConfigMapTest {
 
+    @Rule
+    public final EnvironmentVariables envs = new EnvironmentVariables();
+
     @Test
     void shouldFetchUsingProperConfigMapFile() {
         // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
+        String expectResult = "{\n" +
+                "\t\"keystore.path\": \"/var/run/security/keystore_file.p12\",\n" +
+                "\t\"streams_publishes\": {\n" +
+                "\t\t\"perf3gpp\": {\n" +
+                "\t\t\t\"type\": \"kafka\",\n" +
+                "\t\t\t\"aaf_credentials\": {\n" +
+                "\t\t\t\t\"username\": \"admin\",\n" +
+                "\t\t\t\t\"password\": \"admin_secret\"\n" +
+                "\t\t\t},\n" +
+                "\t\t\t\"kafka_info\": {\n" +
+                "\t\t\t\t\"bootstrap_servers\": \"message-router-kafka-0:9093\",\n" +
+                "\t\t\t\t\"topic_name\": \"HV_VES_PERF3GPP\"\n" +
+                "\t\t\t}\n" +
+                "\t\t}\n" +
+                "\t}\n" +
+                "}";
+
         String configMapFilePath = "src/test/resources/application_config.yaml";
         final CbsClient cut = new CbsClientConfigMap(configMapFilePath);
 
@@ -46,12 +67,11 @@ public class CbsClientConfigMapTest {
 
         // then
         assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(covertYamlToJson(configMapFilePath));
+        assertThat(result).isEqualTo(covertToJson(expectResult));
     }
 
-    private JsonObject covertYamlToJson(String configMapFilePath) {
+    private JsonObject covertToJson(String expectResult) {
         Gson gson = new GsonBuilder().create();
-        return gson.fromJson(gson.toJson(new Yaml().load(new FileReader(configMapFilePath).getContent()),
-                LinkedHashMap.class), JsonObject.class);
+        return gson.fromJson(expectResult, JsonObject.class);
     }
 }
