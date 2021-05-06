@@ -1,0 +1,53 @@
+{
+  "keystore.path": "/var/run/security/keystore.p12",
+  "streams_publishes": {
+    "perf3gpp": {
+      "testArray": [{
+        "testPrimitiveArray": ["admin", "admin_secret", {
+          "nestedArray": ["admin"]
+        }
+        ],
+        "testPrimitive": "admin",
+        "aaf_credentials": {
+          "username": "admin",
+          "password": "admin_secret"
+        }
+      }
+      ],
+      "type": "kafka",
+      "kafka_info": {
+        "bootstrap_servers": "dmaap-mr-kafka:6060",
+        "topic_name": "HVVES_PERF3GPP"
+      }
+    },
+    "pnf_ready": {
+      "aaf_credentials": {
+        "username": "admin",
+        "password": "admin_secret"
+      },
+      "type": "message_router",
+      "dmaap_info": {
+        "topic_url": "http://message-router:3904/events/VES_PNF_READY"
+      }
+    },
+    "call_trace": {
+      "aaf_credentials": {
+        "username": "admin",
+        "password": "admin_secret"
+      },
+      "type": "kafka",
+      "kafka_info": {
+        "bootstrap_servers": "dmaap-mr-kafka:6060",
+        "topic_name": "HVVES_TRACE"
+      }
+    }
+  },
+  "streams_subscribes": {
+    "measurements": {
+      "type": "message_router",
+      "dmaap_info": {
+        "topic_url": "http://message-router:3904/events/VES_MEASUREMENT"
+      }
+    }
+  }
+}

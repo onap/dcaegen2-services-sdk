@@ -26,39 +26,32 @@ import com.google.gson.stream.JsonReader;
 import org.junit.Rule;
 import org.junit.contrib.java.lang.system.EnvironmentVariables;
 import org.junit.jupiter.api.Test;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsClient;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.CbsRequests;
-import org.onap.dcaegen2.services.sdk.rest.services.model.logging.RequestDiagnosticContext;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CbsClientConfigMapTest {
+public class CbsClientEnvironmentParsingTest {
 
+    private static final String SAMPLE_CONFIG = "src/test/resources/sample_service_config.json";
     private static final String SAMPLE_EXPECTED_CONFIG = "src/test/resources/sample_expected_service_config.json";
     @Rule
     public final EnvironmentVariables envs = new EnvironmentVariables();
 
     @Test
-    void shouldFetchUsingProperConfigMapFile() throws FileNotFoundException {
-        // given
+    void shouldProcessEnvironmentVariables() throws FileNotFoundException {
+        //given
         envs.set("AAF_USER", "admin");
         envs.set("AAF_PASSWORD", "admin_secret");
-        String configMapFilePath = "src/test/resources/application_config.yaml";
-        final CbsClient cut = new CbsClientConfigMap(configMapFilePath);
-
-        RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
-
-        // when
-        final JsonObject result = cut.get(CbsRequests.getConfiguration(diagnosticContext)).block();
-
-        // then
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(convertToJson(new JsonReader(new FileReader(SAMPLE_EXPECTED_CONFIG))));
+        JsonObject jsonObject = getSampleJsonObject(SAMPLE_CONFIG);
+        //when
+        JsonObject result = CbsClientEnvironmentParsing.processEnvironmentVariables(jsonObject);
+        //then
+        assertThat(result).isEqualTo(getSampleJsonObject(SAMPLE_EXPECTED_CONFIG));
     }
 
-    private JsonObject convertToJson(JsonReader jsonReader) {
+    private JsonObject getSampleJsonObject(String file) throws FileNotFoundException {
         Gson gson = new GsonBuilder().create();
-        return gson.fromJson(jsonReader, JsonObject.class);
+        JsonReader reader = new JsonReader(new FileReader(file));
+        return gson.fromJson(reader, JsonObject.class);
     }
 }
