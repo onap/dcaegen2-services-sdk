@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).    
 
+## [1.8.4] - 14/05/2021
+### Added
+    - [DCAEGEN2-2716] (https://jira.onap.org/browse/DCAEGEN2-2716) - Add to Java CBS-Client ability to resolve evns in app-config.yaml loaded from ConfigMap
+
 ## [1.8.3] - 29/04/2021
 ### Added
     - [DCAEGEN2-2716] (https://jira.onap.org/browse/DCAEGEN2-2716) - Adapt CBS-CLient to read configuration from a file exposed in a cfgMap
