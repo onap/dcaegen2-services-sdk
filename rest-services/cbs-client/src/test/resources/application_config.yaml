@@ -3,8 +3,8 @@ streams_publishes:
   perf3gpp:
     type: kafka
     aaf_credentials:
-      username: admin
-      password: admin_secret
+      username: ${AAF_USER}
+      password: ${AAF_PASSWORD}
     kafka_info:
       bootstrap_servers: message-router-kafka-0:9093
       topic_name: HV_VES_PERF3GPP
