@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "57bcd88b_4a57d94b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientCommon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "Consider specific name.",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "37adc798_ca81f3dc",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientCommon.java",
         "patchSetId": 7
@@ -18,6 +41,115 @@
         "startChar": 18,
         "endLine": 32,
         "endChar": 22
+      },
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f0ccadf_f8e2e1fc",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientCommon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "Add javadoc, add unit tests just for that method.",
+      "range": {
+        "startLine": 32,
+        "startChar": 23,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b79b7773_d300f89a",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientCommon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "Please try to flatten the logic. Example:\n\n    public static void processEnvironmentVariables(JsonObject jsonObject) {\n        processJsonObject(jsonObject);\n    }\n\n    private static void processJsonObject(JsonObject jsonObject) {\n        for (Entry\u003cString, JsonElement\u003e entry : jsonObject.entrySet()) {\n            processJsonObjectEntry(jsonObject, entry);\n        }\n    }\n\n    private static void processJsonObjectEntry(JsonObject jsonObject, Entry\u003cString, JsonElement\u003e entry) {\n        if (entry.getValue() instanceof JsonObject) {\n            processJsonObject(entry.getValue().getAsJsonObject());\n        } else {\n            processJsonPrimitive(jsonObject, entry);\n        }\n    }\n\n    public static void processJsonPrimitive(JsonObject jsonObject, Entry\u003cString, JsonElement\u003e entry) {\n        Matcher matcher \u003d shellEnvPattern.matcher(entry.getValue().getAsString());\n        if (matcher.find()) {\n            String envName \u003d matcher.group(1);\n            String envValue \u003d System.getenv(envName);\n            if (envValue \u003d\u003d null || \"\".equals(envValue)) {\n                throw new EnvironmentParsingException(\"Cannot read \" + envName + \" from environment.\");\n            }\n            jsonObject.addProperty(entry.getKey(), envValue);\n        }\n    }",
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6659c87_9d549a66",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientCommon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "Consider creating variable for jsonObject.get(key) or using jsonObject.entrySet() instead of keySet()",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47845b03_eed98222",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientCommon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "formatting",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ad40f5_19047424",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientCommon.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "What would happen if jsonObject.get(key) would be a JsonArray for example?",
+      "range": {
+        "startLine": 38,
+        "startChar": 58,
+        "endLine": 38,
+        "endChar": 91
       },
       "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
@@ -64,6 +196,75 @@
         "startChar": 20,
         "endLine": 45,
         "endChar": 42
+      },
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c987695e_c78f384e",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMapTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "expectedResult",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5764de5_692234ae",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMapTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "convert",
+      "range": {
+        "startLine": 73,
+        "startChar": 23,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "201c15a9_98df633a",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMapTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-14T07:22:07Z",
+      "side": 1,
+      "message": "consider naming jsonString",
+      "range": {
+        "startLine": 73,
+        "startChar": 43,
+        "endLine": 73,
+        "endChar": 55
       },
       "revId": "ef70bbdefd473209a57ebbc12e913235c2bf497d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
