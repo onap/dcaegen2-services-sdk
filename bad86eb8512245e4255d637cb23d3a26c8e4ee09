@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a9c6376_437797da",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/exceptions/CbsClientCommonException.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-05-14T05:47:39Z",
+      "side": 1,
+      "message": "I think this exception should be name more explanatory like \"EnvironmentParsingException\", because CbsCklientCommonException is not telling anything particular about exception it self.",
+      "range": {
+        "startLine": 24,
+        "startChar": 13,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "bad86eb8512245e4255d637cb23d3a26c8e4ee09",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
