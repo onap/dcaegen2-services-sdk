@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a582b45_597473eb",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientEnvironmentParsing.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-05-17T07:02:03Z",
+      "side": 1,
+      "message": "Add private constructor to utility class",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "2dd973effbbf3543a1d5351f5ae6e941dee6ce69",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "607b0209_dec4c2ce",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientEnvironmentParsing.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-05-17T07:02:03Z",
+      "side": 1,
+      "message": "Please extract Line 76-79 to method (eg. getValueFromSystemEnv(envName) )",
+      "revId": "2dd973effbbf3543a1d5351f5ae6e941dee6ce69",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
