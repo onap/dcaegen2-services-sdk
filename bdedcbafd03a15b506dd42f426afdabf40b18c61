@@ -22,6 +22,30 @@
       "revId": "bdedcbafd03a15b506dd42f426afdabf40b18c61",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86a5e1c9_e986c659",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientEnvironmentParsing.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-05-17T11:53:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4ccdadf_8f0ae675",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 1
+      },
+      "revId": "bdedcbafd03a15b506dd42f426afdabf40b18c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
