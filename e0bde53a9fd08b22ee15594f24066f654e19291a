@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d6c7b2b_bea7a960",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientEnvironmentParsing.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-17T16:39:28Z",
+      "side": 1,
+      "message": "Can\u0027t processJsonObject be used here?",
+      "revId": "e0bde53a9fd08b22ee15594f24066f654e19291a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f15fdbd0_75a6030f",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientEnvironmentParsing.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-05-17T16:39:28Z",
+      "side": 1,
+      "message": "Can\u0027t an array contain another array?",
+      "range": {
+        "startLine": 81,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 19
+      },
+      "revId": "e0bde53a9fd08b22ee15594f24066f654e19291a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
