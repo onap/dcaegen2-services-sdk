@@ -10,7 +10,7 @@ Most of SDK APIs are using Project Reactor, which is one of available implementa
 #### Current version
 ```
 <properties>
-  <sdk.version>1.1.4</sdk.version>
+  <sdk.version>1.8.4</sdk.version>
 </properties>
 ```
 #### Maven dependencies
