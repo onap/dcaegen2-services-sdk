@@ -1,0 +1,102 @@
+{
+  "policies": {
+    "items": [
+      {
+        "config": {
+          "service": "DCAE_HighlandPark_AgingConfig",
+          "location": " Edge",
+          "uuid": "TestUUID",
+          "policyName": "DCAE.AGING_UVERS_PROD_Tosca_HP_GOC_Model_cl55973_IT64_testAging",
+          "configName": "DCAE_HighlandPark_AgingConfig",
+          "templateVersion": "1607",
+          "priority": "4",
+          "version": 11.0,
+          "policyScope": "resource=Test1,service=vSCP,type=configuration,closedLoopControlName=vSCP_F5_Firewall_d925ed73_8231_4d02_9545_db4e101f88f8",
+          "riskType": "test",
+          "riskLevel": "2",
+          "guard": "False",
+          "content": {
+            "signature": {
+              "filter_clause": "event.faultFields.alarmCondition LIKE('%chrisluckenbaugh%')"
+            },
+            "name": "testAging",
+            "context": [
+              "PROD"
+            ],
+            "priority": 1,
+            "prePublishAging": 40,
+            "preCorrelationAging": 20
+          },
+          "policyNameWithPrefix": "DCAE.AGING_UVERSE_PSL_Tosca_HP_GOC_Model_cl55973_IT64_testAging"
+        },
+        "matchingConditions": {
+          "ECOMPName": "DCAE",
+          "ONAPName": "DCAE",
+          "ConfigName": "DCAE_HighlandPark_AgingConfig",
+          "service": "DCAE_HighlandPark_AgingConfig",
+          "uuid": "TestUUID",
+          "Location": " Edge"
+        },
+        "policyConfigMessage": "Config Retrieved! ",
+        "policyConfigStatus": "CONFIG_RETRIEVED",
+        "policyName": "DCAE.Config_MS_AGING_UVERSE_PROD_Tosca_HP_AGING_Model_cl55973_IT64_testAging.70.xml",
+        "policyType": "MicroService",
+        "policyVersion": "70",
+        "property": null,
+        "responseAttributes": {},
+        "type": "JSON"
+      }
+    ]
+  },
+  "config": {
+     "keystore.path": "/var/run/security/keystore.p12",
+     "streams_publishes": {
+       "perf3gpp": {
+         "testArray": [
+           {
+             "testPrimitiveArray": ["admin", "admin_secret", {"nestedArray": ["admin"]}],
+             "testPrimitive": "admin",
+             "aaf_credentials": {
+             "username": "admin",
+             "password": "admin_secret"
+           }
+            }
+          ],
+          "type": "kafka",
+          "kafka_info": {
+              "bootstrap_servers": "dmaap-mr-kafka:6060",
+              "topic_name": "HVVES_PERF3GPP"
+           }
+      },
+      "pnf_ready": {
+        "aaf_credentials": {
+          "username": "admin",
+          "password": "admin_secret"
+        },
+         "type": "message_router",
+         "dmaap_info": {
+           "topic_url": "http://message-router:3904/events/VES_PNF_READY"
+          }
+       },
+       "call_trace": {
+         "aaf_credentials": {
+           "username": "admin",
+           "password": "admin_secret"
+          },
+          "type": "kafka",
+          "kafka_info": {
+            "bootstrap_servers": "dmaap-mr-kafka:6060",
+            "topic_name": "HVVES_TRACE"
+          }
+        }
+     },
+     "streams_subscribes": {
+       "measurements": {
+         "type": "message_router",
+         "dmaap_info": {
+           "topic_url": "http://message-router:3904/events/VES_MEASUREMENT"
+          }
+        }
+      }
+  }
+}

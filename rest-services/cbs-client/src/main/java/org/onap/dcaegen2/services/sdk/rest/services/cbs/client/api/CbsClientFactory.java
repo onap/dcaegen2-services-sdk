@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
+ * Copyright (C) 2021 Wipro Limited.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +18,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +40,9 @@ import reactor.core.publisher.Mono;
  */
 public class CbsClientFactory {
     /**
-     * <p>Creates Mono which will emit instance of {@link CbsClient} when service discovery is complete.</p>
+     * <p>
+     * Creates Mono which will emit instance of {@link CbsClient} when service discovery is complete.
+     * </p>
      *
      * <p>
      * This method will do a lookup of Config Binding Service and create client configured with found address.
@@ -54,26 +58,24 @@ public class CbsClientFactory {
      * @since 1.1.2
      */
     public static @NotNull Mono<CbsClient> createCbsClient(CbsClientConfiguration configuration) {
-        return Mono.fromCallable(() -> buildHttpClient(configuration.trustStoreKeys()))
-            .cache()
-            .flatMap(httpClient -> createCbsClientMono(httpClient, configuration));
+        return Mono.fromCallable(() -> buildHttpClient(configuration.trustStoreKeys())).cache()
+                .flatMap(httpClient -> createCbsClientMono(httpClient, configuration));
     }
 
     private static RxHttpClient buildHttpClient(TrustStoreKeys trustStoreKeys) {
-        return trustStoreKeys != null
-                ? RxHttpClientFactory.create(trustStoreKeys)
-                : RxHttpClientFactory.create();
+        return trustStoreKeys != null ? RxHttpClientFactory.create(trustStoreKeys) : RxHttpClientFactory.create();
     }
 
-    private static Mono<CbsClient> createCbsClientMono(RxHttpClient httpClient,
-        CbsClientConfiguration configuration) {
-            CbsClientConfigMap cbsClientConfigMap = new CbsClientConfigMap(configuration.configMapFilePath());
-        return cbsClientConfigMap.verifyConfigMapFile() ? Mono.just(cbsClientConfigMap) :
-                getConfigFromCBS(httpClient, configuration);
+    private static Mono<CbsClient> createCbsClientMono(RxHttpClient httpClient, CbsClientConfiguration configuration) {
+        CbsClientConfigMap cbsClientConfigMap = new CbsClientConfigMap(configuration.configMapFilePath(),
+                configuration.policySyncFilePath(), configuration.appName());
+        return cbsClientConfigMap.verifyConfigMapFile() ? Mono.just(cbsClientConfigMap)
+                : getConfigFromCBS(httpClient, configuration);
     }
 
     private static Mono<CbsClient> getConfigFromCBS(RxHttpClient httpClient, CbsClientConfiguration configuration) {
         return new CbsLookup().lookup(configuration)
-                .map(addr ->new CbsClientRest(httpClient, configuration.appName(), addr, configuration.protocol()));
+                .map(addr -> new CbsClientRest(httpClient, configuration.appName(), addr, configuration.protocol()));
     }
 }
+
