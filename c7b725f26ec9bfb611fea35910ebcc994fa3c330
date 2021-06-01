@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7f489e4_5078b735",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-01T12:00:08Z",
+      "side": 1,
+      "message": "formatting - spaces between arguments",
+      "range": {
+        "startLine": 71,
+        "startChar": 68,
+        "endLine": 71,
+        "endChar": 160
+      },
+      "revId": "c7b725f26ec9bfb611fea35910ebcc994fa3c330",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "161b52e0_2d5c0107",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-01T12:00:08Z",
+      "side": 1,
+      "message": "formatting - spaces instead of tab",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 1
+      },
+      "revId": "c7b725f26ec9bfb611fea35910ebcc994fa3c330",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f3f761d_d8026c7a",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-01T12:00:08Z",
+      "side": 1,
+      "message": "consider extracting to method like - shouldReadPolicyConfig or something similar",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 83
+      },
+      "revId": "c7b725f26ec9bfb611fea35910ebcc994fa3c330",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e84316ed_afa31929",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-01T12:00:08Z",
+      "side": 1,
+      "message": "formatting",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 1
+      },
+      "revId": "c7b725f26ec9bfb611fea35910ebcc994fa3c330",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6063f62_762b4304",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-01T12:00:08Z",
+      "side": 1,
+      "message": "Consider refactoring to something like:\n\n    @Override\n    public @NotNull Mono\u003cJsonObject\u003e get(CbsRequest request) {\n        final Mono\u003cJsonObject\u003e configMono \u003d Mono.just(this.loadConfigMapFile())\n            .map(CbsClientEnvironmentParsing::processEnvironmentVariables);\n        if (shouldReadPolicyConfig(request)) {\n            configMono.map(this::loadPolicySyncFile);\n        }\n        return configMono.doOnNext(this::logConfigMapOutput);\n    }",
+      "range": {
+        "startLine": 51,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "c7b725f26ec9bfb611fea35910ebcc994fa3c330",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1114aafb_8f3399f1",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-01T12:00:08Z",
+      "side": 1,
+      "message": "Formatting",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "c7b725f26ec9bfb611fea35910ebcc994fa3c330",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5ce99f2_6678ab1c",
+        "filename": "rest-services/cbs-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMapTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-01T12:00:08Z",
+      "side": 1,
+      "message": "formatting",
+      "range": {
+        "startLine": 72,
+        "startChar": 53,
+        "endLine": 72,
+        "endChar": 101
+      },
+      "revId": "c7b725f26ec9bfb611fea35910ebcc994fa3c330",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
