@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).    
 
+## [1.8.5] - 02/06/2021
+### Added
+    - [DCAEGEN2-2752] (https://jira.onap.org/browse/DCAEGEN2-2752) - Update CBS-Client to read policy configuration from a file exposed by policy-sidecar container
+
 ## [1.8.4] - 14/05/2021
 ### Added
     - [DCAEGEN2-2716] (https://jira.onap.org/browse/DCAEGEN2-2716) - Add to Java CBS-Client ability to resolve evns in app-config.yaml loaded from ConfigMap
