@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
  * Copyright (C) 2021 Nokia. All rights reserved.
+ * Copyright (C) 2021 Wipro Limited.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,22 +32,31 @@ import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 import reactor.core.publisher.Mono;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 
 public class CbsClientConfigMap implements CbsClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientConfigMap.class);
     private final String configMapFilePath;
+    private final String policySyncFilePath;
+    private final String appName;
 
-
-    public CbsClientConfigMap (String configMapFilePath) {
-        this.configMapFilePath = configMapFilePath;
+    public CbsClientConfigMap(String configMapFilePath, String policySyncFilePath, String appName) {
+            this.configMapFilePath = configMapFilePath;
+            this.policySyncFilePath = policySyncFilePath;
+            this.appName = appName;
     }
 
     @Override
     public @NotNull Mono<JsonObject> get(CbsRequest request) {
-        return Mono.just(this.loadConfigMapFile())
-                .map(CbsClientEnvironmentParsing::processEnvironmentVariables)
-                .doOnNext(this::logConfigMapOutput);
+	if (request.requestPath().getForService(appName).contains("service_component_all")) {
+                return Mono.just(this.loadConfigMapFile()).map(CbsClientEnvironmentParsing::processEnvironmentVariables)
+                                .map(this::loadPolicySyncFile)
+                                .doOnNext(this::logConfigMapOutput);
+        } else {
+                return Mono.just(this.loadConfigMapFile()).map(CbsClientEnvironmentParsing::processEnvironmentVariables)
+                                .doOnNext(this::logConfigMapOutput);
+        }
     }
 
     public boolean verifyConfigMapFile() {
@@ -78,5 +88,33 @@ public class CbsClientConfigMap implements CbsClient {
 
     private void logConfigMapError(Exception ex) {
         LOGGER.error("Error loading configuration from configMap file: {}", ex.getMessage());
+    }
+
+    private JsonObject loadPolicySyncFile(JsonObject jsonObject) {
+
+        try {
+
+            JsonObject policyJsonObject = null;
+            if (new FileReader(policySyncFilePath).doesFileExists()) {
+                    LOGGER.info("PolicySync file is present");
+		    Gson gson = new GsonBuilder().create();
+		    policyJsonObject = gson.fromJson(this.loadJsonStringPolicySyncFile(), JsonObject.class);
+	    }
+	    if (Objects.isNull(policyJsonObject) || !(policyJsonObject.isJsonObject())) {
+		    LOGGER.info("PolicySync file is either absent or does not contain a valid json");
+		    policyJsonObject = new JsonObject();
+            }
+	    policyJsonObject.add("config", jsonObject);
+            return policyJsonObject;
+
+	} catch (Exception ex) {
+                LOGGER.info("Error loading policy_sync_file");
+                return jsonObject;
+        }
+
+    }
+
+    private String loadJsonStringPolicySyncFile() {
+        return new FileReader(policySyncFilePath).getContent();
     }
 }

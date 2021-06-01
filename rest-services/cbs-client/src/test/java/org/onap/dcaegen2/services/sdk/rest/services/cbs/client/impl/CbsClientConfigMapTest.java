@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2021 Nokia. All rights reserved.
+ * Copyright (C) 2021 Wipro Limited.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CbsClientConfigMapTest {
 
     private static final String SAMPLE_EXPECTED_CONFIG = "src/test/resources/sample_expected_service_config.json";
+    private static final String SAMPLE_EXPECTED_POLICY_CONFIG = "src/test/resources/sample_expected_policy_config.json";
     @Rule
     public final EnvironmentVariables envs = new EnvironmentVariables();
 
@@ -45,7 +47,9 @@ public class CbsClientConfigMapTest {
         envs.set("AAF_USER", "admin");
         envs.set("AAF_PASSWORD", "admin_secret");
         String configMapFilePath = "src/test/resources/application_config.yaml";
-        final CbsClient cut = new CbsClientConfigMap(configMapFilePath);
+        String policySyncFilePath = "src/test/resources/policies.json";
+        String requestPath = "/service_component/app-name";
+        final CbsClient cut = new CbsClientConfigMap(configMapFilePath,policySyncFilePath,requestPath);
 
         RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
 
@@ -55,6 +59,26 @@ public class CbsClientConfigMapTest {
         // then
         assertThat(result).isNotNull();
         assertThat(result).isEqualTo(convertToJson(new JsonReader(new FileReader(SAMPLE_EXPECTED_CONFIG))));
+    }
+
+    @Test
+    void shouldFetchUsingConfigMapFileAndPolicySyncFile() throws FileNotFoundException {
+        // given
+        envs.set("AAF_USER", "admin");
+        envs.set("AAF_PASSWORD", "admin_secret");
+        String configMapFilePath = "src/test/resources/application_config.yaml";
+        String policySyncFilePath = "src/test/resources/policies.json";
+        String requestPath = "/service_component_all/app-name";
+        final CbsClient cut = new CbsClientConfigMap(configMapFilePath,policySyncFilePath,requestPath);
+
+        RequestDiagnosticContext diagnosticContext = RequestDiagnosticContext.create();
+
+        // when
+        final JsonObject result = cut.get(CbsRequests.getConfiguration(diagnosticContext)).block();
+
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(convertToJson(new JsonReader(new FileReader(SAMPLE_EXPECTED_POLICY_CONFIG))));
     }
 
     private JsonObject convertToJson(JsonReader jsonReader) {
