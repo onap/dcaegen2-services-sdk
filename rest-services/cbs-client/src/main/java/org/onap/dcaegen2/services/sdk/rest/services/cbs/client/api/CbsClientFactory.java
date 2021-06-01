@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
+ * Copyright (C) 2021 Wipro Limited.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +68,8 @@ public class CbsClientFactory {
 
     private static Mono<CbsClient> createCbsClientMono(RxHttpClient httpClient,
         CbsClientConfiguration configuration) {
-            CbsClientConfigMap cbsClientConfigMap = new CbsClientConfigMap(configuration.configMapFilePath());
+            CbsClientConfigMap cbsClientConfigMap = new CbsClientConfigMap(configuration.configMapFilePath(),
+                    configuration.policySyncFilePath(), configuration.appName());
         return cbsClientConfigMap.verifyConfigMapFile() ? Mono.just(cbsClientConfigMap) :
                 getConfigFromCBS(httpClient, configuration);
     }

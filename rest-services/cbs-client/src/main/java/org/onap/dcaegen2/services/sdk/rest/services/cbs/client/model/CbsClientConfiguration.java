@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
+ * Copyright (C) 2021 Wipro Limited.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -129,6 +130,10 @@ public interface CbsClientConfiguration {
     @Value.Default
     default String configMapFilePath() {
         return "/app-config/application_config.yaml";
+    }
+    @Value.Default
+    default String policySyncFilePath() {
+        return "/etc/policies/policies.json";
     }
 
     /**
