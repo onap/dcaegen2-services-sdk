@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "6405e388_6db7c928",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-02T11:42:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53382b60_930b018c",
+      "range": {
+        "startLine": 51,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "c7b725f26ec9bfb611fea35910ebcc994fa3c330",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1114aafb_8f3399f1",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 1

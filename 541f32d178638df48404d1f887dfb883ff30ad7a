@@ -107,6 +107,47 @@
     },
     {
       "key": {
+        "uuid": "0c20aaaa_7284d720",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-02T11:42:46Z",
+      "side": 1,
+      "message": "CbsClientConfigMap is created by a factory so I would keep the current constructor.",
+      "parentUuid": "22c97826_1c2ec453",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e7b0e84_1e395a7b",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-02T11:42:46Z",
+      "side": 1,
+      "message": "I would name it: shouldReadPolicySyncFile, would be nicely readable then.",
+      "range": {
+        "startLine": 57,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "402b0883_cfc529f7",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 2
