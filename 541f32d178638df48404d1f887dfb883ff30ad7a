@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f6a35a47_85f09455",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-06-02T11:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39eb0fda_9c49b1c7",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f028a5e_bdb15594",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 2
@@ -71,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "22c97826_1c2ec453",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-06-02T11:25:01Z",
+      "side": 1,
+      "message": "Its causing Initialization error if I add another constructor.",
+      "parentUuid": "0a9ef9d3_831f88ff",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "402b0883_cfc529f7",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 2
@@ -106,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "8c4c958b_4a87573f",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-06-02T11:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "601d6f63_6506c7ba",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd193a78_87252fb4",
         "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
         "patchSetId": 2
@@ -120,6 +174,24 @@
       "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b43b1dd_a6954b38",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-06-02T11:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd193a78_87252fb4",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +227,24 @@
       "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3414223c_019aaef2",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-06-02T11:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "740c43a7_a11efdf3",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
