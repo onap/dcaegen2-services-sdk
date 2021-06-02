@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39eb0fda_9c49b1c7",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/api/CbsClientFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-06-02T07:06:48Z",
+      "side": 1,
+      "message": "Consider back to previous formatting. It was easy to read.",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f028a5e_bdb15594",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-06-02T07:06:48Z",
+      "side": 1,
+      "message": "Unused import",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a9ef9d3_831f88ff",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-06-02T07:06:48Z",
+      "side": 1,
+      "message": "You change API here. I think you should add second constructor for this class.\n@Remi, Do you see any disadvantages ?",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "402b0883_cfc529f7",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-06-02T07:06:48Z",
+      "side": 1,
+      "message": "It could be private",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd193a78_87252fb4",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-06-02T07:06:48Z",
+      "side": 1,
+      "message": "Please use formatting e.g: \nreturn request.requestPath()\n            .getForService(appName)\n            .contains(\"service_component_all\");\nIt allow to easy read.",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb2b831_52346db8",
+        "filename": "rest-services/cbs-client/src/main/java/org/onap/dcaegen2/services/sdk/rest/services/cbs/client/impl/CbsClientConfigMap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-06-02T07:06:48Z",
+      "side": 1,
+      "message": "To avoid null pointer exception consider following logic: \n\n//        JsonObject policyJsonObject \u003d null;\n        try {\n            if (new FileReader(policySyncFilePath).doesFileExists()) {\n                LOGGER.info(\"PolicySync file is present\");\n                Gson gson \u003d new GsonBuilder().create();\n                JsonObject policyJsonObject \u003d gson.fromJson(this.loadJsonStringPolicySyncFile(), JsonObject.class);\n                policyJsonObject.add(\"config\", configJsonObject);\n                return policyJsonObject;\n            }\n            return  new JsonObject();\n        } catch (Exception ex) {\n            LOGGER.info(\"PolicySync file is either absent or does not contain a valid json\");\n            JsonObject policyJsonObject \u003d new JsonObject();\n            policyJsonObject.add(\"config\", configJsonObject);\n            return policyJsonObject;\n        }",
+      "revId": "541f32d178638df48404d1f887dfb883ff30ad7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
