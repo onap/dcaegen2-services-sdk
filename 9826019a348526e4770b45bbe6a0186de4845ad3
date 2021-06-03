@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "01614112_ca90ed63",
+        "filename": "rest-services/cbs-client/src/test/resources/policies.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-06-03T05:36:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee894f20_9c433731",
+      "revId": "9826019a348526e4770b45bbe6a0186de4845ad3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99211435_0ac016b5",
         "filename": "rest-services/cbs-client/src/test/resources/sample_expected_policy_config.json",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "9826019a348526e4770b45bbe6a0186de4845ad3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fadc590d_d3a2efed",
+        "filename": "rest-services/cbs-client/src/test/resources/sample_expected_policy_config.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-06-03T05:36:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99211435_0ac016b5",
+      "revId": "9826019a348526e4770b45bbe6a0186de4845ad3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
