@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Vijay Venkatesh Kumar <vv770d@att.com>
+Code-Review+1: Tomasz Wr�bel <tomasz.wrobel@nokia.com>
+Code-Review+2: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-by: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-at: Fri, 04 Jun 2021 07:12:18 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/sdk/+/121610
+Project: dcaegen2/services/sdk
+Branch: refs/heads/master
