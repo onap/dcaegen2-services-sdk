@@ -50,6 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.netty.internal.shaded.reactor.pool.PoolAcquirePendingLimitException;
 
 import java.net.ConnectException;
 import java.time.Duration;
@@ -95,6 +96,7 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
                         e -> LOGGER.error("Timeout exception occurred when sending items to DMaaP MR", e))
                 .onErrorResume(ReadTimeoutException.class, e -> buildErrorResponse(ClientErrorReasons.TIMEOUT))
                 .doOnError(ConnectException.class, e -> LOGGER.error("DMaaP MR is unavailable, {}", e.getMessage()))
+                .onErrorResume(PoolAcquirePendingLimitException.class, e -> buildErrorResponse(ClientErrorReasons.CONNECTION_POLL_LIMIT))
                 .onErrorResume(ConnectException.class, e -> buildErrorResponse(ClientErrorReasons.SERVICE_UNAVAILABLE))
                 .onErrorResume(RetryableException.class, e -> Mono.just(buildResponse(e.getResponse(), batch)));
     }

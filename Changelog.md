@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).    
 
+## [1.8.6] - 07/06/2021
+### Added
+    - [DCAEGEN2-2827] (https://jira.onap.org/browse/DCAEGEN2-2827) - Handle 429 error Too Many Requests
+
 ## [1.8.5] - 02/06/2021
 ### Added
     - [DCAEGEN2-2752] (https://jira.onap.org/browse/DCAEGEN2-2752) - Update CBS-Client to read policy configuration from a file exposed by policy-sidecar container

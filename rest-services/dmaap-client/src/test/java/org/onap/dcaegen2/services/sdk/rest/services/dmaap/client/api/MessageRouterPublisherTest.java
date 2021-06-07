@@ -64,6 +64,7 @@ class MessageRouterPublisherTest {
     private static final String FAILING_WITH_403_RESP_PATH = "/events/TOPIC403";
     private static final String FAILING_WITH_404_RESP_PATH = "/events/TOPIC404";
     private static final String FAILING_WITH_500_RESP_PATH = "/events/TOPIC500";
+    private static final String FAILING_WITH_429_RESP_PATH = "/events/TOPIC429";
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
     private static final Flux<JsonPrimitive> messageBatch = Flux.just("ala", "ma", "kota")
             .map(JsonPrimitive::new);
@@ -82,6 +83,7 @@ class MessageRouterPublisherTest {
                 .post(FAILING_WITH_403_RESP_PATH, (req, resp) -> sendError(resp, 403, ERROR_MESSAGE))
                 .post(FAILING_WITH_404_RESP_PATH, (req, resp) -> sendError(resp, 404, ERROR_MESSAGE))
                 .post(FAILING_WITH_500_RESP_PATH, (req, resp) -> sendError(resp, 500, ERROR_MESSAGE))
+                .post(FAILING_WITH_429_RESP_PATH, (req, resp) -> sendError(resp, 429, ERROR_MESSAGE))
         );
     }
 
@@ -107,7 +109,8 @@ class MessageRouterPublisherTest {
             FAILING_WITH_401_RESP_PATH + "," + "401 Unauthorized",
             FAILING_WITH_403_RESP_PATH + "," + "403 Forbidden",
             FAILING_WITH_404_RESP_PATH + "," + "404 Not Found",
-            FAILING_WITH_500_RESP_PATH + "," + "500 Internal Server Error"
+            FAILING_WITH_500_RESP_PATH + "," + "500 Internal Server Error",
+            FAILING_WITH_429_RESP_PATH + "," + "429 Too Many Requests"
     })
     void publisher_shouldHandleError(String failingPath, String failReason) {
         //given

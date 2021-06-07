@@ -30,7 +30,8 @@ public class ClientErrorReasons {
             .header("408 Request Timeout")
             .text("Client timeout exception occurred, Error code is %1")
             .messageId("SVC0001")
-            .variables(Collections.singletonList("408")).build();
+            .variables(Collections.singletonList("408"))
+            .build();
 
     public static final ClientErrorReason SERVICE_UNAVAILABLE = ImmutableClientErrorReason.builder()
             .header("503 Service unavailable")
@@ -38,4 +39,10 @@ public class ClientErrorReasons {
             .messageId("SVC2001")
             .build();
 
+    public static final ClientErrorReason CONNECTION_POLL_LIMIT = ImmutableClientErrorReason.builder()
+            .header("429 Too Many Requests")
+            .text("Pending acquire queue has reached its maximum size")
+            .messageId("SVC2000")
+            .variables(Collections.singletonList("429"))
+            .build();
 }

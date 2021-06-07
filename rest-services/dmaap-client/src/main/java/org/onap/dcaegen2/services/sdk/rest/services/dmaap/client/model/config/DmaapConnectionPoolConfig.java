@@ -20,13 +20,14 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config;
 
 import org.immutables.value.Value;
+import reactor.netty.resources.ConnectionProvider;
 
 @Value.Immutable
 public interface DmaapConnectionPoolConfig {
 
     @Value.Default
     default int connectionPool(){
-        return 16;
+        return ConnectionProvider.DEFAULT_POOL_MAX_CONNECTIONS;
     }
     @Value.Default
     default int maxLifeTime(){
