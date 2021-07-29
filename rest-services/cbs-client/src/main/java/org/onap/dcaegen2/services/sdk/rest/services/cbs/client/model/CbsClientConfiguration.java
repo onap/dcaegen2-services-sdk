@@ -72,6 +72,15 @@ public interface CbsClientConfiguration {
      */
     String ENV_APP_NAME = "HOSTNAME";
 
+    /**
+     * Name of environment variable containing path to application config file.
+     */
+    String ENV_CBS_CLIENT_CONFIG_PATH = "CBS_CLIENT_CONFIG_PATH";
+
+    /**
+     * Name of environment variable containing path to policies file.
+     */
+    String ENV_CBS_CLIENT_POLICY_PATH = "CBS_CLIENT_POLICY_PATH";
 
     /**
      * Name of environment variable containing Consul host name.
@@ -148,6 +157,13 @@ public interface CbsClientConfiguration {
         ImmutableCbsClientConfiguration.Builder configBuilder = ImmutableCbsClientConfiguration.builder()
                 .hostname(getEnv(ENV_CBS_HOSTNAME))
                 .appName(getEnv(ENV_APP_NAME));
+
+        Optional.ofNullable(System.getenv(ENV_CBS_CLIENT_CONFIG_PATH))
+            .ifPresent(configBuilder::configMapFilePath);
+
+        Optional.ofNullable(System.getenv(ENV_CBS_CLIENT_POLICY_PATH))
+            .ifPresent(configBuilder::policySyncFilePath);
+
         return Optional.ofNullable(pathToCaCert).filter(certPath -> !"".equals(certPath))
                 .map(certPath -> createSslHttpConfig(configBuilder, certPath))
                 .orElseGet(() -> createPlainHttpConfig(configBuilder));
