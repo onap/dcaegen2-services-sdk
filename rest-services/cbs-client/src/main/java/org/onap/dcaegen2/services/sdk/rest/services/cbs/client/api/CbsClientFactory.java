@@ -28,6 +28,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientRes
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import org.onap.dcaegen2.services.sdk.security.ssl.TrustStoreKeys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 /**
@@ -38,6 +40,8 @@ import reactor.core.publisher.Mono;
  * @since 1.1.2
  */
 public class CbsClientFactory {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CbsClientFactory.class);
+
     /**
      * <p>Creates Mono which will emit instance of {@link CbsClient} when service discovery is complete.</p>
      *
@@ -55,6 +59,7 @@ public class CbsClientFactory {
      * @since 1.1.2
      */
     public static @NotNull Mono<CbsClient> createCbsClient(CbsClientConfiguration configuration) {
+        LOGGER.info("Configuration used for CBS Client: {}", configuration);
         return Mono.fromCallable(() -> buildHttpClient(configuration.trustStoreKeys()))
             .cache()
             .flatMap(httpClient -> createCbsClientMono(httpClient, configuration));
