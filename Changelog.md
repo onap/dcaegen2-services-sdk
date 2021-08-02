@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).    
 
-## [1.8.7] - 29/07/2021
+## [1.8.7] - 02/08/2021
 ### Added
     - [DCAEGEN2-2692] (https://jira.onap.org/browse/DCAEGEN2-2692) - Make CBS-Client config and policy file paths configurable by environment variables
 
