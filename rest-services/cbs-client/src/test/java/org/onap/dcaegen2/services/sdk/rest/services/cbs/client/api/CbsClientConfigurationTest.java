@@ -41,13 +41,13 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  */
 class CbsClientConfigurationTest {
 
-    public static final String ENV_DCAE_CA_CERTPATH = "DCAE_CA_CERTPATH";
-    public static final String ENV_CONFIG_BINDING_SERVICE = "CONFIG_BINDING_SERVICE";
-    public static final String ENV_CONFIG_BINDING_SERVICE_SERVICE_PORT = "CONFIG_BINDING_SERVICE_SERVICE_PORT";
-    public static final String ENV_HOSTNAME = "HOSTNAME";
-    public static final String ENV_CONSUL_HOST = "CONSUL_HOST";
-    public static final String ENV_CBS_CLIENT_CONFIG_PATH = "CBS_CLIENT_CONFIG_PATH";
-    public static final String ENV_CBS_CLIENT_POLICY_PATH = "CBS_CLIENT_POLICY_PATH";
+    private static final String ENV_DCAE_CA_CERTPATH = "DCAE_CA_CERTPATH";
+    private static final String ENV_CONFIG_BINDING_SERVICE = "CONFIG_BINDING_SERVICE";
+    private static final String ENV_CONFIG_BINDING_SERVICE_SERVICE_PORT = "CONFIG_BINDING_SERVICE_SERVICE_PORT";
+    private static final String ENV_HOSTNAME = "HOSTNAME";
+    private static final String ENV_CONSUL_HOST = "CONSUL_HOST";
+    private static final String ENV_CBS_CLIENT_CONFIG_PATH = "CBS_CLIENT_CONFIG_PATH";
+    private static final String ENV_CBS_CLIENT_POLICY_PATH = "CBS_CLIENT_POLICY_PATH";
 
     @Rule
     public final EnvironmentVariables envs = new EnvironmentVariables();
