@@ -2,59 +2,59 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).    
+and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.8.7] - 02/08/2021
+## [1.8.7] - 2021/08/02
 ### Added
     - [DCAEGEN2-2692] (https://jira.onap.org/browse/DCAEGEN2-2692) - Make CBS-Client config and policy file paths configurable by environment variables
 
-## [1.8.6] - 07/06/2021
+## [1.8.6] - 2021/06/07
 ### Added
     - [DCAEGEN2-2827] (https://jira.onap.org/browse/DCAEGEN2-2827) - Handle 429 error Too Many Requests
 
-## [1.8.5] - 02/06/2021
+## [1.8.5] - 2021/06/02
 ### Added
     - [DCAEGEN2-2752] (https://jira.onap.org/browse/DCAEGEN2-2752) - Update CBS-Client to read policy configuration from a file exposed by policy-sidecar container
 
-## [1.8.4] - 14/05/2021
+## [1.8.4] - 2021/05/14
 ### Added
     - [DCAEGEN2-2716] (https://jira.onap.org/browse/DCAEGEN2-2716) - Add to Java CBS-Client ability to resolve evns in app-config.yaml loaded from ConfigMap
 
-## [1.8.3] - 29/04/2021
+## [1.8.3] - 2021/04/29
 ### Added
     - [DCAEGEN2-2716] (https://jira.onap.org/browse/DCAEGEN2-2716) - Adapt CBS-CLient to read configuration from a file exposed in a cfgMap
 
-## [1.8.2] - 30/03/2021
+## [1.8.2] - 2021/03/30
 ### Added
     - [DCAEGEN2-2701] (https://jira.onap.org/browse/DCAEGEN2-2701) - Add stndDefinedNamespace field to CommonEventHeader
 
-## [1.8.1] - 25/03/2021
+## [1.8.1] - 2021/03/25
 ### Fixed
     - [DCAEGEN2-2670] (https://jira.onap.org/browse/DCAEGEN2-2670) - Support authorized topics in DMaaP-Client
         - Remove test dependencies usage from runtime code
 
-## [1.8.0] - 10/03/2021
+## [1.8.0] - 2021/03/10
 ### Added
     - [DCAEGEN2-2670] (https://jira.onap.org/browse/DCAEGEN2-2670) - Support authorized topics in DMaaP-Client
 
-## [1.7.0] - 25/02/2021
+## [1.7.0] - 2021/02/25
 ### Added
     - [DCAEGEN2-1483] (https://jira.onap.org/browse/DCAEGEN2-1483) - VESCollector Event ordering
         - Add possibility to modify the configuration for persistent connection
         - Support retry-after header in DCAE-SDK DMaaP-Client
-     
+
 ## [1.6.0] ##
     - Add configurable timeout in dmaap-client
     - Add configurable retry mechanism in dmaap-client
-    
+
 ## [1.5.0] ##
     - Update spring boot to version: 2.4.0
     - Update reactor to version: 2020.0.1
     - Update testcontainers to version: 1.15.0
- 
+
 ## [1.4.4] ##
     - Fix CbsClientFactory to allow retry on Mono from createCbsClient
- 
+
 ## [1.4.3] ##
     - Change parameters of external-schema-manager to JSON notation
 
@@ -80,16 +80,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     - Fix static code vulnerabilities
     - Exclude IT from tests
     - Remove AAI client from SDK
-    
+
 ## [1.3.2] ##
     - Restructure AAI client
     - Get rid of common-dependency module
     - Rearrange files in packages inside rest-services
-    
+
 ## [1.3.1] ##
     - Bugfix release: AAI client
         - Make AaiGetServiceInstanceClient build correct path to the service resource in AAI
-        
+
 ## [1.3.0] (ElAlto - under development) ##
     - All El-Alto work noted under 1.2.0-SNAPSHOT will roll into this version
     - Version update was done for tracking global-jjb migration work and corresponding submission - https://gerrit.onap.org/r/#/c/dcaegen2/services/sdk/+/89902/
@@ -114,7 +114,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - This API is in incubation stage. Do not use it yet.
         - Initial PoC for new module which should help when implementing these features in a DCAE service
         - Expose Prometheus-compliant monitoring endpoint
-        
+
 ## [1.1.6] ##
     - Bugfix release: (Old) DMaaP client:
         - Security keys was always loaded from JAR instead of given file system path. Only code using SecurityKeysUtil class had been affected. If you do not use SecurityKeysUtil class or you are using the new DMaaP MR client API (org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.{api, model} packages) then you are safe and the update is not required.
