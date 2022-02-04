@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.8] - 2022/02/07
+### Added
+    - [DCAEGEN2-3051] (https://jira.onap.org/browse/DCAEGEN2-3051) - Fix SDK Vulnerability. Top up Spring-Boot version to 2.5.9
+
 ## [1.8.7] - 2021/08/02
 ### Added
     - [DCAEGEN2-2692] (https://jira.onap.org/browse/DCAEGEN2-2692) - Make CBS-Client config and policy file paths configurable by environment variables
@@ -51,7 +55,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     - Update spring boot to version: 2.4.0
     - Update reactor to version: 2020.0.1
     - Update testcontainers to version: 1.15.0
-
+ 
 ## [1.4.4] ##
     - Fix CbsClientFactory to allow retry on Mono from createCbsClient
 
