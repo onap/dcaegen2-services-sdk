@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "574436e9_a336e734",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-02-07T19:49:32Z",
+      "side": 1,
+      "message": "no tabs please",
+      "revId": "e0786467c1252b410ed173643a9cbd9ecb75852a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
