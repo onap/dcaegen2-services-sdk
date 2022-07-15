@@ -1,5 +1,6 @@
 {
     "keystore.path": "/var/run/security/keystore.p12",
+    "testMultiReplacement": "${AAF_USER}/${AAF_USER}/${AAF_PASSWORD}/${AAF_PASSWORD}",
     "streams_publishes": {
         "perf3gpp": {
             "testArray": [{

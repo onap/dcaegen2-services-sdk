@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2021 Nokia. All rights reserved.
+ * Copyright (C) 2021-2022 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.api.exceptions.EnvironmentParsingException;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -37,7 +40,8 @@ public class CbsClientEnvironmentParsing {
 
     private static final Pattern shellEnvPattern = Pattern.compile("\\$\\{(.+?)}");
 
-    private CbsClientEnvironmentParsing() {}
+    private CbsClientEnvironmentParsing() {
+    }
 
     /**
      * <p>
@@ -56,22 +60,47 @@ public class CbsClientEnvironmentParsing {
         processJsonObject(jsonObjectCopy);
         return jsonObjectCopy;
     }
+
     private static void processJsonObject(JsonObject jsonObject) {
         for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
             processJsonObjectEntry(jsonObject, entry);
         }
     }
+
     private static void processJsonObjectEntry(JsonObject jsonObject, Map.Entry<String, JsonElement> entry) {
         if (entry.getValue().isJsonArray()) {
             processJsonArray(entry.getValue().getAsJsonArray());
         } else if (entry.getValue().isJsonObject()) {
             processJsonObject(entry.getValue().getAsJsonObject());
         } else {
-            Matcher matcher = getMatcher(entry.getValue().getAsString());
-            if (matcher.find()) {
-                jsonObject.addProperty(entry.getKey(), getValueFromSystemEnv(matcher.group(1)));
+            Map<String, String> systemEnvMatches = getSystemEnvMatches(entry);
+            if (systemEnvMatches.isEmpty()) {
+                return;
             }
+            String result = getReplacedValue(entry.getValue().getAsString(), systemEnvMatches);
+
+            jsonObject.addProperty(entry.getKey(), result);
         }
+    }
+
+    @NotNull
+    private static Map<String, String> getSystemEnvMatches(Entry<String, JsonElement> entry) {
+        Matcher matcher = getMatcher(entry.getValue().getAsString());
+        Map<String,String> systemEnvMatches = new HashMap<>();
+        while (matcher.find()) {
+            String stringTobeReplaced = matcher.group(0);
+            String systemEnv = matcher.group(1);
+            systemEnvMatches.put(stringTobeReplaced, systemEnv);
+        }
+        return systemEnvMatches;
+    }
+
+    private static String getReplacedValue(String inputValue, Map<String, String> systemEnvMatches) {
+        String result = inputValue;
+        for (Entry<String, String> valueToReplace : systemEnvMatches.entrySet()) {
+            result = result.replace(valueToReplace.getKey(), getValueFromSystemEnv(valueToReplace.getValue()));
+        }
+        return result;
     }
 
     private static void processJsonArray(JsonArray jsonArray) {
