@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2021 Nokia. All rights reserved.
+ * Copyright (C) 2021-2022 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CbsClientEnvironmentParsingTest {
 
     private static final String SAMPLE_CONFIG = "src/test/resources/sample_service_config.json";
-    private static final String SAMPLE_EXPECTED_CONFIG = "src/test/resources/sample_expected_service_config.json";
+    private static final String SAMPLE_EXPECTED_CONFIG = "src/test/resources/sample_expected_parsed_service_config.json";
     @Rule
     public final EnvironmentVariables envs = new EnvironmentVariables();
 
