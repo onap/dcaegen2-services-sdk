@@ -1,5 +1,6 @@
 {
   "keystore.path": "/var/run/security/keystore.p12",
+  "testMultiReplacement": "admin/admin/admin_secret/admin_secret",
   "streams_publishes": {
     "perf3gpp": {
       "testArray": [{
