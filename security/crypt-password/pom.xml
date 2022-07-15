@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ================================================================================
+  ============LICENSE_START=======================================================
 	Copyright (c) 2022 Nokia. All rights reserved.
 	================================================================================
 	Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.onap.dcaegen2.services.sdk.security</groupId>
         <artifactId>dcaegen2-services-sdk-security</artifactId>
-        <version>1.8.8-SNAPSHOT</version>
+        <version>1.8.9-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
