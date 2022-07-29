@@ -20,7 +20,7 @@ language governing permissions and limitations under the License.
     <parent>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
         <artifactId>dcaegen2-services-sdk-services</artifactId>
-        <version>1.8.9-SNAPSHOT</version>
+        <version>1.8.10-SNAPSHOT</version>
     </parent>
 
     <artifactId>dcaegen2-services-sdk-services-external-schema-manager</artifactId>

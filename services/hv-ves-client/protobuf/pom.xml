@@ -26,7 +26,7 @@
     <parent>
         <artifactId>dcaegen2-services-sdk-services-hvvesclient</artifactId>
         <groupId>org.onap.dcaegen2.services.sdk</groupId>
-        <version>1.8.9-SNAPSHOT</version>
+        <version>1.8.10-SNAPSHOT</version>
     </parent>
 
     <name>High Volume VES Collector Client :: Protobuf</name>
@@ -37,6 +37,13 @@
         <protobuf-generated-files.directory>${project.build.directory}/generated-sources/proto/main/java/
         </protobuf-generated-files.directory>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -63,6 +70,7 @@
                 <artifactId>protoc-jar-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>generate-sources</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>run</goal>
@@ -85,12 +93,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>
