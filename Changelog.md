@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.10] - 2022/07/29
+### Added
+    - [DCAEGEN2-3220] (https://jira.onap.org/browse/DCAEGEN2-3220) - Fix SDK Vulnerability. Top up Spring-Boot version to 2.7.2
+
 ## [1.8.9] - 2022/07/15
 ### Added
     - [DCAEGEN2-3223] (https://jira.onap.org/browse/DCAEGEN2-3223) - Fix CBS client environment variable substitution fails for complex cases
