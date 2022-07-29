@@ -26,7 +26,7 @@
   <parent>
     <groupId>org.onap.dcaegen2.services</groupId>
     <artifactId>sdk</artifactId>
-    <version>1.8.9-SNAPSHOT</version>
+    <version>1.8.10-SNAPSHOT</version>
   </parent>
 
   <groupId>org.onap.dcaegen2.services.sdk</groupId>
@@ -40,4 +40,8 @@
     <module>hv-ves-client</module>
     <module>external-schema-manager</module>
   </modules>
+
+  <properties>
+    <onap-gerrit-review>-changelog-missing</onap-gerrit-review>
+  </properties>
 </project>
