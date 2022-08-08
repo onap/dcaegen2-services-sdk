@@ -1,0 +1,5 @@
+distribution_type: 'maven'
+version: '1.8.10'
+project: 'dcaegen2-services-sdk'
+log_dir: 'dcaegen2-services-sdk-maven-stage-master/1162/'
+git_tag: '1.8.10'
