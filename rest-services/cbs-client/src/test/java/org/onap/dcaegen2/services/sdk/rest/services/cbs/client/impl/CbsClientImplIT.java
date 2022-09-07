@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
+ * Copyright (C) 2022 AT&T. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -340,10 +341,7 @@ class CbsClientImplIT {
     @NotNull
     private static ImmutableCbsClientConfiguration.Builder getConfigBuilder() {
         return ImmutableCbsClientConfiguration.builder()
-                .protocol("http")
-                .appName("dcae-component")
-                .hostname(server.host())
-                .port(server.port());
+                .appName("dcae-component");
     }
 
     private String sampleConfigValue(JsonObject obj) {

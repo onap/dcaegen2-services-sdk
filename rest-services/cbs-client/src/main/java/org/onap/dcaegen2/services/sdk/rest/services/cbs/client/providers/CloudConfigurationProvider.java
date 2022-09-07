@@ -1,8 +1,9 @@
 /*
- * ============LICENSE_START=======================================================
+* ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
  * Copyright (C) 2018 NOKIA Intellectual Property. All rights reserved.
+ * Copyright (C) 2022 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,27 +65,6 @@ public interface CloudConfigurationProvider {
         String appName);
 
 
-    /*callForServiceConfiguration*/
 
-    /**
-     * Getting configuration for appName from ConfigBindingService.
-     *
-     * @param consulHost - Hostname/IPAddress of consul Database
-     * @param consulPort - Port number of consul Database
-     * @param cbsName - ConfigBindingService url
-     * @param appName - ApplicationName for each config will be returned
-     * @return configuration for specified application in dcaegen2 cloud infrastructure.
-     */
-    JsonObject callForServiceConfiguration(String consulHost, int consulPort, String cbsName, String appName);
-
-    /*callForServiceConfiguration*/
-
-    /**
-     * Getting configuration for appName from ConfigBindingService.
-     *
-     * @param cbsClientConfiguration - Object holds consulPort, consulURL, configBindingSeriveName, applicationName which have
-     * @return configuration for specified application in dcaegen2 cloud infrastructure.
-     */
-    JsonObject callForServiceConfiguration(CbsClientConfiguration cbsClientConfiguration);
 
 }
