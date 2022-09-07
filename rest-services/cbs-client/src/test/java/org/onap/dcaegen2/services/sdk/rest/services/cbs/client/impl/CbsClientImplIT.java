@@ -340,10 +340,7 @@ class CbsClientImplIT {
     @NotNull
     private static ImmutableCbsClientConfiguration.Builder getConfigBuilder() {
         return ImmutableCbsClientConfiguration.builder()
-                .protocol("http")
-                .appName("dcae-component")
-                .hostname(server.host())
-                .port(server.port());
+                .appName("dcae-component");
     }
 
     private String sampleConfigValue(JsonObject obj) {

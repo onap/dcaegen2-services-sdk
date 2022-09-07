@@ -95,13 +95,13 @@ language governing permissions and limitations under the License.
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-        <revision>1.8.10-SNAPSHOT</revision>
+        <revision>1.9.0-SNAPSHOT</revision>
     </properties>
 
     <modules>
         <module>rest-services</module>
         <module>services</module>
-        <module>security</module>
+	<module>security</module> 
         <module>standardization</module>
         <module>services/common</module>
     </modules>
