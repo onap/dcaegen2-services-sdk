@@ -4,6 +4,7 @@
  * ================================================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
  * Copyright (C) 2021 Wipro Limited.
+ * Copyright (C) 2022 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClient;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.RxHttpClientFactory;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientConfigMap;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsClientRest;
-import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.impl.CbsLookup;
 import org.onap.dcaegen2.services.sdk.rest.services.cbs.client.model.CbsClientConfiguration;
 import org.onap.dcaegen2.services.sdk.security.ssl.TrustStoreKeys;
 import org.slf4j.Logger;
@@ -75,12 +74,6 @@ public class CbsClientFactory {
         CbsClientConfiguration configuration) {
             CbsClientConfigMap cbsClientConfigMap = new CbsClientConfigMap(configuration.configMapFilePath(),
                     configuration.policySyncFilePath(), configuration.appName());
-        return cbsClientConfigMap.verifyConfigMapFile() ? Mono.just(cbsClientConfigMap) :
-                getConfigFromCBS(httpClient, configuration);
-    }
-
-    private static Mono<CbsClient> getConfigFromCBS(RxHttpClient httpClient, CbsClientConfiguration configuration) {
-        return new CbsLookup().lookup(configuration)
-                .map(addr ->new CbsClientRest(httpClient, configuration.appName(), addr, configuration.protocol()));
+        return Mono.just(cbsClientConfigMap);
     }
 }
