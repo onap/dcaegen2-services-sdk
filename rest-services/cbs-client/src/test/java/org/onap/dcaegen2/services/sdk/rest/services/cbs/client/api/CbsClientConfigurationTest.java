@@ -3,7 +3,6 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
- * Copyright (C) 2022 AT&T Intellectual Property. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +41,11 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  */
 class CbsClientConfigurationTest {
 
-    private static final String ENV_APPNAME = "HOSTNAME";
+    private static final String ENV_DCAE_CA_CERTPATH = "DCAE_CA_CERTPATH";
+    private static final String ENV_CONFIG_BINDING_SERVICE = "CONFIG_BINDING_SERVICE";
+    private static final String ENV_CONFIG_BINDING_SERVICE_SERVICE_PORT = "CONFIG_BINDING_SERVICE_SERVICE_PORT";
+    private static final String ENV_HOSTNAME = "HOSTNAME";
+    private static final String ENV_CONSUL_HOST = "CONSUL_HOST";
     private static final String ENV_CBS_CLIENT_CONFIG_PATH = "CBS_CLIENT_CONFIG_PATH";
     private static final String ENV_CBS_CLIENT_POLICY_PATH = "CBS_CLIENT_POLICY_PATH";
 
@@ -51,7 +54,38 @@ class CbsClientConfigurationTest {
 
     @BeforeEach
     void setUp(){
-        envs.clear(ENV_APPNAME, ENV_CBS_CLIENT_CONFIG_PATH, ENV_CBS_CLIENT_POLICY_PATH);
+        envs.clear(ENV_DCAE_CA_CERTPATH, ENV_CONFIG_BINDING_SERVICE, ENV_CONFIG_BINDING_SERVICE_SERVICE_PORT,
+            ENV_HOSTNAME, ENV_CONSUL_HOST, ENV_CBS_CLIENT_CONFIG_PATH, ENV_CBS_CLIENT_POLICY_PATH);
+    }
+
+    @Test
+    void fromEnvironment_shouldReturnConfigurationForConnectionWithoutTls_when_DCAE_CA_CERTPATH_isEmpty() {
+        // given
+        createBasicValidEnvsConfiguration();
+        envs.set(ENV_DCAE_CA_CERTPATH, "");
+
+        // when
+        CbsClientConfiguration configuration = CbsClientConfiguration.fromEnvironment();
+
+        // then
+        assertThat(configuration.trustStoreKeys()).isEqualTo(null);
+        assertThat(configuration.protocol()).isEqualTo("http");
+    }
+
+    @Test
+    void fromEnvironment_shouldReturnConfigurationForConnectionOverTls_when_DCAE_CA_CERTPATH_isSet() throws URISyntaxException {
+        // given
+        envs.set(ENV_DCAE_CA_CERTPATH, preparePathToCertFile());
+        envs.set(ENV_CONFIG_BINDING_SERVICE, "config-binding-service");
+        envs.set(ENV_HOSTNAME, "dcae-prh");
+        envs.set(ENV_CONSUL_HOST, "consul-server.onap");
+
+        // when
+        CbsClientConfiguration configuration = CbsClientConfiguration.fromEnvironment();
+
+        // then
+        assertThat(configuration.trustStoreKeys()).isNotNull();
+        assertThat(configuration.protocol()).isEqualTo("https");
     }
 
     @Test
@@ -96,6 +130,22 @@ class CbsClientConfigurationTest {
         assertThat(configuration.policySyncFilePath()).isEqualTo("/etc/policies/policies.json");
     }
 
+    @Test
+    void fromEnvironment_shouldReturn_CbsClientConfigurationException_When_DCAE_CA_CERTPATH_is_Null() {
+        // given
+        envs.set(ENV_DCAE_CA_CERTPATH, null);
+        envs.set(ENV_CONFIG_BINDING_SERVICE_SERVICE_PORT, "9090");
+        envs.set(ENV_CONFIG_BINDING_SERVICE, "config-binding-service");
+        envs.set(ENV_HOSTNAME, "dcae-prh");
+        envs.set(ENV_CONSUL_HOST, "consul-server.onap");
+
+        // when
+        CbsClientConfiguration configuration = CbsClientConfiguration.fromEnvironment();
+
+        // then
+        assertThat(configuration.trustStoreKeys()).isNull();
+        assertThat(configuration.protocol()).isEqualTo("http");
+    }
 
     @Test
     void fromEnvironment_shouldReturn_CbsClientConfigurationException_WhenAllEnvVariablesAreMissing() {
@@ -103,7 +153,57 @@ class CbsClientConfigurationTest {
                 .isThrownBy(CbsClientConfiguration::fromEnvironment);
     }
 
+    @Test
+    void fromEnvironment_shouldReturn_CbsClientConfigurationException_When_DCAE_CA_CERTPATH_isWrong() {
+        // given
+        envs.set(ENV_DCAE_CA_CERTPATH, "/home/cacert.pem");
+        envs.set(ENV_HOSTNAME, "dcae-prh");
+        envs.set(ENV_CONFIG_BINDING_SERVICE, "config-binding-service");
+        envs.set(ENV_CONSUL_HOST, "consul-server.onap");
+
+        // then
+        assertThatExceptionOfType(CbsClientConfigurationException.class)
+                .isThrownBy(CbsClientConfiguration::fromEnvironment)
+                .withMessageContaining("Required files do not exist in /home directory");
+    }
+
+    @Test
+    void fromEnvironment_shouldReturn_CbsClientConfigurationException_When_HOSTNAME_isMissing() throws URISyntaxException {
+        // given
+        envs.set(ENV_HOSTNAME, "");
+        envs.set(ENV_DCAE_CA_CERTPATH, preparePathToCertFile());
+        envs.set(ENV_CONFIG_BINDING_SERVICE, "config-binding-service");
+        envs.set(ENV_CONSUL_HOST, "consul-server.onap");
+
+        // then
+        assertThatExceptionOfType(CbsClientConfigurationException.class)
+                .isThrownBy(CbsClientConfiguration::fromEnvironment)
+                .withMessageContaining("Cannot read HOSTNAME from environment.");
+    }
+
+    @Test
+    void fromEnvironment_shouldReturn_CbsClientConfigurationException_When_CONFIG_BINDING_SERVICE_SERVICE_PORT_isEmpty() {
+        // given
+        envs.set(ENV_CONFIG_BINDING_SERVICE_SERVICE_PORT, "");
+        envs.set(ENV_DCAE_CA_CERTPATH, "");
+        envs.set(ENV_HOSTNAME, "dcae-prh");
+        envs.set(ENV_CONFIG_BINDING_SERVICE, "config-binding-service");
+        envs.set(ENV_CONSUL_HOST, "consul-server.onap");
+
+        // then
+        assertThatExceptionOfType(CbsClientConfigurationException.class)
+                .isThrownBy(CbsClientConfiguration::fromEnvironment)
+                .withMessageContaining("Cannot read CONFIG_BINDING_SERVICE_SERVICE_PORT from environment.");
+    }
+
     private void createBasicValidEnvsConfiguration() {
-        envs.set(ENV_APPNAME, "dcae-prh");
+        envs.set(ENV_CONFIG_BINDING_SERVICE, "config-binding-service");
+        envs.set(ENV_CONFIG_BINDING_SERVICE_SERVICE_PORT, "10000");
+        envs.set(ENV_HOSTNAME, "dcae-prh");
+        envs.set(ENV_CONSUL_HOST, "consul-server.onap");
+    }
+
+    private String preparePathToCertFile() throws URISyntaxException {
+        return Paths.get(Passwords.class.getResource("/test-certs/cacert.pem").toURI()) + "";
     }
 }

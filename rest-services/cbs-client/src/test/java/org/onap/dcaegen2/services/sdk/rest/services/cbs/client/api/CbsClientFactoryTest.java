@@ -3,7 +3,6 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2020 Nokia. All rights reserved.
- * Copyright (C) 2022 AT&T Intellectual Property. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +39,15 @@ class CbsClientFactoryTest {
     void shouldAllowMultipleSubscriptions() throws URISyntaxException {
         //given
         ImmutableCbsClientConfiguration sampleConfiguration = ImmutableCbsClientConfiguration.builder()
+            .protocol("https")
             .appName("dcae-component")
+            .trustStoreKeys(ImmutableTrustStoreKeys.builder()
+                .trustStore(SecurityKeysStore.fromPath(
+                    Paths.get(CbsClientFactoryTest.class.getResource("/test-certs/trust.jks").toURI())))
+                .trustStorePassword(Passwords.fromResource("/test-certs/trust.pass"))
+                .build())
+            .hostname("config-binding-service")
+            .port(10443)
             .build();
 
         //when
