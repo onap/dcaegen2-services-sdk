@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
 
     <groupId>org.onap.dcaegen2.services</groupId>
     <artifactId>sdk</artifactId>
-    <version>${revision}</version>
+    <version>1.9.0</version>
 
     <name>dcaegen2-services-sdk</name>
     <description>Common SDK repo for all DCAE Services</description>
