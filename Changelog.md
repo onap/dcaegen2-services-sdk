@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.9.1] - 2022/09/07
+### Added
+    - [DCAEGEN2-3165] (https://jira.onap.org/browse/DCAEGEN2-3165) - Fix calculation of code coverage
+
+
 ## [1.9.0] - 2022/09/07
 ### Added
     - [DCAEGEN2-3098] (https://jira.onap.org/browse/DCAEGEN2-3098) - Remove Consul and CBS property dependencies from CBS-client SDK
