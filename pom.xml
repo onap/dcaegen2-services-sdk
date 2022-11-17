@@ -50,7 +50,7 @@ language governing permissions and limitations under the License.
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <skipITs>true</skipITs>
+                            <skipITs>false</skipITs>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -96,7 +96,7 @@ language governing permissions and limitations under the License.
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-        <revision>1.9.0-SNAPSHOT</revision>
+        <revision>1.9.1-SNAPSHOT</revision>
     </properties>
 
     <modules>
