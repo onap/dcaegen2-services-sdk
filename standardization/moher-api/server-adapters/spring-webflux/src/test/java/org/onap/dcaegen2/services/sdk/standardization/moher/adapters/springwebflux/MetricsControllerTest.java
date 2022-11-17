@@ -2,7 +2,7 @@
  * ============LICENSE_START====================================
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
- * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2019-2022 Nokia. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.onap.dcaegen2.services.sdk.standardization.moher.metrics.api.MetricsF
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-class MetricsControllerIT {
+class MetricsControllerTest {
 
     private final PrometheusMeterRegistry defaultRegistry = MetricsFactory.createDefaultRegistry();
     private final Metrics metrics = MetricsFactory.createMetrics(defaultRegistry);
