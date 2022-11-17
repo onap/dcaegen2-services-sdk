@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * DCAEGEN2-SERVICES-SDK
  * ================================================================================
- * Copyright (C) 2019 NOKIA Intellectual Property. All rights reserved.
+ * Copyright (C) 2019-2022 NOKIA Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
  *
  */
 
-package org.onap.dcaegen2.services.sdk.rest.services.uri;
+package org.onap.dcaegen2.services.sdk.rest.services.adapters.http;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,6 +37,49 @@ class URITest {
             .fragment("fragment")
             .authority("authority")
             .userInfo("user")
+            .query("query")
+            .build();
+
+        assertEquals(expectedValue, uri.toString());
+    }
+
+    @Test
+    void buildProperUriWithoutUser() {
+        String expectedValue = "http://localhost:8080path?query#fragment";
+        URI uri = new URI.URIBuilder().scheme("http")
+            .host("localhost")
+            .port(8080)
+            .path("path")
+            .fragment("fragment")
+            .authority("authority")
+            .query("query")
+            .build();
+
+        assertEquals(expectedValue, uri.toString());
+    }
+
+    @Test
+    void buildProperUriForMissingQuery() {
+        String expectedValue = "http://localhost:8080path#fragment";
+        URI uri = new URI.URIBuilder().scheme("http")
+            .host("localhost")
+            .port(8080)
+            .path("path")
+            .fragment("fragment")
+            .authority("authority")
+            .build();
+
+        assertEquals(expectedValue, uri.toString());
+    }
+
+    @Test
+    void buildProperUriForMissingFragment() {
+        String expectedValue = "http://localhost:8080path?query";
+        URI uri = new URI.URIBuilder().scheme("http")
+            .host("localhost")
+            .port(8080)
+            .path("path")
+            .authority("authority")
             .query("query")
             .build();
 
