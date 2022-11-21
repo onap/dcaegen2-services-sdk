@@ -16,6 +16,24 @@
       "revId": "8cebd37c88dd8d9bef1e1323d4c59d199ddf845b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e4c2a0_d4cd33a7",
+        "filename": "rest-services/http-client/src/test/java/org/onap/dcaegen2/services/sdk/rest/services/adapters/http/URITest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2022-11-21T15:35:09Z",
+      "side": 1,
+      "message": "We cannot change behavior of SDK - if the library will be upgrade in services it might be a reason of errors difficult to detect. I change test cases to valid URL.",
+      "parentUuid": "2d87af10_b7e5d606",
+      "revId": "8cebd37c88dd8d9bef1e1323d4c59d199ddf845b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
