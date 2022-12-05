@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.9.1] - 2022/09/07
 ### Added
     - [DCAEGEN2-3165] (https://jira.onap.org/browse/DCAEGEN2-3165) - Fix calculation of code coverage
-    - [DCAEGEN2-3165] (https://jira.onap.org/browse/DCAEGEN2-3165) - increase code coverage
+    - [DCAEGEN2-3165] (https://jira.onap.org/browse/DCAEGEN2-3165) - increase code coverage 
 
 ## [1.9.0] - 2022/09/07
 ### Added
