@@ -28,6 +28,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.onap.dcaegen2.services.sdk.security.ssl.Passwords.fromResource;
 
@@ -88,8 +89,30 @@ class SslFactoryTest {
                 .hasMessageContaining("Keystore was tampered with, or password was incorrect");
     }
 
+    @Test
+    void testCreateInsecureClient () {
+        assertThatCode(() -> sut.createInsecureClientContext())
+            .doesNotThrowAnyException();
+    }
+
+    @Test
+    void testCreateSecureClientContextFromSecurityKeys() throws Exception {
+        // given
+        final SecurityKeys securityKeys = ImmutableSecurityKeys.builder()
+            .keyStore(keyStoreFromResource("/sample/cert.jks"))
+            .keyStorePassword(fromResource("/sample/jks.pass"))
+            .trustStore(keyStoreFromResource("/sample/trust.jks"))
+            .trustStorePassword(fromResource("/sample/trust.pass"))
+            .build();
+
+        // when
+        assertThatCode(() -> sut.createSecureClientContext(securityKeys))
+            .doesNotThrowAnyException();
+    }
+
     private @NotNull SecurityKeysStore keyStoreFromResource(String resource) throws URISyntaxException {
         return SecurityKeysStore.fromPath(
                 Paths.get(Passwords.class.getResource(resource).toURI()));
     }
+
 }
