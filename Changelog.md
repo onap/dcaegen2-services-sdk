@@ -64,58 +64,63 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - Add possibility to modify the configuration for persistent connection
         - Support retry-after header in DCAE-SDK DMaaP-Client
 
-## [1.6.0] ##
+## [1.6.0] - 2021/02/03
     - Add configurable timeout in dmaap-client
     - Add configurable retry mechanism in dmaap-client
 
-## [1.5.0] ##
+## [1.5.0] - 2020/11/26
     - Update spring boot to version: 2.4.0
     - Update reactor to version: 2020.0.1
     - Update testcontainers to version: 1.15.0
  
-## [1.4.4] ##
+## [1.4.4] - 2020/11/19
     - Fix CbsClientFactory to allow retry on Mono from createCbsClient
 
-## [1.4.3] ##
+## [1.4.3] - 2020/08/31
     - Change parameters of external-schema-manager to JSON notation
 
-## [1.4.2] ##
+## [1.4.2] - 2020/08/18
     - Update spring boot to version: 2.3.3.RELEASE
 
-## [1.4.1] ##
+## [1.4.1] - 2020/07/27
     - Update spring boot to version: 2.2.9.RELEASE
     - Update testcontainers version:  1.14.3
     - Fix deprecation warnings
 
-## [1.4.0] ##
+## [1.4.0] - 2020/07/27
     - Add new component external-schema-manager for json validation with schema stored in local cache
 
-## [1.3.5] ##
+## [1.3.6] - 2020/03/13
+    - snapshot version changed to 1.3.6
+
+## [1.3.5] - 2020/03/09
     - Create jar without dependencies for crypt-password module
 
-## [1.3.4] ##
+## [1.3.4] - 2019/12/10
     - Usage of Java 11
 
-## [1.3.3] ##
+## [1.3.3] - 2019/11/13
     - Upgrade CBS to support SSL
     - Fix static code vulnerabilities
     - Exclude IT from tests
     - Remove AAI client from SDK
 
-## [1.3.2] ##
+## [1.3.2] - 2019/10/02
     - Restructure AAI client
     - Get rid of common-dependency module
     - Rearrange files in packages inside rest-services
 
-## [1.3.1] ##
+## [1.3.1] - 2019/09/26
     - Bugfix release: AAI client
         - Make AaiGetServiceInstanceClient build correct path to the service resource in AAI
 
-## [1.3.0] (ElAlto - under development) ##
+## [1.3.0] - 2019/06/14
+    - (ElAlto - under development) ##
     - All El-Alto work noted under 1.2.0-SNAPSHOT will roll into this version
     - Version update was done for tracking global-jjb migration work and corresponding submission - https://gerrit.onap.org/r/#/c/dcaegen2/services/sdk/+/89902/
 
-## [1.2.0] (replaced by 1.3.0) ##
+## [1.2.0] - 2019/05/27
+    - (replaced by 1.3.0) ##
     - WARNING: This is a work in progress. Do not use unless you know what you are doing!
 
     - DMaaP client
@@ -136,16 +141,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
         - Initial PoC for new module which should help when implementing these features in a DCAE service
         - Expose Prometheus-compliant monitoring endpoint
 
-## [1.1.6] ##
+## [1.1.6] - 2019/05/07
     - Bugfix release: (Old) DMaaP client:
         - Security keys was always loaded from JAR instead of given file system path. Only code using SecurityKeysUtil class had been affected. If you do not use SecurityKeysUtil class or you are using the new DMaaP MR client API (org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.{api, model} packages) then you are safe and the update is not required.
 
-## [1.1.5] ##
+## [1.1.5] 2019/05/07
     - DMaaP client
         - Force non-chunked transfer encoding, because DMaaP MR does not support chunks.
         - DMaaP MR client API should be used in new code. Some minor incompatible changes can occur but it's more or less done.
 
-## [1.1.4] ##
+## [1.1.4] - 2019/03/06
     - Config Binding Service client
         - predefined parsers for input and output streams
             - remove the need for a DCAE application to manually interpret streams_publishes (Sinks) and streams_subscribes (Sources) parts of the configuration
@@ -177,7 +182,8 @@ All CbsClient methods gets CbsRequest as a first parameter instead of RequestDia
 
 The similar changes will be required for other CbsClient methods (periodic get and periodic updates).
 
-## [1.1.3] (initial release) ##
+## [1.1.3] - 2019/03/01
+    - initial release
     - Config Binding Service client
         - basic functionality
         - CBS service discovery
