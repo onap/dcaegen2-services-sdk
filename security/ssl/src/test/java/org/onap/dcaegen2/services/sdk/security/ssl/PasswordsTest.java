@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (c) 2023 Deutsche Telekom AG. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,7 +103,7 @@ class PasswordsTest {
     @Test
     void fromPath_shouldFail_whenNotFound() {
         // given
-        final Path path = Paths.get("/", UUID.randomUUID().toString());
+        final Path path = Paths.get(File.listRoots()[0].toString(), UUID.randomUUID().toString());
 
         // when
         Assertions.assertThrows(ReadingPasswordFromFileException.class, () -> {
