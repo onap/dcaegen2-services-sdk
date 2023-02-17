@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (c) 2023 Deutsche Telekom AG. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,8 @@ package org.onap.dcaegen2.services.sdk.security.ssl;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.vavr.control.Option;
+
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
@@ -70,7 +73,7 @@ class KeyStoreTypesTest {
     }
 
     private Option<String> callGuessTypeWithFileName(String fileName) {
-        final Path path = Paths.get("/", "tmp", fileName);
+        final Path path = Paths.get(File.listRoots()[0].toString(), "tmp", fileName);
         return KeyStoreTypes.inferTypeFromExtension(path);
     }
 }

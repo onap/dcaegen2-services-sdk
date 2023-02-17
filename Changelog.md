@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.9.2] - 2023/02/17
+#### Added
+      - [DCAEGEN2-3352] - Enhance services-sdk's security module JUnits to have OS agnostic path
+
 ## [1.9.1] - 2022/09/07
 ### Added
     - [DCAEGEN2-3165] (https://jira.onap.org/browse/DCAEGEN2-3165) - Fix calculation of code coverage

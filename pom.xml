@@ -3,6 +3,7 @@
 ============LICENSE_START=======================================================
 Copyright (c) 2022 Nokia. All rights reserved.
 Copyright (C) 2022 AT&T Intellectual Property. All rights reserved.
+Copyright (c) 2023 Deutsche Telekom AG. All rights reserved.
 ================================================================================
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy
@@ -96,7 +97,7 @@ language governing permissions and limitations under the License.
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-        <revision>1.9.1-SNAPSHOT</revision>
+        <revision>1.9.2-SNAPSHOT</revision>
     </properties>
 
     <modules>
