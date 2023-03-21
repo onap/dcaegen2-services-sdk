@@ -19,7 +19,7 @@ language governing permissions and limitations under the License.
   <parent>
     <groupId>org.onap.dcaegen2.services.sdk.security</groupId>
     <artifactId>dcaegen2-services-sdk-security</artifactId>
-    <version>${revision}</version>
+    <version>1.9.3</version>
   </parent>
 
   <artifactId>ssl</artifactId>
