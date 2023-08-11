@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2019 Nokia. All rights reserved.
+ * Copyright (C) 2023 Deutsche Telekom AG. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,13 @@
 package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.api;
 
 import com.google.gson.JsonElement;
+
+import io.vavr.collection.List;
+
+import java.util.Properties;
+
+import org.apache.kafka.clients.producer.Producer;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSink;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishRequest;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.MessageRouterPublishResponse;
 import reactor.core.publisher.Flux;
@@ -30,5 +38,7 @@ import reactor.core.publisher.Flux;
  * @since 1.1.4
  */
 public interface MessageRouterPublisher {
+    void close();
+    void setKafkaProducer(Producer<String, String> kafkaProducer);
     Flux<MessageRouterPublishResponse> put(MessageRouterPublishRequest request, Flux<? extends JsonElement> items);
 }
