@@ -83,7 +83,7 @@ language governing permissions and limitations under the License.
         <reactor.bom.version>2020.0.1</reactor.bom.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.11</logback.version>
-        <mockito.version>2.28.2</mockito.version>
+        <mockito.version>3.4.2</mockito.version>
         <protobuf.version>4.0.0-rc-2</protobuf.version>
         <vavr.version>0.10.2</vavr.version>
         <commons-text.version>1.6</commons-text.version>
@@ -97,7 +97,7 @@ language governing permissions and limitations under the License.
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-        <revision>1.9.3-SNAPSHOT</revision>
+        <revision>1.9.4-SNAPSHOT</revision>
     </properties>
 
     <modules>

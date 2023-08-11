@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2021 Nokia. All rights reserved.
+ * Copyright (C) 2023 Deutsche Telekom AG. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +26,13 @@ import io.vavr.Tuple2;
 import org.junit.jupiter.api.Test;
 import org.onap.dcaegen2.services.sdk.model.streams.AafCredentials;
 import org.onap.dcaegen2.services.sdk.model.streams.ImmutableAafCredentials;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.getTopicFromTopicUrl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Properties;
 
 class CommonsTest {
 
@@ -53,7 +59,26 @@ class CommonsTest {
         // then
         verifyBasicAuthHeader(basicAuthHeader, "Og==");
     }
-
+      
+    @Test
+    void shouldFetchTopicFromTopicURL() {
+    	String topicUrl = "http://message-router:3904/events/unauthenticated.VES_PNFREG_OUTPUT";
+    	String expected = "unauthenticated.VES_PNFREG_OUTPUT";
+    	assertThat(getTopicFromTopicUrl(topicUrl))
+    		.withFailMessage("Extracted topic name from topicUrl '%s' is not as expected topic '%s'",topicUrl, expected)
+    		.isEqualTo(expected);
+    }
+    
+    @Test
+    void shouldFetchTopicFromTopicUrlEndingWithSlash() {
+    	String topicUrl = "http://message-router:3904/events/unauthenticated.VES_PNFREG_OUTPUT/";
+    	String expected = "unauthenticated.VES_PNFREG_OUTPUT";
+    	assertThat(getTopicFromTopicUrl(topicUrl))
+    		.withFailMessage("Extracted topic name from topicUrl '%s' is not as expected topic '%s'",topicUrl, expected)
+    		.isEqualTo(expected);
+    }
+    
+    
     private AafCredentials create(String username, String password) {
         return ImmutableAafCredentials.builder()
                 .username(username)

@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
+ * Copyright (C) 2023 Deutsche Telekom AG. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +23,28 @@ package org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import io.netty.handler.timeout.ReadTimeoutException;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
+import io.vavr.collection.Stream;
 import io.vavr.control.Option;
+
+import org.apache.kafka.clients.CommonClientConfigs;
+import org.apache.kafka.clients.producer.Callback;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.config.SaslConfigs;
+import org.apache.kafka.common.errors.TimeoutException;
+import org.apache.kafka.common.security.auth.SecurityProtocol;
+import org.apache.kafka.common.security.scram.internals.ScramMechanism;
 import org.jetbrains.annotations.NotNull;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.ImmutableKafkaSink;
+import org.onap.dcaegen2.services.sdk.model.streams.dmaap.KafkaSink;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpHeaders;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpMethod;
 import org.onap.dcaegen2.services.sdk.rest.services.adapters.http.HttpRequest;
@@ -54,9 +71,14 @@ import reactor.netty.internal.shaded.reactor.pool.PoolAcquirePendingLimitExcepti
 
 import java.net.ConnectException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.extractFailReason;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.getTopicFromTopicUrl;
+import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.Commons.setProps;
 
 /**
  * @author <a href="mailto:piotr.jaszczyk@nokia.com">Piotr Jaszczyk</a>
@@ -67,24 +89,109 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
     private final int maxBatchSize;
     private final Duration maxBatchDuration;
     private final ClientErrorReasonPresenter clientErrorReasonPresenter;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(MessageRouterPublisherImpl.class);
-
-    public MessageRouterPublisherImpl(RxHttpClient httpClient, int maxBatchSize, Duration maxBatchDuration, ClientErrorReasonPresenter clientErrorReasonPresenter) {
+ 
+    private static Properties props;
+    private static final String kafkaBootstrapServers = "BOOTSTRAP_SERVERS";
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageRouterPublisherImpl.class);   
+    private static Producer<String, String> kafkaProducer;
+    public static Future<RecordMetadata> future;
+    static boolean flag;
+    static Exception exception;
+    public MessageRouterPublisherImpl(RxHttpClient httpClient, int maxBatchSize, Duration maxBatchDuration, ClientErrorReasonPresenter clientErrorReasonPresenter) throws Exception {
         this.httpClient = httpClient;
         this.maxBatchSize = maxBatchSize;
         this.maxBatchDuration = maxBatchDuration;
         this.clientErrorReasonPresenter = clientErrorReasonPresenter;
+        props = setProps(System.getenv());
+    
+        if(System.getenv(kafkaBootstrapServers) == null) { 
+        	LOGGER.error("Environment Variable "+ kafkaBootstrapServers+" is missing");
+        	throw new Exception("Environment Variable "+ kafkaBootstrapServers+" is missing");
+        }else {
+            props.put("bootstrap.servers", System.getenv(kafkaBootstrapServers));
+        }
+        props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG,SecurityProtocol.SASL_PLAINTEXT.name);
+        props.put(SaslConfigs.SASL_MECHANISM, ScramMechanism.SCRAM_SHA_512.mechanismName());
+        props.put(SaslConfigs.SASL_JAAS_CONFIG, System.getenv("JAAS_CONFIG"));
     }
-
+    
+//    @Override
+//    public Flux<MessageRouterPublishResponse> put(
+//            MessageRouterPublishRequest request,
+//            Flux<? extends JsonElement> items) {
+//        return items.bufferTimeout(maxBatchSize, maxBatchDuration)
+//                .flatMap(subItems -> subItems.isEmpty() ? Mono.empty() : pushBatchToMr(request, List.ofAll(subItems)));
+//    }
+    
     @Override
     public Flux<MessageRouterPublishResponse> put(
             MessageRouterPublishRequest request,
             Flux<? extends JsonElement> items) {
-        return items.bufferTimeout(maxBatchSize, maxBatchDuration)
-                .flatMap(subItems -> subItems.isEmpty() ? Mono.empty() : pushBatchToMr(request, List.ofAll(subItems)));
+    	flag = true;
+    	exception=null;
+    	future = null;
+    	List<String> batch = getBatch(items);
+    	String topic = getTopicFromTopicUrl(request.sinkDefinition().topicUrl());
+    	LOGGER.info("Topic extracted from URL {} is : {} ",request.sinkDefinition().topicUrl(),topic);
+    	LOGGER.info("Sending a batch of {} items for topic {} to kafka", batch.size(),topic);
+    	LOGGER.trace("The items to be sent: {}", batch);
+    	if(kafkaProducer == null) {
+    		kafkaProducer = new KafkaProducer<>(props);
+    	}
+    	Flux<MessageRouterPublishResponse> response;
+    	try {
+    		
+			for (String msg : batch) {
+				 ProducerRecord<String, String> data =
+						new ProducerRecord<>(topic,  msg);
+				 future = kafkaProducer.send(data,new Callback() {
+					
+					@Override
+					public void onCompletion(RecordMetadata metadata, Exception e) {
+						
+						if(e != null) {
+							flag=false;
+							exception = e;
+						} 
+					}
+				});
+			}
+			if(flag) {
+				LOGGER.info("Sent a batch of {} items for topic {} to kafka", batch.size(),topic);
+				response = Flux.just(ImmutableMessageRouterPublishResponse.builder().items(List.ofAll(items.collectList().block())).build());
+			}else {
+				throw exception;
+			}
+		}catch(Exception e) {
+			LOGGER.error("Error while publishing the messages : {}",e.getStackTrace());
+			response = Flux.just(ImmutableMessageRouterPublishResponse.builder()
+	                .failReason(e.getMessage())
+	                .build());
+		}
+    	return response;
     }
-
+    @Override
+    public void close() {
+    	LOGGER.info("Closing the Kafka Producer");
+    	kafkaProducer.close();
+    }
+    
+    @Override
+    public void setKafkaProducer(Producer<String, String> kafkaProducer) {
+		this.kafkaProducer = kafkaProducer;
+	}
+    
+    public static Future<RecordMetadata> getFuture(){
+    	return future;
+    }
+    
+    static List<String> getBatch(Flux<? extends JsonElement> items){
+    	java.util.List<String> list = new ArrayList<>();
+    	items.map(msg -> msg.toString()).collectList().subscribe(data -> list.addAll(data));
+    	return List.ofAll(list);
+    	
+    }
+    
     private Publisher<? extends MessageRouterPublishResponse> pushBatchToMr(
             MessageRouterPublishRequest request,
             List<JsonElement> batch) {
@@ -153,4 +260,5 @@ public class MessageRouterPublisherImpl implements MessageRouterPublisher {
                 .getOrElse(HashMap.empty());
         return headers.put(HttpHeaders.CONTENT_TYPE, request.contentType().toString());
     }
+
 }

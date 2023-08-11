@@ -3,6 +3,7 @@
  * DCAEGEN2-SERVICES-SDK
  * =========================================================
  * Copyright (C) 2019-2021 Nokia. All rights reserved.
+ * Copyright (C) 2023 Deutsche Telekom AG. All rights reserved.
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +36,8 @@ import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.impl.MessageRou
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.DmaapClientConfiguration;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterPublisherConfig;
 import org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.config.MessageRouterSubscriberConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -46,26 +49,37 @@ import static org.onap.dcaegen2.services.sdk.rest.services.dmaap.client.model.co
  * @since 1.1.4
  */
 public final class DmaapClientFactory {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(DmaapClientFactory.class);
     private DmaapClientFactory() {
     }
 
     public static @NotNull MessageRouterPublisher createMessageRouterPublisher(
             @NotNull MessageRouterPublisherConfig clientConfiguration) {
 
-        return new MessageRouterPublisherImpl(
-                createHttpClient(clientConfiguration),
-                clientConfiguration.maxBatchSize(),
-                clientConfiguration.maxBatchDuration(),
-                new ClientErrorReasonPresenter());
+        try {
+			return new MessageRouterPublisherImpl(
+			        createHttpClient(clientConfiguration),
+			        clientConfiguration.maxBatchSize(),
+			        clientConfiguration.maxBatchDuration(),
+			        new ClientErrorReasonPresenter());
+		} catch (Exception e) {
+			LOGGER.error("Error while creating the Message Router Publisher.");
+			return null;
+		}
     }
 
     public static @NotNull MessageRouterSubscriber createMessageRouterSubscriber(
             @NotNull MessageRouterSubscriberConfig clientConfiguration) {
-        return new MessageRouterSubscriberImpl(
-                createHttpClient(clientConfiguration),
-                clientConfiguration.gsonInstance(),
-                new ClientErrorReasonPresenter());
+        try {
+			return new MessageRouterSubscriberImpl(
+			        createHttpClient(clientConfiguration),
+			        clientConfiguration.gsonInstance(),
+			        new ClientErrorReasonPresenter());
+		} catch (Exception e) {
+			LOGGER.error("Error while creating the Message Router Subscriber.");
+			return null;
+		}
+       
     }
 
     private static @NotNull RxHttpClient createHttpClient(DmaapClientConfiguration config) {
