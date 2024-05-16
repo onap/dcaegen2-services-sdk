@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.9.5] - 2024/05/16
+#### Added
+      - [DCAEGEN2-3411] - Validation of OpenAPI files in externalrepo fails
+
 ## [1.9.4] - 2023/02/23
 #### Added
       - [DCAEGEN2-3364] - To use kafka API instead of DMAAP API in dmaap-client

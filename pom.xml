@@ -4,6 +4,7 @@
 Copyright (c) 2022 Nokia. All rights reserved.
 Copyright (C) 2022 AT&T Intellectual Property. All rights reserved.
 Copyright (c) 2023 Deutsche Telekom AG. All rights reserved.
+Copyright (c) 2024 Deutsche Telekom AG. All rights reserved.
 ================================================================================
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy
@@ -92,12 +93,12 @@ language governing permissions and limitations under the License.
         <testcontainers.version>1.15.1</testcontainers.version>
         <spring.boot.version>2.7.2</spring.boot.version>
         <system.rules.version>1.17.2</system.rules.version>
-        <openapi4j.version>1.0.3</openapi4j.version>
+        <openapi4j.version>1.0.4</openapi4j.version>
         <mockserver-client.version>5.11.2</mockserver-client.version>
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-        <revision>1.9.4-SNAPSHOT</revision>
+        <revision>1.9.5-SNAPSHOT</revision>
     </properties>
 
     <modules>
