@@ -92,12 +92,12 @@ language governing permissions and limitations under the License.
         <testcontainers.version>1.15.1</testcontainers.version>
         <spring.boot.version>2.7.2</spring.boot.version>
         <system.rules.version>1.17.2</system.rules.version>
-        <openapi4j.version>1.0.3</openapi4j.version>
+        <openapi4j.version>1.0.4</openapi4j.version>
         <mockserver-client.version>5.11.2</mockserver-client.version>
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-        <revision>1.9.4-SNAPSHOT</revision>
+        <revision>1.9.5-SNAPSHOT</revision>
     </properties>
 
     <modules>
