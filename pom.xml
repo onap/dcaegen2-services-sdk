@@ -99,6 +99,9 @@ language governing permissions and limitations under the License.
             ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
         <revision>1.9.5-SNAPSHOT</revision>
+        <!-- Skip the changelog/release-file check for CI-only changes (e.g. dependabot
+             GitHub Actions bumps) that legitimately touch no Changelog.md or releases/ file. -->
+        <onap-gerrit-review>-changelog-or-release-file-missing</onap-gerrit-review>
     </properties>
 
     <modules>
